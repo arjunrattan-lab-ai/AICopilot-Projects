@@ -1,0 +1,326 @@
+here are meeting ntoes
+
+[00:00] Alexa Witowski: Oh, geez. Okay. Well, I'm glad you're finally here. Welcome. Welcome aboard.
+[00:04] Hamza Rawal: Yeah, absolutely.
+[00:08] Alexa Witowski: I guess sometimes this meeting is light.
+[00:11] Alexa Witowski: Has light attendance, and I would guess it probably will today because you guys have your MBR in 30 minutes.
+[00:18] Alexa Witowski: But what we can do is take the time to talk through any updates.
+[00:22] Alexa Witowski: I see that Hams is here, so any updates that Hamza has, and then maybe we just are Arjun.
+[00:26] Leni Zneimer: We just.
+[00:26] Alexa Witowski: You and I take time to run down on everything that's going on here.
+[00:31] Alexa Witowski: Maybe we don't need the meeting that I schedule on Friday.
+[00:35] Arjun Rattan: Yeah, that'll work.
+[00:36] Alexa Witowski: Okay. Yeah. Hamza, do you. Do you have any updates for this group?
+[00:44] Hamza Rawal: Yeah. So from the last week, we did the evaluation of the model.
+[00:46] Hamza Rawal: Hamza Rawal started sharing their screen
+[00:46] Hamza Rawal: Hamza Rawal joined
+[00:51] Hamza Rawal: We trained on all the features to confirm that there is no regression.
+[00:57] Alexa Witowski: This is where facing stop sign. Yeah, yeah, yeah, sorry. We're facing stop sign.
+[01:07] Hamza Rawal: Yeah. So as we discussed last time, we can expect more than 10% improvement in stop sign performance.
+[01:16] Hamza Rawal: And we have also confirmed that no other feature is. It's not impacting the other features.
+[01:21] Hamza Rawal: So they're also staying consistent. We are preparing this report. There is still some work remaining.
+[01:30] Hamza Rawal: We basically need to add the curves for the other.
+[01:33] Hamza Rawal: The precision curves for the other features just for completeness.
+[01:38] Hamza Rawal: Other than that, we needed some clarity. Like, we have this model.
+[01:43] Hamza Rawal: We have a few versions of this model. We just have to finalize one of them.
+[01:48] Hamza Rawal: But next we want to hand over the model.
+[01:50] Hamza Rawal: So needed some clarity on who handles the model deployment and stuff and who we need to hand it over to.
+[01:58] Alexa Witowski: Okay. I don't know who that is. I would assume.
+[02:03] Hamza Rawal: Yeah, this was a question for Gautam, but I guess I can ask him offline. I thought he was joining.
+[02:08] Alexa Witowski: Okay, so basically, new stop sign model goes out starting with the next firmware release, which I think is early April.
+[02:17] Alexa Witowski: Is that right?
+[02:18] Hamza Rawal: Early April.
+[02:23] Alexa Witowski: We.
+[02:24] Hamza Rawal: I think I need to talk to the ones who deploy the model and figure out like, what steps are there before confirming that.
+[02:32] Alexa Witowski: Okay. Yeah. If we could get a clear eta. I.
+[02:37] Alexa Witowski: I'm not sure if Ekta has ping you, but like, we have the UKGA go, no go next week.
+[02:45] Alexa Witowski: And like, we're reading out metrics obviously, like safety precision metrics is one of them.
+[02:50] Alexa Witowski: And stop sign obviously is not performing well in the current model that's on.
+[02:55] Alexa Witowski: That's deployed on all the devices.
+[02:57] Alexa Witowski: But if we can show some of this to say, hey, like, you know, the new model is much better.
+[03:01] Roopa Nagaraju: Roopa Nagaraju joined
+[03:02] Alexa Witowski: It's coming this date. Like, that'll help the conversation when we're Talking about ga.
+[03:08] Alexa Witowski: So if you could let me know when you get the date that this is going to roll out, that would be helpful.
+[03:14] Hamza Rawal: Talk to Gaussam, talk to the team that deploys some audit and then get back to you on the panel.
+[03:20] Alexa Witowski: Okay, great. Okay, thanks. Okay, any other updates?
+[03:23] Hamza Rawal: Hamza Rawal stopped sharing their screen
+[03:29] Hamza Rawal: And now that's it from the model side.
+[03:32] Alexa Witowski: Okay, cool. Okay then I guess maybe like Arjun, you and I can stay on.
+[03:35] Leni Zneimer: Leni Zneimer joined
+[03:36] Alexa Witowski: But everyone else can probably cop for now. Unless there's anything else.
+[03:41] Gautam Kunapuli: Thank you.
+[03:42] Alexa Witowski: Okay, thanks guys.
+[03:43] Hugo Zandbergen: Talk to
+[03:43] Hugo Zandbergen: Hugo Zandbergen left
+[03:43] Alexa Witowski: you soon. Thank you.
+[03:44] Roopa Nagaraju, Zachary Stirling: Roopa Nagaraju, Zachary Stirling left
+[03:45] Hamza Rawal: Bye.
+[03:46] Alexa Witowski: Bye. Lenny, if you want to stay too, Arjun and I were just. No, she's not. Okay. Okay, cool. So.
+[03:46] Hamza Rawal, Leni Zneimer: Hamza Rawal, Leni Zneimer left
+[03:53] Hamza Rawal: Hamza Rawal joined
+[03:55] Alexa Witowski: Oh yeah, Lenny, I was inviting you to stay. That way maybe we don't have to do this call on Friday.
+[03:59] Leni Zneimer: I realized right after I pressed hang up. Apologies.
+[04:03] Alexa Witowski: Yeah.
+[04:03] Alexa Witowski: Okay, so I'll just give Arjun kind of like a rundown of everything that's been going on in AI model retraining.
+[04:12] Alexa Witowski: So actually Lenny and Arjun, have you guys met yet? If not, I can interview you. Lenny's on my team.
+[04:16] Alexa Witowski: She leads strategy and ops for international and also will be kind of like you know, running the team while I'm out.
+[04:25] Alexa Witowski: And then Arjun is the new director of like AI and safety on Nihar's team.
+[04:31] Alexa Witowski: He just joined like a few weeks ago.
+[04:34] Arjun Rattan: Day six. Day seven.
+[04:36] Alexa Witowski: Sorry, like at least four weeks ago. Yeah.
+[04:40] Leni Zneimer: Also nice to meet you.
+[04:42] Arjun Rattan: Yeah, I'm in sf.
+[04:43] Gautam Kunapuli: Yes.
+[04:44] Leni Zneimer: Okay.
+[04:44] Alexa Witowski: Okay.
+[04:44] Leni Zneimer: I am too. I will meet you in person one of these days.
+[04:48] Arjun Rattan: Oh lovely. That would be great. Which part of sfiuin?
+[04:52] Leni Zneimer: I'm based right between Castro and Noe Valley.
+[04:55] Arjun Rattan: Oh, okay. Yeah. That's a nice place. Nice. Cool.
+[05:00] Alexa Witowski: Yeah.
+[05:00] Leni Zneimer: Are you in the city?
+[05:01] Arjun Rattan: Yes, I'm in the city. I'm by Haze.
+[05:03] Leni Zneimer: Oh, love Haze. Okay, so easy. Easy commute for you hopefully.
+[05:07] Alexa Witowski: Yeah.
+[05:07] Arjun Rattan: 15 minutes I walked today. I was feeling.
+[05:10] Alexa Witowski: That's so nice. That's so nice. Very cool.
+[05:13] Leni Zneimer: Well, looking forward to meeting you in person. Excited to have you on board.
+[05:16] Gautam Kunapuli: Absolutely.
+[05:18] Alexa Witowski: Cool. So yeah, Arjun, just to give you context.
+[05:23] Alexa Witowski: So basically like we've been working like as a company towards this milestone of UK GA by the history doesn't matter.
+[05:35] Alexa Witowski: But by March 31st.
+[05:37] Alexa Witowski: And so part of that is training the AI models to work well in the UK and that has been broken down and then also having I think a big underlying current.
+[05:50] Alexa Witowski: There is also like making sure that we are accessing data for training in a GDPR compliant way obviously.
+[06:00] Alexa Witowski: And so that is broken down across a couple of different work streams.
+[06:05] Alexa Witowski: Most of them are complete, but there will be some work that continues into Q2, which is why I asked Nihar for someone on his team and he nominated you to be involved.
+[06:13] Alexa Witowski: I'm going on leave, kind of starting my due date's next Friday, so kind of like any day now or early April.
+[06:23] Alexa Witowski: And so I wanted someone from safety team involved in this thread as we proceed into Q2.
+[06:29] Alexa Witowski: But basically like the training, so there's this interaction between GDPR compliance and disclosures and then getting the safety team access to that data to train models and then within that is like, do we even need to retrain models?
+[06:46] Alexa Witowski: And so the big thing is, right, like as a team we've been talking about the efforts to train or retrain models between road facing and driver facing data.
+[07:00] Alexa Witowski: And the reason for that is because the consent mechanisms. It's two things.
+[07:05] Alexa Witowski: One is in general we can train road facing models on data where PII is blurred.
+[07:13] Alexa Witowski: So right, like we can train for example, a stop sign model on data where we've blurred pedestrians faces because that doesn't impact whether or not we can read the stop sign versus like if you're trying to train a driver facing model which usually relies on like the driver's face, right, like a lot on the driver's face, like are they looking down?
+[07:26] Gautam Kunapuli: Gautam Kunapuli joined
+[07:35] Alexa Witowski: Or like do they look sleepy? Right, like you can't train a driver facing model on a blurred face.
+[07:42] Alexa Witowski: And so it's been a lot easier for us to train or like justify or not justify, but like actually execute retraining on road facing data where we have consent and proper controls in place to use that data in like a compliant way.
+[08:01] Alexa Witowski: And so that's what Hamza was just talking about is like of all of the road facing models, the one where we have enough data to say it's not performing well and wanted to retrain was stop sign.
+[08:12] Alexa Witowski: So the team over the last several weeks has been working to blur all of the input data for stop sign training and then actually retrain the model.
+[08:21] Alexa Witowski: And so that's what we were talking about today is like we need to track when is that new stop sign model going out and then how is it performing at scale.
+[08:28] Alexa Witowski: When it does, then as we look into Q2 on road facing, it will be kind of like as we deploy all of the models into AI Dash cam plus that are supposed to be at parity with the us which other, if any road facing models need to be retrained in the uk as we look at precision there like kind of on a weekly basis basis.
+[08:50] Alexa Witowski: So what I would suggest is like in this meeting going forward, we pivot it once the road facing model is deployed.
+[08:57] Alexa Witowski: We pivot this mostly to like a metrics review of like, how is road facing precision doing and do we need to retrain any other road facing models or not?
+[09:05] Alexa Witowski: Like, those are the questions that we would just need to be answering also.
+[09:06] Ekta Shah: Ekta Shah joined
+[09:11] Alexa Witowski: Hey, Gautam and Ekta Hamza gave a quick update on the stop sign retraining and then there was no one else here, so I told him to hop.
+[09:18] Alexa Witowski: And I'm onboarding Arjun. He's going to be.
+[09:22] Alexa Witowski: He and Lenny will be kind of like jointly covering for what I've been doing here while I'm out on maternity leave starting in Q2.
+[09:29] Alexa Witowski: So just filling them in. I don't know if you had anything though that you wanted to discuss, Gautam
+[09:35] Gautam Kunapuli: particularly, I think model retraining. I'll check with the timelines. We will have a model.
+[09:45] Gautam Kunapuli: We will be able to push it in. And I'm going to. There's a thread that Hamza just started already.
+[09:52] Gautam Kunapuli: Yeah, porting. So I'll. Yeah, sorry, go ahead please.
+[09:56] Alexa Witowski: Oh, no, no, I thought you were done. Sorry.
+[09:59] Gautam Kunapuli: No, I'll help him out there and we'll get it ported.
+[10:03] Gautam Kunapuli: I do want to point out the reality of our rollout timelines though is that.
+[10:11] Gautam Kunapuli: Yeah, the reality of the timelines basically is that if we.
+[10:15] Gautam Kunapuli: Let me, let me pull up the build plan, I'll share it with us over here.
+[10:22] Gautam Kunapuli: So that I don't know if you guys have been looking at this. This is the roadmap.
+[10:30] Gautam Kunapuli: I suggest all of you guys bookmark this. This is the release calendar for AIDC going forward.
+[10:35] Gautam Kunapuli: Gautam Kunapuli started sharing their screen
+[10:38] Hamza Rawal: This is.
+[10:39] Gautam Kunapuli: I'm sure you've all seen it.
+[10:41] Gautam Kunapuli: In case you haven't, of course, Arjun, this is for you as well. So I know.
+[10:46] Gautam Kunapuli: So basically this is, you know, the dates we are looking at primarily are going to be.
+[10:56] Gautam Kunapuli: So if they train a model, then we need to get it into a build by a certain date.
+[11:03] Gautam Kunapuli: Let's say we put it into build, you know, 1.31 then.
+[11:09] Gautam Kunapuli: Or what's the earliest build we can put this into?
+[11:12] Gautam Kunapuli: Let's just say that we are ready to put it into a build like we put it into March 30th.
+[11:16] Gautam Kunapuli: Kind of unrealistic at this point, but we. One, you know, one can hope.
+[11:21] Gautam Kunapuli: So if it, if it goes into 1.27, then this actually isn't quite right, but yeah, so it needed to go into 1.27.
+[11:36] Gautam Kunapuli: Here you see the code. Freeze March 30th is for 1.29.
+[11:41] Gautam Kunapuli: So the next code freeze, next build that we can put this into is 1.29, which is going to GA on May 28th.
+[11:52] Gautam Kunapuli: Okay.
+[11:54] Alexa Witowski: May 28th. What?
+[11:56] Gautam Kunapuli: So realistically, if you put it into the April slow. It's, it's the, it's, it's.
+[12:03] Gautam Kunapuli: Believe me, in about 15 minutes I'm going to go get yelled at by
+[12:09] Gautam Kunapuli: Amish Hemant.
+[12:13] Gautam Kunapuli: And me and Naveen. Yeah, we're, we're getting ready for, for this.
+[12:19] Gautam Kunapuli: So.
+[12:20] Gautam Kunapuli: So yeah, it's the operational reality of embedded rollouts right now.
+[12:24] Gautam Kunapuli: The AIDC rollout also kind of got dragged out.
+[12:28] Gautam Kunapuli: I'm just telling you guys this from
+[12:29] Gautam Kunapuli: a model dev perspective. It doesn't matter what these guys do.
+[12:35] Alexa Witowski: Yeah, yeah. I think that's the thing, right.
+[12:37] Alexa Witowski: It's like for uk, all we need to do is report what date it's coming.
+[12:41] Alexa Witowski: And if that date is May, then the date is May. That's fine. So obviously basically sooner.
+[12:48] Alexa Witowski: But we're not going to like, we will not be the ones yelling at you because we're just going to take what you're.
+[12:54] Gautam Kunapuli: No, this was, this has been called out for a while. Right.
+[12:58] Gautam Kunapuli: I think we were always going to do a ramp in the uk. The moment you said ramp, it took the.
+[13:04] Gautam Kunapuli: It made, it made a lot. It made it a lot more feasible. Right. And so we are moving very, very fast.
+[13:13] Gautam Kunapuli: But the reason the rollout is slow is because it has to go through all of these steps.
+[13:21] Gautam Kunapuli: Primarily QA step. There's like.
+[13:24] Alexa Witowski: Yeah, anyway, okay, no problem.
+[13:27] Gautam Kunapuli: That's it.
+[13:27] Gautam Kunapuli: That's the only call out I wanted to make to this group overall is if you get it in by March 30, then you can expect it to hit GA in May.
+[13:43] Gautam Kunapuli: And if, if we miss it, then it's going to be June 25th. That's when these models are going to hit GA.
+[13:51] Alexa Witowski: Okay.
+[13:52] Gautam Kunapuli: All future planning for work on AIDC is going to follow this timeline.
+[13:58] Gautam Kunapuli: So this is where all of our second passenger detection, like we've been kind of killing ourselves trying to get that into this build, for instance.
+[14:04] Gautam Kunapuli: And we did.
+[14:05] Alexa Witowski: So you have a working prototype of that? We will.
+[14:10] Gautam Kunapuli: We're trying to push it into this build right now.
+[14:12] Alexa Witowski: The alert for second person in cabin. Okay, nice.
+[14:17] Gautam Kunapuli: It's not all bad news, Alexa. I do build some for you once in a while.
+[14:20] Alexa Witowski: No, I know. I didn't know that you were. That you had that.
+[14:25] Gautam Kunapuli: We do have it and we. Yeah, okay, we will. I'll update you more on that.
+[14:33] Alexa Witowski: Yeah, that's just Everyone.
+[14:34] Alexa Witowski: Lenny, like we need to tie off with Vic there because that's one that needs to like roll out for Mexico.
+[14:36] Gautam Kunapuli: Gautam Kunapuli stopped sharing their screen
+[14:39] Alexa Witowski: That's a security cap.
+[14:40] Leni Zneimer: I was tracking that to like I
+[14:42] Alexa Witowski: was tracking it for September. Yeah.
+[14:44] Alexa Witowski: So anyways, okay, so yeah, heard you hear you got them on the timelines.
+[14:51] Alexa Witowski: So that's all we need is the timeline.
+[14:54] Alexa Witowski: And I think like the thing for Q2 on road facing is just we need to monitor the metrics as we scale and decide if we're retraining any other road facing models or if we're happy with performance on all the other road facing models.
+[15:05] Gautam Kunapuli: It makes perfect sense.
+[15:06] Gautam Kunapuli: I'm going to basically update our timelines for these projects by the end of this week in our jira.
+[15:15] Gautam Kunapuli: The JIRA that Michael has created has now started becoming source of truth.
+[15:21] Gautam Kunapuli: I will start migrating everything in there and I'll tag everybody here so that you have visibility on the tickets and then all the updates will start going in there as well so that in the next few weeks, one to two weeks.
+[15:37] Gautam Kunapuli: Yeah, I'm hoping that slack is only when we are in strife.
+[15:43] Gautam Kunapuli: Where we are right now can be gathered from the JIRA itself.
+[15:47] Gautam Kunapuli: But more hygiene there is also coming to help out.
+[15:51] Alexa Witowski: Okay, cool. Okay great, thanks. Okay, Arjun Chai, I'm going to run you through driver facing now.
+[15:59] Alexa Witowski: So we were saying like basically the big challenge is like it's technically infeasible to train driver facing models on blurred data.
+[16:06] Alexa Witowski: And so the problem is or the problem that we have decided not to solve for basically is like currently is some of our, most of our driver facing precision is actually okay.
+[16:17] Alexa Witowski: But some of the models are performing like low to mid 80s.
+[16:21] Alexa Witowski: Like cell phone is performing I think somewhere in the 80s which could be a problem as we scale commercially.
+[16:28] Alexa Witowski: But in order to get access we had a decision with legal like recently where we were like in order to get access to the driver facing data in an unblurred state, basically the recommendation is we go collect consent from every single driver to use that data in training, which is commercially infeasible for the UK team.
+[16:48] Alexa Witowski: They were like that will just kill any commercial conversation that we have.
+[16:52] Alexa Witowski: And so what legal has done is create like we have this ready to go now.
+[16:59] Alexa Witowski: They have basically like a separate DPA which is like a data privacy agreement that customers sign that would give us access to the unload data and we would work with customers and legal to get that access through the DPA and through any other consent mechanisms that are required.
+[17:16] Alexa Witowski: So the idea is if we do decide that we want to retrain driver facing models, which again it really, you know, like comes up to judgment on like how are these metrics doing as we scale, how much does it matter for us to go from 85 to 92, which is a question that we need to answer commercially as we scale.
+[17:38] Alexa Witowski: It's definitely not our biggest commercial problem in the UK right now.
+[17:42] Alexa Witowski: Then we have this like updated DPA in our pocket and what we would do is go work with the UK team to work with some specific customers to get access to their data unblurred for driver facing training.
+[17:54] Alexa Witowski: So there would be like an operational component to that which Lenny and Hugo could help navigate.
+[17:59] Alexa Witowski: Like what we'd be looking for you to do is just be looking at the metrics and helping us make that call if and when we do want to do that retraining.
+[18:05] Alexa Witowski: But I don't anticipate that we'll want to do that.
+[18:10] Arjun Rattan: So one question here, I'm not so caught up on the UK plans.
+[18:16] Arjun Rattan: The way I would imagine this, and bear with me, the way I would imagine this is I would take my existing model and I would just go start inferring it on UK data and then I would get ground truth on that to see what's my recall and then that would then inform whether I will need to retrain or not.
+[18:34] Arjun Rattan: So in this, okay, so in this part of the pipeline, I'm assuming we are at step one, we don't even have inference on.
+[18:47] Alexa Witowski: No, we actually have like the model. So we don't have like significant recall testing at scale.
+[18:54] Alexa Witowski: But we do have a lot of data coming through and we've been able to measure precision pretty accurately.
+[18:59] Alexa Witowski: So the models are basically deployed in the UK with this feature called reverse polarity that mirrors the image and those are what we've been measuring precision on.
+[19:10] Alexa Witowski: And so when I'm referencing like, like drive, like a cell phone is running at 80%, like that's the actual measure from the US model running in reverse polarity mode in the UK at scale for the last six months.
+[19:23] Arjun Rattan: I see.
+[19:24] Arjun Rattan: Okay, so just in terms of next steps, right, what I would need from you, Alexa or somewhere, or Lenny perhaps is a list of all the models to just what we have planned, what have already been done, what's being rolled out, like what you just said, just a list, that's all.
+[19:39] Arjun Rattan: And the status of each one and then I can pick it up and I can track it.
+[19:43] Arjun Rattan: And if you'll also share the gdpr, sorry the compliance or the legal folks contacts, I can go also have a discussion with them.
+[19:51] Arjun Rattan: I don't think it's required given you already have a DPA in place.
+[19:54] Arjun Rattan: But it would be good to just say hi and understand what's the operationalized state there.
+[20:00] Arjun Rattan: And then finally the third thing is you spoke about commercials.
+[20:06] Arjun Rattan: So who's going to help figure out 85% is good enough versus 92%?
+[20:11] Alexa Witowski: Yeah.
+[20:12] Alexa Witowski: So I think that's where basically we should just sit on measuring these models and then wait until there are deals that are driving higher precision.
+[20:22] Alexa Witowski: That's kind of got them like correct me if I'm wrong, like that's kind of the decision that we've landed on.
+[20:27] Alexa Witowski: Based on the conversation we had with like Amish and Hemant maybe a month and a half ago they were like 80 is fine for now.
+[20:34] Gautam Kunapuli: So the original plan Arjun was to do targeted recall.
+[20:39] Gautam Kunapuli: We want to hire some drivers to drive around, collect events and then we were going to measure recall and precision so that we'd have a nice baseline for gtm.
+[20:49] Alexa Witowski: And then we decided we don't want to spend money on that.
+[20:51] Gautam Kunapuli: It became a little infeasible budgetarily and we know that it's not like on day one we are going to end up with with 500 customers it was always going to be a ramp.
+[21:00] Gautam Kunapuli: So we decided to adopt the ramp approach.
+[21:03] Gautam Kunapuli: We are going to continue to monitor the metrics that we have today with the in house devices.
+[21:08] Gautam Kunapuli: These are the metrics that we have today. It's there in our safety MBR that we are presenting.
+[21:09] Gautam Kunapuli: Gautam Kunapuli started sharing their screen
+[21:15] Gautam Kunapuli: These are all the features.
+[21:17] Gautam Kunapuli: Right.
+[21:17] Gautam Kunapuli: And we can dive into this a little bit more separately. But you can see the big concern here.
+[21:24] Gautam Kunapuli: Why we are building a new model is stop signing.
+[21:26] Gautam Kunapuli: This is the one that's going to kind of break the rest of them. They're reasonably decent performing.
+[21:32] Gautam Kunapuli: There are some gaps here and there, there's some fluctuations. We can get into the weeds on this.
+[21:36] Gautam Kunapuli: But to Alexa point we thought this was fairly decent.
+[21:40] Gautam Kunapuli: We can jack up the configurations to make it much more sensitive. We'll at least win trials.
+[21:48] Gautam Kunapuli: And then this was a good. We're in a reasonably happy place to go to market with this.
+[21:56] Gautam Kunapuli: With stop sign violation probably being turned off in cab alerts.
+[21:59] Gautam Kunapuli: We'll have the events because annotation team can filter out the false positives.
+[22:04] Gautam Kunapuli: That's where the model development piece comes into play.
+[22:08] Gautam Kunapuli: Now you're fully closed and loop from both the engineering and the product view of this.
+[22:14] Gautam Kunapuli: But to Alexis point the ideal that we had arrived at first was exactly to do what your instinct was, which is, let's do a recall analysis.
+[22:27] Gautam Kunapuli: But this is the kind of compromise place we are with respect to budget as well as gtm as well as our engineering as well as a variety of.
+[22:39] Gautam Kunapuli: This is where we landed.
+[22:40] Arjun Rattan: Okay, yeah, got it.
+[22:42] Arjun Rattan: So if I just look at another one, right, which is popping out a seat belt violation, and this is the one that will probably be the second on the list if it proves commercially, because seat belt violation seems like a very big one to me.
+[23:01] Arjun Rattan: In general, assuming UK has the same context as us where seat belt violation is a big deal.
+[23:08] Gautam Kunapuli: Good, let's talk about this for a second.
+[23:10] Gautam Kunapuli: And again, this goes back to what Alexa was talking about when it came to driver facing features.
+[23:16] Gautam Kunapuli: Right.
+[23:16] Gautam Kunapuli: Now, from an engineering standpoint, we have put into this product what I can only describe from an engineering perspective as a kludge.
+[23:28] Gautam Kunapuli: I think most reasonable people will call it a shitty band aid. It's not even a good band aid.
+[23:35] Gautam Kunapuli: What we're doing right now is we're flipping the image. This is reasonably good.
+[23:40] Gautam Kunapuli: It's fine and as you can see really does maintain some pretty good numbers.
+[23:45] Gautam Kunapuli: But frankly we need to retrain a model from scratch for all driver and that needs to go into our model dev roadmap right after the seatbelt model goes out.
+[23:54] Gautam Kunapuli: This is worth a conversation for us to have as a product engineering team is what are we doing about these metrics?
+[24:02] Gautam Kunapuli: Creating a slightly better long term plan than the one that we've been working with right now.
+[24:07] Alexa Witowski: Yeah.
+[24:08] Alexa Witowski: And I think now that we've punched out stop sign or we will have punched out stop sign, the question then becomes okay, like what are the next worst on the list which are all the driver facing seatbelt, cell phone distraction.
+[24:19] Alexa Witowski: And then the question is, do we do something about that or not?
+[24:22] Gautam Kunapuli: We should do something about that. And yeah, the stop sign.
+[24:27] Gautam Kunapuli: The reason for this failure by the way, Arjun, is it's twofold.
+[24:31] Gautam Kunapuli: It's obviously because they drive on the opposite side of the road to our data set today.
+[24:36] Gautam Kunapuli: But the bigger problem is actually in the object detection model which tends to conflate UK speed signs, which are numbers in red circles with stop signs.
+[24:47] Arjun Rattan: It's.
+[24:48] Gautam Kunapuli: We are doing a round of model retraining for this, for example.
+[24:54] Gautam Kunapuli: Yeah.
+[24:55] Gautam Kunapuli: Anyway, that's, that's the overall state.
+[24:58] Arjun Rattan: This is useful context, I guess Alexa, from your perspective, which are.
+[25:04] Arjun Rattan: So some of these are product decisions. For example, seat belt violation moving down to cell phone.
+[25:11] Arjun Rattan: How important is that for the rollout? Should we do it?
+[25:13] Arjun Rattan: Because then when we start prioritizing on the other things that the team is also working on.
+[25:18] Arjun Rattan: We would need some value assigned to it.
+[25:21] Arjun Rattan: So is this something I guess Lenny and Lenny will help out on in terms of as we go through it, through planning next time?
+[25:30] Alexa Witowski: Yeah. So this is already a planned initiative. Like there should be work earmarked for Q2 here.
+[25:37] Alexa Witowski: So whether or not this is something we should be doing shouldn't have to be rejustified, but it needs to be.
+[25:43] Alexa Witowski: We can. I think the thing that I would say is pragmatic is like I haven't heard.
+[25:50] Alexa Witowski: Lenny and I are working with the UK team to get them into a better place of giving us better like commercial feedback from trials.
+[25:57] Alexa Witowski: This is actually like safety precision is not one of the things that we're hearing them complain about at all.
+[26:03] Alexa Witowski: And we don't know if that's because my hypothesis that doesn't track because if
+[26:11] Arjun Rattan: you're doing a trial and there are stop sign violations which are occurring and you are at 24% precision.
+[26:19] Alexa Witowski: So my hypothesis is because there are bigger problems, basically like they're installing and like the GPS isn't running in a straight line or they're bigger camera installation.
+[26:31] Gautam Kunapuli: Like we discovered that Bing sheets in uk. Yeah. There are some gaps that are, that we are solving.
+[26:38] Gautam Kunapuli: There is some good news. The UK heavily indexes for roundabouts and not stop signs.
+[26:45] Gautam Kunapuli: We are actually going to see far fewer stop signs, which is good.
+[26:49] Gautam Kunapuli: That is one of the reasons we actually also said it's okay. We can, we can fast follow with this.
+[26:53] Arjun Rattan: It's.
+[26:55] Gautam Kunapuli: It's a distributional thing as well.
+[26:57] Gautam Kunapuli: But.
+[26:58] Alexa Witowski: Yeah, yeah.
+[26:59] Alexa Witowski: So I think the thing is, right, like Arjun and Lenny, like you'll need to stay connected to the commercial team to understand like you know, as we like stop sign we clearly needed to fix as we go forward how much is this precision impacting.
+[27:13] Alexa Witowski: And then like Lenny will have to weigh that retraining effort against like how hard it is operationally to get access to that data.
+[27:22] Arjun Rattan: This is staffed, right, for Q2, so I'm sure we can't reach in everything.
+[27:28] Arjun Rattan: But from what I take away is we have someone who is assigned full time on this one, if full time engineer or two or whatever.
+[27:37] Arjun Rattan: And so the question.
+[27:39] Gautam Kunapuli: Model training.
+[27:40] Arjun Rattan: Yeah, model training.
+[27:42] Gautam Kunapuli: We have it staffed. But I think it's worth revisiting the staffing for Q2.
+[27:49] Gautam Kunapuli: It's midpoint in the half anyway.
+[27:52] Gautam Kunapuli: We should actually take stock maybe as a group and this will be a great opportunity to onboard you into everything for safety as well.
+[28:00] Gautam Kunapuli: Arjun but it's that quarterly transition. So we should probably look at prioritization.
+[28:07] Gautam Kunapuli: Maybe sit down with Nihar and these guys for a few of the projects as needed and, and we should, we should rethink some of the allocations.
+[28:12] Ekta Shah: Ekta Shah left
+[28:17] Alexa Witowski: Yeah, I think. And like the thing that will be challenging right.
+[28:20] Alexa Witowski: Is like if you go, if you just go to the UK team and are like the precision is bad, should we retrain it?
+[28:25] Alexa Witowski: They'll just start yelling about it even though they didn't know it was a problem.
+[28:29] Alexa Witowski: And so I'd rather have them information,
+[28:32] Arjun Rattan: supply them with things.
+[28:34] Gautam Kunapuli: Gautam Kunapuli stopped sharing their screen
+[28:35] Alexa Witowski: Yeah, exactly. Yeah. So okay.
+[28:39] Arjun Rattan: I think Alexa, we should have the follow on conversation on Friday still.
+[28:44] Arjun Rattan: This is good onboarding for me.
+[28:46] Arjun Rattan: Let me mull process etc, etc, get into it a bit more and then if I have any clarifying questions I can grab a hold of you on Friday and just ask them.
+[28:50] Gautam Kunapuli: Gautam Kunapuli left
+[28:55] Arjun Rattan: If nothing else, I can just summarize here. Here's what I've heard.
+[28:58] Arjun Rattan: Here's my plan to go forward and then if you see if you seem that makes sense in you and Lenny, align with it, then we can just
+[29:04] Gautam Kunapuli: take the time back.
+[29:05] Alexa Witowski: Okay, sounds good. Thanks.
+[29:07] Arjun Rattan: Thank you. Thank you.
+[29:08] Alexa Witowski: Thanks guys. Talk to you soon. Bye Bye.
+[29:10] Alexa Witowski: Alexa Witowski left
+[29:11] Leni Zneimer, Arjun Rattan: Leni Zneimer, Arjun Rattan left

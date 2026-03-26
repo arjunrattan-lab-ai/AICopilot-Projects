@@ -1,0 +1,275 @@
+[00:00] Abdullah Hasan, Wajahat Kazmi, Fahad Javed, Achin Gupta, Arjun Rattan, Gautam Kunapuli: Abdullah Hasan, Wajahat Kazmi, Fahad Javed, Achin Gupta, Arjun Rattan, Gautam Kunapuli joined
+[00:00] Abdullah Hasan: Abdullah Hasan started sharing their screen
+[00:04] Gautam Kunapuli: So what I want to do is. This is today's meeting, right? Is basically start with some.
+[00:13] Gautam Kunapuli: Let's keep all of this. I don't want to. Great. So you guys.
+[00:19] Gautam Kunapuli: So what I want to do is kind of align everybody to what the high level expectations of this effort are reporting and whatever.
+[00:30] Gautam Kunapuli: So this project is going to come under what is known as the event validation engine.
+[00:35] Gautam Kunapuli: Event Validation engine is a cloud based AI annotator that is going to attempt to reduce the burden of human annotations and deliver a world class validation experience to our customers.
+[00:49] Gautam Kunapuli: Right. So this is basically what is known as a company level project.
+[00:55] Gautam Kunapuli: Within this company level project we have several initiatives.
+[00:58] Gautam Kunapuli: So we have automating annotations, Automating annotations for collisions.
+[01:06] Gautam Kunapuli: This is currently in progress and we'll talk about that briefly. Just for the purpose of visibility.
+[01:13] Gautam Kunapuli: We have automating annotations for AI events.
+[01:16] Gautam Kunapuli: That is this initiative that I've basically created this meeting for.
+[01:21] Gautam Kunapuli: Then there is routing annotations and capacity management which is basically something that I'm doing which will be driven by all the work that you are putting in place.
+[01:37] Gautam Kunapuli: What is going on over here?
+[01:39] Gautam Kunapuli: For the Automating Annotations for collisions project we currently have a foundation model.
+[01:47] Gautam Kunapuli: Actually we have several foundation models that are in the cloud. The pipeline that we have built
+[01:55] Fahad Javed: is
+[01:55] Gautam Kunapuli: essentially at the moment we have a crash pipeline.
+[02:03] Gautam Kunapuli: The model is basically we have some foundation models. Let's just leave it like that.
+[02:09] Gautam Kunapuli: Foundation models driven pipeline is what we have currently.
+[02:15] Gautam Kunapuli: We can handle crash dpes from telematics and then planned is crash dp's from VBC and planned is hard break dp's pipeline because you see where this is headed, right?
+[02:43] Gautam Kunapuli: So I'm going to create so. So the current. This is what we're wanting to build, right?
+[02:49] Gautam Kunapuli: So this is what we want to build. These are the objectives.
+[02:54] Gautam Kunapuli: And then the timeline here is essentially again for this.
+[03:02] Gautam Kunapuli: You can see the timeline here is to roll out to SMB mid market and by the end of the month I think we'll slip by a little bit but I think we're generally on course.
+[03:21] Gautam Kunapuli: Focus the crash TPES from the VBC.
+[03:26] Gautam Kunapuli: I think we will probably shoot for April 30th and then the hard brakes from telematics will probably shoot for May 31st.
+[03:38] Gautam Kunapuli: Mostly because I. Sorry. Please, please.
+[03:50] Abdullah Hasan: Abdullah Hasan left
+[03:51] Fahad Javed: Hey Arjun, your picture is very interesting. Looking at seems like it's just.
+[04:00] Abdullah Hasan: Abdullah Hasan joined
+[04:05] Fahad Javed: Do we have Shoaib in the call?
+[04:08] Arjun Rattan: Okay, I'm gonna go change that picture. I don't want to freak people Out. I'll.
+[04:13] Fahad Javed: Yeah.
+[04:17] Wajahat Kazmi: Joining us.
+[04:19] Gautam Kunapuli: Awesome.
+[04:23] Arjun Rattan: On day zero and that's usually how I dress, I think. No, no, I like it. It's a good call.
+[04:30] Achin Gupta: Out.
+[04:30] Arjun Rattan: I. I'm gonna figure out when do I want to bring the also known as Shuaik card out.
+[04:38] Achin Gupta: You just gotta make your hair.
+[04:42] Arjun Rattan: That is a pain point for me. Let's not go down that path. Here today, gone tomorrow.
+[04:51] Arjun Rattan: Kind of a storyline.
+[04:54] Gautam Kunapuli: Yes.
+[04:57] Arjun Rattan: But nice to meet you guys. I know this is a bit of an interrupt, just. Hi.
+[05:01] Arjun Rattan: Arjun recently joined the team. This is my day seven. I'll be working on the AI site.
+[05:07] Arjun Rattan: So I'll be closely partnering with Gautam and the rest of the folks in trying to figure out what our strategy is for the platform and how do we execute and on the AI models that go out.
+[05:19] Abdullah Hasan: Glad to see you.
+[05:21] Gautam Kunapuli: Welcome to the team. Thank you. Thank you. Likewise. Awesome.
+[05:30] Gautam Kunapuli: So by the way, I'll be sending Arjun your way for a few onboarding sessions on driver and road facing features and a few other things.
+[05:40] Gautam Kunapuli: So please be prepared for that. All right.
+[05:44] Gautam Kunapuli: So this as you can see is converging towards a very crystal clear plan. Right.
+[05:51] Gautam Kunapuli: Like I know what I want to do for collisions and how I want to automate that.
+[05:58] Gautam Kunapuli: Unfortunately I don't have that level of visibility on what we are planning here.
+[06:03] Gautam Kunapuli: And I want to use the rest of this meeting to basically create that structure right now and do a quick update which I think we've already kind of talked about but we kind of went we'll do top down this time.
+[06:16] Gautam Kunapuli: I have a meeting with Sherp this afternoon and I want to make sure that get update.
+[06:20] Gautam Kunapuli: I want to build a roadmap of everything that we are planning.
+[06:25] Gautam Kunapuli: A giant mega Gantt chart of how this is going to roll out.
+[06:28] Gautam Kunapuli: Otherwise there's absolutely no way we can keep this money.
+[06:32] Gautam Kunapuli: You know, you see because each of these, this is an initiative and each of these is an epic and each of these has a whole lot of sub epics too.
+[06:40] Gautam Kunapuli: It's wild how many things we have to do.
+[06:43] Gautam Kunapuli: Let's talk about the pipeline we want to build for AI events.
+[06:46] Gautam Kunapuli: Now there is rule based which already exists which is basically saying that all hard corner and hard Excel events bypassed.
+[07:03] Gautam Kunapuli: Right. We can add other rule based stuff over there.
+[07:07] Gautam Kunapuli: We have a few other rule based bypasses right now but we can talk about that in the course.
+[07:13] Gautam Kunapuli: And then there is confidence based which is what Fahad is building out. Right.
+[07:19] Gautam Kunapuli: So we have a timeline for that. That is one epic.
+[07:22] Gautam Kunapuli: So let's talk about that A little bit about what the key objectives we want to achieve here are.
+[07:28] Gautam Kunapuli: So can you tell us, Fahad, can you resummarize what it is that we're building here for this?
+[07:36] Gautam Kunapuli: I would say close following. And cell phone is done, right? Yeah.
+[07:44] Fahad Javed: And now ssv and sbv are in the rollout.
+[07:56] Gautam Kunapuli: Great. And then we have. What about smoking?
+[08:01] Fahad Javed: Smoking and distraction, which. Which is model ready. And we rolled out in April.
+[08:13] Gautam Kunapuli: So is this already rolled out? Should I move it to the previous.
+[08:17] Fahad Javed: It would roll out in April. It is ready.
+[08:21] Gautam Kunapuli: You said that. Okay. Model ready. Okay.
+[08:27] Wajahat Kazmi: Yeah. Work is complete.
+[08:29] Wajahat Kazmi: We're just waiting for the new build and some discussion with product team over tech versus product gap on distraction.
+[08:39] Gautam Kunapuli: Sounds good. Confidence based bypass.
+[08:44] Gautam Kunapuli: And then the next one we are putting in place is a driver foundation model. So let me replace.
+[08:53] Gautam Kunapuli: So foundation model based bypass. Let's talk about.
+[08:59] Gautam Kunapuli: Sorry, Fahad, before we jump into that, are there any other topics under confidence based bypass that we are planning for
+[09:06] Fahad Javed: the pause development for the rest because we were planning on going through foundation
+[09:12] Wajahat Kazmi: based model, but for eating detection, we would be rolling out CBB sometime probably in April or maybe that's still yet to ga.
+[09:24] Wajahat Kazmi: The feature itself.
+[09:26] Gautam Kunapuli: Sounds good. So we're skipping.
+[09:28] Gautam Kunapuli: Camera obstruction, unsafe lane change, unsafe lane change, unsafe parking, Forward parking.
+[09:42] Gautam Kunapuli: They're all AI features, so we don't get to ignore them anymore. Speeding is a big open thing. Right.
+[09:48] Gautam Kunapuli: So we will get into that. Is there anything over here that I'm missing? What about upcoming features?
+[09:55] Fahad Javed: Upcoming features Again, pedestrian warning. We don't have any bypass. We're not doing that.
+[10:03] Wajahat Kazmi: Passenger detection, it's upcoming.
+[10:11] Gautam Kunapuli: First of all, we are not going to do any bypass until a feature hits 95%. 90%. 95% plus in GA.
+[10:17] Gautam Kunapuli: So these new features, they're nowhere close to that. Right.
+[10:21] Fahad Javed: Except for 89%. So that is something that we can pull in easily.
+[10:28] Gautam Kunapuli: Please pull in. That's.
+[10:33] Fahad Javed: Yeah. Lens floating. We can have it in April.
+[10:38] Gautam Kunapuli: Yeah, Got it. Not planned. Camera obstruction on safe main change fatigue index. Passenger detection.
+[10:55] Gautam Kunapuli: FCW is a good one. Great. All right. Now, foundation model based bypass. So this is good.
+[11:04] Gautam Kunapuli: And we do have metrics for this. I think we are reporting that in our meeting today. Right.
+[11:12] Gautam Kunapuli: So let me just double check on that front. So many tabs open. Okay, great. So.
+[11:22] Gautam Kunapuli: And you can see here this is a very critical initiative because we have an item for it.
+[11:28] Gautam Kunapuli: So I just want to make sure that we're reporting the right thing here.
+[11:34] Gautam Kunapuli: 19.3% of events bypassed of overall volume excluding collisions. Right. So this Is post cap volume.
+[11:42] Gautam Kunapuli: I'm assuming anything that has a video. Right. And which, which, which events does this include?
+[11:49] Gautam Kunapuli: It does not include like hard Excel, hard corner clearly.
+[11:53] Gautam Kunapuli: But, but it includes everything that we've just talked about, correct? Yes.
+[12:00] Fahad Javed: So first for the new two new features, it is only SMB, mid market and enterprise is being rolled out.
+[12:07] Fahad Javed: So the number is not including that.
+[12:11] Gautam Kunapuli: That's fine. We have time to get to that number and we have a new plan anyway. So.
+[12:15] Wajahat Kazmi: Yes, Gautam, this is normalized. I mean this is the divisor is data including trials. So trials.
+[12:26] Wajahat Kazmi: We agreed that we won't be bypassing anything on trials, however, so we are rolling out on non trial customers.
+[12:32] Wajahat Kazmi: Whereas the total volume that we are normalizing against and calculating this 19% includes trial as well.
+[12:39] Wajahat Kazmi: So if you exclude trial, this percentage would be higher, maybe by 20% or so.
+[12:47] Gautam Kunapuli: Here's a quick action item then. Can you figure out the exact metric that we want to report here?
+[12:55] Gautam Kunapuli: What is the combination of segments, events and segments and events? What is that denominator?
+[13:07] Gautam Kunapuli: Let's make sure that you are very clear.
+[13:09] Gautam Kunapuli: Your dashboards measures that clearly and yeah, let's create a thread after you guys have aligned.
+[13:17] Gautam Kunapuli: I don't think it should. This should include trials. Maybe it should. I don't know. Let's.
+[13:22] Gautam Kunapuli: Let's come to that. Let's keep going though. Did you have a question?
+[13:26] Fahad Javed: Yes, I agree with you on that.
+[13:28] Fahad Javed: I mean Baja and I agree the product wants to include trial because it is part of the.
+[13:33] Fahad Javed: Of the four things that we have.
+[13:36] Fahad Javed: But it is unfair that we are not bypassing anything from trials and we can't considering it for our calculations include trials.
+[13:45] Gautam Kunapuli: I think that's fine. We. We do want to target the trials. Okay.
+[13:53] Gautam Kunapuli: The overall granular breakdowns of the charts is where the magic really is because we want to see how much volume of the trial for each feature.
+[14:00] Gautam Kunapuli: Like if you look at stop sign violations, they make up the biggest chunk of our total volume.
+[14:02] Abdullah Hasan: Abdullah Hasan left
+[14:05] Gautam Kunapuli: And of all events that come in right across all segments.
+[14:09] Gautam Kunapuli: Now you look at that in trials, it's even, even more crazy.
+[14:12] Gautam Kunapuli: Which means that trial stop sign violation.
+[14:15] Gautam Kunapuli: If I wanted to start this project from scratch, would be the first thing I would have ever targeted because that will have given me the biggest.
+[14:22] Gautam Kunapuli: That's okay. The project evolved organically rather than in a structured fashion.
+[14:26] Gautam Kunapuli: But we now have a cool. I understand the state of confidence based bypass and our latest.
+[14:34] Gautam Kunapuli: Let's talk about foundation model based bypass. Now what's our plan here?
+[14:38] Gautam Kunapuli: Can we align here on some next steps.
+[14:41] Wajahat Kazmi: Yes, we have two foundation models, one for driver and one for road facing features for videos being prepared.
+[14:49] Wajahat Kazmi: Third one for driver facing we will also take up soon, probably next week which will be for image based media only.
+[15:00] Wajahat Kazmi: Yes.
+[15:03] Gautam Kunapuli: Yeah.
+[15:05] Achin Gupta: Neeraj had brought up a good point regarding scene classification model wherein he showed that if we feed the road facing scene context as well, it can help us identify private and parking areas better.
+[15:19] Gautam Kunapuli: Right.
+[15:19] Achin Gupta: And current scene classification, even driver facing. Yes, sorry, I mean driver facing.
+[15:27] Gautam Kunapuli: Right. And.
+[15:29] Achin Gupta: But the current scene classification only analyzes road facing.
+[15:33] Wajahat Kazmi: Right.
+[15:33] Achin Gupta: It does not analyze tire facing.
+[15:35] Achin Gupta: So are we just going to move to CFM and VLM based model and just use that for identifying scenes and therefore not going to improve scene classification or whether scene classification will also be
+[15:48] Gautam Kunapuli: a part of it?
+[15:49] Achin Gupta: These are some open questions I had regarding like how will we transition to that enhanced validation engine?
+[15:59] Wajahat Kazmi: We will be using VLM as well as a foundation model both in this pipeline that we are going to develop.
+[16:09] Achin Gupta: And about scene classification model, are you going to use that?
+[16:12] Wajahat Kazmi: Yeah, there will be a team classification model as well, but VLM is also a part of it.
+[16:16] Wajahat Kazmi: So we're going to use both. Whatever. I mean it will be a.
+[16:22] Achin Gupta: So scene classification model is synonymous like cloud foundation model and scene classification model are one.
+[16:28] Achin Gupta: They will become one. Essentially the current scene classification model will be.
+[16:33] Achin Gupta: Is essentially a cloud foundation model.
+[16:35] Gautam Kunapuli: Right.
+[16:37] Wajahat Kazmi: Cloud foundation model would also have a scene classification plus downstream there will be a VLM also.
+[16:46] Wajahat Kazmi: So we will get twice filtering one based on the cloud foundation model.
+[16:50] Wajahat Kazmi: And then downstream there will be a VLM as well and we will assess. This is the way it's going.
+[16:56] Wajahat Kazmi: It's going about for collision. So the same way we will use it for AI behaviors, other AI behaviors.
+[17:06] Gautam Kunapuli: Okay,
+[17:10] Wajahat Kazmi: we're going to start working on the pipeline from next week onwards because they were doing some changes to the collision pipeline and the graph service.
+[17:19] Gautam Kunapuli: Sorry, let me pause you very quickly but I actually don't understand what our plan here is.
+[17:25] Gautam Kunapuli: I know we've been you talked a lot about in the weeds. I don't understand what the plan is.
+[17:31] Gautam Kunapuli: What is the flow?
+[17:32] Gautam Kunapuli: How is rule based bypass, confidence based bypass foundation model going to connect with each other?
+[17:38] Gautam Kunapuli: Like do we, do we know? Do we have a technical design document for this? Who's building all of this?
+[17:43] Gautam Kunapuli: Who are the owners? What is the model dev? What is the evaluation plan?
+[17:47] Gautam Kunapuli: There's a lot of pieces here that I just don't understand.
+[17:50] Gautam Kunapuli: If you have thought through or if you have documented, that's really the purpose that I'm trying to get to here.
+[17:59] Wajahat Kazmi: There is a TDD that I am working on and I can share that with you towards the end of the week.
+[18:05] Gautam Kunapuli: Okay, but what is the plan here? What are we building?
+[18:09] Wajahat Kazmi: We are building foundation models for road and driver facing. Two separate models for video.
+[18:19] Gautam Kunapuli: Okay, so those are two initiatives, two epics that we will have.
+[18:23] Gautam Kunapuli: One of them is road facing foundation model development.
+[18:26] Gautam Kunapuli: The other is driver facing foundation model development. And then what are we going to do with this?
+[18:32] Wajahat Kazmi: We are going to establish a graph service through which we will deploy these foundation models on Triton service to separate services and connect them.
+[18:44] Wajahat Kazmi: No, no.
+[18:45] Gautam Kunapuli: All that I know we're going to repurpose the existing pipe.
+[18:47] Gautam Kunapuli: So you want to build an end to end pipeline.
+[18:49] Wajahat Kazmi: Yes.
+[18:50] Gautam Kunapuli: Okay, so you're going to build. What is the structure of this end to end pipeline?
+[18:54] Gautam Kunapuli: What are the models in this pipeline? For example, if you have.
+[18:58] Gautam Kunapuli: Are you going to have tiered confidence now is if you're if.
+[19:02] Gautam Kunapuli: Or is it just like if there is a confidence based bypass is just going to skip out or it's all of this a part of team B
+[19:10] Wajahat Kazmi: that we have to see once we deploy it. But the initial plan is that CBB will offer us.
+[19:19] Wajahat Kazmi: Currently is offering us around 50% bypass for most of the features and a little more than 50% for the rest.
+[19:25] Wajahat Kazmi: The remaining would go through this pipeline and.
+[19:29] Wajahat Kazmi: And we will have to see how is the logic of foundation model plus vln.
+[19:37] Wajahat Kazmi: Whether they are independent or combined either and. Or logic whatever serve the purpose better.
+[19:51] Gautam Kunapuli: So we don't know. That's. That's basically what you're telling me.
+[19:54] Wajahat Kazmi: Currently we don't know yet. We have to collect data and the models are under preparation.
+[19:58] Wajahat Kazmi: Depends upon the accuracy of the models as well as the accuracy and recall offered by vlm.
+[20:04] Wajahat Kazmi: So we have to come up with that.
+[20:06] Gautam Kunapuli: But we have all this information surely, right? Sorry to interrupt.
+[20:11] Gautam Kunapuli: We were able to do an offline analysis very comprehensively with collisions.
+[20:15] Gautam Kunapuli: Why can't we do that here? How do we know that?
+[20:18] Gautam Kunapuli: Why are we deploying an ad hoc pipeline without understanding that piece?
+[20:24] Wajahat Kazmi: We are not deploying. We are preparing the models. The models are under preparation.
+[20:28] Wajahat Kazmi: Once we have some stable models ready, even without the pipeline ready, we can do the offline analysis for.
+[20:36] Gautam Kunapuli: Awesome. So Harish said that they had already picked up some work. Is this true?
+[20:46] Wajahat Kazmi: No, SAI was working on that. This work on this will be picked up by our team from next week onwards.
+[20:55] Wajahat Kazmi: Because what Haree's team is working on is they are decoupling the Collision graph service that was already in operation.
+[21:06] Wajahat Kazmi: They're improving that service.
+[21:08] Wajahat Kazmi: Once that is done, we would repurpose that for rest of the AI features.
+[21:14] Wajahat Kazmi: This is what we are waiting for. I think they're going to do it towards the end of the week.
+[21:18] Wajahat Kazmi: SAI is working on that.
+[21:19] Gautam Kunapuli: And to end floor design is what we need. Pipeline flow design. Okay.
+[21:29] Gautam Kunapuli: And then we actually need to deploy this. Right. So we need to deploy and test in shadow mode.
+[21:40] Wajahat Kazmi: Yes.
+[21:40] Gautam Kunapuli: And then we need a rollout plan. Okay. Basically there's no need to reinvent the plan process.
+[21:47] Gautam Kunapuli: And I think we should do this exactly the same way as we've been doing it for the others.
+[21:53] Gautam Kunapuli: This is basically the piece that I've been missing. Right. We need definitions of done for.
+[22:02] Gautam Kunapuli: Excuse me, Each of these. And we need some timelines and I'm going to hold you to these timelines.
+[22:09] Gautam Kunapuli: So we need these asap, like by the end of the week or. Yeah,
+[22:17] Wajahat Kazmi: yes, that we can do.
+[22:22] Gautam Kunapuli: And then I need you to come up with some. Finally some objectives, some metrics as well.
+[22:26] Gautam Kunapuli: Like what is the expectation? So for each of these you're going to have a definition of done.
+[22:31] Gautam Kunapuli: But in addition to this pipeline, like what are our target metrics?
+[22:36] Gautam Kunapuli: So Achin, I think this is where we'll rely on you and Arjun to help us formulate what those target metrics should be.
+[22:46] Gautam Kunapuli: So if you go back over here into our mbr, the target metrics were something that we created at the start of the project which simply says 30% bypass.
+[22:57] Gautam Kunapuli: I think the expectation now is that we need a much higher bypass.
+[23:02] Gautam Kunapuli: So yeah, that is, that is what we want to. So that's the other call out is for.
+[23:08] Gautam Kunapuli: If you're going to do a staged rollout, I want you to craft some expectations around what our target should be.
+[23:16] Gautam Kunapuli: So you can see over here for the collision, we said 90% annotation bypass. So you don't need to.
+[23:23] Gautam Kunapuli: This one came directly from Shoaib. He was just like, go to 90%.
+[23:28] Gautam Kunapuli: We probably will not hit 90% for a while, but we are slowly inching our way up 30%, I think.
+[23:36] Gautam Kunapuli: So for this particular case, I don't understand, as I said, what our denominator should be.
+[23:42] Gautam Kunapuli: So let's lock a few of these things down with respect to expectations.
+[23:46] Gautam Kunapuli: Trials are definitely on the table. So that is the last thing I'll talk about here.
+[23:55] Gautam Kunapuli: So we need target metrics. And then this is phase one. Right.
+[24:00] Gautam Kunapuli: So phase two, does this make sense to everybody? And so we need target metrics.
+[24:09] Gautam Kunapuli: We need Owners and I need definitions of done.
+[24:20] Gautam Kunapuli: By the way, if you haven't done it already, you can take the notes of these meetings and your previous meetings and give them to cloud code that we have a kind of.
+[24:29] Gautam Kunapuli: And it will create for you all of this. That is very, very nice. It'll take it literally.
+[24:35] Gautam Kunapuli: You spend 15, 20 minutes writing a proper prompt.
+[24:38] Gautam Kunapuli: It will spend 1520 seconds giving you a full write up.
+[24:42] Gautam Kunapuli: And then you spend the remaining 40 minutes editing it.
+[24:46] Gautam Kunapuli: And then you have a project plan along with timelines. You'll have to add the details in many places.
+[24:52] Gautam Kunapuli: So I would suggest you guys probably consider this, but yes, thank you.
+[24:57] Gautam Kunapuli: This is really what I wanted to align on. I'd like to regroup by the time we regroup next week.
+[25:03] Gautam Kunapuli: I'd very much like to turn this into a project plan that we have put all our details in our jira.
+[25:10] Gautam Kunapuli: So please do prioritize this particular piece so that we have some visibility.
+[25:16] Gautam Kunapuli: We are adequately staffed on this front.
+[25:22] Wajahat Kazmi: Yeah. For the foundation model piece, again I'm using the resources for vbc.
+[25:28] Wajahat Kazmi: So we already know that the VBC goals have been repurposed to.
+[25:38] Wajahat Kazmi: To make available resources for this project. So now we are good, right?
+[25:45] Gautam Kunapuli: Awesome. In that case, let us end here and you can catch up there. You guys can.
+[25:59] Gautam Kunapuli: I mean this is all I wanted to talk about. Is it before we end, I guess.
+[26:02] Gautam Kunapuli: Is there anything else that we need to discuss?
+[26:07] Achin Gupta: I mean there are a lot of discussion but I think this is very.
+[26:12] Gautam Kunapuli: So
+[26:15] Achin Gupta: I just wanted to make it clear like for SSV and sbv, we will wrap it by next week and the next steps will be on integrating VLM and Cloud foundation model.
+[26:26] Gautam Kunapuli: Right.
+[26:26] Achin Gupta: That's something we will carry on.
+[26:28] Gautam Kunapuli: While I don't have VLM in my plan here. See now, now you're. Now you're adding new stuff to my plate.
+[26:36] Wajahat Kazmi: Is a part of the Graph service. Yeah, it's about here, but you need
+[26:42] Gautam Kunapuli: to call that out. Right. Who's working on it? Presumably somebody from the AS team is working on.
+[26:47] Gautam Kunapuli: It's a whole new initiative with a work thread. It's going to have to be. You know what, what else?
+[26:54] Gautam Kunapuli: Did we miss them over here? So we have a vlm. So we missed that. Is there anything else? No.
+[27:07] Gautam Kunapuli: Okay, let's regroup once you guys take a stab at this and let's regroup on Monday and see where we are.
+[27:17] Gautam Kunapuli: I will put together a rough plan for myself and then you guys can help me add much more detail along your plan.
+[27:28] Gautam Kunapuli: Timelines, resourcing and all those things.
+[27:30] Gautam Kunapuli: And we're going to have an iteration with like Arjun, but also with like all the way up to like Shoaib, just to see that the timelines are realistic and yeah, the overall goal is to try and roll this out by the end of the quarter.
+[27:50] Gautam Kunapuli: Not this quarter, next quarter. Q2, basically. But the specification is going to be on velocity. Yeah.
+[28:01] Gautam Kunapuli: Cool. Thanks guys. That was a very helpful discussion. Thank you for the time.
+[28:06] Gautam Kunapuli: Gautam Kunapuli stopped sharing their screen
+[28:10] Gautam Kunapuli: Can one of you please take the lead, Achin or Jahat. To schedule a follow up for us on Monday?
+[28:19] Wajahat Kazmi: Yeah, I can do that.
+[28:24] Gautam Kunapuli, Wajahat Kazmi, Fahad Javed: Gautam Kunapuli, Wajahat Kazmi, Fahad Javed left
+[28:31] Gautam Kunapuli: Yeah. Hi, Arjun.
+[28:33] Arjun Rattan: Hey, Arjun. Let's meet on a separate meeting.
+[28:36] Gautam Kunapuli: Let's end this. Sure.
+[28:40] Arjun Rattan, Achin Gupta: Arjun Rattan, Achin Gupta left
