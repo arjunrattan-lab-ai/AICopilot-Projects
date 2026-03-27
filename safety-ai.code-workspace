@@ -49,6 +49,8 @@
 		"window.openFoldersInNewWindow": "on",
 
 		// Restore sessions
-		"window.restoreWindows": "all"
+		"window.restoreWindows": "all",
+
+		
 	}
 }
