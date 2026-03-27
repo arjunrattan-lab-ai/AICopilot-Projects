@@ -13,7 +13,7 @@
 | Task | Description | Project | Due | Status |
 |------|-------------|---------|-----|--------|
 | [~] **Friday Followup Call with Alexa** | Have deeper alignment call with Alexa on AI/Safety strategy, clarify driver-facing models and Q2 approach | UK Expansion | 3/29/26 | ⏳ Pending Others |
-| [ ] **Obtain Model Status List** | Get comprehensive list from Alexa/Lenny of all models, status (deployed/in progress/planned), rollout dates, and performance metrics | UK Expansion | 4/1/26 | Not Started |
+| [~] **Obtain Model Status List** | Get comprehensive list from Alexa/Lenny of all models, status (deployed/in progress/planned), rollout dates, and performance metrics | UK Expansion | 4/1/26 | ⏳ Pending Others |
 | [ ] **Connect with Legal/Compliance on DPA** | Meet with legal team to discuss Data Privacy Agreement for driver-facing data access, operationalized state, and process for unblurred customer data if retraining needed | UK Expansion | 4/1/26 | Not Started |
 | [ ] **Onboard: EVE Rollout** | Read Michael Benisch's EVE docs. Map behaviors live vs pending, latency delta per event type. Send question to Nihar + Michael: "What is the Q2 resource plan for EVE trials rollout?" | Safety Onboarding | 3/30/26 | Not Started |
 | [ ] **Onboard: AI Roadmap Tradeoffs** | Get Gautam's AIDC+ release spreadsheet. Map every AI feature to status, platform (AIDC vs AIDC+), ship date. Identify customer commits at risk. Send question to Gautam: "Current priority stack-rank for AIDC+ AI features?" | Safety Onboarding | 3/31/26 | Not Started |
@@ -35,7 +35,7 @@
 
 ### UK Expansion (3 tasks)
 - [~] **Friday Followup Call with Alexa** — Due: 3/29/26 | ⏳ Pending Others
-- [ ] **Obtain Model Status List** — Due: 4/1/26
+- [~] **Obtain Model Status List** — Due: 4/1/26
 - [ ] **Connect with Legal/Compliance on DPA** — Due: 4/1/26
 
 ### Safety Onboarding (8 tasks)
@@ -71,7 +71,7 @@
 
 - [ ] **Onboard: EVE Rollout** — Read Michael Benisch's EVE docs. Map behaviors, latency deltas. Question to Nihar + Michael. | *Safety Onboarding* | Due: 3/30/26
 - [ ] **Onboard: AI Roadmap Tradeoffs** — Get AIDC+ release spreadsheet from Gautam. Map AI features to status and ship dates. | *Safety Onboarding* | Due: 3/31/26
-- [ ] **Obtain Model Status List** — Get comprehensive list from Alexa/Lenny of all models, status (deployed/in progress/planned), rollout dates, and performance metrics | *UK Expansion* | Due: 4/1/26
+- [~] **Obtain Model Status List** — Get comprehensive list from Alexa/Lenny of all models, status (deployed/in progress/planned), rollout dates, and performance metrics | *UK Expansion* | Due: 4/1/26 | ⏳ Pending Others
 - [ ] **Connect with Legal/Compliance on DPA** — Meet with legal team to discuss Data Privacy Agreement for driver-facing data access, operationalized state, and process for unblurred customer data if retraining needed | *UK Expansion* | Due: 4/1/26
 - [ ] **1:1 Michael Benisch** — EVE architecture, collision annotator, bypass roadmap | *Safety Onboarding* | Due: 4/1/26
 - [ ] **Onboard: Collision AI Annotator** — Read collision bypass pipeline. Get dashboard. Map to CBB project. | *Safety Onboarding* | Due: 4/1/26

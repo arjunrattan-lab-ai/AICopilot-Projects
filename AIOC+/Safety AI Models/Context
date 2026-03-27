@@ -1,0 +1,62 @@
+Let me pull up the key documents for more detail.
+
+Here's a comprehensive summary of the **pedestrian model for AIOC+** based on the latest documents and the March 25 Safety MBR:
+
+---
+
+## 🚶 Pedestrian Detection Model for AIOC+
+
+### Priority & Status
+- Pedestrian detection is confirmed as the **first AI model for AIOC+** — designated a **P0 project** that must launch **concurrently with the hardware**.
+- The Safety MBR (March 25) surfaced urgency: AI resourcing needs to be locked **immediately** in Q2 — waiting until end of Q2 to have a plan is not feasible.
+- **Nihar Gupta** owns developing the launch plan, scope, and resource requirements.
+
+---
+
+### Model Development Roadmap (from AIOC+ Concept Review)
+The AI plan follows a versioned model + edge deployment sequence:
+
+| Phase | Description |
+|---|---|
+| **AI Model V0** | Train a baseline pedestrian model using **existing OC data** to establish initial quality/perf targets |
+| **Edge V0** (D + 4 wks) | Stand up basic AI pipeline: ingest video, run model on-device, upload detections to cloud |
+| **AI Model V1** | Fine-tune to AIOC+ optics & platform using AIOC+ field data |
+| **Edge V1** (D + 8 wks) | Deploy improved model + integrate PW state machine for better filtering & alert quality |
+| **AI Model V2** | Use more AIOC+ field data to improve precision/recall; lock GA-candidate model |
+| **Edge V2** (D + 12 wks) | Ship GA model with production-grade telemetry and remote tuning |
+
+---
+
+### Software Phasing
+- **Beta (target: Sep 15)**: Software must support pedestrian detection — detect pedestrians and **draw bounding boxes on in-cab display** video output.
+- The MVP in-cab display will show pedestrian overlay on relevant cameras (bounding boxes only — no full warning state machine yet at Beta).
+
+---
+
+### Key Technical Challenges
+
+| Challenge | Detail |
+|---|---|
+| **Platform migration** | Prior pedestrian work was on **Ambarella** framework; AIOC+ runs on **Qualcomm** — datasets and annotations are reusable but need porting |
+| **Different camera** | AIOC+ uses **third-party AHD/TVI analog cameras** (vs. the inbuilt VPU camera on OC1) — perspectives, FOV, and image characteristics differ significantly |
+| **Data gap** | New AIOC+ field data will be needed to properly tune after baseline model |
+| **Resourcing** | Not currently in plan; AI resources need to be freed up or added — this is the gating factor |
+
+---
+
+### Backend Integration Required
+- Define **new DPE types** for AIOC+ AI (e.g., pedestrian, blind-spot) and plug into existing AI events pipeline, configs, and caps.
+- Safety/AI Services scope: M→L effort to configure EFS-style filtering and add new event types specific to AIOC+'s multi-camera AI use cases.
+
+---
+
+### Future Models (AIOC+ Platform)
+Pedestrian detection is just the start — the platform is intended for **passenger transit detection**, **PPE detection**, and other AI vision use cases going forward.
+
+---
+
+### Open Action Items (as of March 25 MBR)
+- **Nihar Gupta**: Develop AIOC+ launch plan with scope, resourcing, and milestones for pedestrian detection model at day-one hardware launch.
+- **Nihar + Mark**: Sync on AIOC+ hardware timeline to backward-plan model development.
+
+---

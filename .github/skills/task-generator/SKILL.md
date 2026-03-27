@@ -42,4 +42,4 @@ Each task needs these fields:
 - Sort by due date (earliest first)
 
 **Step 5: Trigger master aggregation**
-- After updating, remind the user to run the master aggregator to refresh [Arjun's Master Action Items.md](../../../Arjun's%20Master%20Action%20Items.md)
+- After updating, remind the user to run the master aggregator to refresh [Arjun's Master Action Items.md](../../../00%20Master%20Punch%20List/Arjun's%20Master%20Action%20Items.md)

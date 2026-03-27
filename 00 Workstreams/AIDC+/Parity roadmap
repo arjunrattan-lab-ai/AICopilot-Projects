@@ -1,0 +1,334 @@
+Brandfolder
+
+AI Dashcam Plus Roadmap
+AI Dashcam Plus will reach full feature parity with AI Dashcam through a series of over-the-air updates in 2026. 
+Driver Safety
+
+
+Feature
+01/8/26
+04/02/26
+05/30/26
+06/30/26
+Safety - Instant risk detection
+Close following
+Available
+Available
+Available
+Available
+Stop sign violation
+Available
+Available
+Available
+Available
+Cell phone usage
+Available
+Available
+Available
+Available
+Seat belt violation
+Available
+Available
+Available
+Available
+Hard braking
+Available
+Available
+Available
+Available
+Hard acceleration
+Available
+Available
+Available
+Available
+Hard cornering
+Available
+Available
+Available
+Available
+Speeding over posted
+Available
+Available
+Available
+Available
+Speeding over policy
+Available
+Available
+Available
+Available
+Collision
+Available
+Available
+Available
+Available
+Near collision
+Available
+Available
+Available
+Available
+Distraction
+Available
+Available
+Available
+Available
+Unsafe lane change
+Available
+Available
+Available
+Available
+Obstructed camera
+Available
+Available
+Available
+Available
+Unsafe parking
+Available
+Available
+Available
+Available
+Smoking
+Available
+Available
+Available
+Available
+Drowsiness
+Not Available
+Available
+Available
+Available
+Lane swerving
+Not Available
+Available
+Available
+Available
+Forward collision warning
+Not Available
+Not Available
+Not Available
+Available
+Driver coaching
+Motive Safety Team
+Available
+Available
+Available
+Available
+Custom unsafe behavior detection
+Available
+Available
+Available
+Available
+Event Severity
+Available
+Available
+Available
+Available
+Driver App coaching
+Available
+Available
+Available
+Available
+Coaching Sessions
+Available
+Available
+Available
+Available
+Customizable Safety Score
+Available
+Available
+Available
+Available
+Accident management
+Collision detection / video upload
+Available
+Available
+Available
+Available
+Video recall
+Available
+Available
+Available
+Available
+Automated collision reporting
+Available
+Available
+Available
+Available
+First Responder
+Available
+Available
+Available
+Available
+360-degree visibility
+Live trip images
+Available
+Available
+Available
+Available0
+Live streaming
+Available
+Available
+Available
+Available
+Engine-off recording
+Not Available
+Not Available
+Available
+Available
+In-cab audio recording
+Available
+Available
+Available
+Available
+Quick Capture
+Available
+Available
+Available
+Available
+Driver Privacy Mode
+Available
+Available
+Available
+Available
+Customizable video quality and available footage
+Available
+Available
+Available
+Available
+Camera health (installation issues, disconnects, etc)
+Available
+Available
+Available
+Available
+
+
+
+Fleet Management
+
+
+Feature
+1/8/26
+03/30/26
+04/30/26
+06/30/26
+Tracking & Telematics
+Live map view
+Available
+Available
+Available
+Available
+Trip history
+Available
+Available
+Available
+Available
+Vehicles
+Available
+Available
+Available
+Available
+Drivers
+Available
+Available
+Available
+Available
+Geofences
+Available
+Available
+Available
+Available
+Dispatch
+Available
+Available
+Available
+Available
+Real Time Face Match (not available in IL)
+Available
+Available
+Available
+Available
+GPS mode (Zero telematics mode)
+In Beta 
+Available
+Available
+Available
+Hardwired mode
+Not Available
+Not Available
+Not Available
+Available
+PTO/AUX
+Not Available
+Not Available
+Not Available
+Available
+Compliance
+ELD US compliance
+Available
+Available
+Available
+Available
+ELD Canada compliance
+Not Available
+Available
+Available
+Available
+Data for IFTA reporting
+Available
+Available
+Available
+Available
+Proprietary LDV Odometer
+Available
+Available
+Available
+Available
+Sustainability
+Energy usage
+Available
+Available
+Available
+Available
+Idling
+Available
+Available
+Available
+Available
+Fuel performance
+Available
+Available
+Available
+Available
+CO2 estimates
+Available
+Available
+Available
+Available
+Fuel levels
+Available
+Available
+Available
+Available
+Maintenance
+Fault codes
+Available
+Available
+Available
+Available
+Scheduling based on engine hours or mileage
+Available
+Available
+Available
+Available
+Driver Vehicle Inspection Report (DVIR)
+Available
+Available
+Available
+Available
+History
+Available
+Available
+Available
+Available
+
+
+Note: Driver ID and various API support are coming in H2 2026.

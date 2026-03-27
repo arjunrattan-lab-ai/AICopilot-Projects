@@ -6,5 +6,49 @@
 		{
 			"path": "../.."
 		}
-	]
+	],
+	"settings": {
+		// Clean editor
+		"editor.minimap.enabled": false,
+		"editor.renderWhitespace": "selection",
+		"editor.bracketPairColorization.enabled": true,
+		"editor.stickyScroll.enabled": true,
+		"breadcrumbs.enabled": true,
+
+		// Sidebar
+		"explorer.compactFolders": false,
+		"explorer.confirmDelete": false,
+		"explorer.sortOrder": "type",
+
+		// Terminal
+		"terminal.integrated.defaultProfile.osx": "zsh",
+		"terminal.integrated.fontSize": 13,
+
+		// Files
+		"files.autoSave": "afterDelay",
+		"files.autoSaveDelay": 1000,
+		"files.exclude": {
+			"**/.git": true,
+			"**/.DS_Store": true,
+			"**/node_modules": true,
+			"**/__pycache__": true
+		},
+
+		// Search
+		"search.exclude": {
+			"**/node_modules": true,
+			"**/dist": true,
+			"**/build": true,
+			"**/.next": true
+		},
+
+		// Copilot
+		"chat.agent.enabled": true,
+
+		// Window behavior — new window for new projects
+		"window.openFoldersInNewWindow": "on",
+
+		// Restore sessions
+		"window.restoreWindows": "all"
+	}
 }

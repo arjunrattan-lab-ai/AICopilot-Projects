@@ -1,0 +1,224 @@
+# EVE Rollout — Planning Goal & Data Gathering Framework
+
+## The Goal
+
+Nihar's directive: *"We need to properly plan this for Q2 since it is an 'unplanned' project."*
+
+**What "planned" means:** Deliver a Q2 plan for EVE rollout to all events and all customers (including trials) that covers architecture, scope, latency tradeoffs, resourcing, rollout sequence, customer impact, and dependencies. The plan should be concrete enough that Shoaib's question — *"what is timeline for that?"* — has a firm answer.
+
+---
+
+## Buckets
+
+### Bucket 1: Architecture & System Design
+**What good looks like:** A clear end-to-end flow diagram showing how an event travels from device → cloud → EVE → bypass/annotator/foundation model → customer. The relationship between EVE, CBB, and the annotation pipeline is unambiguous. Every decision point in the flow is documented.
+
+**What I know:**
+- EVE pipeline uses Graph service → Cloud foundation models (Triton) + VLMs for annotation bypass
+- Graph service is being decomposed (AI-261) into lib-py-graph + `aiannotation` microservice
+- CBB handles high-confidence bypass directly in EFS; EVE + foundation models handle harder cases
+- AI-76 (Collision Foundation Model) feeds collision bypass pipeline; NCM v1 on preview with >90% recall, ~75% bypass
+- VLM post-processing (Pegasus v1.2) being added — precision 0.89, recall 0.18 on new prompt
+
+**What I'm missing:**
+- [ ] Full end-to-end flow diagram (device → customer)
+- [ ] Whether EVE orchestrates routing to CBB vs. foundation models vs. annotators, or if they're independent paths
+- [ ] Where exactly EVE sits vs. EFS confidence checks — sequential? parallel? fallback?
+
+**Questions mapped here:**
+- Michael Q1: Walk me through the EVE architecture end-to-end
+- Michael Q3: Are CBB and EVE two parallel paths or does EVE orchestrate?
+- Michael Q10: How should I think about EVE vs. CBB interaction for my project?
+
+---
+
+### Bucket 2: Scope & Coverage
+**What good looks like:** A complete matrix of every behavior type × customer segment showing: live on EVE, live on CBB only, pending, or not started. No ambiguity about what "all events" means.
+
+**What I know:**
+- **Collisions + Near-Collisions (Crash Pipeline):** Live, 100% SMB & MM, 60% bypass catching 99% collisions, 90%+ near-collisions
+- **Hard Brakes:** Rollout starting 2026-04-13, full by 2026-04-30, target 80%+ bypass (AI-252)
+- **SBV + SSV (CBB in EFS):** Live SMB with 80%+ bypass, MM/ENT rollout by 2026-03-31 (AI-24)
+- **SBV + Distraction (EVE pipeline):** CBB changes deployed to Prod, DAG activation staged SMB → MM → ENT (AI-81)
+- **Remaining DF behaviors:** Cell Phone, Yawning, Cam Obstruction, Smoking, Eating — foundation models trained, not in production EVE pipeline (AI-205)
+- **Remaining RF behaviors:** Close Following, Sudden Speed Variation, Unsafe Lane Change, Unsafe Passing — foundation models trained, not in production (AI-205)
+- **Trials:** Excluded from current rollout. No plan exists.
+
+**What I'm missing:**
+- [ ] Which behaviors map to "EVE rollout" vs. separate CBB bypass paths
+- [ ] Priority order for remaining behaviors — what comes next after SBV/Distraction?
+- [ ] What "all events" literally means to Shoaib/Nihar vs. what's technically feasible in Q2
+- [ ] Trial customer count and volume — how big is the gap?
+
+**Questions mapped here:**
+- Michael Q2: Which behaviors are fully live on EVE today vs. pending?
+- Michael Q9: What would extending EVE to trial customers require?
+- Nihar Q3: Where does EVE fit in Q2 priority stack-rank?
+
+---
+
+### Bucket 3: Latency & Performance
+**What good looks like:** A per-event-type latency table showing: baseline (no EVE), with EVE, with EVE + annotator, and with EVE + bypass. Acceptable latency thresholds defined per behavior type. Clear view of whether EVE makes things faster (via bypass) or slower (via added processing) for each event type.
+
+**What I know:**
+- Collisions through EVE add latency: processed by EVE first, then annotators (Michael)
+- TPs through AI annotator: p50: 6s, p80: 9s, p90: 13s added latency (Avinash)
+- E2E collision latency targets: p50 <3:00 min, p80 ~4:30 min, p90 ~5:30 min — currently missing targets (p50 ~3:04, p80 ~4:43, p90 ~6:23)
+- Amish asked to track latency on the AI annotator cohort specifically
+
+**What I'm missing:**
+- [ ] Per-behavior-type latency breakdown (AI events vs. collisions vs. hard brakes vs. DF vs. RF)
+- [ ] Latency for bypassed events vs. non-bypassed — does bypass actually reduce E2E latency?
+- [ ] Acceptable latency thresholds per event type — who decides?
+- [ ] Impact of EVE on trial customers' latency if/when extended
+
+**Questions mapped here:**
+- Michael Q4: What is the latency delta per event type when EVE is in the path?
+- Nihar (implicit): What latency is acceptable per event type?
+
+---
+
+### Bucket 4: Resourcing & Capacity
+**What good looks like:** Named engineers assigned to EVE Q2 work, with estimated effort in eng-weeks. Source teams identified. Capacity conflicts with other P0 projects explicitly called out and resolved (or escalated).
+
+**What I know:**
+- Parent initiative AI-3 owned by Raghu Dhara, PM: Nihar
+- Key assignees: Syed Adnan (Hard Brakes), Gautam Kunapuli (Crash Pipeline), Ali Hassan (Collision FM), Wajahat Kazmi (AI-81 + AI-205), Fahad Javed (CBB), Sainandan Tummalapalli (Graph migration)
+- BE work for Graph service revamp: Farhan Ali, Mohammad Daniyal Shaiq
+- Amish flagged systemic capacity conflict: "AI Annotator, hey motive, 2 way calling all has some tradeoff"
+- AIDC+ is juggling 3 priorities: parity, net-new features, UK/EU (Gautam)
+
+**What I'm missing:**
+- [ ] Who specifically is assigned to EVE trials rollout — nobody currently
+- [ ] How many eng-weeks the trials expansion requires
+- [ ] Which team(s) the engineers would come from
+- [ ] What gets deprioritized if EVE trials gets resourced
+- [ ] Whether AI-3 initiative has enough capacity to absorb this unplanned scope
+
+**Questions mapped here:**
+- Michael Q9: What would extending EVE to trials require in eng effort?
+- Nihar Q3: Where does EVE fit in Q2 priority stack-rank?
+- Nihar Q4: What does "properly plan this" look like — a resourcing ask?
+
+---
+
+### Bucket 5: Rollout Sequencing
+**What good looks like:** A phased rollout plan with clear gates: which behaviors first, which segments first, what metrics must be hit before expanding, and a calendar with milestones. The collision pipeline's incremental approach (start conservative, then crank up) applied to all event types.
+
+**What I know:**
+- Collision bypass playbook: "get the whole system running with this very low risk version before cranking it up" (Michael)
+- CBB rollout is staged: SMB → MM → ENT (DAG activation)
+- Hard Brakes: tracking starts 2026-04-13, full rollout by 2026-04-30
+- SBV/SSV: MM aggressive + ENT high-confidence by 2026-03-24, ENT aggressive + SMB very aggressive by 2026-03-31
+- Foundation model integration (Graph service) expected early April once Graph changes stabilize
+
+**What I'm missing:**
+- [ ] Rollout sequence for trial customers — which trials first? What's the gating criteria?
+- [ ] Rollout sequence for remaining behaviors (Cell Phone, Yawning, Close Following, etc.)
+- [ ] Definition of "done" for each phase — what metric clears the gate?
+- [ ] Calendar with milestones for Q2
+
+**Questions mapped here:**
+- Michael Q6: What's the plan and timeline to go from 60% → 90%+ collision bypass?
+- Michael Q7: NCM v1 path from preview to production — timeline?
+- Michael Q8: VLM post-processing — good enough to ship?
+- Nihar Q1: Is there an existing scoping doc for trials?
+
+---
+
+### Bucket 6: Customer & Business Impact
+**What good looks like:** A list of customer commitments that depend on EVE being fully rolled out. Impact on trial-to-paid conversion if trials don't get EVE. GNARR exposure if event quality degrades. Clear link between EVE rollout and customer-facing metrics (event delivery latency, event accuracy, bypass-driven cost savings).
+
+**What I know:**
+- EVE touches every AI event and every customer (excluding trials)
+- Shoaib set the 90% bypass benchmark publicly
+- GNARR target: $29.52m, pacing $19.7m — on track
+- Sonepar cited "missed accident" as reason for not choosing Motive (GNARR loss)
+- Annotation volume reduction target: 16% (AI-3 initiative goal)
+
+**What I'm missing:**
+- [ ] Which customer commitments depend on EVE being fully rolled out
+- [ ] Trial customer count and event volume — what's the business impact of excluding them?
+- [ ] Cost savings from bypass at scale — what's the annotation cost per event?
+- [ ] Whether any customer escalations are tied to EVE gaps
+
+**Questions mapped here:**
+- Nihar Q2: What customer commitments depend on EVE being fully rolled out?
+
+---
+
+### Bucket 7: Dependencies & Risks
+**What good looks like:** A dependency map showing what EVE depends on and what depends on EVE. Each dependency has an owner, a date, and a risk status. Mitigations identified for anything red.
+
+**What I know:**
+- **Graph Poly Repo Migration (AI-261):** Due 2026-03-31, still "To Do" — blocks AI-81 annotation automation
+- **Graph service revamp (BE work):** Integration expected early April — blocks foundation model integration
+- **SafetyEvents Darwin:** Planned for early April — isolates safety tables from Fleet DB
+- **AIDC+ capacity conflict:** Engineers pulled to AI Annotator + incident work, pushing AI features later
+- **IMU shortage:** Hits harsh event models by June (from MBR)
+- **Confidence-Based Bypass (your project):** Depends on understanding EVE routing
+
+**What I'm missing:**
+- [ ] Real status of Graph migration (AI-261) — is 03/31 realistic?
+- [ ] Whether Darwin launch affects EVE pipeline
+- [ ] Whether Hard Brakes rollout (AI-252) is at risk if Graph migration slips
+- [ ] Cross-team dependencies with AIDC+ teams
+
+**Questions mapped here:**
+- Michael Q5: Graph migration real status — does AI-81 depend on it?
+- Michael Q10: EVE vs. CBB interaction for my project
+
+---
+
+## Audit Summary
+
+| Bucket | What Good Looks Like | Status | Biggest Gap |
+|--------|---------------------|--------|-------------|
+| 1. Architecture | E2E flow diagram, EVE vs CBB relationship clear | Partial — pieces known, full picture missing | No flow diagram; EVE vs CBB routing unclear |
+| 2. Scope | Behavior × segment matrix, "all events" defined | Partial — live behaviors known, remaining undefined | Trial scope and behavior priority order missing |
+| 3. Latency | Per-event-type latency table with thresholds | Weak — only collision annotator latency known | No per-behavior breakdown; no defined thresholds |
+| 4. Resourcing | Named engineers, effort estimates, source teams | Weak — current assignees known, trials unscoped | Zero people assigned to trials; no effort estimate |
+| 5. Rollout Sequence | Phased plan with gates and calendar | Partial — collision/CBB pattern exists | No trials sequence; no Q2 milestone calendar |
+| 6. Customer Impact | Customer commits list, GNARR exposure, trial impact | Weak — high-level known, specifics missing | No customer commit list tied to EVE |
+| 7. Dependencies | Dependency map with owners, dates, risk status | Partial — key deps identified, mitigations missing | Graph migration at risk; cascade unclear |
+
+**Overall:** Buckets 1, 2, 5 are partially filled from Technical Updates. Buckets 3, 4, 6 are the biggest gaps — these are where 1:1 questions need to land hardest.
+
+---
+
+## Questions by Person × Bucket
+
+### Michael Benisch
+
+| # | Question | Bucket |
+|---|----------|--------|
+| 1 | Walk me through EVE architecture end-to-end | Architecture |
+| 2 | Which behaviors live on EVE vs. pending? | Scope |
+| 3 | Are CBB and EVE parallel paths or does EVE orchestrate? | Architecture |
+| 4 | Latency delta per event type when EVE is in the path? | Latency |
+| 5 | Graph migration (AI-261) real status — does AI-81 depend on it? | Dependencies |
+| 6 | Plan and timeline for 60% → 90%+ collision bypass? | Rollout Sequence |
+| 7 | NCM v1 path from preview → production? | Rollout Sequence |
+| 8 | VLM post-processing — good enough to ship? | Rollout Sequence |
+| 9 | What would extending EVE to trials require in eng effort? | Resourcing |
+| 10 | EVE vs. CBB interaction for my Confidence-Based Bypass project? | Architecture |
+
+### Nihar Gupta
+
+| # | Question | Bucket |
+|---|----------|--------|
+| 1 | Is there an existing scoping doc for trials, or starting from scratch? | Rollout Sequence |
+| 2 | What customer commitments depend on EVE being fully rolled out? | Customer Impact |
+| 3 | Where does EVE fit in Q2 priority stack-rank? | Resourcing |
+| 4 | What does "properly plan this" look like to you? | Resourcing |
+
+### Coverage Gaps — Questions I Haven't Written Yet
+
+| Gap | Bucket | Suggested Question | Ask Who |
+|-----|--------|--------------------|---------|
+| No per-behavior latency data | Latency | "Can we get a latency breakdown for bypassed vs. annotated events, per behavior type?" | Avinash / Dhiraj |
+| No trial customer volume data | Customer Impact | "How many trial customers are excluded from EVE today, and what's their event volume?" | Nihar |
+| No annotation cost-per-event | Customer Impact | "What is the cost per annotated event, so we can size the savings from bypass at scale?" | Chandra / Raghu |
+| No acceptable latency thresholds | Latency | "Who decides what latency is acceptable per event type — PM, Eng, or customer commitments?" | Nihar / Amish |
+| No cascade analysis for Graph slip | Dependencies | "If Graph migration slips past 03/31, what breaks? Which downstream epics are blocked?" | Sainandan / Michael |
+| No AIDC+ capacity conflict resolution | Resourcing | "If EVE trials needs engineers from AIDC+, what gets pushed? Who makes that call?" | Nihar / Amish |
