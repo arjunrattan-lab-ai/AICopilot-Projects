@@ -41,5 +41,30 @@ Each task needs these fields:
 - If it doesn't exist → create `Running Tasks.md` in the project folder with the table
 - Sort by due date (earliest first)
 
-**Step 5: Trigger master aggregation**
+**Step 5: Handle completed tasks**
+
+When a user marks a task as complete (or asks to mark one done):
+
+**Status Convention (checkbox markers):**
+- `[ ]` = Not Started
+- `[-]` = In Progress
+- `[~]` = Pending Others
+- `[x]` = Completed
+
+**Status update rules:**
+- "mark as started" / "in progress" → change marker to `[-]` and append `🟡 In Progress` after the due date
+- "pending others" / "waiting" → change marker to `[~]` and append `⏳ Pending Others` after the due date
+- "mark as complete" / "done" → change marker to `[x]`, wrap task name in `~~strikethrough~~`, and move the task to a **Finished Tasks** section at the bottom of the Running Tasks file
+
+**Finished Tasks format:**
+```markdown
+## Finished Tasks
+
+- [x] ~~**{task name}**~~ — Completed: {date} | Was due: {due date}
+```
+
+- Completed tasks are removed from the active table and placed in the Finished Tasks section
+- Sort finished tasks by completion date (most recent first)
+
+**Step 6: Trigger master aggregation**
 - After updating, remind the user to run the master aggregator to refresh [Arjun's Master Action Items.md](../../../00%20Master%20Punch%20List/Arjun's%20Master%20Action%20Items.md)

@@ -1,0 +1,320 @@
+[00:00] Nihar Gupta, Arjun Rattan: Nihar Gupta, Arjun Rattan joined
+[00:02] Arjun Rattan: So like when you have an orientation around what you're trying to do, everything starts coming together quicker.
+[00:08] Nihar Gupta: Yeah.
+[00:08] Arjun Rattan: Yeah.
+[00:09] Nihar Gupta: That's awesome. Super cool to hear.
+[00:12] Arjun Rattan: Yeah.
+[00:13] Nihar Gupta: Who are you engaging with on Eve?
+[00:16] Arjun Rattan: Michael Benesh. And there's a bunch of other people as well. I've written the doc out. Let me see.
+[00:24] Arjun Rattan: And I was just going to ping this to you later in the day just to understand like who should I go with on this?
+[00:29] Arjun Rattan: I have some open questions. I can run with it on my own, but let me. Give me one sec. Where is it?
+[00:52] Arjun Rattan: I'll ping it to you as well right now so you can take a look. And I'll ping it on the chat as well.
+[01:05] Nihar Gupta: Okay.
+[01:08] Arjun Rattan: And then the other one I'm going to go pick up is the pedestrian model for AIOC plus.
+[01:15] Arjun Rattan: So I started doing a little bit of research on that. Figured out I found a couple of docs.
+[01:19] Arjun Rattan: I'm going to ping the PMs on that.
+[01:22] Arjun Rattan: From what I understand, these guys are not resourced adequately in. In. In H1.
+[01:28] Arjun Rattan: So they're going to ramp up very quickly in H2.
+[01:30] Arjun Rattan: But we have to be ready with our model to go as soon as they GA.
+[01:35] Arjun Rattan: Right now their plan makes it sound like D +12, which is like three months after the GA that they expect the model to be there.
+[01:43] Arjun Rattan: That's what I read initially. So I looked at their. They have a. This one. Let me share.
+[01:59] Arjun Rattan: So I found a couple of docs through Glean. Again, this is all preliminary research.
+[01:59] Arjun Rattan: Arjun Rattan started sharing your screen
+[02:04] Arjun Rattan: So based on this doc and there is and AI concept review context notes.
+[02:17] Arjun Rattan: This one, what I've understood is that where is it they have some dates.
+[02:28] Nihar Gupta: Can you send this to me actually?
+[02:30] Arjun Rattan: Sure, yeah.
+[02:32] Nihar Gupta: Let me see. In this doc.
+[02:34] Arjun Rattan: Yeah. This is something I just created using gleaning.
+[02:38] Nihar Gupta: This is yours. Okay, got it. Because I assume now there's another doc
+[02:43] Arjun Rattan: with open items and everything. I'm trying to find that. I'll send you that original doc.
+[02:48] Arjun Rattan: Oh yeah, this is the one. Software phasing. And this is the one I found in.
+[02:54] Nihar Gupta: Yeah. Okay.
+[02:55] Arjun Rattan: This is the original doc I was using. I'll ping this to you.
+[03:00] Nihar Gupta: Sounds good.
+[03:01] Arjun Rattan: Yep. So I've been looking into it since yesterday. Let me see. Where's the chat?
+[03:05] Nihar Gupta: Oh yeah, there it is. So this is. This is an official doc or this
+[03:09] Arjun Rattan: is an official doc.
+[03:10] Nihar Gupta: Yeah, this is an official team is built. Okay.
+[03:12] Nihar Gupta: Because I was asking for dates and I hadn't seen them yet. What's. What are we look.
+[03:16] Nihar Gupta: Looking at for dates?
+[03:18] Arjun Rattan: So let's see. Video recall, blah, blah, Blah. You'll have to give me a minute. Beta September 15th. Wow.
+[03:28] Arjun Rattan: Yeah, that's why I wanted to talk to you. And November 30th.
+[03:32] Nihar Gupta: And then what does that mean then? If MVP is. Is November, then what is the beta?
+[03:37] Arjun Rattan: Yeah. And so again, this is just like two hours old work or what I've discovered.
+[03:44] Arjun Rattan: And then the other thing is for AI, for multiple.
+[03:48] Arjun Rattan: They haven't really even factored in AI except saying, oh, hey, the AI team should do something.
+[03:54] Nihar Gupta: And so basically, timing of this is what?
+[03:58] Arjun Rattan: This October, November, from what I understand.
+[04:00] Nihar Gupta: Even though not the September date, because I saw September for beta, so it's unclear, like if you go lower alpha,
+[04:06] Arjun Rattan: they have a July. See, where was it?
+[04:09] Nihar Gupta: Beta September.
+[04:10] Arjun Rattan: Yeah. Okay, so they have a beta September date. So we are targeting beta September.
+[04:17] Nihar Gupta: Okay. So that means we have to start in Q2. Yeah. So that means we have to deprioritize something else.
+[04:22] Arjun Rattan: Yep.
+[04:24] Nihar Gupta: Okay, let's figure out what that is. Do we have. I think we set up.
+[04:28] Nihar Gupta: Do we set up time with Michael on this?
+[04:31] Arjun Rattan: I am talking to Michael, but on an unrelated field. I haven't started any conversation on this.
+[04:37] Arjun Rattan: I can set up some time.
+[04:39] Nihar Gupta: Yeah, let's find some time.
+[04:41] Nihar Gupta: I set up time with Mark and you to talk about use cases next week, but we need to talk about this project as well and how we staff it.
+[04:54] Nihar Gupta: Yeah.
+[04:55] Arjun Rattan: So those are the two I have gotten my teeth into in the last one day.
+[05:01] Nihar Gupta: Okay. Okay, that's great. These are. These are two awesome important projects to dig into.
+[05:08] Nihar Gupta: And then I'd say, like giving support to Aachen on some of the projects he's driving as well would probably be good.
+[05:16] Nihar Gupta: You know, he's. He's a. He joined last year.
+[05:19] Nihar Gupta: He's showing good progress, but he's a senior pm, so a little bit junior.
+[05:24] Nihar Gupta: And so I just want to make sure that he's supported and that he's driving his projects with the AI team.
+[05:32] Nihar Gupta: Well. Right. So pedestrian collision warning is the key one.
+[05:35] Nihar Gupta: He's driving, which has, I think an end of Q2 date. So that's another thing to get engaged on.
+[05:41] Nihar Gupta: And just the features in general, I would say, like for fatigue, probably the plan is.
+[05:46] Nihar Gupta: And I talked to Devin yesterday. You know, again, we.
+[05:49] Nihar Gupta: Devin and I have talked about moving him over to the experience side like you and I talked about on Wednesday.
+[05:54] Nihar Gupta: That's still the plan. That's still what he wants to do. He needs to get fatigue out.
+[05:57] Nihar Gupta: Fatigue is probably the most important AI feature we're working on that needs to deploy a lot of pressure, a lot of customer demand that maybe you've seen in different channels, but this one he needs to get out the fatigue.
+[06:12] Nihar Gupta: Event detection, then alerts will come quickly after that could be something actually you drive and just building the plan for alerting.
+[06:22] Nihar Gupta: Alerting essentially is like, okay, right now we're optimizing more for recall, less on precision.
+[06:27] Nihar Gupta: And we have our annotators supporting that. Right.
+[06:30] Nihar Gupta: To, to make it high precision from a customer standpoint, but to do alerting we're going to have to have higher precision.
+[06:36] Nihar Gupta: So that's the transition we need to make over the next couple months and then rolling this out onto AIDC as well.
+[06:43] Nihar Gupta: So we need to figure out the kind of handoff on that and what the right timing is, you know, and make sure that, you know, even, even when Devin's off, I think he'll still be supporting in some capacity.
+[06:53] Nihar Gupta: He's still part of the team, obviously. Does that make sense?
+[06:56] Arjun Rattan: Yeah, yeah, that makes sense. I can sync up with Devin a little bit more on the plan.
+[07:01] Nihar Gupta: Yeah.
+[07:01] Arjun Rattan: When is the handoff imminent and then what will be remaining and what will need to be done?
+[07:06] Nihar Gupta: Yeah, okay.
+[07:07] Nihar Gupta: He, I mean over the next month he needs like his number one focus is getting this out so into GA for aidc.
+[07:14] Nihar Gupta: AIDC plus will come later in like May, but that's his number one priority.
+[07:19] Nihar Gupta: And so nothing should, you know, detract from that.
+[07:22] Nihar Gupta: But yeah, I mean, post that and even, even in the interim we should figure out a plan for the other stuff too, like alerting.
+[07:28] Nihar Gupta: Yeah. And then even after we get to that, like we're going to keep making improvements.
+[07:31] Nihar Gupta: This is a key model. So even once we launch, we're not done right.
+[07:35] Nihar Gupta: We probably into H2, we're going to have some ongoing post GA activities to keep improving it, you know, keep driving up recall and precision because this is such a game changing action.
+[07:46] Nihar Gupta: And from what we can tell, like Samsara's version of this is awful.
+[07:50] Nihar Gupta: Like we've seen some pretty bad feedback from trials on how their product works here.
+[07:55] Nihar Gupta: So this is a pretty big differentiator.
+[07:57] Nihar Gupta: And Nadine has, I thought, a good feature here, but I'm seeing some.
+[08:00] Nihar Gupta: Netradine is the other big competitor.
+[08:02] Nihar Gupta: I'm seeing some indications that they also have, they suffer from a lot of false positives.
+[08:08] Nihar Gupta: So that's interesting because we haven't had much intel on that.
+[08:11] Nihar Gupta: But we're seeing them more in trials. So I've seen now at least a few data points that suggest that.
+[08:15] Nihar Gupta: So we'll keep track of that.
+[08:16] Nihar Gupta: But I think this is going to be a pretty critical differentiator for us from an AI standpoint.
+[08:20] Arjun Rattan: Got it. And one thing on this, in terms of alerts, like what I understand there are two alerts.
+[08:28] Arjun Rattan: One are edge alerts, which go to the driver in cab, and then there are alerts that are propagated to the fleet manager through the fleet manager app.
+[08:36] Arjun Rattan: And we tend to use annotators for the fleet manager app to make sure that it is precise.
+[08:42] Nihar Gupta: When you, by the way, just on the nomenclature, everything you said was technically correct.
+[08:47] Nihar Gupta: But when we say fleet app, fleet app actually is like we have a driver app and we have a fleet app.
+[08:51] Nihar Gupta: Right. Those are actual mobile apps.
+[08:53] Nihar Gupta: So when we say fleet app, that actually refers to the mobile version of what the. Of our dashboard.
+[08:58] Nihar Gupta: Cloud based dashboard. Right. Yeah.
+[09:00] Nihar Gupta: Think of this more from like a, you know, from, from a dashboard standpoint of what we show on the dashboard is only true positives because we're annotators.
+[09:09] Nihar Gupta: The fleet app just replicates that.
+[09:11] Arjun Rattan: Yeah, got it.
+[09:12] Nihar Gupta: Yeah.
+[09:13] Arjun Rattan: So the underlying data source is vetted by the annotators before it's propagated either through a web or a mobile distribution mechanism.
+[09:21] Nihar Gupta: Exactly.
+[09:22] Arjun Rattan: And for the driver alerts, these I would imagine would still be on the edge. Right.
+[09:30] Arjun Rattan: Like, so I'm guessing some models we might do driver alerts on the edge. Some we might.
+[09:34] Nihar Gupta: Oh, actually, no. Everything even on the driver apparently goes through the validation process.
+[09:39] Nihar Gupta: So basically once we validated, then we push everywhere to K2Web to, you know, the passport to the fleet app, to the driver app.
+[09:48] Arjun Rattan: Okay, this is great contest because I was trying to figure out, hey, but I am sending high precision here, but I might be giving them false alerts there, but okay, got it.
+[09:55] Nihar Gupta: Yeah, yeah, exactly. The only thing that doesn't go through review, obviously is whatever the.
+[09:59] Nihar Gupta: The in cab alert directly from the camera.
+[10:02] Arjun Rattan: Okay, so get the sensor, send it, come back. Okay, that tracks it makes sense to me.
+[10:08] Nihar Gupta: So just also actually you're hitting on a point which is like this is why it's so important, why we spent so much time over the last two years optimizing that flow to reduce the latency.
+[10:18] Nihar Gupta: Right.
+[10:18] Nihar Gupta: So this goes back to the P0, I think our top project, which is like AI pipeline reliability that Diraj is driving.
+[10:27] Nihar Gupta: Have you caught up with Diraj yet on this project? I think you did, right?
+[10:30] Arjun Rattan: Or no, which one?
+[10:34] Nihar Gupta: It's the top project in our mbr. It's called AI Pipeline for AI reliability.
+[10:42] Nihar Gupta: Why can't I think of the name?
+[10:43] Arjun Rattan: But it's Our is that for collisions
+[10:46] Nihar Gupta: revamp and reliability AI pipeline.
+[10:50] Arjun Rattan: Yes, I, I've, I've read that. Let me just.
+[10:53] Nihar Gupta: One sec. Basically this here I just, I took over screen share.
+[10:54] Nihar Gupta: Nihar Gupta started sharing their screen
+[10:54] Nihar Gupta: Nihar Gupta stopped sharing their screen
+[10:56] Nihar Gupta: But basically this project here where they're just driving on the supporting to some degree, but not honestly like it's mostly engineering driven and I think from talking to Dheeraj earlier this week, I think he wants more PM support, honestly.
+[11:10] Nihar Gupta: So this is somewhere where Ana, they think is spread thin and not giving him as much PM support as we'd like.
+[11:14] Nihar Gupta: But this is about overall observability, reliability of our pipeline. All these dashboards.
+[11:23] Nihar Gupta: You should look at this dashboard that these guys built. It has so much detail on what's happening.
+[11:28] Nihar Gupta: Full pipeline. And this feeds directly into this metric of end to end AI event latency. Right?
+[11:37] Nihar Gupta: Collision latency is something we've been focusing on for a while and getting this down because the faster we can obviously deliver collisions alerts, the faster they can react, right?
+[11:46] Nihar Gupta: So on average we do this in three minutes.
+[11:49] Nihar Gupta: That's from when it happens to when it uploads to post transcoding to annotator review to hitting the dashboard.
+[11:57] Nihar Gupta: On average we do this in three minutes, which is pretty remarkable. That includes human review.
+[12:01] Nihar Gupta: P90 needs some work. We're trying to get it down to five and a half minutes.
+[12:05] Nihar Gupta: But AI event latency, more specifically going back to that project, what we haven't done historically is focused a lot on AI event latency.
+[12:13] Nihar Gupta: We're using the same construct for collision latency and now saying, hey, let's optimize our AI event latency as well and make sure the pipeline is healthy, reduce all the latency, understand when things are breaking and have monitors around it so we can quickly remediate those issues.
+[12:27] Nihar Gupta: So that's what this whole project is about.
+[12:29] Nihar Gupta: But it goes back to the point of we have to reduce latency as much as possible because we need to deliver these events quickly.
+[12:34] Nihar Gupta: Things like fatigue events, you know, we can't, we can't delay those 10 minutes.
+[12:38] Nihar Gupta: Like if there's a fatigue event that has to be reviewed with top priority and then pushed as fast as possible.
+[12:44] Nihar Gupta: So for every AI event we have an annotator priority.
+[12:48] Nihar Gupta: We don't just send them to the annotator and then like, you know, put them in a queue.
+[12:51] Nihar Gupta: We actually have a prioritized listing that you should talk to Arshdeep about.
+[12:55] Nihar Gupta: But basically fatigue should be high as drowsiness is very high.
+[12:59] Nihar Gupta: Things like, you know, you know, close following is a bit lower. Smoking is Lower.
+[13:05] Nihar Gupta: Like those aren't as critical to deliver immediately.
+[13:07] Nihar Gupta: Fatigue requires like, potentially needs like intervention.
+[13:10] Nihar Gupta: So it goes back to health being important, latency being critical, and that helps us deliver quickly across all those surfaces we just talked about.
+[13:18] Nihar Gupta: Yeah.
+[13:18] Arjun Rattan: So I spoke to about the first project. He gave me access to a datadog dashboard.
+[13:20] Nihar Gupta: Nihar Gupta stopped sharing their screen
+[13:20] Nihar Gupta: Nihar Gupta started sharing their screen
+[13:23] Arjun Rattan: He walked me through it. I've. I mean, I'm.
+[13:28] Arjun Rattan: I'm still trying to get set up on the dashboard on my own site because there is this issue that was highlighted in the MBR yesterday.
+[13:34] Arjun Rattan: One is I don't have access.
+[13:36] Arjun Rattan: And once I even get access, he told me I'd have to, he'd have to create copies for me and all of that manual stuff.
+[13:42] Arjun Rattan: And I was like, dude, at this stage I might be just working with stale data. So still figuring that.
+[13:47] Nihar Gupta: Okay, but that, that is, that is the good.
+[13:49] Nihar Gupta: So I'm glad you met with him, but I think it'd be great for you to actually get more engaged on this and drive it and well, between you and Anand, you figure it out.
+[13:59] Nihar Gupta: Right.
+[13:59] Nihar Gupta: But I think like, because ultimately I want him on your team and I'm going to reinforce that with him.
+[14:04] Nihar Gupta: But like you figure out how to, how to divide and conquer. But this is a key project.
+[14:08] Nihar Gupta: And then having goals around latency and making sure that the pipeline is healthy, like you should, you know, obviously this is super important.
+[14:14] Arjun Rattan: Yeah, makes sense. So in terms of working with the PMs right now. Right. And engaging etc.
+[14:20] Arjun Rattan: And supporting them.
+[14:22] Arjun Rattan: Last time we spoke you said your plan was to tell the team after the review cycle was done, etc.
+[14:26] Arjun Rattan: Has that plan changed?
+[14:29] Nihar Gupta: No, I don't think so. I think that'll be great over the next couple weeks.
+[14:33] Arjun Rattan: Okay.
+[14:33] Nihar Gupta: So yeah, probably like mid April or something.
+[14:36] Arjun Rattan: Yeah. Because right now when I go to Anand, the things are not very clear.
+[14:39] Arjun Rattan: So if I go tell him like, oh, hey, I'm gonna start doing this and I'm gonna help support you.
+[14:43] Arjun Rattan: Can you give me a rundown? Etc.
+[14:45] Nihar Gupta: Let me, let me talk to him actually today and then we can do a broader announcement later.
+[14:50] Nihar Gupta: But Avinash is aware. I talked yesterday. Arsh is aware or should be aware.
+[14:58] Nihar Gupta: I feel like we've talked about this in the past, but I can reinforce with her.
+[15:03] Nihar Gupta: Aen ain again we talked about on Wednesday.
+[15:07] Nihar Gupta: I think he, he's not aware of kind of Devin's, you know, changing, but like his focus won't, won't change.
+[15:16] Nihar Gupta: So I think you as like the overall AI lead, his assumption probably is that Devin reports to you and that therefore he's in your org, so there's no issue there.
+[15:23] Nihar Gupta: Engaging and then on. And I'll talk to. So that there's no confusion.
+[15:27] Arjun Rattan: Okay, sounds good.
+[15:28] Arjun Rattan: So then just to summarize, the three, four projects that you're highlighting to me are AI reliability, reducing, Sorry, latency.
+[15:38] Arjun Rattan: Basically work on latency both for AI events as well as collision.
+[15:41] Arjun Rattan: The other one is focus on pedestrian and then finally focus on event validation engine as starter projects.
+[15:49] Nihar Gupta: I think that's right. I would say on the AI pipeline revamp, that's actually more AI event focused.
+[15:53] Nihar Gupta: Right. I think, like, you can.
+[15:56] Nihar Gupta: You should get engaged on collision latency as well, because it's important.
+[16:00] Nihar Gupta: But I would put that a little bit lower because there's a known path there.
+[16:06] Nihar Gupta: Avinash is doing a good job of driving it. Engage, learn, understand 100.
+[16:12] Nihar Gupta: But Eve is kind of higher priority because, you know, it's in flight and there's like, we need to make product decisions, like on a regular basis.
+[16:19] Nihar Gupta: Pedestrian detection, obviously we gotta. We gotta get alignment on that.
+[16:22] Nihar Gupta: So those need more product input. Latency is more like it's in a state where it's running.
+[16:28] Nihar Gupta: So learn, but don't like over index on it. Yeah.
+[16:30] Arjun Rattan: And so then it's event validation, pedestrian, and then third one is pipeline health.
+[16:39] Nihar Gupta: Yeah.
+[16:40] Arjun Rattan: Okay.
+[16:40] Nihar Gupta: Yeah.
+[16:40] Arjun Rattan: All right.
+[16:41] Nihar Gupta: We'll keep, like, layering things on, but I think, like, that's.
+[16:44] Nihar Gupta: That's the other thing is I'd say pedestrian collision warning, like you didn't mention. Right.
+[16:48] Nihar Gupta: So there's two different things. One is AI Omnicam plus AIOC plus
+[16:53] Arjun Rattan: pedestrian and focus as well as on pedestrian collision warning.
+[16:58] Nihar Gupta: Yeah, sorry, maybe you did say that.
+[16:59] Nihar Gupta: I'm not sure, but like, yes, I want to make the distinction between those two things.
+[17:03] Arjun Rattan: You're right. I lost the distinction there. I just clubbed them together.
+[17:08] Arjun Rattan: And so pedestrian collision is with Devin right now.
+[17:13] Nihar Gupta: Right?
+[17:14] Arjun Rattan: That's the one with. In cab alerts.
+[17:16] Nihar Gupta: Pedestrian. No. Pedestrian collision warning is actually a net new feature that Aachen is working on.
+[17:21] Arjun Rattan: Ajahn. Okay, great. Ajahn. All right, awesome. So I will. That's the support action concept.
+[17:27] Nihar Gupta: Okay, let's just.
+[17:28] Nihar Gupta: Actually, can we just go through the MBR real quick and look at anything else that maybe we should think about getting your support on?
+[17:36] Nihar Gupta: I think that's a good list. But let's just look at our P0 project.
+[17:39] Nihar Gupta: So pipeline, we talked about parity projects. Anand is driving this. So. And this is AI and non AI.
+[17:40] Arjun Rattan: Arjun Rattan stopped sharing your screen
+[17:40] Arjun Rattan: Arjun Rattan started sharing your screen
+[17:47] Nihar Gupta: But for the AI stuff, you should be engaged on, like what the timing is for Fatigue index and some of the other features.
+[17:52] Nihar Gupta: That's actually what this is.
+[17:53] Nihar Gupta: So we break it down into safety, non AI projects and then safety, AI and telematic projects.
+[17:58] Nihar Gupta: So all of these you should be aware of like what the timing of delivery for these are.
+[18:03] Nihar Gupta: Anand is driving this. So that's good sev annotation incident risk reduction.
+[18:08] Nihar Gupta: This is like actually March 31st. Almost done. So more just for your awareness. Arsha is driving this.
+[18:15] Nihar Gupta: By the way. Arsh is also relatively new. Like she joined about six months ago.
+[18:21] Nihar Gupta: I want to give her more and engage her more. I think she's for the things that I've given her.
+[18:25] Nihar Gupta: She's driven very well and she's a good communicator and good product sense and so I want to keep giving her more.
+[18:31] Nihar Gupta: So you should think about how to like give.
+[18:34] Nihar Gupta: Give her more workload especially because annotations I think over time will just be less critical.
+[18:39] Arjun Rattan: Right.
+[18:39] Nihar Gupta: With all the EV stuff.
+[18:40] Nihar Gupta: So we want to make sure that we have a good path for her to, to take on more scope.
+[18:44] Nihar Gupta: Just for you to think about. AI annotator.
+[18:49] Nihar Gupta: This is like essentially we should probably get consistent on the naming, but that's what that is.
+[18:56] Nihar Gupta: AI release management revamp.
+[18:57] Arjun Rattan: What's the difference between 4a and 4b
+[19:01] Nihar Gupta: collisions versus all non collision? Okay, yeah, this is another good one actually.
+[19:08] Nihar Gupta: Release management revamp.
+[19:10] Nihar Gupta: One of the challenges that we've had historically is basically releasing is like the AI team kind of just like oftentimes historically does things behind the background to improve AI features, which in theory is great, but the impact of that downstream is.
+[19:30] Nihar Gupta: Is high. So let me give you an example.
+[19:32] Nihar Gupta: If they tweak some configurations or make a feature improvement, all of a sudden recall might increase for a certain behavior significantly.
+[19:40] Nihar Gupta: Let's say in some cases I've seen it increase 50, 70% downstream from a customer standpoint, all of a sudden Now I'm getting 50% to 70% more events.
+[19:50] Nihar Gupta: Maybe my safety score is impacted for those behaviors. Maybe I've got more events to review.
+[19:56] Nihar Gupta: So it's more load for my team, more load for the drivers to review if they're reviewing the driver app overall, just more events that they weren't aware of or ready for.
+[20:06] Nihar Gupta: So one thing we want to get better on this year is actually having more predictability in the changes that the team makes upstream.
+[20:14] Nihar Gupta: A lot of times it was just invisible.
+[20:16] Nihar Gupta: Like basically things were happening behind the scenes and nobody really knew.
+[20:18] Nihar Gupta: And then all of a sudden we had a customer escalation saying hey, what happened?
+[20:21] Nihar Gupta: Why am I getting all these more events now? Like, can you explain this to me?
+[20:25] Nihar Gupta: Then we've got to be on our heels and explain what happened. We want to move this dynamic to.
+[20:30] Nihar Gupta: Here are all the changes that are coming forth in an upcoming release.
+[20:34] Nihar Gupta: Every month we do kind of a new release, right?
+[20:36] Nihar Gupta: Here are all the changes, here's all the precision recall impacts.
+[20:39] Nihar Gupta: Here's what we would expect the impact to be.
+[20:41] Nihar Gupta: And then like making sure that we understand what that is.
+[20:44] Nihar Gupta: And then the last piece is communicating that upfront in like, you know, how companies have release notes for things doing better about how to actually communicate that versus not communicating them being reactive.
+[20:57] Nihar Gupta: So that's what this project is about. It's something that Newman is driving. But honestly, Harish.
+[21:03] Nihar Gupta: Harish is one of the new leads that joined last year and he's amazing.
+[21:09] Nihar Gupta: He actually have a very heavy hand on this.
+[21:11] Nihar Gupta: So you should look at like this activity tracker here to give you an example of like what these guys are putting into this report.
+[21:18] Nihar Gupta: For every new release, you can see kind of like how they're formulating it. And.
+[21:23] Nihar Gupta: And so, yeah, this is another key project that we do need some more product input on.
+[21:28] Nihar Gupta: Honestly, like, I don't know how much on it has been engaged on this.
+[21:31] Nihar Gupta: It could be something good for you to drive and then figuring out what are the comms, you know, piece that I mentioned.
+[21:37] Arjun Rattan: Sounds good. We'll keep going there. There's the fatigue index.
+[21:46] Nihar Gupta: Yes, Sorry, one second. Okay, so fatigue index provision. You're good, that's good. Live stream.
+[22:03] Nihar Gupta: That's fine. Geofence trigger. Non AI. Non AI. ALPR is in good state. ANAND is driving it. I like VR.
+[22:12] Nihar Gupta: You should obviously get engaged.
+[22:14] Nihar Gupta: It's still AI stuff, you know, but lower priority speed sign detection is a good one for you to get engaged on with Avinash.
+[22:21] Nihar Gupta: This one requires more product input and we're still figuring out, making decisions on it.
+[22:26] Nihar Gupta: So this is like the speed sign detection 1. Custom event tags, Pedestrian collision warning.
+[22:31] Nihar Gupta: We talked about custom event tags, not AI Visualizations 2.0.
+[22:36] Nihar Gupta: This one, actually, I think over time we should get this on your radar too.
+[22:40] Nihar Gupta: I don't want to put too much on you too quickly, but this is one where basically Michael is saying, hey, I want to.
+[22:46] Nihar Gupta: We basically blocked call it blocked because we didn't have resourcing for it.
+[22:49] Nihar Gupta: We ended up moving them to eve, which wasn't a project when we started this half.
+[22:53] Nihar Gupta: And then it became a big project because of a shoai push and with good reason. But like.
+[23:00] Nihar Gupta: And there's more backstory. But anyway, that became a project. We pulled resources off.
+[23:04] Nihar Gupta: Michael said he wants to go work on this. I think with a reach on in the gen.
+[23:08] Nihar Gupta: Basically them building some kind of like agent to do this.
+[23:13] Nihar Gupta: So this one, there's nobody really driving it right now.
+[23:18] Nihar Gupta: It would be good to actually talk with Michael about what his plan is here and what he needs from product.
+[23:22] Nihar Gupta: But I'd say this is another one that we should explore in Q2. Getting ramped up on.
+[23:28] Nihar Gupta: I'm just giving you the lay of the land. Let's figure out the timing and. Right.
+[23:32] Nihar Gupta: Passenger detection is one that Anand is driving.
+[23:35] Nihar Gupta: Another one to get engaged on another AI feature and then vlm. Right.
+[23:39] Nihar Gupta: I think you already are someone engaged on this with Devin.
+[23:43] Arjun Rattan: Yeah. Okay, got it. So this is useful for me.
+[23:48] Arjun Rattan: I can go with the initial priority that I mentioned and then for the other ones, I will just come up to speed.
+[23:55] Arjun Rattan: And now that the team is aware, once you've spoken with Anand, I'll speak with him on Monday and then start getting a more deeper download of all the things and trying to figure out where there is some slack.
+[24:00] Nihar Gupta: Nihar Gupta stopped sharing their screen
+[24:00] Nihar Gupta: Nihar Gupta started sharing their screen
+[24:05] Arjun Rattan: And so I should come in.
+[24:09] Nihar Gupta: Perfect. Yeah, I think, like, I think that's right.
+[24:11] Nihar Gupta: So we have your top projects to kind of jump into and then over time we'll figure out how to get you more engaged in some of the other projects and we'll work through the kind of like team model and make sure that everybody's aligned to what you know, that you're kind of managing and helping drive.
+[24:25] Arjun Rattan: Yep. That makes sense. Anything on the MBR you wanted to discuss the feedback?
+[24:32] Nihar Gupta: I forgot. For that, I want to jump to this other.
+[24:36] Arjun Rattan: Okay, no worries.
+[24:38] Nihar Gupta: I'm gonna set up twice a week meetings with you.
+[24:41] Arjun Rattan: Yes.
+[24:42] Nihar Gupta: While you're ramping. And you can.
+[24:44] Nihar Gupta: We can wind it down to weekly eventually, but let's just keep some regular syncs and then if we need more beyond that, we can set up ad hoc meetings.
+[24:52] Arjun Rattan: That would be great because at least for some projects, as I go through talking to them, I'll come back to you with like, hey, I have some open questions, how do I think about it, etc.
+[25:00] Nihar Gupta: Okay. Awesome. Thank you.
+[25:02] Arjun Rattan: Thank you.
+[25:02] Nihar Gupta: Bye.
+[25:03] Arjun Rattan: Bye.
+[25:20] Nihar Gupta, Arjun Rattan: Nihar Gupta, Arjun Rattan left
+[25:20] Nihar Gupta: Nihar Gupta stopped sharing their screen

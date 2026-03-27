@@ -52,6 +52,7 @@
 
 *(all tasks completed)*
 
+
 ### Portfolio (5 tasks)
 - [ ] **Weekly Review — Calibrate & Scan** — Due: 4/4/26
 - [ ] **Weekly Review — Calibrate & Scan** — Due: 4/11/26
@@ -86,6 +87,7 @@
 ## Finished Tasks
 
 - [x] ~~**Dummy Task**~~ — *Confidence Based Bypass* | Was due: 4/1/26
+
 
 ---
 

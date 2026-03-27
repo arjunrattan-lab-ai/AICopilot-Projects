@@ -97,6 +97,38 @@ These markers are the single source of truth.
 - The "Active Tasks" count at the top should only count *active* tasks
 - Add a separate count: **Completed Tasks:** {count}
 
+**Step 9: Bi-directional sync — Master ↔ Running Tasks**
+
+After rebuilding the master file, sync status changes back to each project's Running Tasks.md. The goal is: **no matter where a task is updated (master or running tasks), both files always stay in sync.**
+
+**9a. Build a resolved status lookup**
+- For every task (matched by **task name + project name**), compare the status in the master file vs. the status in the project's Running Tasks.md
+- Apply the **max-status rule** — always keep the highest status. The hierarchy from lowest to highest:
+  1. `[ ]` / `☐` / no marker = Not Started (weight 1)
+  2. `[-]` / `🟡 In Progress` = In Progress (weight 2)
+  3. `[~]` / `⏳ Pending Others` = Pending Others (weight 3)
+  4. `[x]` / `✅ Completed` = Completed (weight 4)
+- The higher weight always wins, regardless of which file it came from
+
+**9b. Propagate master → running tasks**
+- For each task where the master file has a **higher** status than the Running Tasks.md:
+  - Update the Running Tasks.md row to reflect the resolved status
+  - If the resolved status is Completed (`[x]`): wrap task name and description in `~~strikethrough~~` and append `✅ Completed` to the row
+  - If the resolved status is In Progress (`[-]`): append `🟡 In Progress` to the row
+  - If the resolved status is Pending Others (`[~]`): append `⏳ Pending Others` to the row
+
+**9c. Propagate running tasks → master**
+- For each task where the Running Tasks.md has a **higher** status than the master file:
+  - Update the master file entry to reflect the resolved status
+  - If the resolved status is Completed: move the task to the Finished Tasks section in the master
+  - If the resolved status is In Progress or Pending Others: update the marker and tag in all master sections where the task appears
+
+**9d. Conflict resolution examples**
+- Master `[-]` (weight 2) vs Running `[x]` (weight 4) → resolved: `[x]` Completed → update master to Finished Tasks
+- Master `[x]` (weight 4) vs Running `☐` (weight 1) → resolved: `[x]` Completed → update running tasks with strikethrough
+- Master `[ ]` (weight 1) vs Running `🟡` (weight 2) → resolved: `[-]` In Progress → update master
+- Master `⏳` (weight 3) vs Running `🟡` (weight 2) → resolved: `[~]` Pending Others → update running tasks
+
 ## Output Format
 
 Use checkbox lists (`- [ ]`) instead of tables so checkboxes are clickable in Markdown Preview.
