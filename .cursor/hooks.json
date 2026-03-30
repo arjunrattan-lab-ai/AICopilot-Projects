@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "command": "node /Users/arjun.rattan/arjun_copilot/automotive/automotive/hooks/acli-guard.cjs",
+        "matcher": "Shell"
+      }
+    ]
+  }
+}
