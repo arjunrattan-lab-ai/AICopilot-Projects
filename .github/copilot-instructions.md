@@ -61,3 +61,10 @@ _Apply this section only when running Snowflake queries._
 - **Key tables by use case:** `K2_PROD_PUBLIC.DRIVER_PERFORMANCE_EVENTS` (primary event source), `AT_PROD_REPLICA_AT_V0.ANNOTATIONS` (human annotation tags), `FLEET_DPES.PRODUCTION_JSON_FLEET_DPE_EVENT_LOGS` (pipeline/EFS debugging), `SAFETY_PROD_PUBLIC.DRIVER_PERFORMANCE_MESSAGES` (VG5/IoT tracing).
 - **Segment field: `c.SF_ACCOUNT_SUB_SEGMENT`** for customer segment queries, not `SEGMENT_TYPE`.
 - **ANNOTATIONS_ARCHIVED goes to June 2025 only.** For current data (2026), use the `ANNOTATIONS` view, not archives.
+
+## Confluence Constants
+_Apply this section when any atpm skill runs a Confluence Init or Done sync._
+
+- **Pre-sync: read constants first.** Before any Confluence page creation, update, or Jira workstream operation, `read_file` `.github/local/confluence-constants.md`. Use the Environment and Section Parents values for all MCP calls. Look up the current initiative in the Initiative Registry to get its existing page IDs — do not create duplicate pages.
+- **Post-sync: update only on change.** After creating a new Confluence page or Jira workstream, compare the new IDs against the constants file. If any value is new or changed, update the initiative's entry. If all values already match, skip the write.
+- **Fallback.** If `.github/local/confluence-constants.md` does not exist, use the inline defaults from `.github/skills/pm-references/confluence-sync.md` and create the constants file with whatever IDs are produced.
