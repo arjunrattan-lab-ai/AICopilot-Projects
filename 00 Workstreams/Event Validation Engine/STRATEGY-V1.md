@@ -4,12 +4,14 @@
 
 ## Context & Motivation
 
-Motive's AI safety pipeline processes 220,000 events per day. A third of them — 68,000+ — are invalidated by human annotators: real people reviewing events that deliver zero value to customers. Annotation cost scales linearly with every camera we ship. The March 26 queue crisis (11,000 events, 4-5 hour latency) and the October 2025 Sev-0 (97,000-event backlog, emergency blanket bypass) aren't anomalies — they're the default trajectory. As Motive scales toward IPO, a cost structure that grows linearly with hardware is a structural disadvantage we can't carry.
+Motive's AI safety pipeline processes 220,000 events per day. Of those, ~68,000 are invalidated after human review — annotators catching false alerts to protect the accuracy that customers pay for. Accuracy is Motive's brand. It's the reason fleets trust the Safety Score, act on coaching alerts, and renew. Without it, every event is noise.
 
-Seven teams are already building pieces of the solution. Phase 1 confidence bypass is live. Collision bypass is at 60%. Foundation model experiments show 90%+ potential. The work is real and delivering results. What's missing is the unified strategy that turns these separate efforts into a system.
+**The problem:** Annotation is what guarantees accuracy but it doesn't scale. Every new camera, every new behavior, every new customer adds to the queue as the system tends to treat every new event candidate similarly despite different event complexities. For example, a false-positive stop sign violation (16% invalidation rate) and a false-positive collision (96% invalidation rate) sit in the same queue at the same cost. This not only creates bottlenecks as the system doesn't prioritize but is vulnerable to service failures leading to SLA breaches: March 2026 queue crisis (11K events, 4-5 hour latency) and the October 2025 Sev-0 (97K backlog, emergency blanket bypass). Measured against Motive's AI-first vision, event validation today fails on proactivity — it treats every event the same way instead of anticipating what needs human attention and what doesn't. Accuracy holds, but only because humans guarantee it.
 
-**Mission:** EVE validates every safety event before it reaches a customer or an annotator — accurately, in real time, at scale.
-**North star:** 100% of customer segments covered by EVE validation, with 38-40% fewer events requiring human review and zero precision regression.
+**Mission:** Automate trust for safety events.
+
+**North Star:** % of events validated by AI @K precision .
+
 
 ---
 

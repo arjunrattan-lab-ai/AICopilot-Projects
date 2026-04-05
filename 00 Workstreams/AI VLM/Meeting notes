@@ -1,0 +1,510 @@
+[00:00] Rakesh Prasanth, Devin Smith, Arjun Rattan, Michael Benisch: Rakesh Prasanth, Devin Smith, Arjun Rattan, Michael Benisch joined
+[00:02] Michael Benisch: Hello.
+[00:03] Arjun Rattan: Hello.
+[00:07] Rakesh Prasanth: I think we can get started. We have everyone, thanks for taking time on this.
+[00:15] Rakesh Prasanth: So yeah, to give some heads up, we have, we have a MVP video search feature we are launching now, right.
+[00:25] Rakesh Prasanth: So it allows natural language search through the Motive. Motive Dash cam videos.
+[00:34] Rakesh Prasanth: So yeah, and we are launching it and we have the working version that we have demoed to around five to six enterprise customers.
+[00:42] Rakesh Prasanth: So we launch it for them.
+[00:44] Rakesh Prasanth: So when we launch, I think Devin and I were discussing this in the last week.
+[00:51] Rakesh Prasanth: So as we are launching, we are instrumenting a bunch of instrumentation to collect the user behavior.
+[00:58] Rakesh Prasanth: Right. Especially in Tom, which will help us derive the metrics also. So we are going to talk.
+[01:06] Arjun Rattan: Yeah, yeah, please keep going. And then I have a question when you're done.
+[01:11] Rakesh Prasanth: Okay? Okay, sure. Yeah. Let's set some context. Yeah.
+[01:16] Rakesh Prasanth: So yeah, so what we're instrumenting is the usual logs, right?
+[01:22] Rakesh Prasanth: We'll collect the user queries, the result clicks for the queries and simple actions that user will do on the retrieved videos like viewing an event, downloading and further trying to access trip history and stuff.
+[01:37] Rakesh Prasanth: And we also are going to include a lightweight feedback mechanism where they can give thumbs up and thumbs down on some videos that will help us understand how customers are using the product.
+[01:49] Rakesh Prasanth: And we can also derive precision, recall and ranking metrics from this.
+[01:55] Rakesh Prasanth: So this we have a way to capture what user really wants and convert that into a metric.
+[02:02] Rakesh Prasanth: But for the offline evaluation, this is something I think while we are discussing, Michael also asked for this to have a sizable golden data set and golden queries which we can benchmark the current performance for creating that.
+[02:21] Rakesh Prasanth: We have done an initial small scale data set.
+[02:24] Rakesh Prasanth: I'll show the data set in a while but currently for expanding these two bigger data set and also think about what users would search for is something that we are not fully sure about.
+[02:40] Rakesh Prasanth: That is something we thought we'll set up some call and understand.
+[02:45] Rakesh Prasanth: Because if we go ahead and create more benchmark queries and data set, what user would search for is something what we need to create here.
+[02:56] Rakesh Prasanth: So we want that to be close to that.
+[03:04] Arjun Rattan: I have four questions that I'm trying to get an answer to in order of importance.
+[03:10] Arjun Rattan: One of them ties into what you just said from the 5 beta customers.
+[03:16] Arjun Rattan: What are they actually searching for? Did we do an analysis to see what did they search for?
+[03:20] Arjun Rattan: So that's question one, question two.
+[03:24] Arjun Rattan: When they search for those things, can we already serve them results using our existing tags of the videos?
+[03:34] Arjun Rattan: I know that today we have a three, three day or two Day moratorium on videos and after that it goes away.
+[03:42] Arjun Rattan: But maybe we can figure something out there. But I'll, but I'll keep us on the problem space.
+[03:47] Arjun Rattan: Second, if you've tried it with five beta customers, we need to marry this with a product strategy of what is our goal that we want to do.
+[03:59] Arjun Rattan: So if the vision is I want to be able to search my entire database at my entire video set database, what queries or what intents do we plan to serve?
+[04:15] Arjun Rattan: If the intent is very well known and it is structured, for example, show me collisions, show me this, show me that, then that would be something better served with non blm.
+[04:29] Michael Benisch: No, I think we're looking for this totally open ended vocabulary search approach here.
+[04:36] Arjun Rattan: Okay, great. So if you're looking for vocabulary search, what did the 5 beta customers go search for?
+[04:43] Rakesh Prasanth: Yeah, so I think during. So we have done live demos to these customers. Right.
+[04:47] Rakesh Prasanth: And we have also done some customer interaction interactions in a few, in a bunch of calls.
+[04:53] Rakesh Prasanth: Like they're like, for example customer like Bennett, they were looking for let's say all the DP events happening at let's say railway crossings.
+[05:04] Rakesh Prasanth: One other customer like road safe. They were highly interested in weather based like searching. Right.
+[05:09] Rakesh Prasanth: They want to know, okay, if some particular events have happened on snowy roads and they want to know similar, like similar events happening in different weather conditions in their fleet.
+[05:21] Rakesh Prasanth: So we knew like some, we understood some, some of their intents which they're looking for, but there is no survey or there is no real usage.
+[05:32] Arjun Rattan: Yeah, no, that's fine. I completely get that.
+[05:36] Arjun Rattan: My, my thinking is we should separate the search intents from the search results experience, which is like how do you figure out what to return, what do you retrieve, what do you rank, etc.
+[05:51] Arjun Rattan: So just from a search intent perspective, that, that is the first unknown.
+[05:56] Arjun Rattan: What are they searching for and how do we get to a stage where we can get them to start searching, even if it is for existing things?
+[06:05] Arjun Rattan: And we layer our first pass or first item accordingly. Like, hey, this is a learning thing.
+[06:13] Arjun Rattan: We let you play around with it, we let you search.
+[06:17] Arjun Rattan: And our goal should be to gather as much as we can on search queries.
+[06:21] Arjun Rattan: I would start off with that hypothesis.
+[06:24] Arjun Rattan: Instead of trying to say I've got VLMs and let me go do something with it, let's capture the search intent and try to figure out a way to meet that intent with existing technology.
+[06:38] Michael Benisch: I think what we're trying to. Devin had his hand up. I don't know. Devin.
+[06:41] Arjun Rattan: Yeah, Devin.
+[06:42] Rakesh Prasanth: Sorry.
+[06:42] Arjun Rattan: You had a hand up.
+[06:44] Michael Benisch: Can you hear me okay?
+[06:46] Arjun Rattan: Can you hear me okay? Yeah.
+[06:47] Rakesh Prasanth: Okay.
+[06:49] Devin Smith: To kind of build off, to clarify, like we don't have this in anyone's hands.
+[06:52] Devin Smith: We've really just done some demos.
+[06:55] Devin Smith: The whole point of this conversation was you following what you and I talked about, Arjun.
+[06:59] Devin Smith: And some stuff I talked about with Rakesh and Michael.
+[07:03] Devin Smith: I think you were asking for how do we Devin some comparative baseline metrics as an example.
+[07:07] Devin Smith: So back to your point, Arjun, is that like following, we really want to just get this into an exposed state.
+[07:15] Devin Smith: So basically taking what we have, putting it into a visible section that will be easily accessible and then to your point, learning what people are searching for.
+[07:25] Devin Smith: And part of that is also just adding a few little action basically links to the event or to trip timelines just to see like what people's intent are after.
+[07:35] Devin Smith: They search for those things using that data to, to understand like what, what are people trying to achieve out of it without trying to project or build more into it.
+[07:47] Michael Benisch: So the other thing, Arjun, is that I want to create a benchmark data set here once that we can reuse for any purpose that we discover later.
+[07:57] Michael Benisch: So like if you look at, for example, we were just looking at this. Let me pull it up.
+[08:05] Michael Benisch: You look at what Rakesh and the team have built so far. What's that repo called again, Rakesh?
+[08:07] Michael Benisch: Michael Benisch started sharing their screen
+[08:14] Michael Benisch: Can you remind me?
+[08:16] Rakesh Prasanth: Let me paste that report. Yeah, this was the data set we created for Hackathon a while back.
+[08:25] Michael Benisch: Let me just show, I just want to show Arjun what, what I have in mind here. Where's. Did you post it?
+[08:32] Rakesh Prasanth: I posted it.
+[08:33] Arjun Rattan: And, and while you're going through that,
+[08:36] Michael Benisch: where did you post it? I don't see it.
+[08:38] Rakesh Prasanth: Oh, it's in this chat, in the meeting chat. It's not showing up for me.
+[08:45] Michael Benisch: Oh, there we go. Okay, I got it, I got it.
+[08:48] Michael Benisch: Okay, so like just so you guys can see what we have in mind here. Can you see my screen, Arjun?
+[08:55] Arjun Rattan: Yeah, I can.
+[08:56] Michael Benisch: So each of these is like a video, right?
+[08:58] Michael Benisch: It has a camera id, an event timestamp, driver is not real driver. This is all made up. Yeah.
+[09:04] Michael Benisch: Okay, and then you get over here and you see object scene, right?
+[09:09] Arjun Rattan: Yep.
+[09:09] Michael Benisch: See this? Guardrails, trees, power lines, all of that. Right. Then we have objects hit.
+[09:14] Michael Benisch: We have road type, weather, visibility, road surface, road signs, road markings, vehicles seen with color.
+[09:22] Michael Benisch: So you have black suv, white van, blah, blah, blah.
+[09:24] Rakesh Prasanth: Right.
+[09:26] Michael Benisch: And then you have location, terrain, extra details, traffic light, traffic, shattered windshield, blah, blah, blah.
+[09:32] Michael Benisch: Okay, so the point is that if you create a data set like this with like 10,000 videos, and they're interesting videos and they're distributed well.
+[09:34] Michael Benisch: Michael Benisch stopped sharing their screen
+[09:42] Michael Benisch: Like then you'll end up with, you can query whatever you want against that.
+[09:46] Michael Benisch: You can build whatever kind of system and benchmark anything.
+[09:49] Michael Benisch: You just get that labeled once by your annotators with all that information essentially.
+[09:55] Michael Benisch: And so that's kind of what I have in mind, that we can create this corpus of highly curated data where we know everything that happened in that scene in natural language.
+[10:05] Michael Benisch: And then we can have algorithms that we build to try and recover, search for things, figure out the recall, figure out the ranking.
+[10:13] Michael Benisch: All of that should be doable from that data set.
+[10:16] Michael Benisch: And we don't need to predict ahead of time what queries a person is going to write.
+[10:22] Michael Benisch: We just get them to write down everything that's in there.
+[10:24] Michael Benisch: So I think we can do that in parallel with the use case discovery.
+[10:28] Michael Benisch: If we set this up right and we do the annotation.
+[10:33] Arjun Rattan: Yeah, so when you say annotation, I am hearing indexing. So let me clarify that.
+[10:41] Arjun Rattan: Right, so what I see right now, what you showed in the data set was a description of an object, a video with multiple entities that you detected in it in their specific parameters.
+[10:53] Arjun Rattan: So I'll just think of them as embeddings you've just created.
+[10:55] Arjun Rattan: You're giving me an embedding space with multiple parameters and I can go play around with it from the use case discovery perspective.
+[11:04] Arjun Rattan: What we need to do, and this I'm very clear on, is we need one or two key or not one or two. Sorry.
+[11:13] Arjun Rattan: We need an understanding of what is, if nothing else, what is searched today.
+[11:18] Arjun Rattan: And can I just expose that easily through natural language?
+[11:23] Arjun Rattan: So you already have the index, but to me, from a product perspective, that is the question.
+[11:27] Arjun Rattan: You can build the capability that index,
+[11:30] Michael Benisch: that's 500 videos that were done by hand by Rakesh. That's not.
+[11:34] Michael Benisch: We need 10,000 of those to build a benchmark.
+[11:38] Michael Benisch: Then we can test whatever algorithm we want and see how good it is at recalling those videos, you know, how good it is at ranking them.
+[11:46] Michael Benisch: And when I say annotate, I don't mean index.
+[11:49] Michael Benisch: I'm talking about writing down everything that happened in that 10 second scene, you know?
+[11:54] Michael Benisch: Yeah, you can turn that into an index, but it's, it's more general than that, you know?
+[11:58] Arjun Rattan: Yeah, so I want to keep the conversation. There's one technical and then there's the product side.
+[12:05] Arjun Rattan: So on the technical side, if you're trying to create a benchmark, I don't think that's going to be a challenge.
+[12:10] Arjun Rattan: And the reason I say that is if we have access to Gemini or any VLM today, even with those 500, we can then start creating more data for more videos and pass these 500 as sample cases.
+[12:26] Arjun Rattan: So you take the 500, you say, hey, like think about it very simply, hey, this is what a video is.
+[12:31] Arjun Rattan: This is what. This is how I as a human have described the video. You LLM. Now take this prompt.
+[12:36] Arjun Rattan: We don't even have to go deeper. I'm going to give you a set of five or 10 videos.
+[12:41] Arjun Rattan: You go tell me what it is, then we look at.
+[12:43] Michael Benisch: No, but the LLMs are hallucinating.
+[12:46] Arjun Rattan: Like, I know, but let me get to it.
+[12:48] Arjun Rattan: So once they hallucinate, if they don't hallucinate, we set up asserts for what we are trying to get to.
+[12:56] Arjun Rattan: So first is we just try to replicate the structure we already have. You have 14 to 20 dimensions.
+[13:03] Arjun Rattan: So the first problem is scale.
+[13:05] Arjun Rattan: I am going to start off saying, can I just scale the 500 videos I have with the existing dimensions?
+[13:11] Arjun Rattan: The second problem is, do I expand the dimensions? Which problem do we want to solve first?
+[13:19] Michael Benisch: I don't need more dimension. If we can solve for what's in that table, we would be golden.
+[13:24] Michael Benisch: Like that's everything anyone's ever going to care about.
+[13:27] Michael Benisch: What we need to do is get 10,000 videos with that highly curated level of data.
+[13:32] Michael Benisch: I don't know what the number is. I'm using 10,000.
+[13:34] Arjun Rattan: Yeah, yeah.
+[13:35] Michael Benisch: I was hoping you would have some perspective on like what a size data set might be.
+[13:41] Michael Benisch: A reasonable size for a benchmark would be.
+[13:44] Arjun Rattan: I don't think we need 10,000 based on my experience.
+[13:50] Arjun Rattan: And I'm just giving me 10 seconds, I'm recalling what we had done with the, with the object understanding work.
+[13:56] Arjun Rattan: We were able to use an LLM to go through reels, which is videos.
+[14:05] Arjun Rattan: And we trained it on, we were planning to train it on like 2000 for 30 days. So 60,000.
+[14:13] Arjun Rattan: So it was like, I think a thousand max is good enough to get us off.
+[14:20] Michael Benisch: Oh, no, no, no, no, no, no, no, no. Definitely not. There's no way.
+[14:23] Michael Benisch: I mean, we already have 500 and I can tell you.
+[14:25] Arjun Rattan: No, no, I mean using Gemini. And what I'm telling you is we use Gemini.
+[14:30] Arjun Rattan: We took reels, we evaluated Gemini, we asked you to tell us what the bad content was and the dimensions of the bad content which we gave it, which was violent, sexual, et cetera.
+[14:43] Arjun Rattan: Gemini gave me and we ran it for just like a thousand or two thousand videos.
+[14:51] Arjun Rattan: However, it was based on a foundational prompt, so it was like a prompt on a prompt.
+[14:56] Michael Benisch: Look, I think you're, you're.
+[14:58] Michael Benisch: I mean, what I'm trying to do is get to a place where we can evaluate the LLMs.
+[15:05] Michael Benisch: Like, we can't use the LLMs to build the data set.
+[15:08] Michael Benisch: We have to use humans to build the data set and evaluate the LLMs against it and see if they're any good.
+[15:14] Michael Benisch: Because different LLMs are going to have different profiles and be able to recall different concepts better or worse than others.
+[15:20] Michael Benisch: Right now we have. We're blind to all of that. We just have these 500 examples.
+[15:24] Rakesh Prasanth: Right.
+[15:25] Devin Smith: Michael, is the intent to just figure out which models are better?
+[15:29] Michael Benisch: It's. There's several different things.
+[15:31] Michael Benisch: This is a core investment we need to make if we are serious about video understanding at large.
+[15:38] Michael Benisch: At Motive, we need to have this curated data set for many purposes.
+[15:42] Michael Benisch: One is to evaluate different LLMs against it and see which one gives our customers the best experience.
+[15:49] Michael Benisch: Another is to try and build our own models and do better than the LLMs, or augment the LLMs, or build different ranking algorithms that use different approaches and different weights.
+[15:59] Michael Benisch: We can imagine and invent all these different algorithms.
+[16:02] Michael Benisch: Because if we don't have this benchmark to tell us this is better, that's worse, this is 10% better, we're not going to know if we're going the right direction at all here.
+[16:11] Michael Benisch: Then we're going to go to the edge.
+[16:13] Michael Benisch: We're going to build these edge models that are like one tenth the size of the cloud models, and we're going to want to know how good those are compared to the cloud models.
+[16:23] Michael Benisch: Again, we need the benchmark for that.
+[16:25] Arjun Rattan: I'm just focused on how you create the benchmark. There are two ways in my mind.
+[16:29] Arjun Rattan: One is automated, one that is human, which is you create a set of design or like what basically Rakesh and Devin did, and you replicate that with annotators.
+[16:41] Arjun Rattan: So that is your manual workflow.
+[16:43] Arjun Rattan: Then what I was trying to get at from an efficiency perspective is if I have all of these, I don't know why or what would stop me to take these 500 and try to generate 500 more and analyze them.
+[16:57] Michael Benisch: Yeah, we can do that, but we need the humans to review it before it gets into this golden data set.
+[17:03] Michael Benisch: Absolutely. Everything has to be reviewed.
+[17:05] Arjun Rattan: Yes, everything has to be.
+[17:07] Michael Benisch: And I think they did that even with these 500. They preceded it with Gemini.
+[17:12] Rakesh Prasanth: Right, exactly.
+[17:13] Michael Benisch: But then we have A human review it and add missing things and remove things that are false so that the golden data set at the end is really good.
+[17:21] Rakesh Prasanth: Rakesh Prasanth started sharing their screen
+[17:21] Michael Benisch: And getting 10,000 videos done, Arjun, is nothing for Motive to get those annotated by humans.
+[17:28] Michael Benisch: That will take not, that will not be expensive at all.
+[17:30] Michael Benisch: Like yeah, we're doing 50,000 videos a day, we're annotating.
+[17:34] Michael Benisch: You know, it's like this will not be a huge thing for the company to kind of put that effort into.
+[17:41] Michael Benisch: What I'm trying to do is figure out how many do we need? Is it 10,000? Is it 50,000? Is it 1,000?
+[17:47] Michael Benisch: Like what's the right number?
+[17:48] Michael Benisch: And two, how do we sample those videos so that we get all kinds of different things in them?
+[17:54] Michael Benisch: Because if we just use the DPEs, which is what their current proposal is, those are biased towards like situations that are, you know, whatever.
+[18:02] Michael Benisch: Yeah, if there's 5,000 to 10,000 DPEs, they're biased.
+[18:05] Arjun Rattan: Right.
+[18:06] Michael Benisch: So the question is, do we need to think of some other way of sampling, random sampling or I don't know what, you know, like different sampling based on covering the larger size of the embedding space.
+[18:18] Michael Benisch: Like oh, we're missing videos with this kind of embedding so we need to sample more of those.
+[18:23] Michael Benisch: I don't know what the right way is to get the data.
+[18:26] Michael Benisch: That's what I'm hoping we can like brainstorm a little on and come to a conclusion.
+[18:30] Michael Benisch: You know, what are the like scenes we want to include? How do we get that data?
+[18:37] Michael Benisch: Annotating 10,000 videos with our annotators is not going to take a long time.
+[18:41] Michael Benisch: That's not going to be the long.
+[18:43] Arjun Rattan: So my instinctive reaction there is, that's why I was starting off with the use cases is if I know the use case, it tells me the scene or scenario as you mentioned and then we can do a frequency analysis on the scenario occurring today.
+[18:58] Arjun Rattan: So for example, let's say pedestrian walking has like six scenarios that we are aware of that we are able to figure out today.
+[19:06] Arjun Rattan: I take those scenarios, I figure out the frequency and then we can figure out a percentage that we need to be confident and then we can send to the human to review.
+[19:13] Arjun Rattan: So essentially what I'm saying is take the corpus of scenarios, scenes that we know today to determine the total scenes available, what we have over a three day period and then take a percentage proportion of that.
+[19:26] Arjun Rattan: That gives us some ML confidence that yeah, we can get this annotated or reviewed with some measure of confidence.
+[19:33] Michael Benisch: I'm not following You Arjun here, I
+[19:35] Arjun Rattan: think I'll give you one example. Let's take stop sign detection. Now there are.
+[19:45] Arjun Rattan: When you're trying to look at a stop sign, you will probably also go look at what's the weather around it, what were the like, was it dark, was it night?
+[19:56] Arjun Rattan: You'll probably also want to go look at anything else visual in the scene.
+[20:01] Arjun Rattan: And so the what today have we done for stop sign detection? Is it just one scene that we go identify?
+[20:08] Michael Benisch: So no, I, I think they feel like we're missing, we're talking past each other here.
+[20:16] Michael Benisch: Because the use case for this is not to search for stop sign.
+[20:21] Michael Benisch: Like we have stop sign models for that and then we surface those as stop sign events.
+[20:26] Michael Benisch: People know how to find those right now that's easily indexed and, and recoverable.
+[20:30] Michael Benisch: The purpose of this is to search for things that you don't think of ahead of time that we didn't think of.
+[20:36] Michael Benisch: Like I saw a purple car that was speeding past me and it scraped the side of my truck.
+[20:41] Michael Benisch: I want to find that car, go find all the footage of that car.
+[20:45] Michael Benisch: Purple sedan, you know, with a certain characteristic. Right. That's the kind of use case.
+[20:51] Michael Benisch: This product is meant to support stop signs like lane swerves, sleeping drivers.
+[20:57] Michael Benisch: We, that we all, we get that all for free from our algorithms that we're running on the edge.
+[21:02] Michael Benisch: What we need to do here is support that natural language like broad open language, open vocabulary, search for any kind of use case.
+[21:10] Michael Benisch: Actually something you said did trigger for me some ideas here which is that for each of the buckets that you have, Rakesh, take the 500 videos that you have.
+[21:21] Michael Benisch: Let's make sure we're sampling things that would cover that wide range of buckets instead of everything is from day, right?
+[21:29] Michael Benisch: We want to get some night, we want to get some day, we want to get some rain, we want to get some not sunny, some cloudy.
+[21:35] Michael Benisch: Right.
+[21:36] Michael Benisch: So you want to get like a coverage of the entire space of parameters that we're talking about here, you know?
+[21:42] Rakesh Prasanth: Yeah.
+[21:43] Michael Benisch: And maybe some kind of embedding like descript, like finding things that have different embeddings and covering the space is going to be the best way.
+[21:53] Michael Benisch: I don't know.
+[21:54] Rakesh Prasanth: Yeah, yeah. So yeah, even this 500 that we have done, right.
+[21:58] Rakesh Prasanth: This 500 set had like different types of DPEs that are primarily generated from the edge.
+[22:05] Rakesh Prasanth: And also we cover decent amount of day and night.
+[22:09] Michael Benisch: Yeah, but all DPEs are biased. Like why can we get random footage somehow?
+[22:14] Michael Benisch: Is there a way we can cover random.
+[22:16] Devin Smith: Yeah, like our, our next step really to like bring what has already been built to customers hands just to get it accessible was to connect additional footage which is manual recalls and also images and omni.
+[22:34] Michael Benisch: Manual recalls. Okay.
+[22:37] Devin Smith: That expands our like our ability to see what else is out there.
+[22:41] Devin Smith: Because to Your point, yes, DPEs are very biased and so I think we should use the same indexing process we had when we connected other streams and then so we would like.
+[22:53] Devin Smith: I think you're like maybe three or four steps ahead of where we like.
+[22:58] Michael Benisch: All right, I want 10,000 videos. Rakesh, I'm hearing enough diversity here.
+[23:05] Michael Benisch: I don't make 10,000 may not even be enough honestly for the amount of diversity that we're talking about here.
+[23:11] Michael Benisch: So let's start with 10,000 and then what I need you to do is figure out how do we sample those 10,000 to get a good distribution across all these different things that we're talking about.
+[23:24] Michael Benisch: Weather, time of day, anything else we can think of.
+[23:31] Rakesh Prasanth: So we can try to split it across all. We can just have this attribute itself as different layers.
+[23:40] Rakesh Prasanth: We need different locations, different DB types.
+[23:43] Michael Benisch: Locations are going to be easy, but it's the object coverage that you won't have. Right.
+[23:47] Michael Benisch: Because there is where you have to use the VLM to get that. Right.
+[23:52] Michael Benisch: So you could, you could run a VLM pass first.
+[23:55] Michael Benisch: But yeah, you know, you, you're basically looking to find 10,000 videos out of like the millions that we have right now.
+[24:04] Rakesh Prasanth: Right, Exactly. So the, the way that I'm thinking, like correct me if it's missing something.
+[24:10] Rakesh Prasanth: So this, it's exactly same what we have done right. Earlier.
+[24:13] Rakesh Prasanth: So used BLM like Gemini to extract the first level of granularity of all of these dimensions.
+[24:22] Rakesh Prasanth: And when we initially annotated it, we added this in a jupyter notebook.
+[24:28] Rakesh Prasanth: We have the video and we had all the data available like this there.
+[24:32] Rakesh Prasanth: If we see something is wrong and we remove it.
+[24:35] Rakesh Prasanth: If we see something is missing, we add it and we saved it.
+[24:38] Rakesh Prasanth: That's how we used VLM to do some order of annotation and added something on top of it. It.
+[24:44] Rakesh Prasanth: So the plan is here like we will, we will generate for around 10,000 views, let's say using similar VLM approach, extracting a lot of attributes from that and then sample.
+[24:58] Rakesh Prasanth: Yeah, yeah, but how are you going
+[24:59] Michael Benisch: to find the 10,000?
+[25:01] Michael Benisch: You have to, you have to run the VLM on a million to find the 10,000 that you need.
+[25:05] Rakesh Prasanth: So we have already indexed around close to 600k at this point.
+[25:12] Rakesh Prasanth: When we Demote this to these customers as we even for this.
+[25:15] Michael Benisch: Okay, so you already have 600k that you can use to try and cover the space with 10,000 that are really well distributed.
+[25:22] Michael Benisch: Okay, so let's do that. I know, but I think, you know, you, you guys are convincing me.
+[25:28] Michael Benisch: Maybe DPE is okay with the adding. Oh, because we didn't add the image.
+[25:33] Rakesh Prasanth: Yeah, we need to, we need to
+[25:35] Michael Benisch: add, you know, maybe if we include all DPEs, like, including like, you know, collision candidates and hard breaking or collision candidates.
+[25:44] Michael Benisch: Not in there. Right?
+[25:46] Rakesh Prasanth: Collision, collisions. Are there collision. The negative collisions or positive collisions.
+[25:55] Michael Benisch: I'm talking about the collision candidates that come into the EVE pipeline that we just connected off.
+[26:00] Michael Benisch: Right? The, like the 100 to 1 false positive rate. Right, Those are pretty random, right?
+[26:08] Michael Benisch: Like those collision candidates are coming in at 100 to 1 false positive.
+[26:11] Michael Benisch: So most of them are not collisions. Vast majority.
+[26:14] Rakesh Prasanth: You want to sample from that hundred or the positive ones?
+[26:19] Michael Benisch: I'm trying to get as much of a random, unbiased sample as I can and unfortunately all the ways we sample videos from our fleet are not.
+[26:28] Michael Benisch: They're, they're biased. Right, but those collision candidates are pretty random, honestly.
+[26:35] Michael Benisch: You know, obviously there's something in it that caused the collision candidate algorithm to trigger, but like a lot of those that I watch are just normal driving.
+[26:43] Michael Benisch: I don't know what caused it, you know, so I think we can pull from there.
+[26:47] Michael Benisch: We can pull from your DPEs, you can pull from your 600k, it really doesn't matter as long as you get a good distribution over all these different attributes that we're talking about.
+[26:56] Michael Benisch: Rain, weather, nighttime, you know, objects in the scene, different kinds of cars, different kinds of.
+[27:03] Michael Benisch: Might even want to compute the embeddings and look for like some kind of like entropy measure across the embedding space that you have or something like that, because I think you'll be able to get.
+[27:15] Michael Benisch: And basically we just, at the end of this, I want as, as a gift, you deliver me 10,000 videos all annotated like the way you had, where, you know, they're all correct and they're just distributed all wide range of things that we have in there.
+[27:31] Michael Benisch: If you get that data set, I am very confident we can build tons of products off of that that will be able to iterate on from there.
+[27:39] Michael Benisch: So I think that's got to be the goal here.
+[27:42] Rakesh Prasanth: Then this one question would be how to understand the benchmarking queries are the next step.
+[27:49] Rakesh Prasanth: How do we create.
+[27:52] Michael Benisch: That's where Arjun insights are going to come in. Right.
+[27:54] Michael Benisch: So once we have the data labeled right then we need to create a set of queries that represent like use cases that we expect to matter to our customers.
+[28:06] Michael Benisch: And that's where Arjun insights come in of like, okay, we need to go interview them, we need to go look at what they're doing.
+[28:12] Michael Benisch: We need to brainstorm and just come up with our own ideas and we'll come up with like 100 or 500 different queries that customers might use.
+[28:21] Devin Smith: So then we want to actually just
+[28:23] Arjun Rattan: you can pre populate queries if you want so that you get them using some stuff.
+[28:28] Michael Benisch: Yeah, sorry Devin, what were you saying?
+[28:30] Devin Smith: I mean is there anything wrong with just like just giving it to them for us to just capture those queries organically?
+[28:37] Devin Smith: Like I don't.
+[28:37] Michael Benisch: Oh yeah, we should do that.
+[28:39] Devin Smith: But I'm nervous of like pre populating and like reporting on queries we don't know people are going to search for.
+[28:45] Michael Benisch: We will eventually we'll have user queries to do this on Devin. Right.
+[28:49] Michael Benisch: But I'm saying that for the bootstrapping like for the first, first version we don't have user queries yet.
+[28:56] Michael Benisch: Unless you have enough from your trial.
+[28:57] Michael Benisch: I don't know but like we don't have really enough user queries so we have to like bootstrap it with our own which I think we can do a reason like these ones here that I'm seeing are reasonable to me honestly.
+[29:09] Michael Benisch: We probably already have a pretty good.
+[29:11] Arjun Rattan: I think we all. So I can give a little bit more color here.
+[29:14] Arjun Rattan: And we were building the digital assistant at ebay and we are figuring out what to search and same problem, we didn't know what people would search using natural language.
+[29:23] Arjun Rattan: We gave them two or three things in the autocomplete.
+[29:25] Arjun Rattan: Hey, why don't you try for this or try for that.
+[29:28] Arjun Rattan: And once they started doing it, we started relating it to other queries and populating them as well.
+[29:34] Arjun Rattan: So this is. Evan, this is not.
+[29:35] Arjun Rattan: I don't think it'll be a hard problem in the sense that since we are bootstrapping I think the larger problem is the query has to return some result and not be completely out because if it's not a minimum lovable experience people will drop out and we will not get the data.
+[29:53] Arjun Rattan: We'll probably get like one or two shots at most on people searching and abandoning.
+[29:58] Arjun Rattan: So query source session abandonment is what we'll actually worry about in the experience.
+[30:03] Michael Benisch: Yeah, I mean all of like my mindset is still pre user where we don't have users yet and we want to establish that the product is good, that we want to be able to evaluate different approaches, different algorithms, different LLMs.
+[30:18] Michael Benisch: So we don't have users in this environment that I'm thinking of. It's pre user
+[30:24] Rakesh Prasanth: using VLM.
+[30:26] Rakesh Prasanth: What we noticed when we indexed around 600k videos, when we shown this to around 5 customers they came up with a set of random queries based on how they use it.
+[30:37] Rakesh Prasanth: Complete managers.
+[30:39] Rakesh Prasanth: There was never a scenario where the current approach did not return what they want in those demos.
+[30:45] Devin Smith: At least I would imagine ebay is way more open ended than like transportation specific use cases.
+[30:51] Michael Benisch: That's true. Yeah.
+[30:52] Arjun Rattan: I think we should be constrained in the query space for sure.
+[30:54] Arjun Rattan: But coming back to what Michael is talking about, the pre user one and I like is there a.
+[31:02] Arjun Rattan: Maybe it's in this JIRA as well for the sampling plan?
+[31:06] Arjun Rattan: I would, what I would try to understand is what is our constrained on how soon we want something from Michael perspective as pre user ready to go.
+[31:18] Arjun Rattan: What's the timeline on this? Are we trying to do it in the next month?
+[31:22] Arjun Rattan: Are we trying to do it in the next like two months? Like how do we think about like
+[31:28] Michael Benisch: they we can ship this product today if we wanted to. Right. It's done. Okay.
+[31:33] Michael Benisch: But I'm not convinced it's good.
+[31:36] Arjun Rattan: I'm agreeing with you and so that's what I'm trying to understand.
+[31:39] Michael Benisch: So like it's not like a must do. It's like this is a, you know, we're going to improve things.
+[31:44] Michael Benisch: We could probably just get away without any of what I'm describing at all and just ship the thing and like you know, if people are not getting what they want, you know that's kind
+[31:53] Devin Smith: of, that's kind of the thought that I had on it. Michael was exactly. That was.
+[31:57] Michael Benisch: Yeah, I know, I know that's what you guys are thinking and it's totally reasonable but I'm trying to kind of like in parallel bring up a benchmarking, you know, like paradigm here so that I can be confident that what we're putting out is actually good, not just working, you know, because like I think we're, we're definitely going to be able to something that works.
+[32:20] Michael Benisch: Is it good and I don't know. And what could it be better? I don't know.
+[32:25] Michael Benisch: And you know, maybe I'm too much of like a, you know like metrics driven here and it doesn't really matter
+[32:31] Devin Smith: but the way I was thinking of doing like, of Capturing that from a qualitative standpoint is like, do people.
+[32:38] Devin Smith: It was basically by adding different hyperlinks or download options into the existing experience.
+[32:43] Devin Smith: So just what can you do with it? And if people take action, that's an indicator.
+[32:48] Michael Benisch: Yeah.
+[32:49] Devin Smith: That drives like what direction people go in. Right?
+[32:51] Michael Benisch: Yeah. You can have like a thumbs up, thumbs down on there, see if people are happy like you.
+[32:56] Michael Benisch: There's lots of things you can do. Just, just ship it and see what happens.
+[33:00] Michael Benisch: But I don't think that's enough.
+[33:03] Michael Benisch: Honestly, I don't think that's sufficient in the long run for a product like this where it's going to keep evolving, people's expectations are going to continue to grow.
+[33:13] Michael Benisch: And if we don't have a data set that shows that we're doing a good job, then we're always going to be wondering if this thing is working.
+[33:21] Michael Benisch: Really, if it's working right, if it's doing what it's supposed to, you know, is like three thumbs up good?
+[33:26] Michael Benisch: Is four thumbs up good? Are we going to a B test different models now?
+[33:31] Michael Benisch: And now we're going to run live AB tests.
+[33:33] Michael Benisch: I mean, there's a reason why people build benchmark data sets and do this all offline before it hits the customer, you know.
+[33:40] Michael Benisch: So I just want to understand like, maybe we can break here. It's 507 I need to drop.
+[33:47] Michael Benisch: But I want to understand, Rakesh, like how much work and effort and annotation budget it would require to get to that 10,000 videos that I'm thinking of.
+[33:59] Rakesh Prasanth: Yeah. So, yeah, I mean, yeah, I think the, the feasibility point of view is very much possible. Right.
+[34:05] Rakesh Prasanth: To get it done, I think we need like, I mean like around like 10 annotators for a week will be done there.
+[34:13] Rakesh Prasanth: But what I want to, like, yeah, I mean, now we have some clarity around like this, this thing. Right.
+[34:18] Rakesh Prasanth: What I was a bit unsure about is like, is this data set good enough to represent what we want?
+[34:24] Rakesh Prasanth: Like, I mean, let's say these kind of queries and this kind of.
+[34:27] Michael Benisch: So the data, the table you have with the videos and the date, this is perfect. Okay.
+[34:34] Michael Benisch: If you could generate this for 10,000, I would be thrilled. That's perfect. Okay.
+[34:39] Michael Benisch: But for the queries, I think we need to brainstorm a little bit, come up with like 100 golden queries that we're going to test.
+[34:47] Michael Benisch: The idea is that these queries give you a sense of whether something is good or bad.
+[34:52] Michael Benisch: They're not the only queries that are ever going to be used, but the idea Is like if something does well on this benchmark, it's probably going to do well in production.
+[35:00] Michael Benisch: That's the thesis.
+[35:02] Rakesh Prasanth: And these two also link to each other. Right.
+[35:04] Rakesh Prasanth: Let's say depending on the query that someone is expecting. We need the kind of attributes.
+[35:09] Michael Benisch: No, I mean I think like we should, we should do the objects and that stuff first.
+[35:14] Michael Benisch: We can come up with the queries second. I'm not worried about that.
+[35:18] Michael Benisch: Like we'll figure out queries that make sense after we get the attributes on here.
+[35:23] Arjun Rattan: Yeah, I also have to drop.
+[35:24] Arjun Rattan: So just want to reiterate one point from the data sampling perspective in this column.
+[35:31] Arjun Rattan: As long as we can have more day, light weather, just that in just terms, in terms of objects that should be good enough to get us started.
+[35:41] Arjun Rattan: I still think these two are pretty important for us. The query stuff.
+[35:45] Arjun Rattan: Michael, to your point, I think there are multiple ways to get to it.
+[35:48] Arjun Rattan: We are bootstrapping a search system.
+[35:50] Arjun Rattan: We can figure it out with our customers with and Devin and I can take a crack at it with Rakesh.
+[35:56] Arjun Rattan: But I think in parallel this is more important the data set and getting to that 10,000 as you're saying.
+[36:05] Arjun Rattan: I think there are two levels of validation here.
+[36:07] Arjun Rattan: One is, is the video being described in the best manner possible and the second is, is the query able to connect to that?
+[36:17] Arjun Rattan: So recall on that. So we have to work on the second part. Mike, Devin and I. Yeah.
+[36:22] Michael Benisch: And like the metrics will be recall and ranking based and precision based metrics.
+[36:28] Arjun Rattan: Yeah. Initially we'll just start with the precision
+[36:32] Michael Benisch: recall, precision
+[36:36] Rakesh Prasanth: and rank.
+[36:36] Arjun Rattan: Yeah, you can, you can do NDCG and MRR and all that good stuff.
+[36:40] Arjun Rattan: But I do want to tailor that with the user experience. What is the user expecting?
+[36:45] Arjun Rattan: Is it the first three, the first five, all of that stuff before we do anything else.
+[36:50] Arjun Rattan: And then what would be an actual correct recall on a query? So that's a whole different set.
+[36:56] Arjun Rattan: That's the second part you were talking about.
+[36:58] Arjun Rattan: Like for a golden query, what results should we return what's been missed and that will help improve precision and recall.
+[37:05] Arjun Rattan: But we need the queries.
+[37:06] Michael Benisch: Okay. Yeah. Okay. Like so Rakesh, you have the action then to advance this ticket with the plan.
+[37:13] Michael Benisch: Now I want to see a plan how that we're going to do this.
+[37:16] Rakesh Prasanth: Yeah.
+[37:16] Michael Benisch: You know. Yeah, I put comments on here about retool and like that. I don't like that idea.
+[37:24] Michael Benisch: You can see my scroll down.
+[37:27] Rakesh Prasanth: Okay. Okay.
+[37:28] Michael Benisch: I don't know if I think you missed my comment on there Rakesh, because you replied to A different comment, but I think you missed the one I.
+[37:35] Michael Benisch: Where's the. The comment from Taha? I replied to.
+[37:39] Rakesh Prasanth: Okay, this.
+[37:40] Michael Benisch: This one, this one. Yeah, open that here. So look at this.
+[37:45] Michael Benisch: I said I'm not sure we want to source these from DPEs. We just talked about that. I'm okay.
+[37:50] Michael Benisch: I also, I'm not sure we should be building this on using Retool.
+[37:54] Devin Smith: Devin Smith left
+[37:54] Michael Benisch: I've heard from teams that Retool is not good. Can we vibe code our own app?
+[37:58] Michael Benisch: Can we use the existing annotation tool? Please also talk to Ajahat. Right?
+[38:03] Rakesh Prasanth: Yeah, yeah, I'll check. Yeah. I mean, yeah, even this one was allowing all the customizations we need.
+[38:09] Rakesh Prasanth: Right. It will help us stitch all the things we need on the front end side. Retool is just helping us.
+[38:14] Michael Benisch: Keep telling me it's a pain in the ass to develop on Retools.
+[38:17] Michael Benisch: So do we really want to go down that road?
+[38:19] Michael Benisch: I mean, if the code is not checked into GitHub, like, I don't know what's going on there. It's.
+[38:24] Michael Benisch: It's janky.
+[38:26] Rakesh Prasanth: I see. I see. I think.
+[38:27] Michael Benisch: I'm not a big fan of Retool right now. I like what we're seeing with the Cards team is just not good.
+[38:35] Rakesh Prasanth: Okay, Okay. I can check with Cards team. Yeah, but.
+[38:38] Rakesh Prasanth: But with similar kind of environmental attribution for other algorithm we're able to do with Retool.
+[38:45] Michael Benisch: Sure. You were for 500, but scaling this to 10,000 is going to be a different story.
+[38:50] Michael Benisch: I'm not saying the tool can't handle it, but you're going to hit lots of edge cases that we didn't run into.
+[38:57] Rakesh Prasanth: For the back end orchestration, we'll use an airflow job.
+[39:00] Michael Benisch: Right, I know, but Retool itself as a front end is going to have issues that you're going to expose when you start throwing it against 10,000 videos as opposed to our annotation tool which has been used on millions.
+[39:13] Michael Benisch: So should we maybe look at that as a talk to Wajahat?
+[39:17] Michael Benisch: You heard me talking to Gautam about this today.
+[39:20] Michael Benisch: They have that Encore tool that they've been using for this exact same purpose.
+[39:25] Michael Benisch: I'm sure it would work for you.
+[39:27] Michael Benisch: Yeah, and maybe they even have a freaking data set that you can use already.
+[39:31] Michael Benisch: Because I don't know what Wajahat has been annotating related to scene classification.
+[39:37] Rakesh Prasanth: Right, I know.
+[39:39] Michael Benisch: And you're gonna say it's just private roads, but you don't know what the annotators were actually doing there.
+[39:43] Michael Benisch: We need to go dig into that, you know.
+[39:45] Rakesh Prasanth: Okay, okay, okay. I'll update, I'll come back.
+[39:50] Michael Benisch: All right, thank you guys. See you tomorrow. Bye.
+[39:53] Michael Benisch: Michael Benisch left
+[39:55] Arjun Rattan: Rakesh, can you hold stay back for 10 seconds?
+[39:55] Rakesh Prasanth: Rakesh Prasanth stopped sharing their screen
+[39:58] Rakesh Prasanth: Sure.
+[39:58] Arjun Rattan: Yeah.
+[39:58] Arjun Rattan: So just from a perspective of how you're thinking about the sampling strategy, what I found is we have different failure cases, our models fail.
+[40:16] Arjun Rattan: So if you can get access to that, if we've ever documented, for every feature that we roll out on the AI team, we have failure cases that we go and fix the models for.
+[40:26] Arjun Rattan: And so sometimes the failure cases will have object failures.
+[40:29] Arjun Rattan: Like I couldn't find this particular thing in this particular light condition, for example.
+[40:34] Arjun Rattan: Tinting tint is another interesting one then. So other than the usual day night weather, it's tint.
+[40:42] Arjun Rattan: How many people were in the scene? Was it all cars?
+[40:46] Arjun Rattan: I would play around with these four new dimensions as well.
+[40:52] Rakesh Prasanth: Yeah.
+[40:53] Rakesh Prasanth: So you're saying basically the user recalled videos which the current algorithms on the edge uncloud mist, right?
+[41:00] Arjun Rattan: Yes.
+[41:01] Rakesh Prasanth: That gives something extra. Yeah, User recall videos are definitely.
+[41:05] Arjun Rattan: I would just prompt a VLM and say, hey, this is the set of stuff I've already seen.
+[41:11] Arjun Rattan: Look at this other video and tell me what's the new dimension?
+[41:16] Arjun Rattan: If I had added, I could have caught it.
+[41:19] Arjun Rattan: So it's like, hey, I know these 10 dimensions, but I couldn't catch this video for whatever manual recall.
+[41:25] Arjun Rattan: What is a new dimension between these two that I'm seeing that's been missed?
+[41:32] Arjun Rattan: That will give you your extra dimensions.
+[41:35] Arjun Rattan: You can then go build embeddings on top of if you wanted to.
+[41:38] Rakesh Prasanth: Yeah, yeah, yeah. We know for collisions, people generally recall what got missed.
+[41:44] Rakesh Prasanth: I'll check how much of user recall.
+[41:47] Arjun Rattan: It's not what got missed, it's why it got missed.
+[41:51] Arjun Rattan: And does that tell you something about a scene that you are already not capturing?
+[41:55] Arjun Rattan: With day, night video quality, like tinted, not tinted at the end, it's all coming down to either what's in the scene and what conditions was the camera in when it took that picture.
+[42:09] Rakesh Prasanth: Yeah, yeah, understood.
+[42:11] Arjun Rattan: So you're saying just those two things, right?
+[42:13] Arjun Rattan: Like what's happening around you and what was the camera able to pick up based on what was happening around you?
+[42:20] Rakesh Prasanth: Yeah, yeah, yeah. You're saying.
+[42:21] Rakesh Prasanth: Yeah, basically what you're saying is the semantics of why it was not captured.
+[42:25] Arjun Rattan: Yes, the semantics will tell us the descriptors we need to add.
+[42:31] Rakesh Prasanth: Yeah, I think. Yeah, yeah. We'll find a fair amount of these in the user record videos.
+[42:36] Rakesh Prasanth: I think that's the only I can think of.
+[42:38] Rakesh Prasanth: Yeah, I Think if you sample from those and add that into the red and the prompt designation.
+[42:46] Arjun Rattan: So you come to a stage where now you have a scene descriptor, so to speak. Or a video descriptor.
+[42:54] Arjun Rattan: Sorry, a video descriptor. People, objects, blah, blah, blah. Goes all the way up to like X columns.
+[43:01] Arjun Rattan: Then you create a distribution strategy on that.
+[43:06] Arjun Rattan: So you then categorize those 14 or 18 columns into some bigger categories.
+[43:15] Arjun Rattan: And then you say, so I'll give an example. Low light videos. So that's one dimension.
+[43:22] Arjun Rattan: What is my distribution for low versus day videos?
+[43:27] Rakesh Prasanth: Yeah.
+[43:28] Arjun Rattan: And then you can create two categories. Low light morning, low light evening.
+[43:35] Arjun Rattan: So now you have a two permutations.
+[43:37] Arjun Rattan: So now the decision becomes at what level do we stop with the permutations?
+[43:41] Arjun Rattan: I think we can create three to five permutations or bigger categories for your distribution.
+[43:51] Arjun Rattan: So are you getting where I'm trying to go with this? Right?
+[43:53] Rakesh Prasanth: Yeah, yeah, yeah. So yeah, it's basically find. Finding those initial nodes, right?
+[43:59] Rakesh Prasanth: I mean, initial nodes as in weather. So weather being one and like day, daylight time of the day.
+[44:09] Michael Benisch: Yeah, yeah, yeah.
+[44:10] Arjun Rattan: Time of the day. Basically you can have both.
+[44:14] Arjun Rattan: Time of the day, that's more of a objective measure because that's deterministic. The.
+[44:21] Arjun Rattan: The machine has nothing to do with it. And the other is the actual light conditions around.
+[44:28] Arjun Rattan: So one is weather related, right. Whether it was raining or not. The other is could I see or not?
+[44:36] Arjun Rattan: Basically we are coming to the scene. Like what affects your ability to look?
+[44:41] Arjun Rattan: What is my camera FPS light dependent on weather and day?
+[44:46] Arjun Rattan: It is also dependent on the number of scenes. Sorry, number of objects in your scene.
+[44:52] Arjun Rattan: If I do mathematically, big object, small object, how much do I see? What do I notice? That dimension.
+[45:01] Arjun Rattan: These two are pretty obvious.
+[45:02] Arjun Rattan: I would just run an LLM for like 10 to 20 minutes, play around with it to see if there are other dimensions in our existing manual recall video that we can use to describe an object.
+[45:13] Arjun Rattan: And that's why I was saying the cheat code is when it fails, what do people tell us why it failed?
+[45:19] Arjun Rattan: The annotators that probably highlight other. I would be surprised if there are other dimensions.
+[45:26] Arjun Rattan: But the trick here is categorization and combinations.
+[45:34] Rakesh Prasanth: Yeah. And the DP type is one obvious thing.
+[45:38] Arjun Rattan: It is a very obvious one. But we have other ways also. Because DP type can also help you.
+[45:44] Arjun Rattan: Let's do that. And whatever you and I discuss, just put it in the chat as well. Sorry. In the ticket.
+[45:51] Arjun Rattan: So Michael also knows what we spoke about. Give us feedback on it.
+[45:56] Rakesh Prasanth: Yeah, I'll summarize.
+[45:57] Rakesh Prasanth: Yeah, I think yeah when, when I do the 10,000 sample I'll just post what I'm also like what are those
+[46:03] Arjun Rattan: approach like hey yeah this is my goal, this is what I want to do, etc. Etc.
+[46:09] Arjun Rattan: And these are the like just give a way for people to understand what you are trying to do which is expand a way to describe a video if required.
+[46:23] Arjun Rattan: And even with what you have, that's good enough. If you just add 2, 3. And then how do I scale that?
+[46:29] Arjun Rattan: With annotators.
+[46:32] Arjun Rattan: And once you scale that when you go to the annotators that is where this 500 videos and categorization will help.
+[46:41] Arjun Rattan: So when you go to the annotators what if you end up giving them all low light videos or all day videos?
+[46:51] Rakesh Prasanth: Yeah, exactly. Yeah, we'll definitely do it. To keep this, we need a plan
+[46:55] Arjun Rattan: for the annotation at the end of this exercise.
+[47:00] Rakesh Prasanth: Yeah, yeah that's annotation.
+[47:02] Arjun Rattan: We'll just replicate what you have.
+[47:04] Rakesh Prasanth: Yeah, that's fair. That's fair.
+[47:06] Michael Benisch: Yeah.
+[47:07] Arjun Rattan: Okay, sounds good. Thanks Rakesh.
+[47:09] Rakesh Prasanth: Right.
+[47:11] Arjun Rattan, Rakesh Prasanth: Arjun Rattan, Rakesh Prasanth left

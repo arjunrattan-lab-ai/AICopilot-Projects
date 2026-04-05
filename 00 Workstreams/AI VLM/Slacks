@@ -1,0 +1,75 @@
+Hello guys,
+
+I ran two experiments to detect Alert Driving (a positive driving category).
+
+NCM v2.1.0 --> (E2E Multi-Label Classifier (Near Collision, Alert Driving, Safe Distancing)
+NCM v2.1.1 --> (Frozen VJEPA Model (NCM v1 Weights) --> trained only the head for alert driving)
+
+
+The second model yielded better results, but results in general are not good for auto-tagging. I did not run the back-testing on golden sets, because the performance on the val set is not good enough.
+
+My hypothesis is that Alert Driving needs the driver facing context to really capture whether the driver was alert or not.
+
+Here's validation loop report
+
+@Ali any inputs on this? (edited) 
+W&BWeights & BiasesWeights & Biases, developer tools for machine learningAli Hassan  [4:48 PM]
+@daniyal.shaiq, what definition do we use for alert driving? I suspect it'll be very vague and hard to learn.
+[4:49 PM]Can you also share some videos?
+Michael Benisch  [5:13 PM]
+Can we include the driver facing footage in this model?
+Mohammad Daniyal Shaiq  [4:38 AM]
+here are 3 alert driving videos:
+video 1
+video 2
+video 3
+
+I do intend to add driver-facing footage; the only challenge is that for some events, there is no driver-facing footage available. The annotator marked it as "alert driving" based solely on the road-facing footage. I have shared one example above.
+Now, I have two questions before I proceed:
+
+Will "positive driving" only work for customers with a driver-facing (DF) camera?
+If an annotator is able to identify alert driving for some videos based only on road-facing footage, shouldn't the model be able to do that as well?
+Ali Hassan  [10:57 AM]
+I'm getting access denied on these videos for some reason. I will get resolved by the AT team. There must be some documentation that the annotation team uses as definitions for alert driving. Let's review that and understand what it is, just adding data and trying to learn it might not give us the performance we want. If we can define it in a way that the driver was driving attentively, and the 3rd party vehicle did some unsafe, e.g., got into the ego lane, and the driver slows down to prevent a collision or avoid the unsafe situation, then we can learn it. We did work on something like this in past as part of the positive driving  feature dev.
+Mohammad Daniyal Shaiq  [11:01 AM]
+yep agreed. I will search through the annotation doc
+Michael Benisch  [12:57 PM]
+I'm getting access denied as well: {"errors":[],"message":"User does not exist. Please contact administrator."}
+[12:57 PM]I don't think we need to worry about matching the annotator definition here (edited) 
+[12:57 PM]this is another situation where we only need to be giving customer reasonable examples
+[12:58 PM]I would expect alert driving can only be detected when DF footage is available and that is fine
+Mohammad Daniyal Shaiq  [1:16 PM]
+I think the annotations team limited the access to view collision videos.
+
+My only concern is that positive driving contributes to the driver's safety score. Right now, this feature also works for non DF camera users.
+Michael Benisch  [2:58 PM]
+yes but we only need to match the volume of events, not the specific events
+[2:58 PM]its just like the other discussion we had about low-value events in hard brakes
+[2:58 PM]they don't need to be exactly the same low value events as the humans tagged as long as they are roughly the same volume and they are defensible
+Michael Benisch  [6:21 PM]
+@daniyal.shaiq do we have any additional results on this? its coming up in a discussion with Shoaib. Should we try to train a VJEPA model that fully backpropogates updates to just train it on this concept of alert driving (and include driver facing footage as an input)? Should we try to use a VLM for this?
+
+CC: @nihar.gupta @Arjun
+Mohammad Daniyal Shaiq  [2:34 AM]
+Hello,
+
+No I haven't pursued it further.
+
+What I can do is train a VJEPA model on the DF footage and see if I get reasonable results.
+[2:38 AM]Theocratically, VLM should solve this problem but we would need some empirical results to build confidence
+[2:41 AM]Currently, we are sending near-collision events for annotation, but most positive driving data overlaps with these events, hence positive driving is  getting human annotated. Are there plans to automatically bypass near-collisions?
+Michael Benisch  [11:24 AM]
+how many examples of positive driving do we have in our dataset in total?
+Mohammad Daniyal Shaiq  [11:35 AM]
+more than 100k
+Mohammad Daniyal Shaiq  [12:04 PM]
+FYI:
+There are two categories in Positive Driving:
+
+Safe Distancing
+Alert Driving
+Michael Benisch  [12:47 PM]
+what's the breakdown of the 100k between the 2?
+[12:48 PM]with that many examples, we should be able to fine-tune a VJEPA model with reasonable AUC
+
+how hard would it be to extend the VJEPA model to have both roadfacing and driver facing features in it? I can imagine a setup with two encoders that then get unioned together at the end before going into the prediction head

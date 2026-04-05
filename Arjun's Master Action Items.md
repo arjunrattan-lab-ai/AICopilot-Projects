@@ -48,6 +48,10 @@
 - [ ] **1:1 Nihar Gupta** — Due: 4/3/26
 - [ ] **Onboard: Weekly Review** — Due: 4/4/26
 
+### Cross-Cutting (2 tasks — from Gautam 1:1s Mar 27 – Apr 3)
+- [ ] **Get Admin Panel Access** — Raise IT ticket for admin panel access (can view any customer dashboard, configs, events). Critical for customer escalations. — Due: 4/7/26
+- [ ] **Chat with Nihar on Prioritization** — Has ground game shifted? New customer commits? Updated priorities for ALPR, neural net rebuild, etc.? — Due: 4/4/26
+
 ### Confidence Based Bypass (0 active tasks)
 
 *(all tasks completed)*

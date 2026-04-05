@@ -89,12 +89,4 @@ Analyzing the stated reasons from the form, opt-outs cluster into **5 distinct c
 
 ## Recommendations
 
-1. **Build a system-level opt-out setting.** Replace the Google Form with a Safety Admin → "New Feature Rollout Preferences" toggle. Options: Auto-enable, Notify first (default for ENT), Never auto-enable. This was already identified in H2 2025 planning but deprioritized.
-
-2. **Create a permanent exclusion tier.** Customers like State of Texas DOT who don't want any AI features should be tagged once, not re-surveyed every launch.
-
-3. **Factor coaching maturity into rollout targeting.** If a fleet's watch rate on existing events is below a threshold (e.g., < 20%), auto-enabling new event types adds volume without coaching adoption. Consider: default ON only for fleets with demonstrated coaching activity.
-
-4. **Separate CSM opt-outs from customer opt-outs.** The form should capture whether the request came from the customer or was a CSM preventive action. This affects how aggressively to re-enable post-launch.
-
-5. **Pre-launch notification window.** For ENT/strategic accounts: send a "coming in 2 weeks" notification with a 1-click opt-out link. This satisfies the "change management" cluster without requiring manual form submissions.
+> Execution recommendations moved to `00 Workstreams/AI Release Management/Context.md` — they are rollout process changes, not eating AI-specific findings.

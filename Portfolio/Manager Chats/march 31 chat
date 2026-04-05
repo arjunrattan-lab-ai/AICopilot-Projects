@@ -1,0 +1,816 @@
+[0:00:00] Arjun Rattan, Nihar Gupta: Arjun Rattan, Nihar Gupta joined
+[0:00:48] Nihar Gupta: Hey, Arjun. How's it going?
+[0:00:49] Arjun Rattan: Which. Good. How are you? Near.
+[0:00:51] Nihar Gupta: Good. Do you go to the office every day?
+[0:00:54] Arjun Rattan: Most days other than weekends, yeah.
+[0:00:57] Nihar Gupta: Oh, that's cool.
+[0:00:59] Arjun Rattan: Yeah, it's a. It's a good space. It gets.
+[0:01:02] Arjun Rattan: It gets really fun on Tuesday when some folks show up like Sumit and Michael and all.
+[0:01:08] Arjun Rattan: So I can just grab FaceTime with them.
+[0:01:10] Nihar Gupta: Yeah, yeah.
+[0:01:12] Arjun Rattan: So, yeah, I. And, uh, today is a bit muddy. Not muddy. What's the word when you say it's going to rain?
+[0:01:20] Arjun Rattan: Buggy. Muggy. It's muggy. Yeah, yeah, yeah, it's a bit muggy. But yeah, that's how it's going.
+[0:01:25] Arjun Rattan: How are things with you?
+[0:01:26] Nihar Gupta: Things are good. A little chaotic.
+[0:01:32] Nihar Gupta: Things are a little chaotic today because end of month, end of quarter and so there's like just a few asks.
+[0:01:41] Nihar Gupta: There's one in particular where they said they would sign today, but they needed a commitment that we would deliver fatigue index on AIDC first.
+[0:01:51] Nihar Gupta: So they really need that feature working for them.
+[0:01:57] Nihar Gupta: They really liked it during the trial and they really want it and so we had to commit to that.
+[0:02:04] Nihar Gupta: But that matches our current delivery timeline.
+[0:02:06] Nihar Gupta: So now we just have to actually execute and get it out.
+[0:02:10] Arjun Rattan: Yeah, I'm looking at fatigue index and what?
+[0:02:14] Arjun Rattan: Well, if you're saying that matches the delivery timeline, because I synced up with Devin on Friday on this and he was talking about some problems with microsleep behavior and the team exploring synthetic data as a solve, I think I would want to get into that.
+[0:02:31] Arjun Rattan: But I'm sure Devin has already been looped into this. So he signed off or he's aware.
+[0:02:35] Nihar Gupta: He's aware. Yeah, he's aware.
+[0:02:37] Arjun Rattan: Okay.
+[0:02:38] Nihar Gupta: And look, even if it's not perfect by the time we launch, that's okay.
+[0:02:41] Nihar Gupta: Like we can keep improving the events after, but we have to have a functional model that's deployed to them and.
+[0:02:48] Nihar Gupta: And there's enough really good inputs to where it can still yield a lot of value.
+[0:02:54] Arjun Rattan: Yeah, absolutely. Yeah. And that's what Devin was also saying. Okay, got it.
+[0:02:58] Arjun Rattan: So I was talking to Devin based on our previous conversation about the handoff for all the stuff that he's focused on, including pedestrian warning and warning is with Achin.
+[0:03:11] Arjun Rattan: Etc. Let's see, there were three ones.
+[0:03:12] Arjun Rattan: I spoke to him about forward collision warning, fatigue and other AI projects.
+[0:03:19] Arjun Rattan: So I think there was one problem with seat belt.
+[0:03:21] Arjun Rattan: Not problem, one plan with seat belt as well that he was planning to give to Ajahn.
+[0:03:26] Nihar Gupta: Can you tell me which ones again?
+[0:03:28] Arjun Rattan: Fatigue detection, pedestrian warning, seat belt detection. Those are the Three ones.
+[0:03:42] Nihar Gupta: Sorry. Okay, so what's the significance of these three?
+[0:03:44] Nihar Gupta: Because there's a collection of current and future behaviors.
+[0:03:48] Arjun Rattan: The significance was on the handoff plan.
+[0:03:51] Nihar Gupta: Could you try again, Siri?
+[0:03:53] Arjun Rattan: The significance was in the handoff plan for me specifically.
+[0:03:57] Nihar Gupta: Oh, I see.
+[0:03:57] Arjun Rattan: As an action item.
+[0:03:59] Nihar Gupta: Oh, okay. So fatigue, pedestrian fatigue is something Devin is driving.
+[0:04:06] Arjun Rattan: Yeah.
+[0:04:07] Nihar Gupta: Yep. So hand off of that. Okay, Got you. You confuse me with seatbelt.
+[0:04:11] Nihar Gupta: Because seatbelt, actually the work on that is it's like aligning some of the telematics behavior.
+[0:04:18] Nihar Gupta: Right. Basically to the AI behavior. Some of the configs are off. Is that what you're talking about?
+[0:04:22] Nihar Gupta: Are you referring to a conversation we had or.
+[0:04:25] Arjun Rattan: I'm referring to an action item from a conversation that we had to sit down with Devin, understand his portfolio of AI projects and figure out a handoff plan.
+[0:04:35] Nihar Gupta: But I don't think. I don't remember talking about seatbelt specifically. So.
+[0:04:38] Arjun Rattan: Yeah, we didn't speak about seatbelt.
+[0:04:40] Arjun Rattan: Seat belt is something that Devin mentioned as we were going through it.
+[0:04:44] Nihar Gupta: Okay, got it. This all makes sense. Yes. Those are the things that we need to transition seatbelt.
+[0:04:48] Nihar Gupta: There's a discrepancy in how we do telematics and AI events that he's working on.
+[0:04:53] Nihar Gupta: So that's what he's referring to.
+[0:04:55] Arjun Rattan: Okay.
+[0:04:56] Nihar Gupta: But honestly, like, did he give you a sense for when he wants to transition?
+[0:05:00] Nihar Gupta: These things or what are. Right. What our timing is for doing that.
+[0:05:04] Arjun Rattan: He. I went with the timing.
+[0:05:06] Arjun Rattan: You had shared that by the end of April, I would be focused on the in cab alerts experience for fatigue.
+[0:05:13] Arjun Rattan: That was my understanding. Okay.
+[0:05:17] Arjun Rattan: He said, yeah, I'm gonna, I'm gonna try to get it out of the door before that. I'm headstone.
+[0:05:22] Arjun Rattan: That's what he said.
+[0:05:22] Nihar Gupta: I think, like, sorry, I don't remember if I said end of April, but I, I believe you if you say that I did.
+[0:05:30] Nihar Gupta: I don't know if I have a strict date.
+[0:05:32] Nihar Gupta: I want to do it more based on project and like not being disruptive to the outcome. Right.
+[0:05:38] Nihar Gupta: So if he has so much context on fatigue and getting alerts out and he's close, let's say we're at the 80 or 90% mark.
+[0:05:46] Nihar Gupta: It doesn't really make sense to hand it off to you. Right.
+[0:05:48] Nihar Gupta: So I'd want to focus more on like, if he's principally done with something, get it out the door.
+[0:05:54] Nihar Gupta: If he's principally not done with something and it's very early in development or at a good point where we can hand it off and like we should do that versus like a strict date.
+[0:06:03] Nihar Gupta: I probably wasn't clear on that before.
+[0:06:05] Arjun Rattan: Okay, got it. Yeah. So the understanding is Devin is going to launch by end of April. That's step one.
+[0:06:14] Nihar Gupta: Then, then, so then that, that actually is a great point of, you know, demarcation that we can use.
+[0:06:19] Nihar Gupta: Line of demarcation.
+[0:06:20] Nihar Gupta: So then at that point then you can take over and improve it, you know, continue to, to, to guide its improvement from your team and you figure out how to manage that.
+[0:06:29] Arjun Rattan: Yeah, now it's my, my memory. Like I remember the specific things.
+[0:06:33] Arjun Rattan: So what you had actually mentioned was a demarcation point between launch the model and in cab events.
+[0:06:38] Arjun Rattan: That was in your head. The principle. Get that done and then focus on this.
+[0:06:42] Arjun Rattan: I married the waters with the date, but the date is April is the cutoff end of April where I'll start focusing on in cab alerts etc, which will be its own.
+[0:06:51] Nihar Gupta: Okay. Okay, that makes sense. Yeah.
+[0:06:53] Nihar Gupta: So as long as, yeah, we find a good line, you know, separation line and that's perfect. So yeah.
+[0:06:58] Nihar Gupta: Okay, makes sense. So basically he thinks he'll be mainly done with alerts actually. Is that true?
+[0:07:03] Nihar Gupta: Even on. That's on aidc. But what about all the AIDC plus work?
+[0:07:08] Arjun Rattan: Yeah, so we didn't talk about AIDC plus. We couldn't get to it. So I will take that.
+[0:07:16] Arjun Rattan: I'm waiting for him to come back. We have a follow up. So I'm gonna.
+[0:07:18] Arjun Rattan: So the plan is basically I'm gonna now start shadowing him in all of his meetings.
+[0:07:23] Arjun Rattan: So that is the best way for me to build up the context.
+[0:07:25] Arjun Rattan: So by the time it comes, I know where each one is.
+[0:07:27] Arjun Rattan: And thankfully here I have a nice smooth on ramp I can leverage. Okay. I'm just being parachuted in.
+[0:07:34] Nihar Gupta: Okay, good. I think that makes sense.
+[0:07:37] Nihar Gupta: I'm very confident you'll be able to pick it up quickly and work with the team on it. So that's good.
+[0:07:42] Nihar Gupta: There's some complexity to be clear, so it's not easy, but I think you'll be able to pick it up.
+[0:07:48] Nihar Gupta: Yeah, aidc. Now we've got to hit this timeline even separate from this deal.
+[0:07:54] Nihar Gupta: We've talked about how critical this feature is.
+[0:07:56] Nihar Gupta: So we have to make sure that we hit this timeline right.
+[0:08:00] Nihar Gupta: So that's the one thing like I want you to track.
+[0:08:03] Nihar Gupta: Like AIDC is important, but AIDC plus is way more important. This is where all our quarter depends.
+[0:08:10] Nihar Gupta: Right. Like all new deals are gonna like start pushing on this really hard.
+[0:08:14] Nihar Gupta: So make sure that we, we really understand the timeline for that as well.
+[0:08:18] Arjun Rattan: Got it.
+[0:08:20] Arjun Rattan: Is there a vision or a strategy doc that was ever written for AIDC plus that I can refer especially from the safety team's perspective.
+[0:08:29] Arjun Rattan: Like for AIDC plus these are the killer apps that need to be out there. One of them is fatigue.
+[0:08:34] Arjun Rattan: These are the deals that are related to it somewhere.
+[0:08:37] Arjun Rattan: So I can find this, I can do a glean search and all that.
+[0:08:39] Nihar Gupta: But I would say probably glean search because nothing comes to mind.
+[0:08:42] Nihar Gupta: But like basically first of all, fatigue is not like fatigue is not something enabled by the new camera, it's something we'll have on the new camera just like the old camera.
+[0:08:49] Nihar Gupta: So it's not unique. The pitch deck for AIDC should give you a really good sense for what is unique.
+[0:08:55] Nihar Gupta: Right?
+[0:08:55] Arjun Rattan: Yeah.
+[0:08:55] Nihar Gupta: So you've probably seen that things like ALPR and alpr.
+[0:08:59] Arjun Rattan: Yep.
+[0:08:59] Nihar Gupta: Stereo vision is another thing that we've been talking about.
+[0:09:02] Arjun Rattan: Two way calling
+[0:09:04] Nihar Gupta: supervision is something probably you'll.
+[0:09:06] Nihar Gupta: You'll need to drive in H2 which is like how do you improve depth perception?
+[0:09:10] Nihar Gupta: And, and you know, because we have two lenses, there's some technical challenges of that but even though we're leaning heavily on that in marketing.
+[0:09:16] Nihar Gupta: But that's where you'll be able to see the unique things.
+[0:09:21] Nihar Gupta: But in terms of otherwise most of the AI models you can do on either platform.
+[0:09:27] Nihar Gupta: It's really where can you use an aero field of view lens? I think is a big differentiator.
+[0:09:32] Arjun Rattan: Got it. And this brings me to my next question for AI OC plus.
+[0:09:39] Arjun Rattan: I've been working on a prelim understanding doc of hey, what's the problem we are trying to solve?
+[0:09:44] Arjun Rattan: Etc.
+[0:09:47] Arjun Rattan: I, I wanted to understand from you based on my research so far which I have to validate, it looks like there is one company DNT that has specifically said give me pedestrian.
+[0:09:59] Arjun Rattan: And this is based on stuff I'm picking out from Devin's PRD which I'm looking at Amazon so.
+[0:10:04] Arjun Rattan: And there is Cintas that has spoken a little bit about pedestrian. Now given that we are doing these,
+[0:10:12] Nihar Gupta: there's a ton more companies than that.
+[0:10:14] Arjun Rattan: Yeah, but ton of more companies who would go and buy a multi camera setup.
+[0:10:20] Nihar Gupta: Well look at it this way Arjun. Look how much demand there is for provision right now.
+[0:10:24] Nihar Gupta: All of that demand will get replaced by AI Omnicam. Right. Omnicamp.
+[0:10:30] Arjun Rattan: Plus we are very confident on the demand signal. I don't have to break my head worrying about it.
+[0:10:36] Arjun Rattan: I just go straight to how do I port and ship?
+[0:10:39] Nihar Gupta: You should. But I will tell you like the demand is very strong and provisional.
+[0:10:44] Nihar Gupta: You know the reason people are consuming it is to have the in cab monitor and there's, there's a, there's some non AI use cases that people care about just having the visibility in the in cab monitor and there's the AI use cases that people care about and you're seeing a split of both.
+[0:10:59] Nihar Gupta: But there's a lot of interest in that and it's a gap to our two key competitors.
+[0:11:06] Nihar Gupta: So, so there's no lack of demand for this overall.
+[0:11:09] Nihar Gupta: You should still make sure that you uncover it and understand it because as you uncover it then you also build a perspective on what's important.
+[0:11:16] Nihar Gupta: So you should definitely do that. But like, yeah, there's no, there's no lack of demand for this.
+[0:11:21] Arjun Rattan: Okay. Yeah, so that was my initial thinking as well. I, I did a competitive analysis.
+[0:11:26] Arjun Rattan: I know Samsara is offering it. I looked at that. I, there were two angles to come at it.
+[0:11:31] Arjun Rattan: Hey, are we building the killer app for the whole AIO C like a flagship feature and is safety leading that or it's more about, hey, I can make money.
+[0:11:41] Arjun Rattan: This is a standalone lift and shift for provision. If I add this, it helps me close more deals.
+[0:11:46] Arjun Rattan: So I couldn't validate the second hypothesis that if I go and add AI, if I go and add pedestrian, will it help me close more deals?
+[0:11:55] Arjun Rattan: Like I couldn't get that signal but I got this first signal of everyone is looking in mass transit and everything I want to know warning.
+[0:12:04] Nihar Gupta: So it will help us help us close more deals because it's already it's been a reason why we've lost deals.
+[0:12:08] Nihar Gupta: Actually you can go look at our close lost and see.
+[0:12:11] Arjun Rattan: Okay, awesome. Yeah. So thank you for that.
+[0:12:13] Arjun Rattan: I will go look at our closed loss so that it's a tighter narrative for me in my head as I build out the principles of how we get this out.
+[0:12:21] Arjun Rattan: The, the second thing I wanted to talk to you about in this, given that this is my first NPI with the team and there's a bunch of that still in motion, how are you thinking about the timelines from an AI safety use case perspective?
+[0:12:37] Arjun Rattan: Because I'm going to go meet Michael about this next week, like first Monday or Tuesday.
+[0:12:41] Arjun Rattan: I'll probably sync up with you on this on Friday. So get your review on it. How I'm thinking about it.
+[0:12:48] Arjun Rattan: But there are, there, there are a bunch of big unknowns in my head right now.
+[0:12:53] Arjun Rattan: What for example, how will this pipeline that we are going to go build for this first model, How Much is reusable with AIDC and with AIDC plus.
+[0:13:03] Arjun Rattan: Given that the hardware stack is pretty much the same as what Scott was saying, that it is an extension, I think a lot of it is reusable, which means we can be a bit more aggressive in the commitment we make that it have an alpha out by July.
+[0:13:15] Arjun Rattan: So that's one question I'm trying to lock in and be sure of because this seems more like to my head execute lift, shift and transfer rather than rebuild from scratch.
+[0:13:29] Arjun Rattan: So there are some assumptions I'm making. Does that make sense to you?
+[0:13:33] Nihar Gupta: So you're asking the basic question of whether we can use the same pipeline for AIs plus events as we use AID C plus.
+[0:13:39] Arjun Rattan: Yeah.
+[0:13:42] Nihar Gupta: And you're asking for my perspective on it or that your perspective.
+[0:13:45] Arjun Rattan: I'll go figure it just like what's your.
+[0:13:47] Nihar Gupta: Like this should be probably engineering LED I think, right? Like what would products POV on this be?
+[0:13:55] Nihar Gupta: Like if, if our current pipeline can manage it then fine, use the existing pipeline.
+[0:14:02] Nihar Gupta: It's the same like if we don't need to go recreate things or rebuild things or replicate things, then use the existing pipeline as long as it can manage it and that should be fine.
+[0:14:14] Nihar Gupta: The one thing to consider though is like what about for cameras, different cameras, what about for non safety use cases like for AI vision?
+[0:14:24] Nihar Gupta: Does that matter? Would we want a different pipeline?
+[0:14:27] Nihar Gupta: I think though this is still fundamentally an engineering question. Unless I'm missing something,
+[0:14:32] Arjun Rattan: I think yeah, it is an engineering question but the engineering question will come from the one or two year vision we have for this.
+[0:14:42] Arjun Rattan: Like this is the time to go tell them hey, go build this.
+[0:14:44] Arjun Rattan: So again we can either try to have a decent 60% pipeline that covers some use cases that we see coming through the tunnel in the next two years versus so if you want a vision pipeline separate and you want this.
+[0:14:59] Arjun Rattan: So that's a strategic choice we are going to make today.
+[0:15:01] Arjun Rattan: Like okay, I have a bunch of use cases that I don't want to reuse, I'm going to have very different field of views, etc.
+[0:15:07] Arjun Rattan: Etc. So that's a decision they have to be aware of as we go through.
+[0:15:11] Nihar Gupta: Are you just asking about the pipeline? And like when you say pipeline, can you be more specific?
+[0:15:15] Nihar Gupta: Actually that way I can hone in on my.
+[0:15:16] Arjun Rattan: Yeah, I mean more specifically the ability to take a signal, ingest it, understand the sensor input that has come, the model on the edge that processes it tells me that this is a pedestrian collision warning event that has been generated and sending it through will all of that be reused?
+[0:15:36] Arjun Rattan: That's, that's as basic a question as I have. Because we have four pipelines for collisions.
+[0:15:45] Arjun Rattan: What I've seen there is a collision one which is all telematics.
+[0:15:48] Arjun Rattan: There is a one vision one and then there is another heartbreaking abc I think one. So.
+[0:15:55] Arjun Rattan: So we have multiple pipelines that probably have been created to handle different strategies as they've come through, correct?
+[0:16:01] Nihar Gupta: Yeah, yeah. Those have been stacked on top of each other in this case.
+[0:16:04] Nihar Gupta: I don't know if you need to use a different pipeline or not. Like I don't know, I guess I
+[0:16:09] Arjun Rattan: don't think we need a different. Again, that's why I said I'm just trying to.
+[0:16:11] Nihar Gupta: No, I don't. I can't think of a good reason why.
+[0:16:13] Nihar Gupta: Like maybe if we think again from an engineering standpoint, the load would be too high or the complexity increases because we do this.
+[0:16:23] Nihar Gupta: That's one thing to consider.
+[0:16:24] Nihar Gupta: Or if we should just have a completely separated pipeline that manages these events.
+[0:16:31] Nihar Gupta: And then again, where do you store this data? Does it go into the same.
+[0:16:34] Nihar Gupta: You don't want to store it in the same overweight tables that we have today.
+[0:16:38] Nihar Gupta: You want to store these in net new tables at least AI visions probably.
+[0:16:42] Nihar Gupta: So if it's a safety thing, maybe that goes into the same like DPE table. If it's a non safety thing.
+[0:16:47] Nihar Gupta: I think the plan that Chandler had laid out was actually have a separate pipeline I can remember with a separate database that's not bloated by existing safety architecture.
+[0:17:02] Nihar Gupta: So that's the open question that I think we need engineering to help answer.
+[0:17:05] Nihar Gupta: The other thing to think about is like efs, can EFS manage all of the things that we needed to do for AI vision?
+[0:17:12] Nihar Gupta: Because more of the use cases are actually non safety if we think two, three years out than they are safety.
+[0:17:18] Nihar Gupta: I think there's probably some of both.
+[0:17:20] Nihar Gupta: But can EFS manage all of the things that we needed to across all safety and AI vision or do we need to have a separate notion of EFS when we do this cloud filtering and stuff?
+[0:17:32] Nihar Gupta: That's something we need to figure out. And another question now, now that we have this eve, right.
+[0:17:39] Nihar Gupta: Is that also built to scale, to manage everything or do we want.
+[0:17:42] Nihar Gupta: So again like engineering oriented question.
+[0:17:45] Arjun Rattan: Yeah, so you don't.
+[0:17:47] Arjun Rattan: Okay then the next question I had very specifically was on the pedestrian model itself, the failure cases.
+[0:18:01] Arjun Rattan: So I've been looking at what we have that Achin put together for Amazon.
+[0:18:05] Arjun Rattan: We've got stop state and running state as to initial bifurcations, when the vehicle is stopped, what are the stuff you do and when the vehicle is moving, how do you think about it?
+[0:18:17] Nihar Gupta: For which, for which behavior?
+[0:18:19] Arjun Rattan: Pedestrian.
+[0:18:20] Nihar Gupta: Why do you care when the vehicle stopped for pedestrian.
+[0:18:22] Arjun Rattan: Exactly. That's my question. Why do I care about vehicle stopped?
+[0:18:26] Arjun Rattan: But, but there is one use case for when vehicle is stopped. When you are coming out a red light. Yeah.
+[0:18:32] Arjun Rattan: When you're coming out of a red light or you're coming out of.
+[0:18:35] Arjun Rattan: You park like you're an Amazon transit van and you're parking out.
+[0:18:38] Arjun Rattan: And this brings me back to the first question I asked you, which is the dashcam use cases that we are creating for this composite view, how many of them are going to like.
+[0:18:52] Arjun Rattan: It basically comes down to the customer type. Am I selling to transit?
+[0:18:55] Arjun Rattan: Because then transit, the use case that gets prioritized is if you're, if you are just always in motion.
+[0:19:00] Arjun Rattan: Am I selling to Amazon? Then I would actually think about stop to start.
+[0:19:04] Nihar Gupta: Like Amazon's actually the biggest driver of this.
+[0:19:07] Nihar Gupta: They're the ones that have pushed us because we're trying to get a big deal with Amazon.
+[0:19:12] Nihar Gupta: So they are probably the number one customer for this. But we have to solve for all the use cases.
+[0:19:17] Nihar Gupta: Yeah, I still think like it's a good question at Amazon.
+[0:19:21] Nihar Gupta: I think the more common case though is when the vehicle's in motion, like versus when the vehicle stopped.
+[0:19:27] Nihar Gupta: And then, so vehicle stopped, coming, coming out of stop position could be like if they just dropped off something last mile and then they're starting to drive.
+[0:19:37] Nihar Gupta: It could be coming out of a red light.
+[0:19:39] Nihar Gupta: If they start driving, it could be, you know, maybe a pedestrian is running across.
+[0:19:44] Nihar Gupta: It could be at a stop sign, same scenario.
+[0:19:47] Nihar Gupta: So you could have those when, when the vehicle stopped and it starts moving again.
+[0:19:51] Nihar Gupta: But the more predominant kind is probably when the vehicle's in motion.
+[0:19:54] Nihar Gupta: I assume that's probably what you care more about.
+[0:19:56] Nihar Gupta: But you need to consider Amazon as an what their use cases are and then other priority and then other customers as well.
+[0:20:03] Nihar Gupta: Has to scale across vertical.
+[0:20:05] Arjun Rattan: So every time you say this in my head I hear that this is a strong use case for a forward placed camera.
+[0:20:13] Arjun Rattan: Or are you telling me this is a use case?
+[0:20:14] Nihar Gupta: Are you talking to a OC plus or are you talking about pedestrian only?
+[0:20:17] Arjun Rattan: AOC plus. This is a whole OC plus conversation only. I'm just.
+[0:20:22] Nihar Gupta: Because you said start and stop in Aachen and so for Aachen, he's working on pedestrian collision warning.
+[0:20:26] Nihar Gupta: That's different.
+[0:20:27] Arjun Rattan: Yes. How is that pedestrian collision warning different?
+[0:20:31] Arjun Rattan: Than the pedestrian one that we are going to go on. AIOC plus.
+[0:20:35] Nihar Gupta: So pedestrian collision warning is actually more. Has to do with.
+[0:20:39] Nihar Gupta: It's like the equivalent of forward collision warning except to deal with pedestrians.
+[0:20:46] Nihar Gupta: So forward collisional warning is vehicles. Pedestrian collision warning or pedestrian.
+[0:20:50] Nihar Gupta: You know, warning is like the same concept but with, with detection of pedestrians when we're about to make contact with a pedestrian.
+[0:20:59] Arjun Rattan: Okay.
+[0:20:59] Nihar Gupta: I generally think of that like the V1 in my mind has always been.
+[0:21:02] Nihar Gupta: I didn't even know we had the stop case. V1 in my mind has always been when the vehicle's moving.
+[0:21:05] Nihar Gupta: It's a perfect corollary to forward collision warning.
+[0:21:09] Nihar Gupta: If we're looking at stop, we should have a strong basis for why we need to include that in the V1 because it feels like we can probably go faster by solving for the movement case and then worrying about the stop case later.
+[0:21:20] Nihar Gupta: So that's one piece of feedback. I didn't even know we were looking at that. Number two is.
+[0:21:26] Nihar Gupta: Yeah, so that's on pedestrian collision warning. Now coming back to AIOC plus.
+[0:21:30] Arjun Rattan: Yes.
+[0:21:31] Nihar Gupta: This is about pedestrian in a zone close to the vehicle. So it could be about to collide.
+[0:21:38] Nihar Gupta: But that's, that's not exactly this pedestrian detection.
+[0:21:41] Arjun Rattan: Just tell me if there is someone there.
+[0:21:42] Nihar Gupta: Action.
+[0:21:43] Arjun Rattan: As simple as.
+[0:21:43] Nihar Gupta: Okay, yeah.
+[0:21:44] Nihar Gupta: So like when there's a pedestrian close to the vehicle or it's not even just pedestrian, it's vehicle detection too.
+[0:21:52] Nihar Gupta: Right. This is not just a pedestrian problem. This is actually a vehicle detection problem too.
+[0:21:58] Nihar Gupta: So when I am, when I am driving and there's a potential vehicle that is like very close to me in my blind spot or something.
+[0:22:10] Nihar Gupta: Right.
+[0:22:11] Nihar Gupta: If I'm just about to kind of move into the lane and there's a vehicle in the blind spot, I want to alert on that.
+[0:22:16] Nihar Gupta: Right.
+[0:22:16] Nihar Gupta: So that's like a, that's a vehicle detection case where the vehicle is very close to my vehicle.
+[0:22:21] Nihar Gupta: Very similar to what we experience in our modern vehicles.
+[0:22:23] Arjun Rattan: Right.
+[0:22:24] Nihar Gupta: Commercial vehicles. Same thing applies to pedestrians.
+[0:22:27] Nihar Gupta: If there's a pedestrian nearing my vehicle or in close proximity to my vehicle, I want to alert on that to give the driver a heads up and I want to be able to see it on my display as well.
+[0:22:37] Arjun Rattan: Okay.
+[0:22:38] Nihar Gupta: So applies to both cases, actually. Was that not clear?
+[0:22:42] Nihar Gupta: Did I not make that clear to you or was that not clear in any of the research you've done?
+[0:22:47] Arjun Rattan: So I have actually started off on the hypothesis that we are just doing pedestrian detection, slash collision.
+[0:22:54] Arjun Rattan: That's how I started this thing off.
+[0:22:56] Nihar Gupta: That's why it's actually much broader than that.
+[0:22:58] Nihar Gupta: Because think of this more as like, think about this more as like detection in close proximity.
+[0:23:08] Nihar Gupta: Not collision warning, pedestrian or vehicle or bicycle or motorcycle, whatever, in close proximity to a vehicle.
+[0:23:15] Nihar Gupta: And I want to give the driver a heads up.
+[0:23:17] Nihar Gupta: I want to give them full visibility around what's happening. Very similar to like when we're driving.
+[0:23:21] Nihar Gupta: If we're about to collide with something, you'll see it if you have a heads up displays or not heads up, you have a display, you know, maybe like on a Tesla, I think they do a good job of this.
+[0:23:29] Nihar Gupta: But like even in other vehicles, like it'll start alerting you if you're about to hit something, right?
+[0:23:33] Arjun Rattan: Yeah.
+[0:23:34] Nihar Gupta: If you're reversing and you're about to hit something, you start getting those beeps.
+[0:23:39] Nihar Gupta: Similar concept to that. That's a backup assist that we want to include here as well.
+[0:23:43] Nihar Gupta: That's another use case you need to consider.
+[0:23:45] Nihar Gupta: But even like if there are vehicles around, maybe it just changes the, you know, light color to let you know that there's a vehicle around.
+[0:23:52] Nihar Gupta: Similar like on the, on the rearview mirror on the left.
+[0:23:54] Nihar Gupta: If, if there's a vehicle in close proximity, it might change color or something. Right.
+[0:23:59] Nihar Gupta: So it's that kind of concept. It's okay. The detection of any of those things around the vehicle.
+[0:24:04] Arjun Rattan: Okay, that's, that's a much better framing for me. I was a bit narrowed down just on pedestrians.
+[0:24:09] Arjun Rattan: We can start with pedestrians as the first exemplar of the strategy.
+[0:24:13] Nihar Gupta: Yeah.
+[0:24:13] Arjun Rattan: In terms of detection, this, this makes more sense to me.
+[0:24:16] Arjun Rattan: So there is more stuff to talk about and we can come back to pedect pedestrians and detecting them as the first use case.
+[0:24:22] Nihar Gupta: Well, it's actually, it's a good point.
+[0:24:25] Nihar Gupta: You and maybe you and me both conflated these things a little bit too.
+[0:24:28] Nihar Gupta: I don't know if we want to start. Do we want to start with pedestrians or vehicles?
+[0:24:32] Arjun Rattan: That's why it goes back to who, who are we solving for? Which customer is really crying out for it.
+[0:24:37] Arjun Rattan: My, my thing is if Amazon has more than one camera that they are hooking up and then I can be that single pane of glass for them and then Amazon would care about people coming out.
+[0:24:50] Arjun Rattan: Sorry, that's a good one. Would I care about cars as I'm backing out of a driveway?
+[0:24:56] Nihar Gupta: Yes, 100%.
+[0:24:57] Arjun Rattan: I would care more about cars.
+[0:25:00] Nihar Gupta: Cars, Yes. I think you're gonna.
+[0:25:02] Nihar Gupta: It's much more common for vehicles actually, so I think that's actually more important.
+[0:25:07] Arjun Rattan: Yeah. So Instead of pedestrian.
+[0:25:11] Arjun Rattan: We are probably thinking a little bit more about, hey, can I detect any vehicle around me and how close is it?
+[0:25:16] Arjun Rattan: And that automatically unlocks my. Both motion and stopped use cases.
+[0:25:22] Nihar Gupta: Yes, I think that's right. I think you need. I think you care about vehicles more than pedestrians.
+[0:25:28] Nihar Gupta: You care about both. Ideally, we can solve for both. I'm trying to.
+[0:25:31] Nihar Gupta: Let me see if I can dig up some more insight and data on this as well from.
+[0:25:38] Arjun Rattan: Yeah, at the end, if I can just get the customer industry or even the customer archetype, I can break it up and I'll also do my research.
+[0:25:46] Arjun Rattan: I've been doing it like I was. Oh, I don't know if you've gone and tested someone's workflow yet.
+[0:25:53] Arjun Rattan: It's. It's pretty good workflow. Yeah. Yeah.
+[0:25:57] Nihar Gupta: Oh yeah. No, I haven't. I need to.
+[0:26:00] Nihar Gupta: I'm still like getting up to speed on a few of those things, so I need to.
+[0:26:04] Arjun Rattan: I'm already on my week three.
+[0:26:05] Arjun Rattan: So all the discussion I'm having with you is after I've written three variants of it. Of course.
+[0:26:10] Arjun Rattan: That's how these questions come. You keep writing and you're like, oh yeah, what is this?
+[0:26:13] Arjun Rattan: What is this? What is this?
+[0:26:14] Nihar Gupta: What are you. What are you using right now?
+[0:26:15] Arjun Rattan: I'm using VS code. I've hooked it up to. I can show you to GitHub. Yes, I've hooked it up to GitHub,
+[0:26:23] Nihar Gupta: so I need to do that next. I just requested GitHub and I just got it approved today.
+[0:26:27] Nihar Gupta: So I need to hook them up now.
+[0:26:29] Arjun Rattan: Yeah, so let's see. Okay. Picture in picture. Can you see my screen?
+[0:26:29] Arjun Rattan: Arjun Rattan started sharing your screen
+[0:26:38] Nihar Gupta: I see Pedestrian detection overview.
+[0:26:40] Arjun Rattan: No, no, that's not what I. Let me try again. I should show you. Yeah, this one.
+[0:26:45] Arjun Rattan: Are you able to see my screen now? The window. Okay, awesome.
+[0:26:48] Arjun Rattan: So I have gone and hooked this up through VS code and Glean and Snowflake and there is a set of skills that Suman has built out for this.
+[0:27:01] Nihar Gupta: Sumit. Last name is Suman, I think. I don't know how to say.
+[0:27:05] Arjun Rattan: Yeah, my bad. Someone is a first name in my family. I always get confused. Yeah, I have a Suman Chachi.
+[0:27:13] Nihar Gupta: Got it. My brother in law's name is Schumann. He's a Bengali. My. My. My wife's brother in law actually.
+[0:27:21] Arjun Rattan: Ah, okay. Okay. So. Yeah, but I'll be careful. It's. So thank you for the class.
+[0:27:25] Nihar Gupta: No, no worries. Yeah.
+[0:27:27] Arjun Rattan: And so I have gone and done like 3 revs on this and this workflow is pretty good.
+[0:27:31] Arjun Rattan: I added some AI principles because we build AI slightly differently in terms of product definition and what we want to do.
+[0:27:37] Nihar Gupta: Yeah.
+[0:27:38] Arjun Rattan: But it's pretty good in getting a confluence page set up and let me show you why.
+[0:27:47] Arjun Rattan: Oh, I have to present a window. That's why there's a problem.
+[0:27:51] Arjun Rattan: Entire screen inspect screen now it will work. Yeah.
+[0:27:57] Arjun Rattan: So it's pretty good in that there is also a way to ex send the output out and then it can be reviewed by people as well.
+[0:28:03] Arjun Rattan: So initially when I get through this, we have all aligned. I can send it to you guys formally.
+[0:28:07] Arjun Rattan: Like here's the confluence page with everything. Yeah, everything. The AI is built.
+[0:28:11] Arjun Rattan: I have done nothing.
+[0:28:11] Nihar Gupta: It's all right. This is good. Can you go back real quick before look at.
+[0:28:17] Nihar Gupta: No, you want go hit back twice. So. Oh, okay. Where you had Maybe where it talked about.
+[0:28:27] Nihar Gupta: No, where you talked about Samsara.
+[0:28:29] Arjun Rattan: Oh, yeah, yeah. So Samsara will be in.
+[0:28:37] Nihar Gupta: Yeah.
+[0:28:38] Arjun Rattan: Where was it?
+[0:28:40] Nihar Gupta: I just. Oh, you're right. It is right here.
+[0:28:44] Nihar Gupta: So pedestrian detection, blind spot monitoring and object detection. Right, that's exactly.
+[0:28:50] Nihar Gupta: So that's what I'm trying to say.
+[0:28:51] Nihar Gupta: Like, I don't know why I didn't say blind spot monitoring, just that that is the freaking term.
+[0:28:56] Nihar Gupta: But pedestrian detection. Right. So around the vehicle, blind spot monitoring.
+[0:28:59] Nihar Gupta: I was trying to describe a scenario to you. That's exactly it.
+[0:29:02] Nihar Gupta: And then object detection probably in the like again, if you're about to collide with an object, if you're getting.
+[0:29:07] Nihar Gupta: If you're backing, you're about to hit the curb. Right. Yeah, that kind of thing.
+[0:29:12] Nihar Gupta: Or if you're about to hit a poll. If we can do detection on that. I mean but like that's exactly the.
+[0:29:19] Nihar Gupta: The P0 requirements.
+[0:29:22] Arjun Rattan: Okay.
+[0:29:22] Nihar Gupta: All three, I would say the first two are like really high and I would argue object detection potentially if I'm thinking about it the right way.
+[0:29:30] Nihar Gupta: Also high, but third on the list.
+[0:29:32] Arjun Rattan: Yeah. If you're trying to get something out in alpha. I'll start with the first two.
+[0:29:37] Arjun Rattan: However, if I have to choose between the two again, depends on what engineering comes back and tells me we can make that decision.
+[0:29:43] Arjun Rattan: Because alpha is stated.
+[0:29:45] Nihar Gupta: Yeah, we'll make that decision.
+[0:29:47] Arjun Rattan: Yeah. Okay, cool. So yeah, so the workflow is good, it's all ready.
+[0:29:50] Arjun Rattan: But again, this is not in alignment with what you and I just spoke of.
+[0:29:53] Arjun Rattan: So I'm going to keep turning on this and by Thursday I'll give you a view that you can read through and pressure test.
+[0:30:00] Arjun Rattan: And once that is done, then I can start having discussions with Michael and the rest of the folks and hey, what are we going to do?
+[0:30:05] Arjun Rattan: How are we going to do it? Et cetera.
+[0:30:07] Nihar Gupta: Okay, that sounds good.
+[0:30:08] Arjun Rattan: Yep.
+[0:30:09] Nihar Gupta: Okay, cool. That's great.
+[0:30:12] Arjun Rattan: Yeah. So the tool is good. Took a bit of prompting like four or five hours yesterday night.
+[0:30:17] Nihar Gupta: I'm going to get on it. Thank you. Yeah, it seems like it's good.
+[0:30:21] Nihar Gupta: I've seen some of his output so I need to, I need, now that I have access, I need to go ahead and hook it up.
+[0:30:26] Nihar Gupta: Cool. Hey, separately, like I, I want to make sure you're getting what you need.
+[0:30:31] Arjun Rattan: Arjun Rattan stopped sharing your screen
+[0:30:34] Nihar Gupta: As you're ramping up, I can tell you're a self starter so like you're already doing a lot of things which is great and like digging in yourself.
+[0:30:42] Nihar Gupta: I gave you the opening kind of like document which I think gave you a lot of places to start digging and then from there you went and dug deeper on a lot of things.
+[0:30:49] Nihar Gupta: So great. I really appreciate that. I want to make sure that you're getting enough from me though.
+[0:30:55] Nihar Gupta: The last week has been a little bit insane for me so I haven't been able to dedicate as much time.
+[0:31:00] Nihar Gupta: We have two meetings set up a week. We can do more if we need to. We can do ad hoc.
+[0:31:04] Nihar Gupta: I can meet anytime you want, you know, calendar permitting.
+[0:31:08] Nihar Gupta: But like please, like if you need support for me on something like an er, I need to figure out what I should be working on or I don't know which AI project is most critical or I'm having trouble with this person.
+[0:31:20] Nihar Gupta: Whatever the thing is, like don't wait.
+[0:31:22] Nihar Gupta: Just get like I want to help you and I feel like I've been not as engaged as I would normally want to be with somebody.
+[0:31:28] Nihar Gupta: Come on, come on board. I think it's okay because of. Cause you're self starting in so many ways.
+[0:31:32] Nihar Gupta: But if it's not okay, like make sure you're raising those to me because I want to be here to support you.
+[0:31:38] Arjun Rattan: Yeah, a hundred percent. So I've been.
+[0:31:43] Arjun Rattan: So one thing I did feel like and I just, I was going to tell you in one of our one on ones is that for anyone who's coming next time let's, let's have an onboarding buddy.
+[0:31:52] Arjun Rattan: The manager shouldn't be the onboard like someone. So Gautam's kind of been like my onboarding buddy.
+[0:31:56] Arjun Rattan: So he's been doing like a couple of conversations. Like I spoke to him last week.
+[0:32:01] Arjun Rattan: It gave me a lot of clarity on the pipeline. So there's stuff you read and then Questions.
+[0:32:05] Arjun Rattan: So he's really helped.
+[0:32:06] Arjun Rattan: And then I got a hold of Michael Benish's onboarding doc, which was super technical.
+[0:32:13] Arjun Rattan: So that also really helped because now I have a systems view.
+[0:32:16] Nihar Gupta: Okay.
+[0:32:16] Arjun Rattan: And then the third thing, coming back to your question, and I'll answer that, yes, I'm a self starter.
+[0:32:23] Arjun Rattan: I like this approach where I actually go try to solve stuff and then stuff breaks or I don't understand it because I think that is the best use of your time with me is where I actually come back having done my research because you already gave me that doc, like, hey, go read.
+[0:32:36] Arjun Rattan: And now that I have some spaces that I can go try this out, I'll keep coming back to you every two days as we've set it up.
+[0:32:43] Arjun Rattan: And I can keep telling you, hey, this is what I found.
+[0:32:45] Nihar Gupta: Now I'm thinking, yeah, that's a great way for us to continue to iterate.
+[0:32:49] Nihar Gupta: I'd say, like, I didn't formalize it, but I did ask Devin to kind of like support you on when you first joined.
+[0:32:56] Nihar Gupta: So hopefully he gave you some of that buddy vibe. Maybe I could have been more explicit about that.
+[0:33:01] Nihar Gupta: I'm super pleased that you have found Gotham and he's been very supportive and he's a great person for you to build a strong relationship with.
+[0:33:09] Nihar Gupta: So that's really, really good to hear.
+[0:33:12] Nihar Gupta: But this is good feedback overall, I think more explicitly calling out like, here's your onboarding buddy.
+[0:33:16] Nihar Gupta: Committing that to somebody would be good. So that makes sense. Yeah.
+[0:33:21] Arjun Rattan: So Devin was kind. So luckily Devin was here two weeks ago.
+[0:33:24] Nihar Gupta: Yeah.
+[0:33:25] Arjun Rattan: And so he and I actually got some FaceTime after I spoke with him. So he was very kind.
+[0:33:29] Arjun Rattan: He walked me through a bunch of stuff, he gave me resources, and then I got into it.
+[0:33:33] Arjun Rattan: If I had known he was explicitly my onboarding buddy, I would have pestered him a bit more.
+[0:33:38] Nihar Gupta: Got it.
+[0:33:38] Nihar Gupta: I actually more I told him to, like, especially when I was out, like to meet with you, you know, regularly and in, you know, he met with me, the doc and like, you know, get.
+[0:33:48] Nihar Gupta: Make sure that, you know, you felt welcome and got you up to speed on things.
+[0:33:51] Arjun Rattan: Yeah.
+[0:33:51] Nihar Gupta: But the explicit calling out of like a buddy and what that means, I think it's a good, I think it's good feedback.
+[0:33:55] Nihar Gupta: So makes sense. Hopefully he helps you.
+[0:33:57] Nihar Gupta: And now it sounds like you're, you know, you're hitting the ground running and talking to different folks, but those are the types of things.
+[0:34:02] Nihar Gupta: Like, please, in the other awkward thing is like I was gone.
+[0:34:05] Nihar Gupta: Like your timing of your starting was like the timing of like my vacation and like I don't like I haven't taken a lot of vacation.
+[0:34:12] Nihar Gupta: Just happened to be that.
+[0:34:13] Arjun Rattan: I absolutely respected that. I think I'm in the meat of it.
+[0:34:21] Arjun Rattan: You set me up with what I needed and I'll need more of your steer and help now as I'm getting into the thick of things because I don't have intuition yet on problems and prioritizations you've already seen.
+[0:34:34] Nihar Gupta: We should maybe pick a couple topics and go deeper on them.
+[0:34:37] Nihar Gupta: Like maybe you could highlight some things that like you, you want to kind of like understand more deeply whether it's like people on the team and we want to you know speak about like
+[0:34:49] Arjun Rattan: I was coming to the next one is that I spoke to Arshdeep today. I spoke to Achin as well and Avinash.
+[0:34:58] Arjun Rattan: So I've kind of started getting all of them aligned.
+[0:35:01] Nihar Gupta: Great.
+[0:35:02] Arjun Rattan: I am right now also created like so there is another thing. I have also started doing this to you.
+[0:35:15] Arjun Rattan: This is related to the discussion we had on event validation engine or EVE as we are calling it here is it.
+[0:35:25] Arjun Rattan: Sorry, do you have two more minutes? It will just take me.
+[0:35:28] Nihar Gupta: Yeah, I do. This is my last meeting.
+[0:35:30] Arjun Rattan: Okay. Awesome. I know it's evening so I'll be a bit. Right.
+[0:35:33] Arjun Rattan: Arjun Rattan started sharing your screen
+[0:35:36] Arjun Rattan: So I've gone and drafted my one pager of what EVE should be what it is today.
+[0:35:41] Arjun Rattan: And it's not a standard product we are taking on because some of the stuff is in flight, some of the stuff has already been done.
+[0:35:47] Arjun Rattan: So pulling together that view on where we are, what's left and then where do we go from here.
+[0:35:55] Arjun Rattan: So I've started bringing the team together on that strategy of how are we thinking about it. And.
+[0:36:01] Arjun Rattan: And so what I wanted to ask from you was the.
+[0:36:06] Arjun Rattan: The science team right now I think is a little ahead of the game in terms of some of the things they want to do.
+[0:36:14] Nihar Gupta: However
+[0:36:16] Arjun Rattan: they applied AI team very specifically Michael, the people who are working on this in the individual parts.
+[0:36:21] Arjun Rattan: So collisions has its own bypass happening with the foundation model and the VLM model.
+[0:36:28] Arjun Rattan: Confidence based bypass has been launched for cell phone by cell phone and close following etc.
+[0:36:33] Arjun Rattan: So that's a rule based system. These are disparate pieces that I'm trying to pull together.
+[0:36:38] Nihar Gupta: Yes.
+[0:36:38] Arjun Rattan: And trying to understand and I'm pushing the team as well and I'm working on it myself.
+[0:36:43] Arjun Rattan: What is a product strategy we have for this engine? There is no clear view right now.
+[0:36:48] Nihar Gupta: It is just make clear to me though like you said, one team is ahead.
+[0:36:53] Nihar Gupta: I didn't, I still didn't follow which team you're talking.
+[0:36:55] Arjun Rattan: What I meant by team is, I meant in terms of. Usually product has a definition.
+[0:37:00] Nihar Gupta: You're comparing engineering to product. And basically, yes, this is very engineering led and driven.
+[0:37:06] Nihar Gupta: And basically what we've been doing is when we had these like daily syncs for the first two or three weeks.
+[0:37:12] Nihar Gupta: So like every night we would, I think for the, for the first month maybe, I don't know, when it was given to us as like a priority, we met every night basically.
+[0:37:21] Nihar Gupta: And so, you know, in that meeting we did a daily standup readout of what we accomplished and then like, what happens next?
+[0:37:28] Nihar Gupta: And that's where I provided guidance to the team when they had product specific questions.
+[0:37:31] Nihar Gupta: The goals were very clear.
+[0:37:32] Nihar Gupta: I gave them all the goals for like, here's what we want to go achieve in terms of bypass, recall, collision recall, what we can't, you know, near collisions and stuff.
+[0:37:39] Nihar Gupta: And so basically Michael has been coming to me ad hoc and like, hey, we need product info for this.
+[0:37:45] Nihar Gupta: That's where I provided to him. That's been the model we've been operating in.
+[0:37:49] Nihar Gupta: Just from a bandwidth standpoint, now that you're here, what you're doing is the right thing to do, which is how does this all fit together?
+[0:37:57] Nihar Gupta: Overall, I think like I could probably articulate it or even Michael could probably.
+[0:38:03] Nihar Gupta: But making sure that, and frankly there might be some things that I'm not thinking about that you'll probably surface, making sure that that's written cohesively and we have a plan, I think is like you and I discussed last time.
+[0:38:14] Nihar Gupta: I think it's a great use of your time. So that's how we've been operating.
+[0:38:17] Nihar Gupta: I love that you're taking a more product LED approach.
+[0:38:20] Arjun Rattan: Yeah. Okay, cool.
+[0:38:21] Arjun Rattan: I just wanted to keep, keep you in the loop like, because you said like, hey, is this a good user?
+[0:38:26] Arjun Rattan: This is what you're working on, doing it.
+[0:38:28] Nihar Gupta: Yes.
+[0:38:29] Arjun Rattan: Yeah. And my eventual ask and this is just more of a context building for me.
+[0:38:36] Arjun Rattan: So my previous role when I was at Meta, something like this, I was working on something like this where you had some customer metric you were trying to hit or some business goal.
+[0:38:47] Arjun Rattan: Then we went and build out a strategy on the levers that the team would go pull.
+[0:38:51] Arjun Rattan: So in this case is one strategy is I will explore new foundation models. One bucket of work.
+[0:38:57] Arjun Rattan: One is I will take my existing rules and do that. So that's one more bucket.
+[0:39:01] Arjun Rattan: So it's a platformy view with platformy Principles that gets propagated to each one of the individual pods including measurement, accountability, etc.
+[0:39:12] Arjun Rattan: I see measurement and accountability at the pod level. Some of it I don't see a cohesive strategy.
+[0:39:19] Arjun Rattan: I know engineering has taken that portion and put it in their tactics of hey, this is what we'll go try and so I'm asking the team as step one of hey, let's just organize what we think the strategy is and just as a product understand do we agree with it or not.
+[0:39:35] Arjun Rattan: That's where I'm and that's where technical depth will be required slightly. So I will provide that.
+[0:39:42] Arjun Rattan: But I do think it's something that needs like my end goal is a one pager that says hey Nyar, this is what Eve looks like today.
+[0:39:49] Arjun Rattan: This is what the levers the team was pulling.
+[0:39:51] Arjun Rattan: This is the lever when pull pulls this metric which pulls the higher level metric.
+[0:39:56] Arjun Rattan: This is the end state vision which we are going to try to build towards.
+[0:40:00] Arjun Rattan: If this makes sense to you, I'm going to go align with Michael on this and then start driving towards it.
+[0:40:04] Arjun Rattan: Because for example we are doing all this bypass.
+[0:40:08] Arjun Rattan: What's going to happen to all the other tags that were done?
+[0:40:12] Arjun Rattan: There were some other tags that were also done by the live team, the annotations team on live review.
+[0:40:17] Nihar Gupta: Only a couple tags. You're right, we do need to think about that.
+[0:40:21] Nihar Gupta: I would say like it's okay to have have considered that more of a P1 to get this through but yeah, it is a consideration and I think there's only two, maybe three.
+[0:40:30] Nihar Gupta: I think it's just two now. We used to apply a bunch of different severity.
+[0:40:33] Arjun Rattan: I know I showed me but. But I don't know now what we are doing. I really.
+[0:40:37] Arjun Rattan: So I asked Arsh about it like hey let me know, I'll show you
+[0:40:40] Nihar Gupta: in the product if that'd be helpful. Let's just look at it real quick.
+[0:40:47] Arjun Rattan: But you are. Do you align with the approach that I'm thinking?
+[0:40:49] Arjun Rattan: Arjun Rattan stopped sharing your screen
+[0:40:49] Arjun Rattan: Arjun Rattan started sharing your screen
+[0:40:52] Nihar Gupta: Yeah, let's just. Let me just close this loop and then let's talk about the approach.
+[0:40:55] Nihar Gupta: So go to unsafe behavior event detection all the way.
+[0:40:59] Nihar Gupta: At the bottom we have these two things that we also add Lane cutoff and rain red light.
+[0:41:06] Nihar Gupta: The second one we're building a model for so that'll be less critical. Lane cutoff.
+[0:41:09] Nihar Gupta: We still do add but my understanding is the. The rate at which we add this is actually very very low.
+[0:41:15] Nihar Gupta: That said it is a delta from like if we're not we don't have a model for this and customers will lose that ability to add.
+[0:41:22] Arjun Rattan: So that's the only two things they were annotating and they were doing it for every event that came to them,
+[0:41:27] Nihar Gupta: whether they selected here, which is by default, I think then they would add.
+[0:41:33] Nihar Gupta: Annotators will add those tags.
+[0:41:37] Arjun Rattan: Okay, all right, so this is good data for me. So we'll come back to the other one.
+[0:41:40] Nihar Gupta: Nihar Gupta stopped sharing their screen
+[0:41:40] Nihar Gupta: Nihar Gupta started sharing their screen
+[0:41:44] Nihar Gupta: Like there's near collisions and positive driving. Right. But those are, those aren't.
+[0:41:50] Nihar Gupta: It's not the same class of thing and I think you're aware of those.
+[0:41:53] Nihar Gupta: But these are the only additional tags we used to add all these environmental tags and stuff, all that we stopped.
+[0:41:59] Nihar Gupta: So these are the only two things that now that are incremental that you can add outside of the things I just mentioned.
+[0:42:06] Nihar Gupta: And we don't add, like on a distraction event, we don't add a cell phone tag, we don't add other AI event tags.
+[0:42:13] Nihar Gupta: We used to do that where you would add another tag. Now we just let the AI do it.
+[0:42:17] Nihar Gupta: Whatever the AI output is, is what the event type is. So now let's come back to your question.
+[0:42:23] Nihar Gupta: You're trying to develop an understanding of, you're trying to build kind of a structure for.
+[0:42:28] Nihar Gupta: Here are the goals, here's the outputs, here are the levers that control those outputs. Right.
+[0:42:34] Nihar Gupta: And here's how they fit all within the construct. Did I say that correctly?
+[0:42:41] Arjun Rattan: Yeah. So you've got 80% of it. Yes.
+[0:42:43] Arjun Rattan: And then the second step is what's missing, or what we think is missing.
+[0:42:49] Arjun Rattan: And then that flows into what needs to be done by the product team, whether that's coping, whether that's management, planning, execution.
+[0:42:56] Arjun Rattan: And then comes to the discussion on whether arsh does it or achin does it or like that whole sequence of work.
+[0:43:03] Arjun Rattan: That's where my mind is.
+[0:43:05] Nihar Gupta: Can you tell me when you say what's missing? Give me another example of what potentially.
+[0:43:10] Arjun Rattan: Oh, when I say what's missing, let me try a different way. For example, what is the.
+[0:43:16] Arjun Rattan: For the remaining behaviors, what's our sequencing plan and strategy? We've launched, We've.
+[0:43:22] Arjun Rattan: We've got five of them. What else needs to be done? What, what if it is already?
+[0:43:26] Arjun Rattan: And so I'm keeping this very high level, this will all get double clicked and triple clicked.
+[0:43:30] Arjun Rattan: And for those five or six behaviors, where are we on the stage? Have we scoped it out?
+[0:43:37] Arjun Rattan: Do we know the kind of. Again, same. It's a repeating, it's a factor.
+[0:43:41] Arjun Rattan: What are the AI levers you're going to go pull? How much Confidence you have.
+[0:43:45] Arjun Rattan: What's the effort estimate for each one? What's the timeline you're going to go hit?
+[0:43:49] Arjun Rattan: Has product scoped it out? Has product been a part of it or is Ange telling us?
+[0:43:54] Nihar Gupta: So it's really, it's a sequencing exercise. That's the first one. Second one we just talked about.
+[0:43:58] Nihar Gupta: Third one is recall. Okay. All good stuff. Okay, cool. Yeah.
+[0:44:03] Nihar Gupta: So basically the thing to figure out though is like actually what you just tag there looks like last night to Arshin Achan.
+[0:44:11] Nihar Gupta: This is something Achan brought up with me this morning which is like, hey, how do you want me to work on this?
+[0:44:17] Nihar Gupta: Do you want me to take on Eve in the next set of behaviors and build them Eve model?
+[0:44:22] Nihar Gupta: And I said, I said it's a good question.
+[0:44:25] Nihar Gupta: I actually don't know between you and Arsh, we need to figure that out.
+[0:44:28] Nihar Gupta: Honestly, I'll probably put that on Arjun to kind of as he's building a perspective and then figure out how to distribute the load.
+[0:44:34] Nihar Gupta: So I didn't answer the question. I think like, I think it could make sense for Achin to work on it.
+[0:44:37] Nihar Gupta: I told him that, but I said like ultimately let's figure that out.
+[0:44:40] Nihar Gupta: You know, I want Arsha to at least get confidence based bypass out the door because she's already been working on that on the other behavior.
+[0:44:46] Nihar Gupta: So she's going to finish that.
+[0:44:47] Nihar Gupta: Action's been driving, you know, the first set of confidence based bypass stuff.
+[0:44:52] Nihar Gupta: He's now rolling that out I think for his behaviors.
+[0:44:55] Nihar Gupta: What happened was then basically we transitioned that to harsh at some point.
+[0:44:58] Nihar Gupta: So whatever Ashen was already working on, finish that. And then Arch took the new stuff.
+[0:45:02] Nihar Gupta: So that's how they're doing.
+[0:45:03] Nihar Gupta: Confidence based bypass is like the, you know, kind of like the first stage and then Eve we need to figure out how to manage.
+[0:45:09] Nihar Gupta: So I'll let you kind of do that and I'm happy to provide input on that.
+[0:45:13] Arjun Rattan: Got it. All right, I'll keep. So I've asked Archin and Arsh to help me with their.
+[0:45:19] Arjun Rattan: So I spoke to Arsh about like what's on your portfolio. I.
+[0:45:22] Arjun Rattan: My initial reaction is I think Arsh is underutilized.
+[0:45:26] Nihar Gupta: Oh yeah, no, I agree. So actually let's talk about this real quick.
+[0:45:29] Nihar Gupta: So this is another topic I wanted to cover with you and since we're here, you have a few more minutes.
+[0:45:35] Arjun Rattan: Of course. Yeah, yeah. This is my last meeting.
+[0:45:37] Nihar Gupta: I've told Arch the same thing and I gave her the feedback this morning when I. Sorry.
+[0:45:42] Nihar Gupta: I pushed her EGC to Next week. So we'll talk about next week. I think she's underutilized as well.
+[0:45:48] Nihar Gupta: I want to find more things for her. I gave her a couple.
+[0:45:50] Nihar Gupta: I gave her, like, this new blurring project because Anand is underwater, and she's done great with it.
+[0:45:56] Nihar Gupta: It doesn't. It's not perfect, you know, it doesn't fit in AI. But I needed.
+[0:46:00] Nihar Gupta: I needed somebody to pick it up. And so she did great with it.
+[0:46:02] Nihar Gupta: Everything I've given her, I think she's actually, like.
+[0:46:05] Nihar Gupta: She's got a good framework and a good mind for these things and good product sense.
+[0:46:09] Nihar Gupta: So actually, I was going to tell you the same thing, and I'm glad you've already realized it, which is we want to find ways to kind of utilize her more.
+[0:46:16] Nihar Gupta: I think she's got a lot of potential. That's one. We'll come back to that in a second. Ain.
+[0:46:22] Nihar Gupta: Ain's had been here for, I think, about a year now, if I remember right.
+[0:46:28] Nihar Gupta: In just under a year, I think he's done well.
+[0:46:31] Nihar Gupta: There's been a couple gaps here and there in terms of, like, he basically like the big issue that I had.
+[0:46:39] Nihar Gupta: And I think it's actually more on the applied science team.
+[0:46:41] Nihar Gupta: When I say applied science, that's like, historically Raghu's team under Michael.
+[0:46:46] Nihar Gupta: You haven't met Raghu yet, I don't think. No, he's on pat leave.
+[0:46:51] Nihar Gupta: But he's kind of a difficult character. I'm just going to. I'm going to put it out there. He's kind of.
+[0:46:56] Nihar Gupta: He's got a certain style, and it can be a little bit challenging.
+[0:46:59] Nihar Gupta: And by the way, like, the way that these teams have operated historically, I don't know if Gotham shared all this with you.
+[0:47:05] Nihar Gupta: It's always been computer vision team, Applied science team.
+[0:47:08] Nihar Gupta: That means Gotham's team and rugby's team. There's no Michael.
+[0:47:10] Nihar Gupta: Until six months ago, those two teams operated in silos effectively.
+[0:47:14] Nihar Gupta: They didn't talk to each other unless they were forced. They didn't work well with each other.
+[0:47:19] Nihar Gupta: The personalities conflicted a lot. It was a very challenging sort of, like, setup.
+[0:47:24] Nihar Gupta: They got their stuff done independently, right, for their own projects, but, like, very little overlap in sort of what they worked on.
+[0:47:31] Nihar Gupta: Slowly, that overlap has been converging as the technology converges.
+[0:47:35] Nihar Gupta: And then Michael has kind of like, he's come in and one of.
+[0:47:38] Nihar Gupta: One of the things that, you know, we've been driving in that I asked or, you know, that I think he was guided to do by Amish and that I'VE been giving him a lot of input on is like how to make this team one.
+[0:47:48] Nihar Gupta: So he's been working through that. So that's context for you.
+[0:47:54] Nihar Gupta: Aachen had a rough go I think with the applied science team actually on some of the things that he worked on in H2, in building the right relationship with them, basically with Raghu and like Rakesh and some of those folks.
+[0:48:08] Nihar Gupta: And so they, they had some friction. It was actually not on auction side. It was mostly Raghu driven.
+[0:48:15] Nihar Gupta: Action was actually very professional about it.
+[0:48:16] Nihar Gupta: But Raghu and Rakesh complained to me about, you know, here's like five things that actually needs to work on.
+[0:48:21] Nihar Gupta: He doesn't understand tech. He like, he said some dumb things.
+[0:48:24] Nihar Gupta: He's engaged, you know, engaged with us in a weird way.
+[0:48:27] Nihar Gupta: You know, he changed his mind on something like just some random crap.
+[0:48:31] Nihar Gupta: And like, while I think feedback's important, I also have to recognize who it's coming from.
+[0:48:36] Nihar Gupta: And I dug in and I felt like action did fine for the most part.
+[0:48:40] Nihar Gupta: It's context I want you to be aware of because as you dig in and understand kind of action capabilities more closely, you should build your own perspective on if there are any gaps or not.
+[0:48:51] Nihar Gupta: I have not, you know, seen any, any huge gaps.
+[0:48:55] Nihar Gupta: I would, I would consider him more like he's, he's meeting expectations.
+[0:48:59] Nihar Gupta: I wouldn't say that he's overly exceeding them and I wouldn't say that he's underperforming other than that blemish.
+[0:49:05] Nihar Gupta: And then sometimes I'm trying to get him to go faster on some things.
+[0:49:08] Nihar Gupta: That's the other thing of like execution cycles would be the couple things.
+[0:49:12] Nihar Gupta: But like I still think he's probably meeting expectations right now.
+[0:49:15] Nihar Gupta: That's my context and auction for you to be aware of.
+[0:49:17] Nihar Gupta: And just some background and I can answer any questions on that.
+[0:49:20] Nihar Gupta: Ashton this morning did also in like the last three minutes of our one on one sync was like, hey, by the way, Nihar, I really want to shoot for a promotion.
+[0:49:28] Nihar Gupta: What do I do to get a promotion?
+[0:49:31] Nihar Gupta: And so there wasn't really much time to get into it and I told them like, look, that's a much deeper dialogue and I'd love for you to first go through your EGC cycle with Devin, you know, understand, you know, kind of like what's worked well, what hasn't, areas development and then, you know, ultimately work with Arjun right on a plan on what that looks like and come up with milestones and whatever.
+[0:49:52] Nihar Gupta: But that's, that's something you need to work out with him, you know, not we're not going to do that in three minutes.
+[0:49:56] Nihar Gupta: And so that was my feedback to him.
+[0:49:57] Nihar Gupta: I think more he was just wanting to make it known that he wants to promotion.
+[0:50:00] Nihar Gupta: So more context for you as you just, you know, as you kind of, you know, figure things out.
+[0:50:06] Arjun Rattan: Yeah. And in the six months that Archa has been here, what's the early trend?
+[0:50:12] Nihar Gupta: Early trend is I've had her focus.
+[0:50:15] Nihar Gupta: So my, the, the biggest need for her when she joined was in hired under the premise of I need somebody to manage annotations overall from annotation tool improvements to how annotators work, to some of this bypass work and making sure that we have a good bypass strategy as well to some of the security improvements that we've had to harden.
+[0:50:38] Nihar Gupta: Because if you rewind 12 months, our annotation security was really bad.
+[0:50:42] Nihar Gupta: And as we prepared and thought about being a public company, there's so much that needed to happen there and a handful of other things, but mostly focused on annotations.
+[0:50:52] Nihar Gupta: That was the, you know, when I hired her just, you know, almost a year ago, that was like the premise.
+[0:50:58] Nihar Gupta: Things have changed dramatically in the last year. Right.
+[0:51:01] Nihar Gupta: We are now moving to a world where we want to have a much smaller dependence on annotations.
+[0:51:06] Nihar Gupta: We want to move into this AI led world.
+[0:51:08] Nihar Gupta: So she's executed very well on those projects, delivered very well, delivered some security improvements, all these things.
+[0:51:15] Nihar Gupta: Right. But a lot of those projects are now behind her confidence based bypass.
+[0:51:20] Nihar Gupta: You know, there's a little bit more work to do but like we should be almost through that as well.
+[0:51:24] Nihar Gupta: Now we're to a world where we need to figure out how to get her more work and be more on, you know, AI led.
+[0:51:31] Nihar Gupta: But what I will say is everything I've given her, she's executed very well.
+[0:51:35] Nihar Gupta: She's just kind of like a bulldog.
+[0:51:37] Nihar Gupta: Puts her head down like understands a problem, builds a good structure around it.
+[0:51:43] Nihar Gupta: She has a Bain consulting background.
+[0:51:44] Nihar Gupta: I think that helps her in terms of structuring a problem, lays things out, lays options out very well.
+[0:51:50] Nihar Gupta: Can have a really nicely structured conversation with me where she's laid everything out and we go through the pros and cons like, okay, let's do this.
+[0:51:57] Nihar Gupta: So she does that very effectively and effectively executes her projects as well.
+[0:52:01] Nihar Gupta: So I would say overall, like she's delivered very well and I want to give her more to see what more we can get from her.
+[0:52:09] Arjun Rattan: Yeah, I, that's why I'm speaking with Anand in a bit. Tomorrow or day after, I think it's tomorrow.
+[0:52:17] Arjun Rattan: I'm trying to get a sense because Anand, from what I understand, is still swamped on the non AI side.
+[0:52:23] Arjun Rattan: So I want to go have a discussion with him and understand his portfolio of AI work.
+[0:52:27] Arjun Rattan: Like, hey, where can you need some support?
+[0:52:29] Arjun Rattan: Where are stuff you can really just hand off where if I just took it off your plate.
+[0:52:33] Arjun Rattan: So I'm just building a sense of the portfolio right now.
+[0:52:36] Nihar Gupta: Okay. I think that works. 1.
+[0:52:39] Nihar Gupta: One thing with Anand is you have to remember, like, he's very sensitive to wanting to be completely off of all the non AI work and focus only on AI.
+[0:52:47] Nihar Gupta: So you're going to lead with something like, hey, what AI work can I take off your plate to help you so you can do the other stuff?
+[0:52:55] Nihar Gupta: Which is seemingly logical. But remember his sensitivities around. He wants. Like, he's been.
+[0:53:02] Nihar Gupta: Even though his plate's full, he's been.
+[0:53:04] Nihar Gupta: He keeps trying to get more AI work because he's so excited by working on AI things.
+[0:53:08] Nihar Gupta: So just keep that in mind. We need him to work on the non AI stuff and close it out.
+[0:53:12] Nihar Gupta: We need him to transition some of the connected device work to Mark. Ishi. Right. As well.
+[0:53:17] Nihar Gupta: And so we've already started transitioning some of that stuff to Mark.
+[0:53:21] Nihar Gupta: But just recognize that that sensitivity, like, he wants to gravitate more towards AI.
+[0:53:26] Nihar Gupta: So as long as you can build a path for him to do that, I think he'll be happy.
+[0:53:30] Nihar Gupta: Just keep that in mind.
+[0:53:32] Arjun Rattan: Okay. Yeah, that's great. Context. I had forgotten that his whole. Okay, that makes sense.
+[0:53:40] Nihar Gupta: He's kind of like, brought on a lot of this on himself because he wants to do so many different things.
+[0:53:44] Arjun Rattan: I looked at his workload in general and I was like, dude, you seem like you're swamped.
+[0:53:48] Nihar Gupta: Yeah, I know he is swamped.
+[0:53:53] Nihar Gupta: And I think his work product is maybe suffering a little bit because of it in a couple areas.
+[0:53:58] Nihar Gupta: One challenge with him is like, he's quick to say, no, I don't own that. I'm not going to do it.
+[0:54:02] Nihar Gupta: And that's been.
+[0:54:03] Nihar Gupta: I've gotten feedback from various folks like Alexa on the international side, Sumith on Video Recall, where he was kind of just like, I'm not gonna.
+[0:54:11] Nihar Gupta: I'm not gonna do it. I've also gotten his perspective, which is, you know, like, Sumit needs to own.
+[0:54:20] Nihar Gupta: Like, we've been talking about moving video recall to the fleet team. He needs to properly own it.
+[0:54:25] Nihar Gupta: Like, it can't just keep falling.
+[0:54:26] Nihar Gupta: Everything can't keep falling back on me when it's not my core area.
+[0:54:29] Nihar Gupta: So I've actually asked him to set up time with Summit so that us three can work through ownership and have a productive discussion and a constructive discussion.
+[0:54:38] Nihar Gupta: But that's. Don't worry about that. I'm all. I'm trying to get across to you.
+[0:54:42] Arjun Rattan: I understood the airport. Yeah, be careful about it.
+[0:54:44] Nihar Gupta: Yeah. So just keep that in mind.
+[0:54:45] Nihar Gupta: But I think load distribution is a great thing for you to think about. And if he's willing to.
+[0:54:50] Nihar Gupta: What are the things that maybe we could like maybe some of the recall and reliability stuff that he's working on, honestly, we can move to Arsh and, and that will free up his bandwidth to execute the other stuff.
+[0:55:02] Nihar Gupta: Well, also, you do that, but then also like, hey, I'm going to take those away on them. Right.
+[0:55:07] Nihar Gupta: But I want you to drive fatigue index alerts. He's really excited about fatigue index.
+[0:55:13] Nihar Gupta: So you, you could highly consider him to like, as you ramp up on things, you should also do the ramp up.
+[0:55:21] Nihar Gupta: But like, it could be something that Anand has a really good head for, like computer vision.
+[0:55:26] Nihar Gupta: And like he understands now deeply how these models work over the last six months.
+[0:55:30] Nihar Gupta: So he could actually pick that up.
+[0:55:31] Nihar Gupta: You can figure that out whether it's something you drive or he drives.
+[0:55:34] Nihar Gupta: But that could be something to give him and say, like, look, I'll take this one thing off your plate, give it to her, maybe these two things.
+[0:55:40] Nihar Gupta: And then we'll also figure out a transition plan for fatigue. Call it in May for you to drive.
+[0:55:45] Nihar Gupta: And I think he'd be very receptive to that.
+[0:55:48] Arjun Rattan: Yeah, that's. That's good. That's a very good pointer.
+[0:55:52] Arjun Rattan: I think from my perspective, I was gravitating towards. So I was speaking to.
+[0:56:00] Nihar Gupta: Sorry, Sumit.
+[0:56:05] Arjun Rattan: Speaking to Sumit. And I was. And he asked me like, hey, you met Arshwood, like, what do you think?
+[0:56:12] Arjun Rattan: And because I come from the AI world, right.
+[0:56:14] Arjun Rattan: Like I spent all my time with people who were first AI and then we happened to move into product kind of stuff.
+[0:56:19] Arjun Rattan: So my initial thing was like, yeah, I think with Arsh, I see an opportunity for her to improve her domain.
+[0:56:26] Nihar Gupta: Yeah.
+[0:56:27] Arjun Rattan: And reliability tracking and pipeline.
+[0:56:31] Arjun Rattan: What you've just said, the bare fundamentals of how something is moving, how it's being inferred upon.
+[0:56:36] Arjun Rattan: If you can just even figure that out, it's not that critical, the decision because you are paired with a very strong tier who knows what they're doing.
+[0:56:45] Arjun Rattan: So you kind of get to shepherd, you can do some comms, you can do some narrative building, you can Do a little bit of metrics and stuff.
+[0:56:51] Arjun Rattan: I think that's a very good one.
+[0:56:52] Arjun Rattan: And I've also heard from you and others, or maybe it was just you that Anand. Oh no, maybe that.
+[0:56:58] Arjun Rattan: No, that was.
+[0:56:59] Arjun Rattan: I think that was Gautam who told me or maybe Harish that for certain of the AI infra work, Anand is marked off there.
+[0:57:07] Arjun Rattan: But he's kind of been shadow, like not as.
+[0:57:10] Nihar Gupta: Oh, you know, I. I told you, I mentioned that you might have.
+[0:57:14] Nihar Gupta: Other people might have mentioned it too. But yeah, I think he hasn't been as engaged.
+[0:57:17] Nihar Gupta: Or maybe did you talk to Dirich? Because he might have said it too.
+[0:57:21] Arjun Rattan: Dheeraj did not assess Anand's engagement. He just mentioned Anand was there.
+[0:57:26] Nihar Gupta: Yeah. And so like Anand is not.
+[0:57:28] Nihar Gupta: If I understand your point correctly, Anand has not been highly engaged on like the reliability work on the pipeline.
+[0:57:35] Nihar Gupta: So that, that could be an area also if you.
+[0:57:38] Nihar Gupta: If as you think about where arsh can take on more work, that, that could be a good one too.
+[0:57:45] Nihar Gupta: It could be like reliability and actually initially in my mind I wanted Anand to actually like when I first was bringing him on board because he's.
+[0:57:54] Nihar Gupta: He's like Nihar, I want to work on safety and AI.
+[0:57:56] Nihar Gupta: And so I worked out a plan to bring him onto the team from Connected Devices.
+[0:58:01] Nihar Gupta: He was on that team until, you know, Q Q3, Q4.
+[0:58:04] Nihar Gupta: My plan initially was like you, you seem to really understand a lot of the technical details.
+[0:58:09] Nihar Gupta: I want you to focus like, I'd love your help actually on like understanding precision and recall more deeply, building a better methodology for recall, understanding alert, event disparity and how do we get everything aligned, all the configs aligned and EFS alignment on these different behaviors and then reliability.
+[0:58:27] Nihar Gupta: And that's where we got him started.
+[0:58:29] Nihar Gupta: And actually that built up a really nice foundation for him to understand how the whole pipeline works, which now he has great on ramp for him.
+[0:58:38] Nihar Gupta: What he's also made clear to me is like he doesn't want to live in a world where he's just like he doesn't want to be the AI reliability guy.
+[0:58:44] Nihar Gupta: He wants to build new things. So he's working on alpr and then I told him like fatigue index.
+[0:58:48] Nihar Gupta: At some point we can look at moving that over to you as Devin transitions.
+[0:58:52] Nihar Gupta: So he wants to do new feature dev as well.
+[0:58:55] Nihar Gupta: But that might open a window to your point of maybe transitioning some of these things to arch and that might help her build that foundation as well to see what more we can get from her to then you know the next set of things that she can do in six to 12 months.
+[0:59:09] Nihar Gupta: Right. So that could be a good path to kind of like do some transitioning here across the team.
+[0:59:15] Arjun Rattan: Yeah. That's where my head is at. I'm going to do a little bit more data gathering.
+[0:59:19] Arjun Rattan: I'll let the EDC go through and.
+[0:59:21] Arjun Rattan: And I'll sync up with you on this maybe, maybe two to four days because I'm still going to start be working with Arshin Ajan.
+[0:59:28] Nihar Gupta: That works.
+[0:59:29] Arjun Rattan: Yeah.
+[0:59:29] Nihar Gupta: My feedback to Arsha will largely be like what I just shared with you when I talked to her next week.
+[0:59:34] Nihar Gupta: And I've told her like, I think she's capable of more and I want to give her more scope.
+[0:59:38] Nihar Gupta: And so that's why I did like the blurring thing a month ago. And she did that very well.
+[0:59:41] Nihar Gupta: But I think we have more headroom here, so let's figure that out.
+[0:59:46] Nihar Gupta: And I think that'll be part of my message to Arsha.
+[0:59:49] Arjun Rattan: Yeah. Because I. And I am. I hesitate to take away all of CBB from Achin right now. They both.
+[1:00:02] Arjun Rattan: From a personal and a professional reason. From a personal reason.
+[1:00:05] Arjun Rattan: He's been working on it for a while.
+[1:00:06] Arjun Rattan: He's invested that there's a clear path to go, land some wins and the stakeholders he knows and he has relationships with professionally.
+[1:00:15] Arjun Rattan: If he's done four out of the five behaviors, he has some platform understanding of the work that is reusable, the errors that are reproducible and how to solve them.
+[1:00:25] Arjun Rattan: And he can take that insight and work on it.
+[1:00:27] Arjun Rattan: I'm not saying Dash cam do it, but I think from a velocity perspective, having someone who's already seen it helps the team.
+[1:00:34] Nihar Gupta: I think that's fair.
+[1:00:35] Nihar Gupta: But keep in mind, it's actually like I think there's seven or eight behaviors, maybe seven behaviors that we're doing.
+[1:00:39] Arjun Rattan: You can split the behaviors between the two.
+[1:00:42] Nihar Gupta: That's what I'm saying. Like actually he's already done the first four effectively.
+[1:00:45] Nihar Gupta: The first two are easy because there was no gap in product and annotation definition.
+[1:00:49] Nihar Gupta: The next two are more challenging.
+[1:00:51] Nihar Gupta: We've gone through some fits on that, but now I think we've gotten a good spot.
+[1:00:54] Nihar Gupta: Part of that was on me, to be clear.
+[1:00:56] Nihar Gupta: I changed my mind on how we wanted to do stop sign and seat belt and so he helped me kind of work through a new path and he did a good job of executing on that.
+[1:01:06] Nihar Gupta: Now we're in a good spot on those.
+[1:01:10] Nihar Gupta: The last few are like distraction, which Arsh is Driving, smoking, which should be straightforward, that I think Arsh is driving.
+[1:01:15] Nihar Gupta: And then there's lane swerving, which Arsh can drive and I think it will be easy for her to complete.
+[1:01:20] Nihar Gupta: So they actually have both gotten a good understanding now of how these things work.
+[1:01:24] Nihar Gupta: That's how I was splitting for. If you want to do it a different way, no skin off my back.
+[1:01:30] Nihar Gupta: But that's what we've been doing. And Aachen is wrapping up now.
+[1:01:34] Nihar Gupta: Those the number three and number four. Right.
+[1:01:36] Nihar Gupta: So that those should be actually like ramping up to enterprise over the next week or two is my understanding.
+[1:01:45] Arjun Rattan: Yeah. So that, that is the lay of the land as of now. But I'm.
+[1:01:49] Arjun Rattan: But there are other behaviors that now need to be apportioned.
+[1:01:52] Nihar Gupta: The problem is most of the other ones I don't think we would actually do because the precision is too low.
+[1:01:57] Nihar Gupta: So. Okay, camera would love your take on it.
+[1:02:02] Nihar Gupta: But camera obstruction, road facing and driver facing and what do you call it?
+[1:02:11] Nihar Gupta: Unsafe lane change, both of those are in the 80% precision range.
+[1:02:15] Nihar Gupta: So there's a question of how much we can actually get from those because our precision is lower and therefore maybe there's some segment of those that you can still say are high confidence and we don't lose any, you know, any precision, maybe that's worth investing.
+[1:02:29] Nihar Gupta: But what I had heard from the team was because they were lower precision, they were lower priority.
+[1:02:37] Nihar Gupta: Now there's a question of, well, is it worth, is there any juice worth the squeeze?
+[1:02:40] Nihar Gupta: Because we've already built the model for it. So that's an open question actually.
+[1:02:45] Arjun Rattan: Okay, got it.
+[1:02:47] Arjun Rattan: So to summarize this last point is, Tom, the new piece of work that I was thinking and I was getting into it is for the remaining behaviors for confidence based bypass.
+[1:02:59] Arjun Rattan: There's not much work. That's the initial, that's the viewpoint right
+[1:03:02] Nihar Gupta: now there's not much. And Arsh can easily close it out because she's already started on distraction.
+[1:03:08] Nihar Gupta: She basically just. There isn't much more work to do. The other two, it's rinse and repeat.
+[1:03:12] Arjun Rattan: So then I'll probably have to go into the product backlog and figure out what else Ajin can go work on then.
+[1:03:19] Arjun Rattan: Because I'm definitely going to try to put Arshan some reliability work along with her annotations work.
+[1:03:24] Nihar Gupta: Yeah.
+[1:03:25] Arjun Rattan: So if Ajin has indicated a desire to up level and he will need a little bit and given the fact that he's meeting expectations, I.
+[1:03:37] Arjun Rattan: How do you, how would you grade him? What should I think about him? Like an L4 L6.
+[1:03:45] Nihar Gupta: What's his level? Yeah, he's a senior PM. L6.
+[1:03:48] Arjun Rattan: L6.
+[1:03:50] Nihar Gupta: So they're both L6s.
+[1:03:52] Arjun Rattan: Okay.
+[1:03:53] Nihar Gupta: And by the way, Avinash is an L6 too, that I put up for promotion.
+[1:03:56] Nihar Gupta: So if all goes well, he'll be an L7 after the cycle.
+[1:03:59] Arjun Rattan: Got it?
+[1:04:00] Nihar Gupta: Yeah.
+[1:04:00] Arjun Rattan: Avinash is a different beeswax altogether.
+[1:04:04] Arjun Rattan: He knows like with him I can maybe approach it slightly differently with Achin.
+[1:04:11] Arjun Rattan: I think there might be, given your feedback, there might be opportunities to first strengthen the L6 muscle before he start thinking about the L7 path.
+[1:04:20] Nihar Gupta: I agree it's a little too early for him. We need to see more output and more domain expertise.
+[1:04:29] Nihar Gupta: Output, execution velocity.
+[1:04:31] Nihar Gupta: I want like we, we need to give him more work to see what else he can deliver.
+[1:04:36] Nihar Gupta: That's high visibility.
+[1:04:38] Nihar Gupta: The, the other problem is like you think about the work he's done, like eating AI is not, it's not the most sexy model.
+[1:04:44] Nihar Gupta: Right. It's a good win for him, but it's not the biggest, it's not the biggest thing.
+[1:04:49] Nihar Gupta: Fatigue is like, that's a huge, huge win for the company.
+[1:04:52] Nihar Gupta: Eating is another feature and it's important, but it's not the biggest thing.
+[1:04:56] Nihar Gupta: Confidence based bypass is like, you know, behind the scenes, very important.
+[1:04:59] Nihar Gupta: He's done a good job but, you know, not.
+[1:05:03] Nihar Gupta: Yeah, so important but like not necessarily the high visibility, high, high complexity thing.
+[1:05:09] Nihar Gupta: So we need to figure out like what is the path for him, right.
+[1:05:12] Nihar Gupta: To get to L7 and giving him enough meaty sort of like scope to get him there.
+[1:05:18] Arjun Rattan: Yeah, yeah. This will take a while, maybe another few cycles before we get to it.
+[1:05:26] Arjun Rattan: This has been really useful. Thank you so much for speaking with me.
+[1:05:30] Arjun Rattan: I will catch you in a couple of days, which is on Friday.
+[1:05:35] Arjun Rattan: From my side, my action items are I'm going to continue refining the detection prd.
+[1:05:41] Arjun Rattan: I'll just call it that for now for AIOC plus that's the individual stuff.
+[1:05:45] Arjun Rattan: And then I'm going to keep working on event validation, engine organizing, collecting, structuring and then figuring out where does that take us for the next six months
+[1:05:55] Nihar Gupta: out that actually there's a lot of meat there. So we need to figure out who's going to drive that.
+[1:06:01] Nihar Gupta: So as you build your, your story here, that's important because every behavior we want to have, that's that EVE layer to the same thing we're doing for collisions on top of confidence based bypass.
+[1:06:12] Nihar Gupta: So we have a full system here for each behavior that is going to require a PM to drive maybe that's harsh.
+[1:06:18] Nihar Gupta: I don't know, but you should have a. You should build a POV on that.
+[1:06:22] Arjun Rattan: Yeah, that sounds good. Okay.
+[1:06:24] Nihar Gupta: Also, why don't you go ahead and book an hour on Friday? My Friday, actually is.
+[1:06:28] Nihar Gupta: Things start to clear up. So why don't we just book an hour?
+[1:06:31] Nihar Gupta: Because I think, you know, these are valuable discussion. So I just want to have.
+[1:06:35] Nihar Gupta: If we don't need the time, fine, but let's have an hour.
+[1:06:37] Arjun Rattan: Okay, I'll go do that.
+[1:06:38] Nihar Gupta: Okay, sounds good. Thanks, man.
+[1:06:40] Arjun Rattan: See you. Bye.
+[1:06:41] Nihar Gupta, Arjun Rattan: Nihar Gupta, Arjun Rattan left
+[1:06:42] Nihar Gupta: Nihar Gupta stopped sharing their screen
