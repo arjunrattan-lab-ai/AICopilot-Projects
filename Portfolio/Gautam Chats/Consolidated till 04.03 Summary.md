@@ -88,7 +88,7 @@
 - **Quote:** "It was a disappointing place to be to just stand in front of Nihar and be like, well, we did it again." — Gautam
 
 **Action items:**
-- [ ] Eating AI whip doc (rollout plan, monitoring, RCA, short-term fix, long-term retro) — Arjun + team | Due: 2026-04-04
+- [ ] Eating AI WIP (rollout plan, monitoring, RCA, short-term fix, long-term retro) — Arjun + team | Due: 2026-04-04
 - [ ] Retro meeting when Gautam in office — Gautam + Arjun | Due: week of 2026-04-06
 - [ ] Automated rollback / safety mechanisms for all AI rollouts — Arjun + Gautam | Due: TBD
 

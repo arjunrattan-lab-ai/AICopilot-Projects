@@ -8,7 +8,7 @@
 
 | ☐ | Task | Date Created | Date Due | What To Do | Project |
 |---|------|--------------|----------|-----------|---------|
-| ☐ | Obtain Model Status List | 3/25/26 | 4/1/26 | Get comprehensive list from Alexa/Lenny of all models, status (deployed/in progress/planned), rollout dates, and performance metrics | UK Expansion |
+| ☐ | Obtain Model Status List | 3/25/26 | 4/1/26 | Get comprehensive list from Alexa/Lenny of all models, status (deployed/in progress/planned), rollout dates, and performance metrics ⏳ Pending Others | UK Expansion |
 | ☐ | Connect with Legal/Compliance on DPA | 3/25/26 | 4/1/26 | Meet with legal team to discuss Data Privacy Agreement for driver-facing data access, operationalized state, and process for unblurred customer data if retraining needed | UK Expansion |
 
 ---

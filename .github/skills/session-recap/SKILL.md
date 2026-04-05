@@ -103,7 +103,30 @@ Append **only durable cross-session facts** that future sessions need. Examples:
 
 If no new durable lessons emerged from this session, skip this step.
 
-### Step 6: Confirm
+### Step 6: Nudge Current Focus Update
+
+Read `/memories/preferences.md` and find the `## Current Focus` section. Check if the content still reflects this session's outcomes (e.g., new blockers, resolved blockers, priority shifts, completed initiatives).
+
+If anything looks stale, present a proposed update:
+
+```
+Current Focus in user memory may be stale. Proposed refresh:
+
+- Push hard: {updated list from PRIORITIES.md if read, or from session context}
+- Next sync: {person} (run prep skill)
+- Blocked: {updated blockers}
+- In flight: {updated in-flight items}
+
+Update? (yes / edit / skip)
+```
+
+- **yes** → write the updated block to `/memories/preferences.md`
+- **edit** → let the user modify, then write
+- **skip** → leave it as-is
+
+If nothing changed, skip silently — don't ask.
+
+### Step 7: Confirm
 
 Display a brief summary to the user:
 ```

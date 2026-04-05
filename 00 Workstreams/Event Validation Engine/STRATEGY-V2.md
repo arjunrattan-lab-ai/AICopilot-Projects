@@ -112,3 +112,27 @@ _Detailed bypass/precision data, architecture, phase scope, launch gates, and so
 | 10 min | Smart Dashcam Customers | 88.87% | 95.67% |
 
 *Source: Annotations Review deck (Sara Iftikhar), weeks of 3/02 and 3/09.*
+
+---
+
+## Update: 2026-04-02 — Nihar 1:1 (Q2 Scope Additions)
+
+**Source:** `Portfolio/Manager Chats/04.023 chat with Nihar`
+
+### AI-Only Mode — Q2 Mandate
+- Announced in blog post week of April 7. Must be in-product in Q2.
+- High-precision AI models: likely fine for AI-only (no human review).
+- Collisions (high recall, low precision): more challenging — EVE required as the gating layer.
+- Nihar: "We'll have to figure out if somebody actually wants [AI-only], we'll have to put this in the product and then figure out how to actually make AI-only work."
+
+### 4-Bucket Confirmation
+Nihar confirmed the 4-bucket framing. Corrected ordering:
+1. Rule-based bypass (existing)
+2. Confidence-based bypass (existing, Arsh)
+3. AI annotator for collisions (in progress, Avinash + Michael)
+4. AI annotator for safety events (not started — VLM for non-collision behaviors)
+
+### Staffing Alignment
+- Arjun drives EVE strategy + framing with Arsh as co-pilot
+- Avinash leads Bucket 3 (collisions)
+- Achin may take over Bucket 4 scoping after Arjun frames it

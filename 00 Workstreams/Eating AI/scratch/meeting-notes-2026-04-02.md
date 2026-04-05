@@ -43,3 +43,25 @@
 - Ties directly to AI Release Management process gaps (see separate notes)
 - CBB rollout rigor (Avinash/Fahad) is the positive exemplar to replicate
 - Dheeraj's pipeline reliability dashboards should catch this in future
+
+---
+
+## Nihar's Perspective (04.02 1:1)
+
+**Source:** `Portfolio/Manager Chats/04.023 chat with Nihar`
+
+### Nihar's Reaction
+- "The fact that it came downstream from annotations because we started hitting SLAs. It's way too late."
+- "We should never have signed up to do SMB one day, mid-market day two, enterprise day three."
+- "I can't tell you how many times I have raised my voice… and this is a persistent problem and we still haven't solved it."
+- "Do not accept mediocrity from the AI team. Push them on the things that you need."
+
+### Comms Feedback
+- Expected Achin to proactively report: here's the miss, what happened, why, how we're fixing it
+- Devin hasn't coached Achin well on this (first-time manager, spread thin)
+- Product announcement was "okay, still a little bit confusing"
+
+### Decisions
+- **SMB and commercial → opt-in only.** Enterprise/strat → default rollout.
+- **Trials should see eating sooner** — "we're already doing marketing around it"
+- Nihar wants: (1) volume numbers by Monday, (2) segment-wise rollout plan

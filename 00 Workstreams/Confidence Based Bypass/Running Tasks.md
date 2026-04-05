@@ -19,7 +19,7 @@
 | 3/25/26 | Deploy and Shadow Test Pipeline | Deploy end-to-end pipeline in shadow mode and test with real production traffic without customer impact | 4/20/26 | Wajahat Kazmi, Engineering Team |
 | 3/25/26 | Create Staged Rollout Plan | Develop rollout strategy with target metrics for each phase (SMB, mid-market, enterprise) and timeline for Q2 completion | 4/15/26 | Gautam Kunapuli, Wajahat Kazmi |
 | 3/25/26 | Schedule Monday Follow-Up Meeting | Set up regrouping session to review project plan progress and validate timelines with leadership | 3/26/26 | Wajahat Kazmi, Gautam Kunapuli |
-| 3/25/26 | Dummy Task | Dummy task for testing and workflow validation | 4/1/26 | Arjun Rattan |
+| 3/25/26 | ~~Dummy Task~~ | ~~Dummy task for testing and workflow validation~~ ✅ Completed | 4/1/26 | Arjun Rattan |
 
 
 ---

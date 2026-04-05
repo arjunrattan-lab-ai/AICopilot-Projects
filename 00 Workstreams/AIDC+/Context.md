@@ -78,4 +78,31 @@ Several **new AI capabilities are being launched exclusively on AIDC+** first, l
 
 ---
 
+## Update: 2026-04-02 — Nihar 1:1
+
+**Source:** `Portfolio/Manager Chats/march 31 chat`, `Portfolio/Manager Chats/04.023 chat with Nihar`
+
+### Strategic Priority
+- Nihar: "AIDC is important, but **AIDC+ is way more important.** All our quarter depends on it. All new deals are gonna start pushing on this really hard."
+- A customer agreed to sign EOQ contingent on fatigue index shipping on AIDC+ first. Matches current timeline.
+- No dedicated AIDC+ strategy doc from safety team perspective exists — Nihar suggested Glean search + pitch deck.
+
+### Fatigue on AIDC+
+- Fatigue AIDC GA: Devin ships by end of April / early May
+- Fatigue AIDC+: ~May, not yet fully integrated (0% as of Apr 4)
+- Microsleep behavior has issues; team exploring synthetic data
+- Nihar: "Even if it's not perfect at launch, that's okay. Keep improving after. We need a functional model deployed."
+
+### Competitive
+- Samsara's fatigue version is "awful" — bad trial feedback
+- Netradyne also showing high FP rates on fatigue — "at least a few data points"
+- Fatigue is a key differentiator: "This is going to be a pretty critical differentiator for us from an AI standpoint."
+
+### AIDC+-Exclusive Differentiation
+- ALPR, stereo vision (H2 — depth perception with two lenses), wide-angle FOV
+- Stereo vision: "some technical challenges... but even though we're leaning heavily on that in marketing"
+- Most AI models work on either platform; wide-angle lens is the big AIDC+ differentiator
+
+---
+
 Would you like to go deeper on any specific area — such as the **AIDC+ AI model roadmap**, the **competitive positioning vs. Samsara/Netradyne**, or the **embedded architecture** that makes AIDC+ unique?

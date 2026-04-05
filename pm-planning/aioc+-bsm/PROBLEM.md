@@ -94,6 +94,10 @@ The Provision ped detection being broken is both a problem and an opportunity:
 | **Amazon Flex** | Last-Mile Delivery | "Customers in upcoming AIDC+ trials expect pedestrian-in-path warnings." (FPW PRD, Devin Smith, Aug 2025) | **Not AIOC+** — AIDC+ forward only | **None for AIOC+ BSM** |
 | **Closed-Lost deals** | ENT, MM | External camera gap + backup assist as named product gaps losing deals to Samsara | Backup assist, external camera AI | **Validated** — recurring loss pattern |
 
+| **Coach bus company (unnamed)** | Transit | Nihar in active sales prep call; "they use [competitor] product and there's a lot of false positives"; interested in pedestrian detection specifically | Pedestrian (AIOC+ side cameras) | **Medium** (active sales opp, Nihar talking to them in a week) |
+
+> **Update: 2026-04-02 — Nihar 1:1.** Coach bus signal added. Nihar confirmed "killer app" status for BSM on AIOC+. Vehicle detection may be higher priority than pedestrian ("I think you care about vehicles more than pedestrians"). See `scratch/meeting-notes-2026-04-02.md`.
+
 ### Unvalidated — Assumed from Concept Slides, Not Deal Signals
 
 | Customer | Segment | What We Know | BSM Interest? | Confidence |

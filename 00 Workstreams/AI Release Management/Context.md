@@ -58,6 +58,27 @@ A cross-cutting initiative to create a reliable, repeatable release process for 
 | Gautam | Eng sponsor |
 | Dheeraj | Pipeline reliability / observability |
 
+---
+
+## Update: 2026-04-02 — Nihar 1:1
+
+**Source:** `Portfolio/Manager Chats/04.023 chat with Nihar`
+
+### Release Management "Completely Failed" for Eating Rollout
+- Nihar: "Whatever we're doing in this project completely failed in terms of capturing [the eating rollout volume spike]."
+- The project scope says "standardize and streamline the rollout process for AI models and config changes" — but eating launched with SMB→MM→ENT in 3 days, no live monitoring, no automated rollback.
+- Anand is listed as PM but engagement level is unclear. Nihar: "He's PM in name here. I don't even know what his engagement level is."
+- The team shared a good output report for embedded release cycles — but AI model release was NOT properly scoped. "I haven't seen clearly… clearly we're missing something there."
+
+### Arjun's Deeper Engagement Requested
+- Nihar: "Having your more deeper engagement on this, especially because you made the comment we don't seem to be very metrics driven… this is probably a good place for you to engage with that perspective."
+- Combines with pipeline reliability (Dheeraj) and EVE observability
+
+### Structural Feedback
+- PM push on eng is inadequate: "PMs to push engineering. They're not going to do it on their own."
+- Nihar → leadership team → not cascading to ICs: "the problem is it's not cascading down"
+- Devin should have been sensitive to this, should have coached Achin — but didn't
+
 ## Positive Exemplar
 
 CBB (Confidence Based Bypass) rollout process — Fahad/Wajahat/Avinash use staged rollout with monitoring rigor. This is what good looks like. Replicate for all AI launches.

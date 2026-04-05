@@ -12,3 +12,6 @@
 | 4/4/26 | [ ] Build parallel TDD alongside PDP | Gautam and Arjun co-author eng requirements doc covering: distance estimation approach, speed dependency, camera count variability, state machine design, embedded team needs. | 4/11/26 | Gautam, Naveen (Zach Brand's team) |
 | 4/4/26 | [ ] Talk to Scott Morford on hardware layer | Understand AIOC+ control plane, alert routing options (control plane vs. gateway vs. both), camera install configurations. | 4/11/26 | Scott Morford |
 | 4/4/26 | [ ] Investigate avg camera install count | Research: how many cameras do customers actually install on AIOC+? (2 side, 4, 6?) Affects model design and pipeline complexity. | 4/11/26 | Scott Morford, Sales |
+| 4/4/26 | [-] Refine BSM PRD for Nihar pressure-test | Update PRD with BSM umbrella framing, vehicle vs. ped priority question, killer-app positioning. Share with Nihar. 🟡 In Progress | 4/4/26 | Nihar |
+| 4/4/26 | [ ] Check closed-lost deals for multi-cam gaps | Pull closed-lost data where external camera / backup assist / BSM was a factor. Quantify deal value. | 4/11/26 | Sales Ops, Caroline Barragan |
+| 4/4/26 | [ ] Schedule Michael sync for AIOC+ BSM staffing | Discuss staffing, tradeoffs, and what to deprioritize to start BSM in Q2 (AIOC+ beta = Sept). | 4/11/26 | Michael Benisch, Nihar |

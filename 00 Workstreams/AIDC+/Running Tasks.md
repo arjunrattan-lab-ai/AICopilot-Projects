@@ -7,11 +7,11 @@
 
 | Date Created | Task Name | Description | When Due | Who Else Can Help |
 |---|---|---|---|---|
-| 3/27/26 | Sync with Devin on Fatigue Handoff | Understand fatigue GA timeline (AIDC target: next month, AIDC+ May), what remains post-handoff, and plan for ongoing H2 improvements (recall & precision) | 4/3/26 | Devin, Nihar Gupta |
-| 3/27/26 | Talk to Anand on Monday | After Nihar informs Anand of Arjun's role, sync on project landscape, divide and conquer across AI pipeline, parity, and other workstreams | 3/30/26 | Anand, Nihar Gupta |
+| 3/27/26 | Sync with Devin on Fatigue Handoff | Understand fatigue GA timeline (AIDC target: next month, AIDC+ May), what remains post-handoff, and plan for ongoing H2 improvements (recall & precision) 🟡 In Progress | 4/3/26 | Devin, Nihar Gupta |
+| 3/27/26 | Talk to Anand on Monday | After Nihar informs Anand of Arjun's role, sync on project landscape, divide and conquer across AI pipeline, parity, and other workstreams ⏳ Pending Others | 3/30/26 | Anand, Nihar Gupta |
 | 3/27/26 | Get Datadog Dashboard Access | Get access to pipeline monitoring dashboards from Dheeraj; resolve issue of needing manual copies — currently working with potentially stale data | 4/3/26 | Dheeraj |
 | 3/27/26 | Engage on AI Pipeline Revamp & Reliability | Get deeper into the P0 project: observability, health monitoring, reducing AI event latency; understand dashboards, metrics, and PM support gaps (Dheeraj wants more PM help) | 4/10/26 | Dheeraj, Anand |
-| 3/27/26 | Talk to Arshdeep About Annotator Prioritization | Understand the prioritized annotator queue (fatigue = very high, close following = lower, smoking = lower) and how it feeds into event latency | 4/3/26 | Arshdeep |
+| 3/27/26 | ~~Talk to Arshdeep About Annotator Prioritization~~ | ~~Understand the prioritized annotator queue (fatigue = very high, close following = lower, smoking = lower) and how it feeds into event latency~~ ✅ Completed | 4/3/26 | Arshdeep |
 | 3/27/26 | Review AIDC+ Parity Feature Timing | Get up to speed on timing of AI features for AIDC+ parity: fatigue index, speed sign detection, and other safety AI features Anand is driving | 4/10/26 | Anand, Avinash |
 | 3/27/26 | Engage with Avinash on Speed Sign Detection | Speed sign detection needs more product decisions; engage with Avinash to understand current state and what's needed | 4/17/26 | Avinash |
 | 3/27/26 | Explore Visualizations 2.0 with Michael | Talk to Michael about his plan for Visualizations 2.0 (potentially gen-AI agent approach); understand what he needs from product — currently unfunded/blocked | 4/30/26 | Michael Benesh |

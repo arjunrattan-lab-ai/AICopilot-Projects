@@ -34,7 +34,7 @@ Scan all open projects and aggregate action items into a single master file for 
 - Capture: Task name, description, when due, project name, date created
 
 **Step 4: Read existing master file and preserve state**
-- Before rebuilding, read the current `00 Master Punch List/Arjun's Master Action Items.md`
+- Before rebuilding, read the current `Arjun's Master Action Items.md` at the projects root
 - Parse every checkbox line across ALL sections (Priority View, By Project, Due This Week, Due Next Week, Finished Tasks)
 - Build a lookup of task states by matching on **task name + project name**:
   - `- [x]` → mark as Completed
@@ -44,6 +44,7 @@ Scan all open projects and aggregate action items into a single master file for 
   - Lines with `🟡 In Progress` → mark as In Progress
   - Lines with `⏳ Pending Others` → mark as Pending Others
 - This ensures that if the user toggled a checkbox (e.g. `[ ]` → `[x]`) via the editor, the re-run picks it up
+- **Fuzzy checkbox normalization:** Before matching, normalize malformed checkbox markers that VS Code editor toggles may produce. Treat `[ x]`, `[x ]` as `[x]`. Treat `[ -]` as `[-]`. Treat `[ ~]` as `[~]`. Treat `[]` (empty) as `[ ]`. Strip extra whitespace inside brackets before applying the status hierarchy.
 - **Max-status rule:** A task may appear in multiple sections (Priority View, By Project, Due This Week, etc.) with different markers. When the same task (matched by task name + project) has conflicting markers across sections, always keep the **highest** status. The hierarchy from lowest to highest:
   1. `[ ]` Not Started (lowest)
   2. `[-]` In Progress
@@ -53,10 +54,10 @@ Scan all open projects and aggregate action items into a single master file for 
 - Example: if Due This Week has `[ ]` but Priority View has `[-]`, the resolved status is `[-]`
 - This prevents a stale marker in one section from overwriting a user toggle in another section
 
-**Step 5: Build the master file using ONLY checkboxes (no tables)**
-- Create/update `Arjun's Master Action Items.md` in `00 Master Punch List/` under the projects root
-- **Use checkbox list format for ALL sections** — Priority View, By Project, Due This Week, Due Next Week, and Finished Tasks
-- **Never use markdown tables** — tables are not interactive; checkboxes are
+**Step 5: Build the master file**
+- Create/update `Arjun's Master Action Items.md` at the projects root (not in any subfolder)
+- **Priority View** uses a markdown table (for scannable dashboard view)
+- **All other sections** (By Project, Due This Week, Due Next Week, Finished Tasks) use checkbox lists
 - Sort active tasks by due date (earliest first)
 - Apply preserved states from Step 4
 - If a task is `[x]` (Completed) → move it to Finished Tasks section
@@ -96,6 +97,7 @@ These markers are the single source of truth.
 - These tasks are removed from Priority View, By Project, Due This Week, and Due Next Week
 - The "Active Tasks" count at the top should only count *active* tasks
 - Add a separate count: **Completed Tasks:** {count}
+- **Only `[x]` task entries belong in Finished Tasks.** Do not add context notes, role descriptions, or dependency summaries to this section.
 
 **Step 9: Bi-directional sync — Master ↔ Running Tasks**
 
@@ -128,6 +130,11 @@ After rebuilding the master file, sync status changes back to each project's Run
 - Master `[x]` (weight 4) vs Running `☐` (weight 1) → resolved: `[x]` Completed → update running tasks with strikethrough
 - Master `[ ]` (weight 1) vs Running `🟡` (weight 2) → resolved: `[-]` In Progress → update master
 - Master `⏳` (weight 3) vs Running `🟡` (weight 2) → resolved: `[~]` Pending Others → update running tasks
+
+**9e. Single source of truth — no duplicate copies**
+- The master file lives ONLY at the projects root: `Arjun's Master Action Items.md`
+- Do NOT create or maintain copies in `00 Workstreams/`, `00 Master Punch List/`, or any other subfolder
+- If a copy exists elsewhere, delete it. The root file is the single source of truth.
 
 ## Output Format
 

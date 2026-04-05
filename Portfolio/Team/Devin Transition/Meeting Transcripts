@@ -1,0 +1,389 @@
+[00:00] Devin Smith, Arjun Rattan: Devin Smith, Arjun Rattan joined
+[00:06] Arjun Rattan: I was gonna share this. Yeah. One more thing. I built out a lightweight table rename.
+[00:59] Arjun Rattan: Excellent.
+[01:00] Arjun Rattan: I will start sharing my screen.
+[01:05] Arjun Rattan: Arjun Rattan started sharing your screen
+[01:28] Arjun Rattan: Is it fatigue index or driver Fatigue index? Dfi.
+[01:32] Devin Smith: There's an index that underpins it, but we're just.
+[01:34] Devin Smith: It's basically called fatigue in as an event type.
+[01:37] Devin Smith: But Driver fatigue index has kind of been a common nomenclature.
+[01:41] Arjun Rattan: All right, so forward collision warning, Driver fatigue.
+[01:44] Arjun Rattan: I'll just keep writing if you'll just keep telling me. I ping this to you as well.
+[01:51] Arjun Rattan: So you have a record.
+[01:59] Devin Smith: You slapped it. Yeah. Okay.
+[02:00] Arjun Rattan: Yeah.
+[02:02] Devin Smith: Okay.
+[02:10] Arjun Rattan: Yeah. Ignore that. I just duplicated a template I had for the team.
+[02:46] Arjun Rattan: Okay.
+[02:47] Devin Smith: Is this for me or like, you're transitioning to me? Yeah, yeah. Okay. These are the kind of. The main.
+[03:03] Devin Smith: There's.
+[03:03] Devin Smith: There's an unsafe parking cab alerts piece that has been stalled for a bit, but it's coming there.
+[03:19] Devin Smith: There's a kind of a weird gray area. So there's one thing where it's like model development. Right.
+[03:25] Devin Smith: Or model improvements.
+[03:26] Devin Smith: And then like configuration management aspect of all of these features is like a.
+[03:33] Arjun Rattan: Actually, we'll write the status in the notes. Let's just first do the. Is there anything else?
+[03:38] Arjun Rattan: First of all, on the projects that
+[03:42] Devin Smith: I am actively working on, like from a model development perspective.
+[03:49] Arjun Rattan: So anything you would drop the day you start working on.
+[03:53] Arjun Rattan: So once you move to your new role, what would you drop? Let's just use that.
+[03:57] Arjun Rattan: What would you want to stop doing?
+[04:05] Devin Smith: Yeah, I mean, like these are. I have been spending a ton of time on foreclosure warning, but it's.
+[04:11] Devin Smith: I've been trying to keep it moving T index a majority of my time.
+[04:19] Devin Smith: Unsafe parking and kev alerts that mostly has been on the R D side.
+[04:23] Devin Smith: They've been blocked due to a firmware issue.
+[04:25] Devin Smith: But basically they have a new state machine that they're going to want to implement that will include an incapabler for the feature.
+[04:34] Devin Smith: And then. There are components. It's kind of. Okay, so that's like a cut and dry.
+[04:46] Devin Smith: Like what am I working on model wise?
+[04:49] Arjun Rattan: But yeah, so give me a sec. I'm going to go methodically for each one. So relaunch of. Oh yeah.
+[04:55] Arjun Rattan: You're still figuring stuff out. Yeah. Okay, cool.
+[04:59] Devin Smith: I've been overseeing it with him.
+[05:02] Arjun Rattan: Yes. Please add anything with achin as well that you're overseeing.
+[05:16] Devin Smith: So this is like. And then there's upcoming 8 sentinel. And.
+[05:38] Arjun Rattan: This is all one big body of work. This one cell or can it be separated?
+[05:43] Arjun Rattan: But it's all related work there.
+[05:50] Devin Smith: So the actual FedEx ground contractor stuff option is basically updating the system to support AIDC Plus I'm adding these as basically these are coming down the pike type of things where these partners want to use the same type of framework that we built for FedEx so they would be Net new.
+[06:20] Devin Smith: I'm just sort of lumping it and just mentally.
+[06:28] Arjun Rattan: Okay, so I'm going to add another row below. I'm going to call this Net new.
+[06:35] Arjun Rattan: Let me add a serial number as well. That's just clear. Insert column left.
+[06:43] Arjun Rattan: This is separate, separate, separate 4. I would call this 4.2. There is 4.1.
+[06:53] Arjun Rattan: If I can separate this out even more.
+[07:07] Arjun Rattan: Point 1.2.
+[07:11] Devin Smith: Specifically PC+.
+[07:20] Arjun Rattan: 4.3. Okay,
+[08:05] Devin Smith: This is actually discovery. I call on Monday probably early. What is this? I'm just giving you like.
+[08:18] Arjun Rattan: Yeah, just do a dump. It will clean it up.
+[08:20] Devin Smith: This is stuff that's peaky. So basically, Fleet Sentinel is an insurance provider.
+[08:29] Devin Smith: They want to lock settings for different accounts in the same way that we have done for FedEx ground.
+[08:34] Devin Smith: We built the system for FedEx ground to be repeatable.
+[08:38] Devin Smith: And basically what's happening is we're like pushing a set of configs and then also locking the UI experience so customers can't change it.
+[08:45] Devin Smith: So that these companies can effectively measure and rank the risk using a baseline.
+[08:52] Arjun Rattan: Sorry, sorry, say that again. Customers can't change. So wait, wait. Let's try this again. There is.
+[08:58] Arjun Rattan: There are contractors who work with customers.
+[09:01] Devin Smith: There are contractors. No, no. There are contractors who are contracted with FedEx Ground.
+[09:08] Arjun Rattan: Right.
+[09:08] Devin Smith: And we have this partnership where FedEx Ground is basically saying you can only use Motive eld.
+[09:15] Devin Smith: And Motive also sells a safety product.
+[09:17] Devin Smith: Now, if you buy your safety product, you have to adhere to these specific settings because we measure you against these five or six behaviors.
+[09:25] Arjun Rattan: And those contractors in turn are also fleet managers. So they have a way to change the settings.
+[09:32] Devin Smith: Well, we implemented a way to prevent them from changing the event settings.
+[09:37] Devin Smith: And so we built the system knowing that insurance providers who have asked for this in the past would want to do the same thing.
+[09:44] Devin Smith: So Fleet Sentinel is one that's peaking right now.
+[09:48] Devin Smith: And then I just got hit up by Christina who helps with some of these partnerships.
+[09:55] Devin Smith: Amazon may want to do something similar. So these are more foreshadowing things.
+[10:02] Devin Smith: They're not active work right now, but stuff that's starting to.
+[10:11] Arjun Rattan: Got it.
+[10:12] Arjun Rattan: So is there anything else on the projects bodies of work either or you think we've covered it?
+[10:22] Arjun Rattan: Hey, isn't Achin doing a lot more than pedestrian?
+[10:25] Arjun Rattan: I Saw the feedback or was it all other than pedestrian and eating AI?
+[10:28] Arjun Rattan: The rest of it is done in the doc you shared. Is this it for him?
+[10:37] Devin Smith: No, he's. No, this is. He's working on confidence based bypass stuff as well.
+[10:43] Arjun Rattan: Right.
+[10:44] Devin Smith: But I haven't really been managing that kind of requirements with him because he's been leading it on his own with the R D team and Nihar and Gotham and so got it.
+[10:55] Arjun Rattan: Okay. In search group below.
+[11:15] Arjun Rattan: All right, that's 5, 6, 7. So for comprehensiveness, we've covered.
+[11:27] Devin Smith: Yeah, those are.
+[11:30] Devin Smith: You know, I think if you were to create a box around something, those are things I'm tangentially involved in in various ways.
+[11:42] Devin Smith: Configurations is sort of a thing that spans a lot of all of these things.
+[11:54] Devin Smith: I don't really have a clear way to explain.
+[12:00] Devin Smith: We have a trials system that is actually being managed by Nishant right now, which has been great.
+[12:07] Devin Smith: And then
+[12:10] Arjun Rattan: for.
+[12:13] Devin Smith: There's like an ongoing Tiger team that's been set up to sort of address a lot of fundamental configuration issues that we have as a company,
+[12:24] Arjun Rattan: which I
+[12:25] Devin Smith: haven't basically helped facilitate getting set up.
+[12:28] Devin Smith: I haven't been part of the active daily discussions on it, but I think comprehensively, if I were to just say what I would love to stop engaging in or at least not being like a go to person, is configurations across all of our AI behaviors.
+[12:47] Arjun Rattan: Wait, so configuration across all AI behavior, what does that mean?
+[12:54] Arjun Rattan: That like every time Achin or Arch or someone launches something like in confidence based bypass, for example.
+[13:01] Arjun Rattan: No, configuration would only be for when you launch a new AI. Right. Behavior.
+[13:06] Devin Smith: It's not just when you launch.
+[13:07] Devin Smith: I mean, there are model updates or different implementations of safety settings that, you know, have implications and so.
+[13:20] Devin Smith: But they're all tied to the underlying model. Right. So.
+[13:33] Devin Smith: And there's just, you know, general management of configurations, which I'm not saying that I'm gonna 100% escape, but I don't want to.
+[13:41] Devin Smith: I would love to not have to manage what the default configurations are supposed to be.
+[13:50] Devin Smith: What's missing?
+[13:51] Devin Smith: All of the stuff that is tied directly to a specific model in terms of how it should be performing.
+[13:57] Devin Smith: I would like to drop that somehow.
+[14:01] Devin Smith: And it's been less and less, I guess, but finding a way to remove me as the point person for.
+[14:14] Arjun Rattan: All right, let me. We'll come to this in a bit. Let's start with the first one.
+[14:27] Arjun Rattan: Relaunch of forward collision warning, where we are today.
+[14:33] Arjun Rattan: In terms of what you're trying to like, okay, wait, what is your goal Here, slash, definition of done.
+[17:58] Devin Smith: That's a cool little pop out.
+[18:01] Arjun Rattan: Which one? This one?
+[18:03] Devin Smith: Yeah, I always like I say you can order those.
+[18:07] Arjun Rattan: Oh yeah. They have this whole productivity tab on there. Yeah.
+[18:10] Devin Smith: I don't even touch it. It's funny.
+[18:34] Arjun Rattan: You are stretched thin, my friend.
+[18:37] Devin Smith: This isn't even like. This is like a.
+[18:40] Arjun Rattan: This is the stuff you care about, not the stuff you're asked to do.
+[18:43] Devin Smith: Yeah,
+[18:46] Arjun Rattan: please.
+[18:52] Devin Smith: Yeah, it's. I am
+[18:57] Arjun Rattan: this if you ask me. Right. I think in your projects this is just the bias I have.
+[19:03] Arjun Rattan: I think these two are the coolest ones. The most coolest ones. Driver fatigue especially.
+[19:09] Arjun Rattan: That's an awesome problem to solve it.
+[19:12] Devin Smith: It's a, it's our biggest, most complex model.
+[19:15] Devin Smith: I think it, it legitimately probably has the most value, the amount of customers that are looking for a really good feature.
+[19:22] Devin Smith: We have a really good foundation but it still needs, still needs work. Yeah. And so.
+[19:34] Devin Smith: And there's still tons of opportunity beyond what we've actually built. So
+[19:41] Arjun Rattan: let me ask, I'm sorry, as you're typing, let me ask you, at some stage would you have given this to Ajin, your instinctive reaction once you had done the, the L7 scoping problem definition, etc.
+[19:55] Arjun Rattan: And launched the first one, would you have been comfortable handing it off to Achin to iterate on V2?
+[20:04] Devin Smith: I don't think with like here you go type of thing.
+[20:10] Devin Smith: It would, it would be very kind of hand holding just because of the size and complexity of it and just the customer impact.
+[20:22] Devin Smith: I think I was telling you before, like he just doesn't have a lot of exposure to customers yet beyond just the eating AI experience which even that one was somewhat light.
+[20:31] Devin Smith: But I've been working on this for three years in terms of just drowsiness in general and we've gone through so it's going to be hard for me to even just completely hand it to you in terms of how to communicate the depths and challenges that I've gone through to this point and just also the complex.
+[20:54] Devin Smith: It's a very deep project to get up to speed on.
+[20:57] Devin Smith: I don't think it'd be something I'm just plainly handoff and I don't know,
+[21:01] Arjun Rattan: I don't think it will be a clean handoff for sure as we.
+[21:04] Arjun Rattan: So today's meetings prospers is just to get a state of affairs so to speak and then the next one we will go project by project and cleanly Devin at a much more in depth level what do you think is a definition of success and A good transition point.
+[21:20] Arjun Rattan: And I will Devin success criteria for myself where it will be like, okay, cool, if this is the level of depth you wanted to communicate, this is the level of depth I'm operating at.
+[21:29] Arjun Rattan: And I don't think I'll get to your level of depth, but we have to find a middle ground of 60, 70% that is good enough to take it.
+[21:36] Arjun Rattan: And then I'll think and stumble my way through it with you as a guide I can come to once a week or the team can come to like once in two weeks.
+[21:44] Arjun Rattan: Like hey, you worked on this concept at yada yada.
+[21:47] Arjun Rattan: But anyways, we'll get to the definition of done and where we are as you pulling it out.
+[21:52] Arjun Rattan: So what should I write in terms of level of involvement? 100% driving.
+[21:57] Devin Smith: No, I mean I. It's. I'm unable to put 100% towards anything.
+[22:01] Devin Smith: So I would say it's probably 50% right now. It's going to pick up over.
+[22:11] Arjun Rattan: Sorry, what I meant to say was like this one, like this description you had here on the top.
+[22:16] Arjun Rattan: What do we write here?
+[22:18] Devin Smith: Oh
+[22:21] Arjun Rattan: yeah, maybe we move some of them out into the description. You keep writing. I'll play around with it.
+[22:26] Arjun Rattan: Complete aid C plus version. That's your definition of success.
+[22:30] Arjun Rattan: Things you want to do with the product lead. So you drive all of these? That's it. Okay.
+[22:39] Arjun Rattan: This is just you, no one else. One product? Yeah. Okay, cool. This is the big one.
+[22:49] Devin Smith: I mean if I were to what I would ideally like I'd love to have 100% of my time.
+[22:57] Devin Smith: Just the size of it is. So I would. Status of completion.
+[23:03] Devin Smith: So I'm going to give you the GA status of completion, which is our MVP of events, meaning like end of this month.
+[23:12] Devin Smith: It's not what I would classify as 100% because of the IDC part a IDC plus part the in cab alerts part.
+[23:21] Arjun Rattan: I agree with you.
+[23:22] Arjun Rattan: Your definition of percentage assessment has to be for whatever you put in your goals.
+[23:29] Devin Smith: And okay, that currently includes you can
+[23:34] Arjun Rattan: do it level by level. Like okay, launch MVP, that is 100 by April 30th.
+[23:42] Devin Smith: It's going to bleed into first first of May, first week of May.
+[23:45] Arjun Rattan: But yeah, yeah, complete ARDC plus version beta test launch. That's going to be 0%, 10% right
+[23:53] Devin Smith: now it's not even fully integrated. So yeah, 0%
+[23:59] Arjun Rattan: deprecate drowsiness. That's probably going to be a fast follow.
+[24:02] Arjun Rattan: So it's like 0% again part of the AIDC Plus.
+[24:06] Devin Smith: Yeah, yeah.
+[24:07] Arjun Rattan: Model improvements and in cab alert launch
+[24:10] Devin Smith: 0%, I would say for right now. Yeah. Because we.
+[24:15] Devin Smith: We're still really focused on just like the core of the feature.
+[24:19] Devin Smith: The in cab alerts requires high precision on microsleep or at least high control and we just haven't.
+[24:31] Devin Smith: And we're on a V2 right now.
+[24:32] Devin Smith: I don't even have a model that's going to production for launch in production right now.
+[24:39] Devin Smith: So one of my challenges, like I don't know how to validate.
+[24:42] Devin Smith: We're on V2 and we're going to be launching like a V8 and I don't.
+[24:46] Devin Smith: My one challenge is I don't know how to validate what V8 is going to be.
+[24:52] Arjun Rattan: All right. For now I'll just keep it high level. Yeah, me as well. All right, great.
+[25:07] Arjun Rattan: What else do we need to fill out? Transition point is, let's just say post mvp.
+[25:14] Devin Smith: I would say. I would agree.
+[25:15] Devin Smith: Yeah, I think it's gonna like the time it would take me for you to get you involved to help facilitate at any point in the next three weeks is actually gonna be detriment from what I actually need to get completed.
+[25:32] Devin Smith: It'll be like too much context to give you.
+[25:34] Arjun Rattan: I think. I agree. I think this is clean.
+[25:41] Arjun Rattan: I want you off this because all of this is 0, 0% so we can learn and then we can use you as our star.
+[25:48] Arjun Rattan: Like you have the North Star. So we can just work with you on that. You know, light touches, etc.
+[25:54] Arjun Rattan: But we will drive the rest of it. I and whoever or just me figure it out.
+[25:58] Devin Smith: Yeah.
+[25:59] Arjun Rattan: All right. This one. What is the last thing, what to do after transition?
+[26:07] Arjun Rattan: Well, all of this stuff, this is easy.
+[26:10] Devin Smith: Yeah.
+[26:11] Arjun Rattan: Do this.
+[26:13] Devin Smith: Yeah.
+[26:15] Arjun Rattan: Okay.
+[26:17] Devin Smith: There are aspects of that that action could probably take for you also.
+[26:25] Arjun Rattan: Yeah, I'll work with you on that. Yeah. Like we'll do a follow on.
+[26:28] Arjun Rattan: This is like I think one of three conversations max. Right now.
+[26:31] Arjun Rattan: Let's just get the stuff down because once you write it, even you will reflect and tell me.
+[26:36] Arjun Rattan: Yeah, I'll also see.
+[26:38] Arjun Rattan: Yeah, I'm kind of struggling, man, to figure out way to play Sachin right now because he's gone and communicated he wants to get a promo.
+[26:44] Arjun Rattan: You are saying he meets expectations. Meets expectations. Doesn't get you promoted.
+[26:49] Arjun Rattan: At least not in my experience. So.
+[26:52] Devin Smith: So there's a bit of background.
+[26:53] Devin Smith: So I just personality wise, like he's very motivated by these promotions and comp bumps.
+[27:04] Devin Smith: I guess I have told him consistently over the last year and it's only been a year that you don't typically get any of those in the first year.
+[27:11] Devin Smith: Like, it's just like company wide.
+[27:13] Devin Smith: I even shared my own experience here and Nihar mentioned to me that he was like, he mentioned to him a couple days ago.
+[27:20] Devin Smith: I was kind of surprised because I literally had just had the conversation with him the day before about.
+[27:25] Devin Smith: I'm trying to reiterate, you know, like, don't, do not expect a promotion on this, you know, review cycle.
+[27:32] Devin Smith: So I, it's a, I think it's his nature. It's not that he hasn't done a great job.
+[27:40] Devin Smith: Like he's done really well, I think in the first year.
+[27:42] Arjun Rattan: Oh no.
+[27:42] Arjun Rattan: I, what I wanted to say is if he wants to get promoted, I am going to give him an opportunity by finding him meaty pieces of work which do not set him up for failure, but also give enough of a stretch for him to build those muscles that he needs to show for the next level and forget show, he needs to develop.
+[28:01] Arjun Rattan: So I'm thinking about it from that angle. I'm not saying, oh, this is good or bad.
+[28:05] Arjun Rattan: What I'm saying is, hey, you want to grow, we also want you to grow.
+[28:08] Arjun Rattan: I would like you to grow and take on more responsibility. So.
+[28:11] Arjun Rattan: But I also don't want to send you out in the middle of a tightrope and leave you hanging.
+[28:16] Arjun Rattan: Yeah, that's.
+[28:17] Devin Smith: And that's actually part of what.
+[28:19] Devin Smith: I would love to finalize the conversation with him on his review next week, which is how do we, how do we collectively Devin agreeable goals for him over the next six months.
+[28:30] Devin Smith: And so I'd love your input as
+[28:32] Arjun Rattan: we're sort of, we can do that.
+[28:34] Arjun Rattan: So if we move fast on this talk and we have a sense, because I'm actually, we are both piggybacking on each other.
+[28:41] Arjun Rattan: I, I need your input on where do I send Achin and that ties into where I will send Arsh as well for the work because I see a bunch of work here that I would ideally also want Arsh to go start doing because I want her to develop, as I said yesterday, I want her to get a little bit more deeper in the weeds of AI.
+[28:59] Arjun Rattan: I don't think for her customer facing is going to be an issue. She came from a consulting background.
+[29:06] Arjun Rattan: I think for her, I would like her to go stretch a little bit more in the AI portion of things.
+[29:12] Arjun Rattan: And so I see you got a bunch of work that you were pushing here on Pipeline configuration.
+[29:18] Arjun Rattan: There's one more. This whole model improvement for in cab alerts. Where was that this kind of stuff.
+[29:23] Arjun Rattan: So that's. These are options.
+[29:26] Devin Smith: The way that I have, I thought would be like a really good utopian in my opinion is like we have a bunch of road facing models, we have a bunch of driver facing models and we had owners of those because I've been across all of them and it's just been kind of chaotic.
+[29:43] Devin Smith: But like, and I personally, like, I think you could probably put two people to oversee each group of those things to sort of think strategically but also build net new and also improve existing.
+[29:54] Arjun Rattan: Um, but that is a good idea.
+[29:58] Arjun Rattan: But that feels a little bit more centralized and platform level thinking like, hey, what's the capability you want to build?
+[30:05] Devin Smith: Yeah, like building ownership on like a certain expertise area versus fragmenting them across multiple all the time.
+[30:18] Devin Smith: And, and I'm not saying there's a pro or con to like expanding skill sets or understanding, but like to improve the level of thought and investment into certain features.
+[30:27] Devin Smith: If you're, you know, have a scope that says, you know, over time like a person can start to really connect with like important nuances of what can be done on each perspective.
+[30:45] Arjun Rattan: But yeah, I'm going to tap into you for that in the next conversation because I want to talk about your thought process because I remember you telling me that you concepted a couple of the engineering teams that have been stood up.
+[30:57] Arjun Rattan: One was the reliability one or the frameworks one like there was one.
+[31:00] Arjun Rattan: You said, oh yeah, we identified a need.
+[31:03] Arjun Rattan: We have an end team that's working on it directly but no PM assigned to it.
+[31:06] Arjun Rattan: Do you remember whether it was Dheeraj or the pipeline revamp process or the
+[31:10] Devin Smith: AI pipeline latency, he is overseeing pipeline reliability initiatives and like in the phase of observability to understand where all of the pain points are.
+[31:23] Devin Smith: It's not being led by, it's an engineering led initiative. But he is.
+[31:32] Devin Smith: I don't know what, what keeps asking me.
+[31:34] Arjun Rattan: Give me a PM and I want to talk to the guy who. That's what you said, right? Or maybe I got it wrong.
+[31:40] Arjun Rattan: I remember you did tell me that you identified a gap and got it and team stood up for it.
+[31:46] Devin Smith: We created the AI platform team. Okay, awesome.
+[31:51] Devin Smith: Out of the necessity to have the focus and expertise be driven around how to integrate behaviors into our platform.
+[32:02] Devin Smith: And that's. So their scope has sort of been.
+[32:04] Devin Smith: Because it used to be all events and then events got too bloated and we needed kind of more, you know, a more focused group.
+[32:12] Devin Smith: And so AI platform essentially was a combination of that events Team is more Sort of focused on experiential
+[32:24] Arjun Rattan: so that. So I guess that's where you'll probably go or like focus on them.
+[32:28] Arjun Rattan: I don't need to think about you about it. Is that what you're telling me?
+[32:33] Devin Smith: No, I think you and Action would oversee and work directly with AI platform for a lot of the stuff that you'll continue to manage from their core expertise Here is really just the back end front end QA aspect of anything that we're working on AI future related.
+[32:54] Devin Smith: I will say that Dhiraj seems to think that the team is not going to.
+[33:00] Devin Smith: I don't know he wants to use engineers for other things but I don't.
+[33:04] Devin Smith: I would caution against that because then you end up not having anyone to help with backend and stuff.
+[33:11] Arjun Rattan: So when you say backend you are talking about. Actually I think I'm always taking a bit.
+[33:19] Arjun Rattan: Let me fill this row out in flight. This is not an in flight. So this is stopped right?
+[33:25] Devin Smith: It's been in progress on R and D but it's yeah you could say stop for now.
+[33:31] Arjun Rattan: Yeah. Unsafe parking.
+[34:01] Devin Smith: Sorry just like.
+[34:02] Arjun Rattan: No no please take your time. This is very critical. I'm gonna set up follow up.
+[34:22] Arjun Rattan: It.
+[34:58] Devin Smith: Oh there's also below right hand stop sign right hand allowed.
+[35:11] Devin Smith: There's really no product work on that but that'll probably come up in H2 basically our stop sign model.
+[35:18] Devin Smith: We have a lot of customers asking to ignore intersections that technically allow you to turn right without stopping.
+[35:25] Devin Smith: It's like a 3% use case but we were waiting on OCR to work or doing anything there.
+[35:33] Devin Smith: But that I don't know worth adding for right now it's probably surface up in H2 planning. Okay
+[35:43] Arjun Rattan: definition of done is. Etc.
+[37:28] Arjun Rattan: Discovery. You can just. I. You can just.
+[37:33] Arjun Rattan: I don't think we need any goals and definitions just discovery complete right.
+[37:38] Devin Smith: Yeah I mean I.
+[37:41] Devin Smith: I'll basically just kind of help facilitate conversations but whatever comes out of this I can help provide additional context but and connect with other stakeholders.
+[37:57] Devin Smith: But I if.
+[37:59] Devin Smith: If this is something honestly like this should get a level of awareness and sign off from him on and the reason I say that is because the FedEx ground program has actually it's a.
+[38:15] Devin Smith: It's a fairly well supported workflow internally. Like we have annotators that dedicated to it.
+[38:23] Devin Smith: We have a whole team dedicated to it and these additional partnerships may require the same level of handholding and support and so I'm just foreseeing that what these are going to be looking for is going to be very similar to Fedex ground and there will likely require that growth in that area which Cindy oversees.
+[38:49] Devin Smith: And Sean, from a product perspective, but they see it from the FedEx perspective, not from.
+[38:59] Devin Smith: A bigger, you know, if they, they're like, hey, Fleet Sentinel, Amazon want to do this?
+[39:03] Devin Smith: They're probably going to be like, well you know, we don't want to take on more scope.
+[39:06] Devin Smith: So this is going to be kind of a touchy, touchy one. But just as a.
+[39:12] Devin Smith: I can divulge more as we kind of get into it.
+[39:16] Arjun Rattan: But yeah, makes sense.
+[39:22] Devin Smith: Pedestrian warning.
+[39:23] Devin Smith: I've been fairly hands off, but this is basically launch, let's say actually data on Amazon and Launch in early Q3, Q4.
+[39:41] Devin Smith: I'm just going to give you a heads up on pedestrian warning.
+[39:47] Devin Smith: It's been a feature we've talked about for maybe two years.
+[39:51] Devin Smith: We have tons of existing customers on AIDC that are likely going to want this.
+[39:57] Devin Smith: We have internally drawn a line in the sand that says we're not going to do anything more on AITC.
+[40:06] Devin Smith: But I would probably bet like 100 bucks. We'll have a hundred.
+[40:09] Devin Smith: We'll have one customer that will scream loud enough and they'll ask us to do this and we'll say yes and all it takes is one customer.
+[40:17] Devin Smith: So right now like we're steadfastly saying that it's aidc, but I think as more visibility comes through on the feature itself to make it in a bind.
+[40:27] Devin Smith: So
+[40:30] Arjun Rattan: okay.
+[40:39] Devin Smith: Yeah, eating is more just oversight. So. Beyond that it's really just continued or. Well, I would say
+[40:57] Arjun Rattan: involvement
+[41:01] Devin Smith: entering status complete. I guess we're, you know, 99 there.
+[41:15] Arjun Rattan: Okay.
+[41:15] Devin Smith: Now. Right. I think there's.
+[41:20] Arjun Rattan: Yeah, yeah. Eating AI. You're. You can. I'm gonna keep at it with him.
+[41:26] Arjun Rattan: I've been working with him actively. So you'll probably just be more like consultant.
+[41:30] Arjun Rattan: Like hey, we don't know where to go with this if anything. Yeah, like the chat we had.
+[41:35] Arjun Rattan: But other than that, nothing. Yeah.
+[41:50] Arjun Rattan: Why do you say 65% for pedestrian warning?
+[41:56] Devin Smith: They're okay.
+[41:59] Arjun Rattan: I could ask question because it's a Russian thing. Okay, I'll ask.
+[42:02] Devin Smith: It's mostly that they're like the next major milestone is just being able to get it on for Amazon.
+[42:09] Devin Smith: But there, there really has been, it's fresh off the press.
+[42:13] Devin Smith: There's been no real kind of evaluation of the model yet. And so that takes time.
+[42:19] Devin Smith: So that's kind of why I give it that understood. Confidence based bypass.
+[42:32] Devin Smith: I don't, yeah, I don't really have much involvement there.
+[42:35] Devin Smith: Same with reliability Pipeline,
+[42:50] Devin Smith: I don't know what to write.
+[43:03] Arjun Rattan: It.
+[43:38] Devin Smith: So does that make sense? Kind of like, you know, features.
+[43:41] Arjun Rattan: What do you mean by specific feature configurations? Default, what does that mean?
+[43:51] Devin Smith: So each AI behavior has a set of configurations, right?
+[43:56] Devin Smith: And they all have a series of default values associated to them to make the feature work.
+[44:04] Devin Smith: So what I mean here is like at its core, anything related to needing to adjust like the default configuration for this behavior, or there's a new firmware model that comes out that.
+[44:20] Arjun Rattan: Yeah, but what do we configure?
+[44:24] Devin Smith: There are configs underpinning like event creation and there's configs that underpin event or alert creation.
+[44:34] Devin Smith: They live on the device.
+[44:36] Devin Smith: We have a config system where we manage not only the defaults of those configs, so when somebody connects a device, they get those delivered now over time.
+[44:48] Devin Smith: And there will be edge cases where the model is not performing well for a particular customer or for particular firmware update or there's volume implications.
+[44:56] Devin Smith: And so as new firmware is coming out, we need to progressively update the config, the default configs, and push them to ensure that we're not blowing up volume or reducing volume, trying to maintain status quo things of that nature.
+[45:10] Devin Smith: So each feature has like, you know, 10 to 20 configs on average.
+[45:17] Devin Smith: And depending on the model firmware updates, there can be implications or there's, you
+[45:23] Arjun Rattan: know, hopefully, yeah, why aren't they end doing it with an PM sign off?
+[45:29] Arjun Rattan: It's a config, it's an existing behavior.
+[45:31] Arjun Rattan: PM tells you, hey, go do it and should just go do it or the file should just go do it.
+[45:37] Devin Smith: I guess what I'm saying is like, so when there's new firmware, there's typically like a new UDM or rdm and depending on the improvements, there can be impact to a certain feature.
+[45:52] Devin Smith: Yeah, that impact can change the general volume or performance.
+[45:58] Devin Smith: And that is a sensitive topic and something that we try and maintain.
+[46:04] Devin Smith: Even if we've made significant precision improvements, it may blow volume up.
+[46:09] Devin Smith: And so like the typical reaction we've taken is try to maintain volume even though there has been significant improvements in recall, for example, you know, so it's a delicate balance.
+[46:22] Devin Smith: But the point is, is that each feature has configs that are associated to it.
+[46:27] Devin Smith: So as, you know, as you guys develop new models or as new improvements come to those models, like being responsible for what the configs that are associated to it align to the expected experience when that firmware is coming out, or if there's an issue if that makes sense.
+[46:49] Arjun Rattan: Yep. I 100% get it. So you've been the guy doing this for the last two years.
+[46:53] Arjun Rattan: Like every time there's a launch, you go and think through all of this, irrespective of whether it's your launch?
+[46:58] Devin Smith: As much as I can. Yeah.
+[47:02] Arjun Rattan: What happens when shit breaks? Who comes with a stick? Is it HEMANT or NIYAR or both?
+[47:08] Devin Smith: Or is it kind of a collective group?
+[47:11] Devin Smith: Because there are, there's a responsibility, at least on the R and D side to understand as much as possible when merging into new firmware.
+[47:24] Devin Smith: And we collectively discuss that over months, usually because as we're doing tiger team testing, we're looking at these feature adjustments, we're looking at the performance of them, and then we collectively make decisions prior to a merge into a GA build of a go no go based on those things.
+[47:44] Devin Smith: And to be honest, it's been too much for me to actually stay on top of consistently, but it's also bit us in the ass.
+[47:54] Devin Smith: Like sometimes R D will miss and like it could have been an opportunity for me to challenge them or at least look at the data more closely.
+[48:01] Devin Smith: So it's been an imperfect thing on both ends, but whenever there is an issue, we kind of collectively rally around it and, you know, if the solution is making a global config update to fix it, we'll do that.
+[48:16] Devin Smith: Or, you know, add a filter in efs, if there's some issue, there's.
+[48:24] Devin Smith: It's a case by case basis, I would say, but it's, it's been a real challenge because a lot of this, you know, you mentioned that I have a lot on this plate, but it's almost the same even for the engineers or the people overseeing a lot of stuff.
+[48:40] Devin Smith: They're also managing a lot of complexity. And so it's natural sometimes for some of these things to.
+[48:47] Arjun Rattan: Yeah, and that's, that's fine. My, my point was, who owns responsibility for the gap essentially?
+[48:56] Arjun Rattan: Is it broad? Is it end this?
+[49:00] Arjun Rattan: Like, like in an ideal world, if capacity weren't an issue, who would you have do it?
+[49:06] Arjun Rattan: Or it's always going to be cross functional. That's what I was trying to.
+[49:09] Devin Smith: An ideal world, like a product manager is, you know, if they were overseeing that individual feature, let's say close following as an example.
+[49:19] Devin Smith: Like, I'm aware of these improvements that are coming and I'm able to assess the impact of that to its feature and work closely as the model is progressing through testing and getting into a build.
+[49:31] Devin Smith: So ideal world, like, that's why I was sort of saying from the like earlier that like if we had a PM's focus on different perspectives they could at least silo the focus as things are what will happen.
+[49:44] Devin Smith: Let's say for example we make a distance, we're able to measure distance better, for example that can have a ripple effect across four facing features.
+[49:53] Devin Smith: You know, so like in an ideal world, like you know, there's just future owners, that product could consistently work with the R D team on those feature improvements and kind of understand the impact and own that.
+[50:07] Devin Smith: But it would collectively be a team thing I think in that it'd be both product and eng.
+[50:14] Arjun Rattan: Yeah, yeah, I was trying to.
+[50:16] Arjun Rattan: That's well put because I just wanted to understand what's the perspective to take on it centralized with infra or decentralized with feature owners.
+[50:26] Arjun Rattan: So do you put one infra PM whose sole job along with AI model?
+[50:31] Arjun Rattan: I'm toying with the idea of an infra PM for the team.
+[50:35] Arjun Rattan: I'm thinking about it because a bunch of this stuff is getting into intra level decisions like hey, I'm building a new UDM drm.
+[50:43] Arjun Rattan: What is going to be the impact? Who's going to get affected? Will I do it for everyone?
+[50:47] Arjun Rattan: How will my training change if I won't? I don't think anyone is doing that in arsevist now.
+[50:52] Devin Smith: No, I.
+[50:53] Devin Smith: Yeah, like my biggest challenge is like I'm working on customer facing issues and like doing individual feature developments.
+[50:58] Devin Smith: Like as they're making model improvement it's like it's.
+[51:01] Devin Smith: It's been almost impossible for me to keep track of all of the stuff that's happening.
+[51:06] Devin Smith: And so you know, I would never, I would, I would celebrate the fact if you get people to like solely focus on those things from a product perspective, I think there's a ton of value to that.
+[51:20] Devin Smith: I've made the same argument for the configuration system because we don't have a central PM owner and it's become the wild west of people just building shit the way that they want.
+[51:31] Arjun Rattan: Yeah, but do you need a PM for a config system?
+[51:36] Devin Smith: Yeah, I mean as a.
+[51:37] Devin Smith: I kind of look at it this way, like when you have big teams and you have internal product teams, why wouldn't I
+[51:42] Arjun Rattan: get a PGM or a TPM to do it? I guess producty decision. Right.
+[51:49] Arjun Rattan: Like the config files and yeah, actually I do have to jump for a call. I will.
+[51:56] Devin Smith: My last point on that is mostly that like the way that people are absorbing and using the information around configs in our internal tool is doesn't have all of the factor.
+[52:08] Devin Smith: Like, there's no one thinking about all of the implications and how different teams are using them.
+[52:12] Devin Smith: And it's creating chaos, I guess, is the point.
+[52:15] Devin Smith: So that's kind of where I was going with that, if that makes sense.
+[52:19] Arjun Rattan: I. I got it. So the problem is what other teams do versus
+[52:27] Devin Smith: it's also, it's also leading from the front of how they should be using it. Right.
+[52:31] Devin Smith: And, and, and understanding what the pain points are for all of these teams because it's expanded well beyond just our own silo at this point in terms of how people are.
+[52:40] Devin Smith: Are using.
+[52:42] Arjun Rattan: Okay, got it. This is great context. Thank you so much, Devin. I will follow up.
+[52:46] Arjun Rattan: Like, we'll just keep doing this over the week or so, so everything is just smooth. Thank you.
+[52:52] Devin Smith: Okay. See you, buddy. By.
+[52:53] Devin Smith, Arjun Rattan: Devin Smith, Arjun Rattan left
+[52:54] Devin Smith: Devin Smith stopped sharing their screen
