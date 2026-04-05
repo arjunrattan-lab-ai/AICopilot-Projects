@@ -1,0 +1,382 @@
+Org Objective,Product Area,Hardware,AI Team Objective,Rank,Project + Description,Type,PRD / 1 Pager,TEAM,STO(s),T-Shirt Size,FTE Est.,Staffing,EOQ Goal,EOH Goal,Delivery Dates,Key Metric & Impact,Integration/Partner POD,Cross Team Dependencies (with POC),Existing / New,Planned?,Design Status (Enter Design status if applicable otherwise N/A),Available Days,RF Feature Dev,BE - 27 (EoQ) [DO NOT EDIT],DF Feature Dev,FE - 23 (EoQ) [DO NOT EDIT],QA - 52,QA - 52 (EOQ) [DO NOT EDIT],AN - 66,AN (EOQ) [DO NOT EDIT],iOS - 70,iOS - (EOQ) [DO NOT EDIT],Design,Design (EOQ) [DO NOT EDIT],Platform,Platform (EOQ) [DO NOT EDIT],Data Platform,Data Platform (EOQ) [DO NOT EDIT],Embedded,Embedded (EOQ) [DO NOT EDIT],DS,DS (EOQ) [DO NOT EDIT],Resources
+,,,,,,,,,,,,,,,,,,,,,,,535,267.5,366,183,0,0,-78,-39,-78,-39,0,0,0,0,0,0,0,0,0,0,
+,,,,,,,,,,,,,,,,,,,,,,,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,#N/A,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,AI Safety & Collisions,"Both(AIDC, AIDC+)",Mature AI Product,1,"AI Pipeline Revamp and Reliability
+The original AI Events Pipeline, built around 2020, has grown increasingly complex. The current architecture involves multiple services, owned by different teams, creating significant operational challenges. This is a cross-functional effort led by the AI team, with significant support from the Safety AI Platform team. 
+
+Tasks: Refactor Safety AI Events processor, make EFS asyncrhonous, revamp and upgrade SLOs/SLAs, monitoring and alerting for full AI pipeline.",Initiative,AI Pipeline Revamp & Reliability,"Foundations, RF","ENG: Hareesh Kolluru
+PM: Anandh Chellamuthu",XL,3,"Harsha Lokavarapu
+Fakiha Baqai
+Ahmad Ayub
+Junaid Khokhar (new)",,GA,"Jun 30, 2026","Key Metrics: 
+- Reduce latency and server-side services costs by 15-30% [Reliability]
+- Reduce time to react and respond to incidents [Observability]
+- Cost reduction (AT&T and BE)
+Impact: 
+- Improves scalability and handling future load spikes without adding new services. 
+- Clear team boundaries reduce operational ambiguity, lower on-call burden, and create a single, measurable, E2E path for observability. 
+- Meaningfully lower compute and storage costs by eliminating unnecessary message processing and deprecating legacy infrastructure.
+- Meaningfully lower AT&T costs","AI Platform
+Dhiraj Bathija Devin Smith",,New,No,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,AI Safety & Collisions,"Both(AIDC, AIDC+)",Scale Annotations,2,"Annotations Automation
+Need more aggressive bypass to manage growing Annotation volumes in 2026 across events, segments, other criteria; needs to be resilient to confidence threshold changes
+Confidence-based bypass: SSV + SBV + Distraction
+AI Annotator: Build a generic framework for AI annotator starting with bypassing collisions and harsh brakes",Initiative,,"RF, DF","Overall STO: TBD
+
+ENG: Fahad Javed Wajahat Kazmi
+PM: Achin Gupta Arshdeep Kaur",L,3,Abdullah Hasan Aman Shekh Shelender Kumar,"Phase 2 (Q1): SSV, SBV and Distraction
+GA
+
+Phase 3 (Q2): All other applicable behaviors
+GA",GA,"Phase 2
+Mar 31, 2026
+Phase 3
+Jun 30, 2026",Key Metrics: Reduce annotated video volume by 16%.,"Events
+Adil Khan/ Achin Gupta
+
+ATech
+Arshdeep Kaur",,Existing / Spillover,No,,,20,,40,,,,,,,,,,,,,,,,,,Shelender Kumar 
+,,,,2,,Initiative,Annotations with VLMs – One Pager,AS,"PM: Avinash Devulapalli
+ENG: Rakesh Prasanth
+",L,2,"Muhammad Taha Suhail
+Neeraj Dhandia",TBD,GA,TBD,,,,Existing / Spillover,,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,AI Safety & Collisions,,,2,"Safety score V5 - New Behaviour Integration
+-  New behaviors distraction/cell phone/SBV volume changes, possibly HB LVE changes)",Epic,"Safety Scores: Integrating Positive Behaviors
+Safety Scorecard Generation: A Technical Guide",AS,"PM: Hugh Watanabe
+ENG: Rakesh Prasanth
+",L,2,"Mohith Ashok
+Shefali Singh",Beta (Customer Deployable),GA,"Beta
+Mar 31, 2026
+GA
+June 30, 2026","Impact: Improves accuracy and reliability of Safety Score V5 by integrating high-value risk behaviours, reducing manual errors, and enabling scalable, future-ready behaviour updates.",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,AI Safety & Collisions,"Both(AIDC, AIDC+)",Mature AI Product,3,"AI Release Management Revamp
+Standardize and streamline the rollout process for AI models and config changes. Introduce clearer stages, better forecasting, and unified auditing and monitoring so updates move consistently from validation to GA. Update process for making changes in production systems; estimates; auditing, monitoring and alerting.",Initiative,,"Foundations, RF, DF","ENG: Numan Sheikh
+PM: Anandh Chellamuthu",L,3,TBD,Beta (Customer Deployable),GA,"Mar 30, 2026","Key Metrics: 
+- Create and operationalize a build release scorecard and process (with event volume predictions and configuration change management)
+- Ensure that impact assessment sampling covers our entire product fleets and stratification (e.g., geographic location, fleet size, industry sector etc)
+Impact: Today, AI visibility is buried inside multiple  dashboards owned by many teams. We can’t quickly answer whether the AI is behaving correctly, drifting, or silently failing. We miss early signs like volume dips, video failures, customer-level anomalies, and rejection-rate swings. Most issues get caught only after someone else reports them. This initiative will create a clear, AI-focused E2E view so we can detect issues early and prevent SEVs.",NA,,New,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,AI Safety & Collisions,AIDC+ (dc63/dc64) Only,AI Product Roadmap,4,"AIDC+ <> AIDC Feature Parity - 5 features 
+Lane Swerving by Jan, Driver Fatigue Index, Vision-based Collision, Forward Parking by March, Speed sign detection by April; push at least one full URM and UDM update with a statistically significant sample of AIDC+ data.",Initiative,,Embedded,"ENG: Hareesh Kolluru
+PM: Anandh Chellamuthu",XL,5,"Vikrant Sidagam
+Pavan Kumar Kota
+Mateusz Pedzik","Phase 1 (Q1): Lane Swerving, FCW v2, DFI, Vision-based Collision, Forward Parking
+GA
+
+Phase 2 (Q2): Speed-sign detection
+Dev 50% Complete
+",GA,"Lane Swerving
+Jan 31, 2026
+Driver Fatigue Index, Vision-based Collision
+Mar 31, 2026
+Speed Sign Detection
+Apr 30, 2026
+URM and UDM updates
+Jun 22, 2026","Key Metrics: Deliver 20/20 parity by EOH1 (Same as AIDC precision in N.A)
+Impact: Motive will be able to aggressively sell the AIDC+ in 2026 without customer reservation of available features and position the company to accelerate a reduction in hardware related COGs. ",,,New,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,4,,Epic,,AS,"ENG: Rakesh Prasanth
+PM: Anandh Chellamuthu",M,2.5,"David Sanford
+Syed Adnan
+Abhishek Padghan",GA,N/A,"Forward Parking
+Mar 31, 2026",,,,New,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,4,"AIDC+ <> AIDC Performance parity
+- Data sourcing and model finetuning
+- Feature performance evaluation on AIDC+ vs AIDC
+- Testinfra integration of AIDC+ data
+- Model development with AIDC+ data, and configs assessment",Initiative,,"DF, RF","ENG: Ali Hassan
+PM: Anandh Chellamuthu",M,2,TBD,GA,GA,"March 31, 2026",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,AI Safety & Collisions,"Both(AIDC, AIDC+)",,5,"Driver Fatigue Index
+Roll out to GA in Q1; performance improvements to get primitive events up; model iterations and overall accuracy improvements ",Initiative,"[BE] Driver Fatigue Index TDD
+TDD: Fatigue Detection using DFI : TDD
+[2025Q4] - [EFS] - Design for Driver Fatigue Index ",DF,"TL: Ahmed Ali Sachin Lomte (Q2 onwards)
+ENG: Wajahat Kazmi
+PM: Devin Smith",XL,5,"Ahmad Ibraheem
+Syeda Areeba Nadeem
+Syed Haider Naqvi
+Afsheen Rafaqat Ali
+Sachin Lomte",Beta (Customer Deployable),GA,"Phase 1
+Mar 16, 2026
+Phase 2
+Jun 30, 2026","Key Metrics (Aggregate DFI events):
+BETA:  Precision 60-70%, 90% Recall (no incab alerts)
+GA: Precision 85%, 60-70% Recall (w/ incab alerts)
+Impact: DFI is a consistent ask from ENT customers, especially in MX and US. DFI can potentially drive reduction in collisions and up to 30% drop in related costs (est. $80K-130K per accident), including insurance premiums (examples: Lincare, Oxxo, CrossCountry Freight).","AI Platform
+STO: Subhash Chandra Devin Smith
+ATech 
+Arshdeep Kaur","Annotations, BE,reliability, emb",Existing / Spillover,No,,,,,360,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,AI Safety & Collisions,,,6,"VG3 Collision Candidate Rollout
+- EMB Support for 2 Hz data
+- Deprecate H, A triggers",Epic,,AS,"PM: Avinash Devulapalli
+ENG: David Sanford",L,1,"David Sanford
+ENG: Umair Javed
+EMB: Ravi Renganathan",Commit to GA,GA,"Jun 30, 2026",Key metric: Maintain high severity recall w/ DPE pipeline >97.5%,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,AI Safety & Collisions,"Both(AIDC, AIDC+)",,7,"Speed Modes for AI Features
+Explore and, if viable, go to raw vehicle and GPS speed for all AI features
+Explore and, if viable, switch FCW and SSV to Mode 3
+Ensure that speed source is transmitted to FM Dashboard",Epic,Speed Modes v2 TDD [WiP],"Embedded, DF",Moudood Fiaz Akshat Sharma,M,2,Muhammad Haad Zahid Moudood Fiaz Akshat Agarwal,Beta ,GA,"Jun 23, 2026","Key Metrics: Launch updated speed modes; reduce instances of speed vs. video lag in customer dashboard; (stretch goal) reduce speed-related FPs for SSV and FCW
+Impact: Improves reliability and precision of all speed-dependent AI features, eliminates customer-visible inconsistencies, and provides a trustworthy speed signal for downstream analytics and tuning.",NA,Embedded (Akshat Sharma ),Existing / Spillover,Yes,,,30,,120,,,,,,,,,,,,,,,,,,
+Win in Enterprise,AI Safety & Collisions,,,8,"VLM Summary
+Augment the Event Details summary with VLM-based insights
+",,,"AS, Applied AI",TBD,,?,TBD,,Beta ,"Apr 30, 2026","Key Metric:
+- Surface AI summaries in 3 areas (Event Details, optional Event Email notifications, Fleet App bandwidth permitting)
+- Achieve >95% successful AI summary generation on eligible event views
+- Reduce average time spent reviewing safety events versus baseline
+Impact:
+- Reduce safety event review time by providing clear, AI-generated risk context in Event Details
+- Improve coaching consistency by explaining what happened, why it was risky, and whether the behavior is recurring
+- Deliver the first GA customer experience powered by Motive’s VLM foundation",TBD,,,,,,,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,AI Safety & Collisions,"Both(AIDC, AIDC+)",,9,"Pedestrian / Vulnerable Road User Detection
+Develop reliable pedestrian and VRU detection for AIDC and AIDC+. Improve model precision and reduce noise. Establish a clear product definition for how VRU events should surface and behave in the Safety pipeline.",Initiative,1 pager: Forward Pedestrian Warning,RF,"TL: Hamza Rawal
+EM: Fahad Javed
+PM: Achin Gupta",XL,4,Kamil Mahmood Isbah Malik Saloni Jhalani Hakim Ali Muhammad Ahmad Farhan,Alpha ,Beta ,"AIDC+ 
+Apr 30, 2026
+
+AIDC
+TBD based on customer demand","Key Metrics: Deliver this project at 90% precision / 10% recall to ensure that we get into the trial
+Impact: Adds a critical safety capability, strengthens Motive’s core value in urban and mixed-traffic environments, and reduces risk by accurately identifying pedestrians and other vulnerable road users. Supports Amazon Flex.","AI Platform
+STO: Dhiraj Bathija Devin Smith","Backend: Dhiraj Bathija
+Annotation: Arshdeep Kaur
+",,,,,220,,120,,,,,,,,,,,,,,,,,,
+Differentiate with AI,AI Safety & Collisions,"Both(AIDC, AIDC+)",,10,"Vision-based Collision Detection - Phase 2
+Roughly 20% of low-intensity collisions are missed by the current telematics pipelines. Focus on model improvement & feature hardening; invalid camera installation detection; Detect Pedestrian, motorcyclist and cyclist, animal & road side object hits",Epic,PRD: Safety/Collisions CV model/Alpha Test Q4 2024,RF,"ENG: Wajahat Kazmi
+TL: Mohammad Daniyal Shaiq
+PM: Avinash Devulapalli",XL,3,"Sarim AeyzazMohammad Daniyal Shaiq
+ Atifa Sarwar",Dev Complete,Alpha Tiger Team,"August 26, 2026","Key Metrics: Improve recall from 90% to 95% by detecting pedestrian, animal or road side objects as well as low speed collisions happening in field of view of camera.
+Impact: Missed collisions drive customer complaints, lost trial deals, and account churn especially for large ENT customers. For key accounts (e.g., UVL, C&K Trucking), escalations in the past year have put $5–7M+ NARR at risk.",NA,"Annotations 
+BE (Archit Dubey ),
+Reliability (Gulfiza Naseem)
+",Existing / Spillover,No,,,,,120,,,,,,,,,,,,,,,,,,
+Win in Enterprise,AI Safety & Collisions,"Both(AIDC, AIDC+)",,11,"Optical Character Recognition (OCR) on Edge v2 + Vision-based Speed Limit Detection
+GA OCR model; clean up edge pipeline and memory issues; Beta + GA + Support for Trucks speed signs",Epic,AI: Speed Sign Detection / Safety / Speeding,RF,"TL: Waseem Ashraf
+EM: Fahad Javed
+PM: Avinash Devulapalli
+",L,3,Waseem Ashraf Ali Kamal Mutharib Ayub,Beta ,GA,"June 30, 2026","Key Metrics: 
+1. For beta 1 & 2, launch AI speed sign model with 70% recall, 85% precision. This will result in 2% FPs created and 3% reduction in FPs. 
+2. For GA, launch AI speed sign model with 85% recall, 95% precision. This will result in 1% FPs created and 4% reduction in FPs.
+Impact of OCR: This capability will set up numerous downstream AI features such as speed-sign reading, ALPR, suppressing right-hand turn stop sign false positives, bridge height detection, and zone recognition.
+Impact of Speed-Sign Detection: Critical demand from STRAT customers (Cintas, KLX, UVL, FirstFleet, Western Express, Sundt, Select Waters), all tied to active trials or onboarding, with individual ARR opportunities ranging from $505k (UVL) to $1.35M (Select Waters). ",Speeding,,Existing / Spillover,,,,80,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,,,,12,"VLM on Edge - Exploration
+ - Explore a lightweight VLM model that can be deployed on edge
+- Capture data to unlock downstream use cases (intelligent Video Search & Indexing, contextual safety event data, deeper route understanding)
+",,,AS,"PM: Nihar Gupta
+ENG: Rakesh Prasanth",L,?,Muhammad Taha Suhail,TBD,TBD,TBD,"Key Metrics: Deploy a model that can detect 5 different types of objects that are not in our labeled data. Product will provide the 5 types of objects we want to look for.
+Impact: Can provide much richer contextualization for videos (and our video index); we can also fine-tune a lightweight model on dashcam footage for optimized feature extractions",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,AI Safety & Collisions,,,13,Collision Candidate Algo Improvements for AIDC+,Epic,,AS,PM: Anandh Chellamuthu,L,2,David Sanford Syed Adnan Abhishek Padghan,GA,,"March 31, 2026","Key Metric: Collision recall X%
+Impact: The v4 algorithm is expected to improve collision_candidate coverage by addressing few potential cases that could be missed. Based on large-scale analysis in AIDC, enhancements were introduced through this TDD. The same improvements, along with additional updates listed in this document, will be applied to AIDC+. These changes are expected to bring collision_candidate performance in AIDC+ on par with AIDC.",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,AI Safety & Collisions,"Both(AIDC, AIDC+)",Mature AI Product,14,"SSV for Mines
+Create an SSV mode to disable lanes and lane filters to support the mining use case; Q1: Beta / Special build
+Q2: Explore long-term options including geofence, scene classification or another approach TBD.",Initiative,Stop Sign Violation for Mines ,RF,"TL: Abdullah Hasan
+EM: Fahad Javed
+PM: Anandh Chellamuthu",S,2,Abdullah Hasan Abdul Rehman,"Phase 1: SSV No Lanes Mode for mining use case
+Special build / TT
+
+Phase 2: SSV geofence / scene classification solution
+TDD Complete",GA,"Phase 1: Apr 15, 2026
+Phase 2: Aug 15, 2026","Key Metrics: Build a MVP solution and a special build that creates a minimalist SSV that works with 70%+ precision in mining scenarios. Scope a long-term solution by EOQ1.
+Impact: This unlocks adoption within large ENT mining fleets, removes a key blocker for expansion into high-value industrial segments, and strengthens Motive’s position in safety-critical heavy-equipment operations.","
+","Annotation Arshdeep Kaur
+Geofencing ?",,,,,60,,,,,,,,,,,,,,,,,,,,
+"Win in UK/EU, Scale Intl",International,AIDC+ (dc63/dc64) Only,,15,"Internationalization: UK Benchmarking
+Establish benchmarking and backtesting test sets for all applicable AI features for UK launch. Deliver NA-UK AI behaviors comparison.",Epic,,"AI Reliability, RF, DF","TL: Muhammad Faisal
+EM: Ali Hassan",L,2,"URM: Ibrahim Sultan
+UDM: Huzaifa Jawad",Report Complete,,"Mar 31, 2026","Key Metrics: Side-by-side report of NA vs. UK performance at launch.
+Impact: Establishes a ground-truth baseline for UK performance across all core safety features. Identifies domain adaptation gaps relative to NA models, including left-side driving, lane geometry differences, UK-specific signage, roundabouts, and pedestrian patterns. Creates the foundation for a clear GTM strategy by quantifying where existing models fail and where precision must be improved.",Annotations team,"Annotation, Reliability (Jaya Rajwani )",,,,,,,120,,,,,,,,,,,,,,,,,,
+"Win in UK/EU, Scale Intl",International,AIDC+ (dc63/dc64) Only,,16,"Internationalization: UK Feature Improvements
+SSV: revamp it to work in the UK/EU with +80% precision by end of H1
+Establish benchmarking and backtesting test sets for all applicable AI features; at least one model iteration to improve performance in the UK/EU region in H1",Epic,https://docs.google.com/document/d/1_pFweUokFpWJ-lx07JYcELpC0g2dZ7bsqsKwNVGhlMQ/edit?tab=t.0 ,DF,"TL: Muhammad Faisal
+EM: Ali Hassan
+PM: Alexa Witowski",L,3,"URM: Ibrahim Sultan Zhijie Wang
+UDM: Farooq Zaman
+new_hire_df_md_1","Phase 1: AI precision within ~10% of NA, except for SSV; enable SSV event detection (no in-cab alerts) without lane applicability with +70% precision
+GA","Phase 2:  AI features in UK are within 5% of NA precision; SSV 80%+
+GA","Phase 1: Apr 15, 2026
+Phase 2: Aug 28, 2026","Key Metrics: AI features in UK are within 5% of NA precision; SSV 80%+
+Impact: Targets the specific gaps surfaced during benchmarking and collects data to close them quickly. Focuses on UK-specific edge cases such as reversed traffic flow, distinct road markings, differing driver cues, and environment textures. Rapidly improves precision and reliability through iterative fine-tuning, ensuring UK models reach GA-quality performance and support a confident regional rollout.",Annotations Team,"Annotation, Reliability (Jaya Rajwani )",New,Yes,,,,,180,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,,,,17,"AI Infrastructure Projects
+Architect distributed, cloud compute pipelines (AWS + AnyScale + Encord + Weights and Biases) to accelerate data curation, data annotation, AI model development and back testing; put guardrails and tracking on compute costs",Initiative,See AI Cloud and Infra Tab,AI Infra,Tim Cheng,XL,2,"Märt Toots
+Shahzaib Malik","Phase 1: Core ML Training Workflows; Weights & Biases Integration
+GA
+Phase 2: Testing Infrastructure Revamp
+TDD Complete
+",GA,"Jun 30, 2026","Key Metrics: Reduce model training time by 50%
+Impact: Improved E2E velocity for AI feature development",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,,,,18,DPE candidate algo improvements for AIDC+,Epic,,AS,"PM: Anandh Chellamuthu
+AS: Syed Adnan",L,1,Syed Adnan,Beta ,,"Mar 31, 2026","Impact: The v4 algorithm is expected to increase the precision of the harsh event detection to 98%+ from the current 95%, additionally achieving in-cab to harsh event parity to 99%+, Here’s the document containing updates that will be made in the v4 version. 
+Key Metrics: Harsh ABC precision, In-cab alert to event parity. ",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,AI Safety & Collisions,AIDC (dc53/dc54) Only,,19,"AI Integrity Manager (Meta) State-machine
+1. Ensures the camera is installed correctly and does not have heavy obstructions
+2.  Tracks health of AI detections
+3. Ensures nothing is going haywire ",Epic,,RF,"TL: Muhammad Asif
+EM: Fahad Javed
+PM: Devin Smith",L,3,Muhammad Asif Abdul Rehman Sarim Aeyzaz,QA Complete,GA,"May 18, 2026",Key Metrics & Impact: Reduce 50% to 70%+ of all false positives across all AI features,NA,Product Achin Gupta,,,,,50,,50,,,,,,,,,,,,,,,,,,
+Differentiate with AI,AI Safety & Collisions,AIDC+ (dc63/dc64) Only,AI Product Roadmap,20,"AIDC+ ALPR (Cloud-based)
+Cloud-based ALPR implementation which will surface the license plate information along with event video.",Initiative,ALPR (AI Dashcam Plus) Product Plan ,Foundations,"ENG: Numan Sheikh
+PM: Anandh Chellamuthu",3,3,TBD,Beta ,GA,"AIDC+ Beta
+Mar 31, 2026
+
+AIDC+ GA
+Apr 30, 2026","Key Metrics: 95% of plates detected; 90% character match rate
+Impact: ALPR provides customer value by gathering critical evidence that helps identify vehicles involved in an accident for insurance claim and legal proceedings, which can help a fleet with a cost saving of up to $12K per accident. ",,,,,,,,,,,,,,,,,,,,,,,,,,,
+"Win in UK/EU, Scale Intl",International,,,21,"Blurring Pipeline Improvements
+Improvements to blurring ML models to reduce false positive detections of faces, persons and license plates.",Epic,PII Blurring (Images & Video) for GDPR & Passenger Blurring (Driver Visible) – PRD,Foundations,"ENG: Numan Sheikh
+PM: Anandh Chellamuthu",1,1,Tushar Maurya,GA,No planned work in Q2,"Mar 31, 2026",Key Metrics & Impact: Increase precision to 90%+.,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,AI Safety & Collisions,"Both(AIDC, AIDC+)",AI Product Roadmap,22,"Visualizations 2.0
+AI Visualizations for all AI features; Q1 is design-only work and project scoping, Q2 will include ENG work",Initiative,Product Development Plan (PDP) - Universal AI Video Visualization Framework (Road & Driver Facing),Foundations,"ENG: Numan Sheikh
+PM: Devin Smith",3,3,Tushar Maurya,PRD Complete,GA,"Jun 30, 2026",Key Metrics & Impact: Add visualizations for all AI events,AI Platform,,,,,,,,,,,,,,,,,,,,,,,,,,
+"Win in UK/EU, Scale Intl",International,"Both(AIDC, AIDC+)",AI Product Roadmap,23,"Pedestrian Detection
+Detect when more than one person is inside the vehicle cabin and immediately alert fleets. This helps flag potential hijacking or unauthorized passenger scenarios when only a single driver is expected. ",Epic,,DF,"TL:Moudood Fiaz
+EM: Wajahat Kazmi
+",M,2,Ayman Ahmad Aman Shekh new_hire_df_fd_1,Dev Complete,GA,"AIDC+ GA
+Jun 30, 2026
+
+AIDC GA
+TBD based on customer demand","Key Metrics: Launch with 80%+ precision
+Impact: Fleets in high-risk corridors want a distinct signal to differentiate “wrong driver” from “additional person present,” which can indicate coercion, ride-along theft patterns, or elevated risk. Huge MX unlock, and fixes key competitor gaps. Sets us up for international growth.",,"Embedded, Annotation, BE, Reliability, Model Dev (AI vision)",New,No,,,,,120,,,,,,,,,,,,,,,,,,
+Differentiate with AI,,,,24,"Video Retrieval & Indexing - Exploration
+- Increase Beta customer adoption
+- Motive Labs Integration and GA",Epic,,AS,"PM: Hugh Watanabe
+ENG: Rakesh Prasanth
+",L,1,TBD,Beta ,GA,"Jun 30, 2026","Key Metrics: Enable on 1-3+ MotiveLab accounts, queries executed by >50% of users with access
+Impact: New metadata expands beyond Motive's AI, enabling customers to query video more efficiently, reducing investigation time, and identifying high-risk trends faster. Extends use of safety events beyond timely, individual coaching to contextual coaching in group settings (team meetings, onboarding, etc.). ",,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,"AI Vision, Financial Products AI, Enterprise AI",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,AI Vision,,,,"AI Vision
+Contaminant Detection for GFL",Initiative,AI Vision H1 Planning 2026,AI Vision,"ENG: Hareesh Kolluru
+PM: Baha Elkorashy",XL,4,"Hussam Ullah Khan
+Raksham Dhiman
+Anirudh Sundararajan
+Antonio Mendoza",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,AI Automation / Conversational AI / Hey Motive,,,,AI Automations,,AI Automations MVP | Product Development Plan,Applied AI,"ENG: Hareesh Kolluru
+PM: Sean Santschi",L,2," Abhinav Jain
+Sidharth Singh",,,,"Key Business Objectives:
+- Increase user productivity by automating workflows, helping customers scale with leaner teams.
+- Boost core platform adoption and engagement by making it more intelligent and essential.
+- Cement Motive's leadership in the AI-first physical economy.
+
+Specific Success Metrics:
+- User Adoption: 30% adoption rate among active users within six months (at least one active automation created).
+- Operational Efficiency: 25% decrease in average time fleet managers spend on manual tasks within three months (telemetry + surveys).
+- High-Risk Event Reduction: 20% decrease in preventable high-risk events for users with active automations within six months (e.g., hard-braking, speeding in school zones).",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,AI Automation / Conversational AI / Hey Motive,,,,AI Assistant & HeyMotive,,,Applied AI,"ENG: Hareesh Kolluru
+PM: Sean Santschi",L,1,Aayush Sacheti,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Enterprise AI,,,,"Signal jamming detection
+Detect instances where bad actors are jamming the cell / GPS signal to take control of the vehicle",Epic,[International][MX] Loss of cell signal & GPS Alert - Phase 1 Data Exploration,AS,"Eng: Maheen Khan
+PM: Victor Carreño",L,1,Maheen Khan Neeraj Dhandia,PoC ,,,"Key metric: Precision of the surfaced jamming events (although this could be hard to measure)
+Impact: Signal jamming is a security concern. Accurate alerts will allow fleets to dispatch law enforcement and attempt to recover the vehicle
+DoD: ",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Enterprise AI,,,,"Fuel siphoning detection
+Detect instances where there is a sudden, unexplained drop in the vehicle's tank level",Epic,[International][MX] Customer Insight: Fuel Siphoning,AS,"Eng: Dimple Bansal
+PM: Victor Carreño",M,0.5,Dimple Bansal,,,,"Key metric: Precision of the surfaced siphoning events
+Impact: Provide visibility into instances where drivers siphon off fuel from the fuel tank",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Enterprise AI,,,,"Driver congregation
+Detect instances where multiple vehicles are in close proximity of each other. Possible use cases: track time spent with supervisors, track time spend in a non-productive fashion (restaurants, bowling alleys, etc.)",Epic,,AS,"Eng: Manoharan Naidu
+PM: Maya Sathaye",M,0.5,Manoharan Naidu Shravan Sunkada,,GA,,"Key metric: Make the report available to interested customers (P/R are not applicable here)
+Impact: Fleets (e.g. Asplundh, SoCal Edison) have internal use-cases that require this data to be available and displayed in a certain format",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Enterprise AI,,,,"Smart trip match improvements
+P/R improvements for the existing smart trip match model",Epic,,AS,"Eng: Dimple Bansal
+PM: Simon Kaufmann",M,0.5,Dimple Bansal,,GA,,"Current P/R and goal to be determined - this has not been evaluated since model was deployed a few years back
+Impact: Decrease UDEs from the current ~27%",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Motive Card,,,,"Short-term lending
+Underwriting to detemine transaction-level eligibility for short-term lending",Epic,Motive | Short Term Lending Product v3,AS,"Eng: Shravan Sunkada
+PM: Apratim Ghosh",M,0.5,Manoharan Naidu Karthik R TBH,,GA,,"Key metric: Delinquency rates, aTPV, loss rates
+Impact: Build capability to underwrite specific transactions",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Motive Card,,,,"Underwriting credit policy relaxation
+Use the results of the ongoing underwriting credit policy test to recommend changes to the ongoing credit policy",Epic,Motive | 3-9 Experimental Approval Cohort,AS,"Eng: Shravan Sunkada
+PM: Apratim Ghosh",M,0.25,Manoharan Naidu Karthik R TBH,GA,,,"Key metric: Incremental approval rates, delinquency rates, loss rates, aTPV
+Impact: Continuous testing of the underwriting policy to ascertain that we are operating at the right trade-off between approval rates and loss rates",,,,,,,,,,,,,,,,,,,,,,,,,,,
+"Win in UK/EU, Scale Intl",International,,,,"Canada - Underwriting + KYB models
+Building the credit policy and relevant tooling for underwriting and KYB for onboarding customers to Motive card Canada",Epic,Motive Cards | Canada KYB/KYC Flow,AS,"Eng: Shravan Sunkada
+PM: Apratim Ghosh",L,0.5,Manoharan Naidu Karthik R TBH,GA,,,"Key metric: Approval rates, delinquency rates, loss rates, aTPV in Canada
+Impact: Launch Motive Card in Canada",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Motive Card,,,,"Re-underwriting for Portfolio management
+Utilize data from newly linked bank accounts to re-underwriting customers once their bank accounts are changed (Identity, credit checks)",Epic,PRD - Apratim - Post Approval Risk Adjustments v2,AS,"Eng: Shravan Sunkada
+PM: Apratim Ghosh",S,0.25,Manoharan Naidu ,GA,,,"Key metric: Reduction in loss rates 
+Impact: Obtain visibility into instances where there is an Identity mismatch / lower funds from bank accounts that are changed post underwriting",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Motive Card,,,,"Secured Card underwriting + Portfolio management
+Determine eligibility and ongoing risk assessment / graduation criteria for Motive secured card",Epic,PRD: secured credit line on Motive Card,AS,"Eng: Shravan Sunkada
+PM: Apratim Ghosh",M,0.25,Manoharan Naidu Karthik R TBH,GA,,,"Key metric: Incremental TPV
+Impact: Widen product usability by offering an alternate product to customers with low creditworthiness",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Motive Card,,,,"Underwriting pre-check app
+Build an app to be used (by the Sales team) to get a directional indication of an application's probability of approval ",Epic,Motive Cards | Pre-Check Build Out,AS,"Eng: Shravan Sunkada
+PM: Apratim Ghosh",M,0.25,Manoharan Naidu Karthik R TBH,,GA,,"Key metric: Approval rate for green-lit applications through the pre-check app
+Impact: Provides the sales team a directional estimate of the approval probability of an application",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Motive Card,,,,"LTF model - precision improvement for ENT
+Improve precision for flagging transactions, with a particular focus on ENT customers",Epic,PRD - LTF Approval-Based Supp v2,AS,"Eng: Shravan Sunkada
+PM: Apratim Ghosh",M,0.5,Manoharan Naidu Bhupinder Singh,,GA,,"Key metric: Precision of the flagged transactions
+Impact: Decreases friction for ENT customers",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Motive Card,,,,"Portfolio management - proactive limit increase pipeline
+Automate the customer selection and implementation of the credit limit increases on an ongoing basis",Epic,Motive | Proactive Credit Limit Increase v2,AS,"Eng: Shravan Sunkada
+PM: Apratim Ghosh",S,0.5,Manoharan Naidu ,GA,,,"Key metric: Incremental spend, delinquency metrics
+Impact: Build capability to underwrite specific transactions",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Motive Card,,,,"Application fraud checks
+Involves building a risk rating from a fraud perspective using application information (bank, linkages, etc.) and flagging it at the point of underwriting",Epic,Motive Cards | Fraud Application Prevention Proposal,AS,"Eng: Shravan Sunkada
+PM: Apratim Ghosh",M,0.25,Christopher SmithKarthik R ,,GA,,Key metric: Reduction in fraud rate,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Motive Card,,,,"Upmarket portfolio management
+Enhancing the upmarket portfolio management process and reporting structure",Epic,Upmarket Portfolio Management Process,AS,"Eng: Shravan Sunkada
+PM: Apratim Ghosh",S,0.25,Christopher Smith Karthik R,GA,,,"Key metric: Loss rates, Risk ops efficiency (FTE hours saved)",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,Motive Card,,,,"Fraud claims app
+Build a Retool app to facilitate the fraud claims process (tracking and surfacing relevant metadata for decisioning)",Epic,,AS,"Eng: Shravan Sunkada
+PM: Apratim Ghosh",M,0.5,Christopher Smith Karthik R,,GA,,"Key metric: Fraud rates, Risk ops efficiency (FTE hours saved)",,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,AI Safety & Collisions,"Both(AIDC, AIDC+)",AI Product Roadmap,,"Alert and Event Parity
+Alert event disparity for (1)Close following, (2)Unsafe lane changes, (3)RF Camera obstruction is at about 10%. Our plan gets the disparity close to <2%. The work involves removing efs filter and moving them to edge",Epic,,AI Reliability,"ENG: Ali Hassan
+PM: Anandh Chellamuthu",S,,TBD,,Commit to GA,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,,,3rd Generation Models,26,"Forward Collision Warning v3
+Predictive modeling and precision improvements",,,DF,"ENG: Wajahat Kazmi
+PM: Devin Smith",L,2,Mohammad Daniyal Shaiq Atifa Sarwar,PoC ,Beta (Customer Deployable),"Jun 30, 2026","Key Metrics: Precision of 95%, with >70% recall (to be refined)
+Impact: FCW in the field today has three issues: high sensitivity (too many alerts, especially in not-so-dangerous situations), delayed alerting (too slow), and low precision in urban and suburban areas (when lanes are missing). Fixing these issues will bring this model",NA,,Existing / Spillover,,,,,,30,,,,,,,,,,,,,,,,,,
+Win in Enterprise,,,,30,"Eating Detection
+Feature Improvements",,,DF,"ENG: Wajahat Kazmi
+PM: Achin Gupta",M,1,Ayman Ahmad,GA,,TBD,Key Metrics and Impact: Increase precision and recall of aggregated lane swerving to 90%+.,"AI Platform
+Achin Gupta Dhiraj Bathija",,Existing / Spillover,,,,,,40,,,,,,,,,,,,,,,,,,
+Win in Enterprise,,,Mature AI Product,31,"Lane Swerving  v2
+Feature hardening: Precision & Recall improvmenet",,,RF,"TL: Muhammad Asif
+EM: Fahad Javed
+PM: Devin Smith",L,2,Muhammad Asif Muhammad Haad Zahid,Beta ,GA,TBD,Key Metrics and Impact: Increase precision and recall of aggregated lane swerving to 90%+.,NA,,Existing / Spillover,,,,60,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,,,,32,"Smoking Detection
+Feature hardening, model improvement, state machine improvement",,,DF,"ENG: Wajahat Kazmi
+PM: Devin Smith",M,2,Ayman Ahmad,Beta ,GA,TBD,Key Metrics and Impact: Increase precision and recall of aggregated lane swerving to 95%+.,NA,,Existing / Spillover,,,,,,20,,,,,,,,,,,,,,,,,,
+,,,,,Cutline,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,25,Pedestrian Detection for AI Box,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Win in Enterprise,,,AI Product Roadmap,27,"SSV Right Turn Mod.
+Suppress SSV in-cab alerts if the stop sign has auxiliary text below it that says “Except Right Turn”, when the stop sign can be ignored",,Mini-TDD: Stop Sign Violation (SSV) Right Turn Mode,RF,"TL: Ali Kamal
+EM: Fahad Javed
+PM: Devin Smith",L,2,Ali Kamal new_hire_rf_2,PoC ,Beta (Customer Deployable),"Jun 30, 2026",TBD,NA,,Existing / Spillover,,,,,,,,,,,,,,,,,,,,,,,,
+"Win in UK/EU, Scale Intl",,,,28,"EU (Germany, Netherlands) Model Fine-Tuning & Domain Adaptation",,,"RF, DF",,L,2,TBD,Determine Scope,GA,"Jun 30, 2026",TBD,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,,,,29,"GA 6 FPS AIDC, AIDC+ end-to-end (device + EFS)
+- Driver Facing, all AI features
+- Update EFS secondary validation to ensure parity and event volumes",,,"DF, Foundations, RF",ENG:  Wajahat Kazmi Fahad Javed,S,2,Isbah Malik Aman Shekh,GA,TBD,"Mar 31, 2026","Key Metrics: Deliver 6fps to all AI features, keep AT&T costs flat
+Impact: Varying degrees of increase in overall precision and recall for different AI events.",Internal Dependency on embedded AI,Reliability pod (Jaya Rajwani ). Support needed for monitoring and data analysis.,New,Yes,,,20,,60,,,,,,,,,,,,,,,,,,
+,,,Below The Line,,Deprioritized,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,,,,,Block creation of duplicate events - Cell phone and Eating events are also created as Distraction events which are invalidated by the AT team,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,,,,,"Scene-based Event/Alert Suppression
+Publish scene types with detected AI events to the BE, and enable customer configuration to choose scene-type-based invalidation, such as no seatbelt detection in a parking lot, etc.; create a configuration to suppress SBV and SSV events on the edge",,Needs Product signoff,"DF, RF","ENG: Ali Hassan Wajahat Kazmi
+PM: ",L,2,"new_hire_rf_1
+new_hire_df_2",,,,,"NA 
+Not needed in H1, till we finalize the ROI
+(AI Platform, ATech)",,,,,,30,,30,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,,,,,"Perception Breadcrumbs
+Log perception metadata, such as # of vehicles detected, scene class, distances, driver-facing classes, and object counts, RF and DF model uncertainty score, every 30 to 60 minutes.
+Goal: AI health monitoring, camera installation health, and uncertainty sampling",,,Embedded,ENg: Wajahat Kazmi,L,2,,,,,,NA,,,,,,,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,,AIDC+ (dc63/dc64) Only,AI Product Roadmap,,"ALPR (Public Safety)
+LP/Vehicle/+ Detect/Crop, OCR to (1) build Vehilce intelligence database, (2) Surface LPR information for Collision events 
+
+",,,RF,"ENG: ?
+PM: Anandh Chellamuthu",,?,,TDD Complete,,,,AI Platform - BE,,,,,,,,,,,,,,,,,,,,,,,,,,
+"Win in UK/EU, Scale Intl",,,,,"Driver Privacy / AI ON  (AI app, EFS)",,,,"ENG: Hareesh Kolluru
+PM: Anandh Chellamuthu",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,,,AI Product Roadmap,,Redlight Violation,,PRD  - Red Light Violation,,,,,,,,,,"AI Platform
+STO: Dhiraj Bathija",,Existing / Spillover,,,,2,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,,,,,Bias and Fairness of AI Models (AI Act in EU),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,,,,,Explainability Traces of AI Models (AI Act in EU),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+"Win in UK/EU, Scale Intl",,,,,OEM Integration / International,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,,,,,Positive Driving,,,,,,,,,,,,,,Existing / Spillover,,,,,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,,,,,Dynamic State Machines Framework,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,,,,,Lane Departure Warning,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,,,,,L2 POC with Comma AI on VG-5,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,,,,,AIDC+ Distance improvements with 2 cameras ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,,,,,"Unsafe Parking V2
+Precision improvements",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,,,Mature AI Product,,"Unsafe Lane Change v2
+Precision improvements",,,,,,,,,,,,,,,,,,1.5,,,,,,,,,,,,,,,,,,,,
+Differentiate with AI,,,,,Left Lane Camping,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Deliver Enterprise- Grade Reliability Across Hardware and Software,,,,,"Distraction v2
+Move away from catch all",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
