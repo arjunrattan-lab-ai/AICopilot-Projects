@@ -67,6 +67,19 @@ These live in the workspace and are available when working in this project.
 **When to use:** "Strategy doc," "investment case," "should we build X," "infra proposal," "platform bet," "portfolio review," "where should we invest," build-vs-buy-vs-partner. NOT for feature-level PRDs (use atpm-discover) or sprint planning.
 **Produces:** BRIEF.md, RESEARCH.md, OPTIONS.md, STRATEGY.md.
 
+### atpm-blameless
+**Invoke:** `/atpm-blameless`
+**What:** Run a blameless product incident review from a PM lens. Produces a structured PIR focused on systemic contributing factors, not individual blame.
+**When to use:** "Blameless on X," "root cause analysis," "RCA for," "PIR for," "why did X happen," "postmortem for," "what went wrong with X," "incident review."
+**Produces:** PIR document with contributing factors, systemic gaps, and prevention recommendations.
+
+### atpm-triage
+**Invoke:** `/atpm-triage`
+**What:** Triage a TSSD ticket for a PM. Reads the Jira ticket, researches technical context, and produces a PM-ready brief: what happened, why it matters, blast radius, and approach to fix.
+**When to use:** "Triage TSSD-12345," "what's going on with TSSD-12345," "help me understand this TSSD," or any reference to a TSSD ticket.
+**Requires:** Jira MCP.
+**Produces:** PM-ready triage brief.
+
 ### master-aggregator
 **Invoke:** `/master-aggregator`
 **What:** Aggregate all action items across projects into a single master file. Bi-directional sync between Running Tasks files and Arjun's Master Action Items.md.
