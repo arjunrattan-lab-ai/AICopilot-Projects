@@ -8,7 +8,7 @@ PM-STATE.md tracks planning state per initiative. Located at `pm-planning/{initi
 |-------|------|-------------|
 | `initiative` | string | Initiative slug (kebab-case). Matches folder name. |
 | `owner` | string | Full name of the PM who owns the initiative. |
-| `initiative_type` | string | `initiative` (default), `program` (set on DECOMPOSE), or `strategy` (set by atpm-strategy). |
+| `initiative_type` | string | `initiative` (default), `program` (set on DECOMPOSE), `strategy` (set by atpm-strategy), or `vibe` (set when routed to vibe track). |
 | `parent_initiative` | string \| null | Slug of the parent program. Null for top-level initiatives. |
 | `ai_feature` | boolean \| null | Whether this initiative involves AI/ML (model inference, training, annotation, confidence scoring). Auto-detected at S0 from signal text; PM can override. When true, agent enforces `ai-safety-principles.md`. Scaffolds MUST include `ai_feature: null` until S0 completes. |
 | `child_initiatives` | array | Slugs of child initiatives. Empty for non-programs. |
@@ -65,6 +65,15 @@ Used by `atpm-strategy` for strategic decisions. A strategy can DECOMPOSE into c
 | ST2 | Ready for Research: RESEARCH.md |
 | ST3 | Ready for Option Generation: OPTIONS.md |
 | ST4 | Ready for Strategy Document: STRATEGY.md |
+
+### Vibe States (V1)
+
+Used when the PM routes a signal to the vibe track at the S0 checkpoint. Rapid build: prototype + brief, skip S1-S4. Can promote to full track (V1 → S1) or ship directly (V1 → S7).
+
+| State | Meaning |
+|-------|---------|
+| V1 | Vibe build: prototype + brief from signal |
+| KILLED | Archived. Not worth pursuing. |
 
 ## Jira Board Status Mapping
 

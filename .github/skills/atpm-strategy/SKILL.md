@@ -71,6 +71,10 @@ Check preconditions.
 What is this strategy about? Short name, kebab-case (e.g., "telematics-v2-investment").
 </user_input>
 
+**Prefix rule:** Always prefix the folder name with `strat-`. If the user provides a name without the prefix, add it. Example: user says "ev-investments" → folder is `strat-ev-investments`.
+
+Sanitize to kebab-case, prepend `strat-` if not already present. Store as `strategyName`.
+
 **Check tools.** Test Glean, Snowflake, Tavily, and GitHub MCP availability. Report what's
 connected. Strategy can proceed without any of them (reduced quality).
 

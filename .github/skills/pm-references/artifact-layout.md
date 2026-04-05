@@ -2,19 +2,37 @@
 
 Everything the PM tooling produces lives under `pm-planning/`. This doc defines what goes where. All skills follow this layout.
 
+## Folder prefixes
+
+Every folder under `pm-planning/` is prefixed by type:
+
+| Type | Prefix | Created by | Example |
+|------|--------|------------|---------|
+| Initiative | `plan-` | atpm-discover | `plan-esri-geojson` |
+| Vibe | `vibe-` | atpm-discover (vibe track) | `vibe-pto-quick-view` |
+| Strategy | `strat-` | atpm-strategy | `strat-ev-investments` |
+| Explain | `explain-` | atpm-explain | `explain-trips-decoupling` |
+| Triage | `triage-` | atpm-triage | `triage-tssd-29840` |
+| PIR | `pir-` | atpm-blameless | `pir-vg3-ota-failure` |
+
+Skills enforce the prefix when creating new folders. The prefix is part of the `initiative` field in PM-STATE.md and the folder name. It does not appear in Confluence page titles or Jira workstream summaries.
+
 ## Parent folder
 
 ```
 pm-planning/
-  {initiative}/                        # Pipeline initiatives (discover → pdp)
-  {strategyName}/                      # Strategy initiatives (brief → strategy)
+  plan-{name}/                         # Pipeline initiatives (discover → pdp)
+  vibe-{name}/                         # Vibe track (signal → prototype → brief)
+  strat-{name}/                        # Strategy initiatives (brief → strategy)
   explain-{slug}/                      # Standalone explanations
+  triage-{ticket-key}/                 # TSSD triage briefs
+  pir-{slug}/                          # Product incident reviews
 ```
 
 ## Initiative folder structure
 
 ```
-{initiative}/
+plan-{name}/ or strat-{name}/
   PM-STATE.md                          # Always present. State machine.
 
   # Pipeline artifacts (one per skill, flat at root)
@@ -56,6 +74,21 @@ explain-{slug}/
   diagram-{slug}.png                   # Rendered diagram (if renderer available)
   *.html                               # Interactive HTML explainers (optional)
 ```
+
+## Vibe folder structure
+
+```
+vibe-{name}/
+  PM-STATE.md                          # State tracking (initiative_type: vibe)
+  SIGNAL.md                            # From discover S0 (same as full track)
+  VIBE-BRIEF.md                        # Short brief: what we built, who should see it,
+                                       # what makes it real, blast radius if wrong
+  prototype.html                       # Built directly from signal
+  scratch/                             # Any research artifacts
+```
+
+On promote (V1 → S1), folder renames to `plan-{name}`. VIBE-BRIEF.md is preserved.
+Downstream skills add PROBLEM.md, SOLUTION.md, etc. alongside existing files.
 
 ## Rules
 

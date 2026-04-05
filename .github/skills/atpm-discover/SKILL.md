@@ -83,9 +83,11 @@ If PM-STATE.md has `parent_initiative` (not null), this is a child of a program:
 
 The initiative name is required. It becomes the folder name under `pm-planning/`.
 
+**Prefix rule:** Always prefix the folder name with `plan-`. If the user provides a name without the prefix, add it. Example: user says "dvir-carry-forward" → folder is `plan-dvir-carry-forward`.
+
 Check `$ARGUMENTS` for a name or descriptive phrase.
 
-**If arguments contain a clear initiative name:** propose it.
+**If arguments contain a clear initiative name:** propose it (with `plan-` prefix).
 **If not:** ask:
 
 <user_input>
@@ -97,7 +99,7 @@ What should this initiative be called?
 
 ⛔ **CP-1 — STOP.** Do NOT proceed without a confirmed initiative name.
 
-Sanitize to kebab-case for the folder name. Store as `initiativeName`.
+Sanitize to kebab-case, prepend `plan-` if not already present. Store as `initiativeName`.
 
 ---
 
@@ -168,11 +170,11 @@ Creating pm-planning/{initiativeName}/
 
 Follow the Init procedure in `../pm-references/confluence-sync.md`:
 
-1. **Create Confluence page** (child of homepage 6250431598) in ATPM space. Store `confluence_page_id` in PM-STATE.md.
+1. **Create Confluence page** (child of Initiative Plans `6296272897`) in ATPM space. Store `confluence_page_id` in PM-STATE.md.
 2. **Create Jira Workstream** (issue type 21008) in ATPM. Store `jira_workstream` in PM-STATE.md.
 3. **Cross-link:** Update the Confluence page with the Jira link. Update the Jira Workstream description with the Confluence link.
 
-The homepage embeds the Jira board and auto-updates. No homepage edits needed.
+The homepage links to section parents. No homepage edits needed.
 
 ⛔ **Gate:** Do NOT proceed to Step 4 until both `confluence_page_id` and `jira_workstream` are set in PM-STATE.md. If Atlassian MCP calls fail, stop and report the error. Do not silently skip this step.
 
@@ -295,6 +297,8 @@ Review the signal brief above. Reply with a number.
   6   REDIRECT              Revise hypothesis (tell me what to change)
   7   STOP                  Signal not worth pursuing
 
+  8   VIBE                  Rapid build: prototype + brief, skip S1-S4
+
 ─────────────────────────────────────────────────────
 </user_choice>
 
@@ -320,6 +324,8 @@ If <3 indicators are found:
 If the PM has already manually set `ai_feature` to `true` or `false`, skip auto-detection.
 
 ⛔ **CP-2 — STOP.** Do NOT proceed without the user's selection.
+
+**If VIBE (8):** Route to the vibe track. See "Vibe Track" section below.
 
 **If BYPASS:** ask for the minimum required artifacts for the target state. Record in PM-STATE.md:
 ```yaml
@@ -740,4 +746,147 @@ Accept async inputs: if the PM returns with new data (interview transcript, Slac
 7. **Not saving raw research** — all Glean results, Snowflake queries, and intermediate findings go to scratch/. The PM may need them later.
 8. **Creating placeholder files at scaffold time** — Step 3 creates ONLY PM-STATE.md and scratch/. Do NOT create SIGNAL.md, PROBLEM.md, ROI.md, SOLUTION.md, PROTOTYPE.md, VALIDATION.md, or PDP-DRAFT.md. Not even with YAML-only frontmatter. File existence means that state completed. Placeholder files confuse every downstream skill.
 9. **Skipping the Jira/Confluence gate** — Step 3's Confluence + Jira Init is a mandatory gate, not a suggestion. Step 4 has a runtime check: if `confluence_page_id` or `jira_workstream` is null in PM-STATE.md, STOP and run the Init procedure before any research. Positional instructions get compressed by long contexts. The runtime check catches it.
+10. **Vibing when the blast radius is high** — the vibe track is for contained experiments. If the signal touches Trips, IFTA, ELD, shared platform services, or any compliance surface, use the full track. The cost of getting it wrong is not "throw away the prototype." The cost is eng debt, customer impact, or regulatory exposure.
 </common_mistakes>
+
+<vibe_track>
+
+## Vibe Track
+
+Rapid build mode. Skip the research loop. Build a working prototype directly from the
+signal, pair it with a short brief, share it. If it sticks, promote to the full track
+and backfill the research.
+
+**When to vibe:**
+- Blast radius is contained (feature flag, single customer, no compliance surface)
+- No shared eng dependency (you can build it without displacing another team's work)
+- The fastest way to validate is to show something working
+- The signal is clear enough that research would confirm what you already know
+
+**When NOT to vibe:**
+- Touches Trips, IFTA, ELD, or anything with regulatory implications
+- Requires >2 eng weeks from a shared team
+- Multiple execs need to approve before eng starts
+- The problem itself is unclear (you don't know what to build yet)
+
+### V1: Build
+
+1. **Rename folder.** Rename `pm-planning/plan-{name}` to `pm-planning/vibe-{name}`.
+   Update `initiative` in PM-STATE.md to `vibe-{name}`.
+
+2. **Update state.** Set PM-STATE.md:
+   ```yaml
+   current_state: V1
+   initiative_type: vibe
+   ```
+   Log: `| {timestamp} | {owner} | S0 | V1 | vibe | Routed to vibe track |`
+
+3. **Transition Jira** to Discovery (transition ID `2`). Add a comment:
+   ```
+   Routed to vibe track. Building prototype directly from signal.
+   ```
+
+4. **Build the prototype.** Hand off to `/atpm-prototype` with a twist:
+   - Input is SIGNAL.md (not SOLUTION.md). The prototype skill reads whatever context
+     exists and builds from it.
+   - No SOLUTION.md trade-off matrix required. The prototype IS the solution exploration.
+   - The PM directs what to build in natural language. The prototype skill executes.
+
+5. **Write VIBE-BRIEF.md** after the prototype is done. Three sections. No fluff.
+   Prototype download link goes at the very top as a blockquote callout.
+
+   ```markdown
+   # Vibe Brief: {name}
+
+   > **[Download Prototype]({confluence_attachment_url})** — {One line: what it shows, what data it uses.}
+
+   ## Problem
+   [What is broken today. 2-3 sentences. Name the user, the action, and why it fails.]
+
+   ## Solution
+   [What the prototype does. Interaction model, states, scope, data shape.
+   Enough detail that an engineer can estimate from this section alone.
+   Mention that a prototype exists and what data it uses.]
+
+   ## Context
+   - **Eng:** [Estimate, main work items, APIs, dependencies]
+   - **Reviewers:** [Specific names and what each person validates]
+   - **Blast radius:** [Cost of being wrong. Contained = keep vibing. Not contained = promote.]
+   ```
+
+6. **Sync to Confluence.** Update the initiative's Confluence parent page with the
+   vibe brief content. Create child pages for SIGNAL.md and VIBE-BRIEF.md. Attach
+   prototype.html.
+
+7. **Present:**
+
+<display>
+── Vibe Complete ─────────────────────────────────────
+{name}
+
+Prototype: pm-planning/vibe-{name}/prototype.html
+Brief:     pm-planning/vibe-{name}/VIBE-BRIEF.md
+Confluence: {link}
+─────────────────────────────────────────────────────
+</display>
+
+<user_choice>
+── What's next? ──────────────────────────────────────
+
+  #   Action                What happens next
+  ─   ──────                ─────────────────
+  1   SHARE                 Post brief + prototype link as Confluence comment
+                            or Slack message draft
+  2   PROMOTE               This needs a real PDP. Enter full track at S1.
+  3   ITERATE               Revise the prototype
+  4   SHIP IT               Mark as ready for eng (stays lightweight)
+  5   KILL                  Not worth pursuing. Archive.
+
+──────────────────────────────────────────────────────
+</user_choice>
+
+⛔ **STOP.** Wait for PM's selection.
+
+### V2: Promote to Full Track
+
+When the PM selects PROMOTE (option 2):
+
+1. **Rename folder.** Rename `pm-planning/vibe-{name}` to `pm-planning/plan-{name}`.
+   Update `initiative` in PM-STATE.md to `plan-{name}`.
+
+2. **Update state.** Set PM-STATE.md:
+   ```yaml
+   current_state: S1
+   initiative_type: initiative
+   bypassed_states: []
+   ```
+   Log: `| {timestamp} | {owner} | V1 | S1 | promote | Promoted from vibe to full track |`
+
+3. **Transition Jira** to Discovery (transition ID `2`). Add a comment:
+   ```
+   Promoted from vibe track to full initiative. Entering Problem Discovery.
+   SIGNAL.md and prototype exist. Backfilling research.
+   ```
+
+4. **Hand off to Step 5** (S1: Problem Discovery) in this skill. The prototype and
+   VIBE-BRIEF.md become inputs to the research. SIGNAL.md already exists.
+   VIBE-BRIEF.md is preserved (not deleted) as context for downstream skills.
+
+### If SHIP IT (option 4):
+
+1. Set PM-STATE.md `current_state: S7`. Log transition.
+2. Transition Jira to Ready for Eng (transition ID `8`).
+3. Add Jira comment with the vibe brief content and prototype link.
+4. The initiative stays as `vibe-{name}`. No PDP. No design review.
+   This is intentional: lightweight things stay lightweight.
+
+⚠️ **Warning:** SHIP IT skips all validation gates. Use only when the blast radius
+section of VIBE-BRIEF.md confirms the cost of being wrong is low.
+
+### If KILL (option 5):
+
+1. Set PM-STATE.md `current_state: KILLED`. Log transition with reason.
+2. Transition Jira to Done (transition ID `10`). Resolution: Won't Do.
+3. Update Confluence parent page with "Killed" status.
+
+</vibe_track>

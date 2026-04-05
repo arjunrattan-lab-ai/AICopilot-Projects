@@ -1,25 +1,24 @@
 # Confluence Sync Process
 
-Shared procedure for creating and updating Confluence pages as initiatives progress through the PM loop.
+Shared procedure for creating and updating Confluence pages in the ATPM space as initiatives progress through the PM loop.
 
 ## Confluence Setup
 
-Constants are stored in a separate local config file to keep this process doc portable.
+- **Space key:** ATPM
+- **Space ID:** 6250430467
+- **Homepage ID:** 6250431598
+- **Cloud ID:** 98be4c6e-817f-4ba3-88a6-12cff70a8b7e
+- **Base URL:** https://k2labs.atlassian.net/wiki
 
-> **Load constants from:** `pm-references/confluence-constants.md` (local, gitignored) before any sync operation. If the file doesn't exist, prompt the user to provide: Space key, Space ID, Homepage ID, Initiative Plans folder ID, Strategy Decisions folder ID, Explain folder ID, Cloud ID, Base URL.
+### Section Parent Pages
 
-### Required Constants
-
-| Constant | Description |
-|----------|-------------|
-| `space_key` | Confluence space key (e.g., ATPM) |
-| `space_id` | Numeric space ID |
-| `homepage_id` | Root page ID for the space |
-| `initiative_plans_folder_id` | Parent page for all initiative pages |
-| `strategy_decisions_folder_id` | Parent page for strategy decision pages |
-| `explain_folder_id` | Parent page for explain/tech-concept pages |
-| `cloud_id` | Atlassian Cloud ID (UUID) |
-| `base_url` | Confluence base URL |
+| Section | Page ID | What goes here |
+| --- | --- | --- |
+| Initiative Plans | 6296272897 | All ATPM loop initiatives (S0 through S6) |
+| Strategy Decisions | 6296240129 | Strategy analyses (ST1 through ST4) |
+| Explain Complex Topics | 6263504908 | Technical explainers |
+| TSSD Triage Briefs | 6282412041 | TSSD ticket triage briefs |
+| Product Incident Reviews | 6283591691 | Product incident reviews |
 
 ## When Sync Happens
 
@@ -30,7 +29,7 @@ Confluence sync runs at two moments in every skill:
 
 ## Page Structure
 
-Each initiative gets a **parent page** (child of the **Initiative Plans** folder, ID `6296272897`) and one **child page per artifact**.
+Each initiative gets a **parent page** (child of homepage) and one **child page per artifact**.
 
 ### Parent Page (slim summary with links)
 
@@ -184,7 +183,11 @@ Prototype HTML files are attached to **both** the parent page and the Prototype 
 
 ### Homepage
 
-The homepage (page ID `6250431598`) embeds the Jira ATPM board, which auto-updates as tickets move across columns. No manual homepage updates are needed at Init or Done sync.
+The homepage (page ID `6250431598`) links to section parent pages. No manual homepage updates are needed at Init or Done sync.
+
+**Parent page selection at Init:**
+- `initiative_type: strategy` → use Strategy Decisions (`6296240129`)
+- All other initiatives → use Initiative Plans (`6296272897`)
 
 ## Step-by-Step: Init (discover Step 3)
 
@@ -196,7 +199,7 @@ Use `mcp_com_atlassian_createConfluencePage`:
 ```
 cloudId: 98be4c6e-817f-4ba3-88a6-12cff70a8b7e
 spaceId: 6250430467
-parentId: 6250431598
+parentId: 6296272897        ← Initiative Plans (use 6296240129 for strategy)
 title: {initiativeName}
 contentFormat: markdown
 body: |
@@ -258,6 +261,38 @@ Run at the end of each skill's Done step, after updating PM-STATE.md.
 ### 1. Create Artifact Child Page
 
 **⛔ MANDATORY: Read from disk.** Before creating the child page, you MUST `read_file` the artifact from disk (e.g., `pm-planning/{initiativeName}/SIGNAL.md`) and use the complete file contents as the body parameter. Do NOT reconstruct the content from memory, context, or prior conversation. LLM memory drifts in long sessions. The file on disk is the source of truth.
+
+**⛔ MANDATORY: Rewrite local file references.** Before passing the body to Confluence,
+replace every bare local artifact reference with a Confluence link. The content may reference
+sibling artifacts by filename (e.g., "See PROBLEM.md," "Rationale tied to SOLUTION.md
+evidence," "as described in ROI.md"). On Confluence these are dead text.
+
+**How to rewrite:** Read `confluence_child_pages` from PM-STATE.md. For each entry in the
+map, replace occurrences in the body:
+
+| Local reference patterns | Replacement |
+|-------------------------|-------------|
+| `SIGNAL.md` | `[Signal](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{signal_page_id})` |
+| `PROBLEM.md` | `[Problem](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{problem_page_id})` |
+| `SOLUTION.md` | `[Solution](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{solution_page_id})` |
+| `VALIDATION.md` | `[Validation](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{validation_page_id})` |
+| `PDP-DRAFT.md` | `[PDP](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{pdp_page_id})` |
+| `ROI.md` | `[ROI](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{roi_page_id})` |
+| `BRIEF.md` | `[Brief](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{brief_page_id})` |
+| `RESEARCH.md` | `[Research](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{research_page_id})` |
+| `OPTIONS.md` | `[Options](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{options_page_id})` |
+| `STRATEGY.md` | `[Strategy](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{strategy_page_id})` |
+| `prototype.html` or `prototype-*.html` | `[Prototype](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{prototype_page_id})` |
+
+Rules:
+- Only rewrite references for artifacts that have a `confluence_child_pages` entry (the
+  child page must exist). If no entry, leave the reference as-is.
+- Match the filename anywhere it appears: in markdown links `[text](PROBLEM.md)`, inline
+  code `` `PROBLEM.md` ``, or bare text `PROBLEM.md`. Remove backticks around the filename
+  when converting to a link.
+- Do NOT rewrite filenames inside code blocks (``` fenced blocks). Those are instructional.
+- Apply this rewrite to the body string in memory before passing it to
+  `mcp_com_atlassian_createConfluencePage`. Do NOT modify the file on disk.
 
 Use `mcp_com_atlassian_createConfluencePage`:
 ```
@@ -347,6 +382,43 @@ Use `mcp_com_atlassian_transitionJiraIssue` to move the Workstream to the board 
 ### 5. Update Jira Workstream Description
 
 Use `mcp_com_atlassian_editJiraIssue` to update the description with the current state, artifact list with summaries, Confluence link, and key numbers. Follow the Jira Formatting Standards above.
+
+## Mermaid Diagrams on Confluence
+
+Confluence does not render Mermaid natively. The old approach (render locally → curl upload
+PNG as attachment → embed via `<ac:image>` storage format) is fragile and diagrams frequently
+fail to appear.
+
+**Use mermaid.ink image URLs instead.** Embed the diagram as a standard markdown image
+directly in the output `.md` file. When the file is synced to Confluence as markdown body,
+the image URL resolves to a server-rendered PNG.
+
+### How to generate the URL
+
+1. Take the raw Mermaid source (the content of the `.mmd` file).
+2. Base64-encode it: `echo '{mermaid source}' | base64 | tr -d '\n'`
+3. Build the URL: `https://mermaid.ink/img/{base64}`
+4. Embed in the markdown file as: `![{diagram title}](https://mermaid.ink/img/{base64})`
+
+### In practice
+
+```bash
+# Example: encode and embed
+MMD=$(cat diagram-trips-decoupling.mmd | base64 | tr -d '\n')
+echo "![System Diagram](https://mermaid.ink/img/$MMD)"
+```
+
+The agent should compute this at write time and include the full image URL in the `.md` file.
+The `.mmd` file is still written locally for editing. The local `.png` from
+`renderMermaidDiagram` is still nice to have for VS Code preview, but is no longer needed
+for Confluence.
+
+### What NOT to do
+
+- Do NOT use the curl attachment + `<ac:image>` embed flow for diagrams. It requires two
+  separate API calls after page creation and fails silently.
+- Do NOT embed raw Mermaid code blocks in Confluence pages. They render as plain text.
+- Do NOT use mermaid.live edit links as a substitute for rendered images.
 
 ## Sub-project Sync (DECOMPOSE)
 

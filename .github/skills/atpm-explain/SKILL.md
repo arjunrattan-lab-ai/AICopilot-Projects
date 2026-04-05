@@ -40,21 +40,17 @@ After writing local files:
 
 ⛔ Use Atlassian MCP tools directly. Do NOT write Node.js scripts to publish.
 
-### Attach images and HTML
+### Diagrams on Confluence
 
-After creating the child page, attach any rendered images (diagram .png) and HTML explainers
-using curl:
+Do NOT use the curl attachment + ac:image embed flow for diagrams. It is fragile and
+diagrams frequently fail to appear.
 
-```bash
-source .env
-curl -s -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
-  -X POST -H "X-Atlassian-Token: nocheck" \
-  -F "file=@pm-planning/explain-{slug}/diagram-{slug}.png" \
-  "https://k2labs.atlassian.net/wiki/rest/api/content/{child_page_id}/child/attachment"
-```
+Instead, embed diagrams as **mermaid.ink image URLs** directly in the markdown body of
+the output file (EXPLAIN-{slug}.md). When Confluence renders the markdown, the image
+URL resolves to a server-rendered PNG.
 
-Same pattern for HTML files. Run via `run_in_terminal`. If upload fails, show the curl
-command for manual execution. Do not block the rest of the sync.
+See `../pm-references/confluence-sync.md` § "Mermaid Diagrams on Confluence" for the
+URL format.
 </confluence>
 
 <process>
@@ -108,8 +104,9 @@ menu. Just explain it the right way.
 shows the concept (data flow, dependency chain, system model, state machine, etc.). Keep
 nodes to 15 or fewer. Label edges with what flows between components.
 
-Rendering fallback: try `renderMermaidDiagram` first, then `npx mmdc` CLI, then write `.mmd` with mermaid.live link.
-Always write the `.mmd` file regardless of which renderer succeeds.
+**Rendering:** Always write the `.mmd` file. Try `renderMermaidDiagram` for a local `.png`.
+For the output markdown and Confluence, embed a mermaid.ink image URL (see confluence-sync.md
+§ "Mermaid Diagrams on Confluence").
 
 **Source index:** End with a clickable source table so the PM can go deeper on any claim.
 
@@ -118,17 +115,20 @@ technical explanation builds understanding. The PM Lens translates that understa
 action: "Now that I understand this, what do I do?"
 
 PM Lens principles:
-1. **Start with "so what."** Connect the technical reality to product impact. "Your team
-   loses ~2 days per sprint to build queues" is the right altitude. Use numbers from research.
-2. **Name the PM's moves.** Give specific actions. "Ask your eng lead which services are
+1. **Start with "so what."** This is the FIRST section after the TL;DR, not buried after
+   technical details. The reader who stops after the first page should have the full picture:
+   customer impact, root cause summary, product risk, process gaps, and resource framing.
+   Use numbers from research.
+2. **Name the PM's moves.** Give specific actions. "Ask the eng lead which services are
    still on kops and whether an SRE has been assigned" is the right specificity.
 3. **Give them questions to ask engineering.** PMs need informed conversations after reading
-   this. Write diagnostic questions that surface hidden risk or reveal real state. "Which of
-   our services are still behind the shared deploy gate, and what's the cycle time difference?"
-4. **Frame it for their audience.** PMs talk up (execs), across (eng leads), and out
-   (customers, stakeholders). If the concept is something they'll need to explain or defend,
-   give them the honest framing for each audience. Reference specific execs by name when the
-   user's org context is known.
+   this. Write diagnostic questions that surface hidden risk or reveal real state. Address
+   questions to **roles** (eng lead, SRE team, on-call lead, service owner), never to
+   individuals by name. Names make people uncomfortable and the doc may be shared widely.
+4. **Weave exec framing into the "so what" narrative.** Do NOT create a separate "Framing
+   for Execs" section with named individuals. Instead, structure the so-what with labeled
+   paragraphs (customer impact, root cause, product risk, process gap, resource framing)
+   that naturally serve different exec perspectives without calling anyone out.
 5. **Flag what to watch for.** Early warning signals the PM can observe without deep technical
    monitoring. "If deploy frequency drops below X after the change, something went wrong" or
    "if the SRE epic stays in backlog past June, escalate."
@@ -147,6 +147,23 @@ Never scatter explain folders at workspace root or inside product folders.
 | `EXPLAIN-{slug}.md` | Full explanation with inline citations, Mermaid source, source index |
 | `diagram-{slug}.mmd` | Standalone Mermaid source |
 | `diagram-{slug}.png` | Rendered diagram (if renderer available) |
+
+### Document structure
+
+The EXPLAIN file follows this order. The reader who stops after the first page gets the
+full actionable picture. Technical depth comes after.
+
+1. **TL;DR** — 2-3 sentence summary: what happened, what the impact was, what the resolution is.
+2. **So What** — Customer impact, root cause summary, product risk, process gaps, resource
+   framing. Structured as labeled paragraphs that serve different exec perspectives without
+   naming individuals or creating a separate "Framing for Execs" section.
+3. **Your Moves** — Numbered PM actions.
+4. **Questions to Ask Engineering** — Diagnostic questions addressed to roles, not names.
+5. **What to Watch** — Leading indicators.
+6. **Technical Detail** — Architecture, incidents, root cause analysis, structural risks,
+   what could not be verified. This is the deep section for the reader who wants the full
+   technical picture.
+7. **Sources** — Clickable source table.
 
 ### Confluence sync
 
