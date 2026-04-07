@@ -1,0 +1,41 @@
+Motive AI Eating Detection (Beta Launch Invitation)
+What’s new?
+AI Eating Detection identifies when a driver is holding or eating food while the vehicle is in motion, creating a reviewable safety event and an in‑cab audio alert to help coach safer behavior in the moment. Events appear in the Motive Safety Dashboard for coaching and reporting and helps fleet managers address distracted driving and policy violations before they become safety or compliance risks.
+Please note: Drinking will not trigger an eating event.
+How will it help you?
+Eating AI detects “eating/holding food” interactions during driving and generates an event;
+Surfaces distraction‑related behaviors that take hands and eyes off the road and can increase crash risk.
+Enables targeted coaching so managers can reinforce safe, compliant habits with clear, objective evidence.
+How it works?
+The AIDC-54 driver-facing dashcam will create an event when:
+A food item is seen in the driver’s hand or mouth.
+The vehicle is moving above 25 mph.
+The behavior is visible for 5 seconds or more.
+Events are reviewed by Motive’s Annotations Team before surfacing in the Safety Dashboard and Fleet App.
+Notable feature limitations
+Drinking is excluded and does not trigger an eating event.
+A duplicate distraction event might be generated along with an eating event given the similarity in behavior. Future models will be able to distinguish and suppress distraction events when eating is detected.
+In-cab alerts are disabled by default; however, they can be enabled for testing purposes upon request.
+Incab Alert Message: Audio Chime + “Please keep your hands on the wheel.”
+Requirements
+Available to all customers with AIDC and AIDC+ driver facing dashcams
+
+
+Product Screenshots
+
+Safety Events Tab
+
+
+Safety Event Quick View Panel
+
+
+
+Safety Event Detail Page
+
+Eating AI Settings Administration
+
+
+
+
+Email Alerts andNotifications 
+

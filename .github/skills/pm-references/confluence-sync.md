@@ -10,16 +10,6 @@ Shared procedure for creating and updating Confluence pages in the ATPM space as
 - **Cloud ID:** 98be4c6e-817f-4ba3-88a6-12cff70a8b7e
 - **Base URL:** https://k2labs.atlassian.net/wiki
 
-### Section Parent Pages
-
-| Section | Page ID | What goes here |
-| --- | --- | --- |
-| Initiative Plans | 6296272897 | All ATPM loop initiatives (S0 through S6) |
-| Strategy Decisions | 6296240129 | Strategy analyses (ST1 through ST4) |
-| Explain Complex Topics | 6263504908 | Technical explainers |
-| TSSD Triage Briefs | 6282412041 | TSSD ticket triage briefs |
-| Product Incident Reviews | 6283591691 | Product incident reviews |
-
 ## When Sync Happens
 
 Confluence sync runs at two moments in every skill:
@@ -183,11 +173,7 @@ Prototype HTML files are attached to **both** the parent page and the Prototype 
 
 ### Homepage
 
-The homepage (page ID `6250431598`) links to section parent pages. No manual homepage updates are needed at Init or Done sync.
-
-**Parent page selection at Init:**
-- `initiative_type: strategy` → use Strategy Decisions (`6296240129`)
-- All other initiatives → use Initiative Plans (`6296272897`)
+The homepage (page ID `6250431598`) embeds the Jira ATPM board, which auto-updates as tickets move across columns. No manual homepage updates are needed at Init or Done sync.
 
 ## Step-by-Step: Init (discover Step 3)
 
@@ -199,7 +185,7 @@ Use `mcp_com_atlassian_createConfluencePage`:
 ```
 cloudId: 98be4c6e-817f-4ba3-88a6-12cff70a8b7e
 spaceId: 6250430467
-parentId: 6296272897        ← Initiative Plans (use 6296240129 for strategy)
+parentId: 6250431598
 title: {initiativeName}
 contentFormat: markdown
 body: |
@@ -261,38 +247,6 @@ Run at the end of each skill's Done step, after updating PM-STATE.md.
 ### 1. Create Artifact Child Page
 
 **⛔ MANDATORY: Read from disk.** Before creating the child page, you MUST `read_file` the artifact from disk (e.g., `pm-planning/{initiativeName}/SIGNAL.md`) and use the complete file contents as the body parameter. Do NOT reconstruct the content from memory, context, or prior conversation. LLM memory drifts in long sessions. The file on disk is the source of truth.
-
-**⛔ MANDATORY: Rewrite local file references.** Before passing the body to Confluence,
-replace every bare local artifact reference with a Confluence link. The content may reference
-sibling artifacts by filename (e.g., "See PROBLEM.md," "Rationale tied to SOLUTION.md
-evidence," "as described in ROI.md"). On Confluence these are dead text.
-
-**How to rewrite:** Read `confluence_child_pages` from PM-STATE.md. For each entry in the
-map, replace occurrences in the body:
-
-| Local reference patterns | Replacement |
-|-------------------------|-------------|
-| `SIGNAL.md` | `[Signal](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{signal_page_id})` |
-| `PROBLEM.md` | `[Problem](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{problem_page_id})` |
-| `SOLUTION.md` | `[Solution](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{solution_page_id})` |
-| `VALIDATION.md` | `[Validation](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{validation_page_id})` |
-| `PDP-DRAFT.md` | `[PDP](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{pdp_page_id})` |
-| `ROI.md` | `[ROI](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{roi_page_id})` |
-| `BRIEF.md` | `[Brief](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{brief_page_id})` |
-| `RESEARCH.md` | `[Research](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{research_page_id})` |
-| `OPTIONS.md` | `[Options](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{options_page_id})` |
-| `STRATEGY.md` | `[Strategy](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{strategy_page_id})` |
-| `prototype.html` or `prototype-*.html` | `[Prototype](https://k2labs.atlassian.net/wiki/spaces/ATPM/pages/{prototype_page_id})` |
-
-Rules:
-- Only rewrite references for artifacts that have a `confluence_child_pages` entry (the
-  child page must exist). If no entry, leave the reference as-is.
-- Match the filename anywhere it appears: in markdown links `[text](PROBLEM.md)`, inline
-  code `` `PROBLEM.md` ``, or bare text `PROBLEM.md`. Remove backticks around the filename
-  when converting to a link.
-- Do NOT rewrite filenames inside code blocks (``` fenced blocks). Those are instructional.
-- Apply this rewrite to the body string in memory before passing it to
-  `mcp_com_atlassian_createConfluencePage`. Do NOT modify the file on disk.
 
 Use `mcp_com_atlassian_createConfluencePage`:
 ```
@@ -383,42 +337,57 @@ Use `mcp_com_atlassian_transitionJiraIssue` to move the Workstream to the board 
 
 Use `mcp_com_atlassian_editJiraIssue` to update the description with the current state, artifact list with summaries, Confluence link, and key numbers. Follow the Jira Formatting Standards above.
 
-## Mermaid Diagrams on Confluence
+## Knowledge Harvest Sync (atpm-harvest)
 
-Confluence does not render Mermaid natively. The old approach (render locally → curl upload
-PNG as attachment → embed via `<ac:image>` storage format) is fragile and diagrams frequently
-fail to appear.
+Knowledge harvest pages live under a dedicated section of the ATPM space, separate from the initiative pipeline.
 
-**Use mermaid.ink image URLs instead.** Embed the diagram as a standard markdown image
-directly in the output `.md` file. When the file is synced to Confluence as markdown body,
-the image URL resolves to a server-rendered PNG.
+### Page Hierarchy
 
-### How to generate the URL
-
-1. Take the raw Mermaid source (the content of the `.mmd` file).
-2. Base64-encode it: `echo '{mermaid source}' | base64 | tr -d '\n'`
-3. Build the URL: `https://mermaid.ink/img/{base64}`
-4. Embed in the markdown file as: `![{diagram title}](https://mermaid.ink/img/{base64})`
-
-### In practice
-
-```bash
-# Example: encode and embed
-MMD=$(cat diagram-trips-decoupling.mmd | base64 | tr -d '\n')
-echo "![System Diagram](https://mermaid.ink/img/$MMD)"
+```
+ATPM Space
+  Homepage (6250431598)
+  Knowledge-Base (6319603713)
+    {Product Area} (one per harvest)
+      {Cluster Name} (subject grouping, e.g., Speeding)
+        {Topic Title}
+        {Topic Title}
+      {Cluster Name}
+        {Topic Title}
 ```
 
-The agent should compute this at write time and include the full image URL in the `.md` file.
-The `.mmd` file is still written locally for editing. The local `.png` from
-`renderMermaidDiagram` is still nice to have for VS Code preview, but is no longer needed
-for Confluence.
+Planning artifacts (MANIFEST.md, INDEX.md) stay local in `pm-planning/harvest-{slug}/`. They are not published to Confluence.
 
-### What NOT to do
+### Knowledge-Base Parent Page
 
-- Do NOT use the curl attachment + `<ac:image>` embed flow for diagrams. It requires two
-  separate API calls after page creation and fails silently.
-- Do NOT embed raw Mermaid code blocks in Confluence pages. They render as plain text.
-- Do NOT use mermaid.live edit links as a substitute for rendered images.
+**Page ID:** `6319603713` (already exists).
+
+Subsequent harvests reuse it. Store the page ID in PM-STATE.md as `kb_parent_page_id`.
+
+If a harvest resumes and `kb_parent_page_id` is set, verify the page still exists before creating child pages.
+
+### Per-Topic Sync
+
+Topics are grouped under **cluster parent pages** by subject (e.g., "Speeding" under "Safety").
+
+1. **Resolve or create cluster page** as a child of the product area parent. Title: `{Cluster Name}`. Store in `confluence_child_pages.clusters.{cluster-slug}`.
+2. **Create topic page** as a child of the cluster page. Title: `{Topic Title}` (no product area prefix).
+3. Body: Full topic markdown, read from `topics/{slug}.md` on disk.
+4. Labels: `knowledge-harvest`, `retention-migration`, `{product-area-slug}`.
+5. Store child page IDs in `confluence_child_pages.topics.{slug}`.
+
+### parentId Quick Reference
+
+| Page being created | parentId must be | PM-STATE field |
+|---|---|---|
+| Product Area | `kb_parent_page_id` (Knowledge-Base) | `kb_parent_page_id` |
+| Cluster | `confluence_page_id` (Product Area) | `confluence_page_id` |
+| Topic | cluster page ID | `confluence_child_pages.clusters.{slug}` |
+
+For topics with Mermaid diagrams, embed as mermaid.ink inline image URLs (base64-encoded in the URL). Do NOT use curl attachment + `<ac:image>` for harvest pages.
+
+### Jira Workstream
+
+Harvest Jira workstreams use label `knowledge-harvest` instead of `pm-loop`. Summary format: `Knowledge Harvest: {Product Area}`.
 
 ## Sub-project Sync (DECOMPOSE)
 
@@ -429,12 +398,103 @@ When DECOMPOSE runs:
 3. Each child's Done sync updates its own Confluence page normally.
 4. After each child Done sync, also update the parent's Sub-projects section with current states.
 
+## PLG Campaigns Sync (atpm-plg)
+
+PLG campaign pages live under a dedicated section of the ATPM space, separate from the initiative pipeline and knowledge harvest.
+
+### Page Hierarchy
+
+```
+ATPM Space
+  Homepage (6250431598)
+  PLG Campaigns (6322421826)
+    PLG / {campaignName}: {one-line summary}
+```
+
+### PLG Campaigns Parent Page
+
+**Page ID:** `6322421826` (already exists).
+
+On first run, check if the PLG Campaigns parent page exists under the ATPM homepage (ID `6250431598`). If it does not exist, create it:
+
+```
+mcp_com_atlassian_createConfluencePage:
+  cloudId: 98be4c6e-817f-4ba3-88a6-12cff70a8b7e
+  spaceId: 6250430467
+  parentId: "6250431598"                 ← homepage
+  title: PLG Campaigns
+  contentFormat: markdown
+  body: |
+    # PLG Campaigns
+
+    In-product growth campaigns designed to move specific metrics across the
+    Motive Dashboard, Fleet App, and Driver App. Each campaign includes a
+    targeting brief, smart messaging strategy, experiment designs with cohort
+    definitions and projected impact, and a prototype handoff.
+
+    ---
+
+    ## Active Campaigns
+
+    | Campaign | Metric | Product | Experiments | Status | Page |
+    |----------|--------|---------|-------------|--------|------|
+
+    ---
+
+    ## Completed Campaigns
+
+    *(Moved here once all experiments have concluded and results are documented)*
+```
+
+Store the returned page ID as `plgSectionPageId`. On subsequent runs, look up the existing page ID rather than recreating.
+
+### Campaign Page
+
+Create a child page under the PLG Campaigns section:
+
+```
+mcp_com_atlassian_createConfluencePage:
+  cloudId: 98be4c6e-817f-4ba3-88a6-12cff70a8b7e
+  spaceId: 6250430467
+  parentId: "6322421826"                 ← PLG Campaigns page
+  title: "PLG / {campaignName}: {one-line summary}"
+  contentFormat: markdown
+  body: (full BRIEF.md + EXPERIMENTS.md content concatenated)
+```
+
+After creating a child page, update the PLG Campaigns parent page to add the new campaign to the Active Campaigns table.
+
 ## Error Handling
 
 - **Confluence MCP unavailable:** Log a warning in PM-STATE.md: `confluence_sync_pending: true`. Display guidance to sync manually later.
 - **Page already exists with same title:** Search for it, use the existing page ID, and store in PM-STATE.md.
 - **Attachment upload fails:** Display the curl command so the PM can run it manually. Do not block the skill.
 - **Page rename via MCP:** `mcp_com_atlassian_updateConfluencePage` requires a body parameter and will overwrite the page content. For title-only renames, use the Confluence REST API (`PUT /rest/api/content/{id}`) which accepts title changes without replacing the body. Never pass placeholder body text to the MCP update call.
+
+## Page Deletion
+
+The Atlassian MCP has no dedicated delete-page tool. Use the Confluence REST API via curl with the credentials in `.env` (`ATLASSIAN_EMAIL`, `ATLASSIAN_API_TOKEN`):
+
+```bash
+# Load credentials from .env
+source "$(git rev-parse --show-toplevel)/../../.env"
+
+# Permanent delete
+curl -s -X DELETE \
+  -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
+  "https://k2labs.atlassian.net/wiki/api/v2/pages/{pageId}"
+
+# Trash instead (recoverable for 15 days)
+curl -s -X DELETE \
+  -u "$ATLASSIAN_EMAIL:$ATLASSIAN_API_TOKEN" \
+  "https://k2labs.atlassian.net/wiki/api/v2/pages/{pageId}?status=trashed"
+```
+
+Run this in the terminal. Do not ask the user to run it manually.
+
+After deletion, remove the page ID from PM-STATE.md (`confluence_page_id`, `confluence_child_pages`, etc.) so resume does not attempt to update a missing page.
+
+**When to delete:** Rollbacks, rethinks, duplicate pages created by bugs, or user requests. Always confirm with the user before deleting.
 
 ## Resume Behavior
 

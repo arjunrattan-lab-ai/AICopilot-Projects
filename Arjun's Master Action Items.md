@@ -1,17 +1,16 @@
 # Arjun's Master Action Items
 
-**Last Updated:** April 5, 2026
-**Active Tasks:** 46
-**Completed Tasks:** 9
-**Overdue Tasks:** 15
-**Tasks Due This Week (4/5–4/11):** 16
+**Last Updated:** April 6, 2026
+**Active Tasks:** 50
+**Completed Tasks:** 10
+**Overdue Tasks:** 14
+**Tasks Due This Week (4/6–4/11):** 16
 **Tasks Due Next Week (4/12–4/18):** 5
 
 ---
 
 ## ⚠️ Overdue (before 4/5/26)
 
-- [x] **Friday Followup Call with Alexa** — Have deeper alignment call with Alexa on AI/Safety strategy, clarify driver-facing models and Q2 approach | *UK Expansion* | Due: 3/29/26 | ⏳ Pending Others
 - [~] **Talk to Anand on Monday** — After Nihar informs Anand of Arjun's role, sync on project landscape, divide and conquer across AI pipeline, parity, and other workstreams | *AIDC+* | Due: 3/30/26 | ⏳ Pending Others
 - [ ] **Onboard: AI Roadmap Tradeoffs** — Get Gautam's AIDC+ release spreadsheet. Map every AI feature to status, platform, ship date. Question to Gautam. | *Safety Onboarding* | Due: 3/31/26
 - [ ] **Set Up Meeting with Michael & Nihar on Pedestrian Detection** — Schedule time to discuss AIOC+ pedestrian detection project staffing, timeline, and deprioritization to start in Q2 | *AIOC+* | Due: 3/31/26
@@ -33,7 +32,6 @@
 
 | Task | Description | Project | Due | Status |
 |------|-------------|---------|-----|--------|
-| [~] **Friday Followup Call with Alexa** | Deeper alignment call on AI/Safety strategy | UK Expansion | 3/29/26 | ⏳ Pending Others |
 | [~] **Talk to Anand on Monday** | Sync on project landscape, divide and conquer | AIDC+ | 3/30/26 | ⏳ Pending Others |
 | [ ] **Onboard: AI Roadmap Tradeoffs** | Get AIDC+ release spreadsheet, map AI features | Safety Onboarding | 3/31/26 | ⚠️ Overdue |
 | [ ] **Set Up Meeting with Michael & Nihar on Ped Detection** | Discuss staffing, timeline, deprioritization for Q2 | AIOC+ | 3/31/26 | ⚠️ Overdue |
@@ -78,16 +76,23 @@
 | [ ] **Propose Q2 reprioritization session with Nihar + Gautam** | Spreadsheet-based reprioritization using H1 planning sheet | Replanning / Org | TBD | Not Started |
 | [ ] **Talk to Sumit about Anand's video recall engagement** | Understand customer escalation + Anand's pullback | Replanning / Org | TBD | Not Started |
 | [ ] **Workshop team structure with Nihar** | Is L8 infra PM the right construct? Map "unlimited PMs" allocation first. | Replanning / Org | TBD | Not Started |
+| [ ] **Weigh in on blur box annotation policy** | Gautam says trust the edge — human with blurred view can't override. Need to align with Arsh on policy: mark blurred events valid vs IE1. Impacts UK precision metrics + annotation workload. | AI-VG5 / UK | TBD | Not Started |
+| [ ] **Follow up with Arsh on unblurred video legal guidance** | Can annotators view unblurred driver-facing video? Blocks blur box policy decision. | AI-VG5 / UK | TBD | Not Started |
 | [ ] **Build automated fail-safe for rollouts** | Automated volume alerting + rollback mechanism | Eating AI | TBD | Not Started |
+| [~] **Fix driver_monitor_ai_mirror for UK RHD vehicles** | Set config=1 for all RHD (~536 vehicles), config=0 for LHD (14). Currently causing cellphone & distraction FPs. | UK Expansion | TBD | ⏳ Pending Others |
+| [~] **Investigate UK mirror config provisioning failure** | Why were UK AIDC+ vehicles provisioned with wrong mirror config? Process gap in trials/GTM. | UK Expansion | TBD | ⏳ Pending Others |
+| [~] **Run offline analysis on blurred UK videos** | Quantify precision gap from blur box. Current estimate: 87% → 94% without blur box. | UK Expansion | TBD | ⏳ Pending Others |
 
 ---
 
 ## By Project
 
-### UK Expansion (3 tasks)
-- [~] **Friday Followup Call with Alexa** — Due: 3/29/26 | ⏳ Pending Others
+### UK Expansion (5 tasks)
 - [~] **Obtain Model Status List** — Due: 4/1/26 | ⏳ Pending Others
 - [ ] **Connect with Legal/Compliance on DPA** — Due: 4/1/26
+- [~] **Fix driver_monitor_ai_mirror for UK RHD vehicles** — Due: TBD | ⏳ Pending Others
+- [~] **Investigate UK mirror config provisioning failure** — Due: TBD | ⏳ Pending Others
+- [~] **Run offline analysis on blurred UK videos** — Due: TBD | ⏳ Pending Others
 
 ### Safety Onboarding (3 active tasks)
 - [ ] **Onboard: AI Roadmap Tradeoffs** — Due: 3/31/26
@@ -154,9 +159,13 @@
 - [ ] **Talk to Sumit about Anand's video recall engagement** — Due: TBD
 - [ ] **Workshop team structure with Nihar** — Due: TBD
 
+### AI-VG5 / UK (2 tasks)
+- [ ] **Weigh in on blur box annotation policy** — Due: TBD
+- [ ] **Follow up with Arsh on unblurred video legal guidance** — Due: TBD
+
 ---
 
-## Due This Week (4/5 – 4/11)
+## Due This Week (4/6 – 4/11)
 
 - [ ] **Follow up with Abbas on replanning process** — Check if TPM is driving parallel AI replanning | *Replanning / Org* | Due: 4/7/26
 - [ ] **Skeleton PDP for BSM** — Build skeleton PDP with problem framing, detection class scope, risks | *BSM* | Due: 4/7/26
@@ -189,6 +198,7 @@
 
 ## Finished Tasks
 
+- [x] ~~**Friday Followup Call with Alexa**~~ — *UK Expansion* | Was due: 3/29/26
 - [x] ~~**Share EVE Doc with Nihar**~~ — *EVE* | Was due: 3/27/26
 - [x] ~~**Onboard: EVE Rollout**~~ — *Safety Onboarding* | Was due: 3/30/26
 - [x] ~~**1:1 Michael Benisch / Gautam Kunapuli**~~ — *Safety Onboarding* | Was due: 4/1/26

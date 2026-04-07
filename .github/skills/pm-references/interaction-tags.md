@@ -18,18 +18,27 @@ Every human checkpoint follows this structure:
 
 ```
 <user_choice>
-── {Checkpoint Title} ────────────────────────────────
-{Context for the decision}
 
-  1. OPTION_A     → description
-  2. OPTION_B     → description
+**{Checkpoint Title}**
+
+{Context line 1}
+{Context line 2}
+
+  1. **OPTION_A** — description
+  2. **OPTION_B** — description
   ...
 
-─────────────────────────────────────────────────────
 </user_choice>
 
 ⛔ **CP-N — STOP.** Do NOT proceed without the user's selection.
 ```
+
+Formatting rules:
+- **No ASCII box-drawing characters** (`──`, `────`, `═══`). They render poorly in VS Code terminals.
+- Use **bold** for the checkpoint title and option labels.
+- Use **em dash** (`—`) between option label and description (markdown rendering, not in prose).
+- One blank line before options, one blank line after the last option.
+- Keep context to 2-4 lines max. Use a table if there are 4+ data fields.
 
 The agent must not generate any content after the `⛔` line until the user responds.
 

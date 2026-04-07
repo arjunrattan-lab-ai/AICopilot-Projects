@@ -113,20 +113,22 @@ These live in the workspace and are available when working in this project.
 **Produces:** Markdown file under `Portfolio/{suggested-folder}/{topic-slug}.md`.
 **Key feature:** Full content preservation (not summarized). Suggests location based on existing Portfolio folder structure. User confirms or overrides path before writing.
 
----
-
-## Personal Skills (`~/.copilot/skills/`)
-
-These roam with your user profile across all workspaces.
+### prep
+**Invoke:** `/prep`
+**What:** Generate a decision briefing for an upcoming 1:1 or sync. Reads PRIORITIES.md, recent meeting summaries, contradiction flags, and overdue tasks to produce a 1-page briefing of decisions that need input — not status updates.
+**When to use:** "Prep for Nihar," "prep for 1:1," "what should I bring up," "decision briefing," "prep for sync," "what needs Nihar's input," or before any manager/stakeholder meeting.
+**Input:** Who the meeting is with (e.g., "Nihar", "Gautam", "Michael").
+**Produces:** Decision briefing at `Portfolio/Manager Chats/Prep-{Person}-{YYYY-MM-DD}.md`.
+**Key feature:** Chief of staff layer — synthesizes across PRIORITIES.md, overdue tasks, contradiction flags, and open tensions. Max 5 decisions framed as options with trade-offs + "My lean" + specific Ask. Every push-hard initiative must appear. Audience-filtered (Nihar = strategy, Gautam = architecture, Michael = eng coordination).
 
 ### session-processor
 **Invoke:** `/session-processor`
-**What:** Process meeting transcripts into topic summaries, update initiative wiki files, and extract tasks. 3-pass state machine: (1) Summarize & Route, (2) Update Initiative Wiki, (3) Extract Tasks.
+**What:** Process meeting transcripts into topic summaries, update initiative wiki files, and extract tasks. 3.5-pass state machine: (1) Summarize & Route, (1.5) Contradiction Detection, (2) Update Initiative Wiki, (3) Extract Tasks.
 **When to use:** After any meeting — 1:1s, team syncs, customer calls. When you have a transcript and want to extract structure, update initiative context, and create tasks. "Process this meeting," "summarize transcript," "update context after call."
 **Input:** Transcript file path or pasted content.
 **Produces:** Topic summary file, incremental updates to initiative wiki files (decisions.md, meeting-notes, PROBLEM.md, SIGNAL.md), tasks in Running Tasks.md.
-**Key feature:** Append-only wiki updates — each run layers new context without overwriting existing research. Uses routing rules to auto-detect which initiatives were discussed.
-**References:** `~/.copilot/skills/session-processor/references/routing-rules.md` (keyword → folder map), `~/.copilot/skills/session-processor/references/wiki-conventions.md` (per-file append rules).
+**Key feature:** Pass 1.5 runs contradiction detection against PRIORITIES.md — flags shifts on push-hard initiatives as 🔴, keep-alive as 🟡, watch/park as ⚪. Append-only wiki updates. Uses routing rules to auto-detect which initiatives were discussed.
+**References:** `.github/skills/session-processor/references/routing-rules.md` (keyword → folder map), `.github/skills/session-processor/references/wiki-conventions.md` (per-file append rules).
 
 ---
 

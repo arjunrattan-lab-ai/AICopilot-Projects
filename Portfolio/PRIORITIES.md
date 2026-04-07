@@ -45,7 +45,7 @@ Every initiative in Arjun's scope gets exactly one label.
 | UK Expansion | **Keep alive** | DVS compliance work in flight. Not a Nihar hot topic. | Arjun | 2026-04-05 |
 | ALPR | **Watch** | AIDC+ differentiator (H2). No active PM work yet. | Anand (notional) | 2026-04-05 |
 | FCW v3 | **Park** | Devin transition — unassigned. No urgency signal from Nihar. | Unassigned | 2026-04-05 |
-| Config Across All Behaviors | **Park** | Devin transition — unassigned. | Unassigned | 2026-04-05 |
+| AI Model Operations | **Watch** | Cross-model health/config/cascade mgmt. Absorbs "Config Across All Behaviors." Devin held this informally. Needs scoping. **(new H2)** | TBD | 2026-04-05 |
 | Unsafe Parking | **Park** | Explicitly parked during Devin transition. | — | 2026-04-05 |
 | Fleet Sentinel | **Park** | Explicitly parked during Devin transition. | — | 2026-04-05 |
 | Amazon (ped use case) | **Park** | Explicitly parked during Devin transition. | — | 2026-04-05 |

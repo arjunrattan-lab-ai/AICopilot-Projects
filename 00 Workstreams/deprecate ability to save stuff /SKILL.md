@@ -1,14 +1,26 @@
 ---
 name: save-chat
-description: 'Save recent chat analysis to a file organized by topic. Use when: "save this", "save chat", "keep this", "save that analysis", "write that down", "persist this", or any request to capture chat output for later reference.'
+description: >
+  Save recent chat analysis to a file organized by topic. Scans the last 3-5 assistant
+  turns, identifies saveable topics, suggests a save location under Portfolio/, and writes
+  the content. Use when: "save this," "save chat," "keep this," "save that analysis,"
+  "write that down," "persist this," or any request to capture chat output for later reference.
 argument-hint: 'Optional: topic name or file path'
 ---
 
 # Save Chat
 
-Save recent chat analysis/output to a file. Scans the last few assistant turns, identifies topics, asks user which to save and where, then writes it.
+## Purpose
+
+Captures useful chat output — analyses, frameworks, tables, decisions — into persistent
+files before the conversation scrolls away. Unlike session-recap (which logs what happened
+in a session), save-chat preserves the *content* of specific analyses so you can reference
+them later.
+
+Standalone. Stateless. Can be invoked at any point in any conversation.
 
 ## When to Use
+
 - "Save this" / "save that analysis" / "keep this"
 - "Write that down" / "persist this" / "save chat"
 - After a useful analysis you want to reference later
@@ -16,39 +28,45 @@ Save recent chat analysis/output to a file. Scans the last few assistant turns, 
 
 ## Procedure
 
-### Step 1: Scan Recent Turns
+### Step 0 — Pre-flight
 
-Read the **last 3–5 assistant responses** in the conversation. These are the immediate outputs the user is referring to.
+Parse the user's request for:
+- **Topic name** — if provided ("save the MECE analysis"), scan for that topic specifically.
+- **Full path** — if provided, use it directly and skip Step 2.
+- **Bare request** — if just "save this," scan all recent turns.
 
-> If the user specifies a topic ("save the MECE analysis"), scan for that topic specifically. If they just say "save this," present all recent topics.
+### Step 1 — Scan & Identify Topics
 
-### Step 2: Identify Topics
+Read the **last 3–5 assistant responses** in the conversation.
 
 Group the recent output into distinct topics. Each topic is a coherent analysis, framework, table, or answer. Examples:
 - "PM Portfolio Allocation by DRI"
 - "MECE Categorization Framework (5-bucket)"
 - "Devin Gap Analysis"
 
-Present to the user:
+If only one topic was discussed, skip to Step 2 with that topic.
+
+If multiple topics, present them:
 
 ```
 Recent topics I can save:
 1. {Topic A} — {1-line summary}
 2. {Topic B} — {1-line summary}
 3. {Topic C} — {1-line summary}
+4. ALL — save all of the above
 
 Which ones? (all / numbers / or describe what you want)
 ```
 
-If only one topic was discussed in recent turns, skip the selection and confirm: "Save **{topic}**? I'll suggest a location."
+**Stop and wait for the user's selection before proceeding.**
 
-### Step 3: Suggest Save Location
+### Step 2 — Suggest Save Location
 
-For each selected topic, suggest a file path under `Portfolio/`. The suggestion should be based on:
+For each selected topic, suggest a file path under `Portfolio/`. Base the suggestion on:
 
-1. **Existing folder structure** — scan `Portfolio/` for folders that match the topic domain
+1. **Existing folder structure** — scan `Portfolio/` for folders that match the topic domain.
 2. **Topic content** — team-related → `Portfolio/Team/`, strategy → `Portfolio/Safety H1 2026/`, model-specific → relevant workstream, etc.
-3. **Filename** — always prefix with `chat-`, then kebab-case topic: `chat-{topic-slug}.md`
+3. **Filename** — kebab-case with `chat-` prefix: `chat-{topic-slug}.md`.
 
 Present the suggestion:
 
@@ -58,11 +76,11 @@ Suggested location: Portfolio/Safety H1 2026/chat-mece-portfolio-categories.md
 Save here, or provide a different path?
 ```
 
-**Wait for user confirmation.** If user provides a different path, use that.
+**Stop and wait for user confirmation.** If user provides a different path, use that.
 
-### Step 4: Format & Write
+### Step 3 — Format & Write
 
-**If the file does not exist** — create it with this structure:
+**If the file does not exist** — create it:
 
 ```markdown
 # {Topic Title}
@@ -72,7 +90,7 @@ Save here, or provide a different path?
 {Content from the chat, cleaned up}
 ```
 
-**If the file already exists** — append a new dated section to the end:
+**If the file already exists** — append a new dated section:
 
 ```markdown
 
@@ -95,7 +113,7 @@ This keeps one file per topic that grows over time. No user prompt needed for ap
 - If the output included tables, code blocks, or queries, keep them as-is
 - Do NOT add new analysis or commentary — save what was said
 
-### Step 5: Confirm
+### Step 4 — Confirm
 
 ```
 Saved: {path}
@@ -109,3 +127,10 @@ If multiple topics were saved, list all paths.
 - **User specifies a topic not in recent turns:** Search the conversation summary for it. If found, extract and save. If not: "I don't see that topic in recent conversation. Can you describe what you want saved?"
 - **User provides a full path:** Use it directly, skip the suggestion step.
 - **File already exists at suggested path:** Auto-append with a `## Update: YYYY-MM-DD` section. No prompt needed — accumulating context on a topic is the intended behavior.
+
+## Common Mistakes
+
+1. **Summarizing instead of saving.** The user wants the full content preserved, not a compressed version. Keep everything.
+2. **Adding new analysis.** Save what was said in the chat. Do not add commentary, caveats, or extensions.
+3. **Overwriting existing files.** Always append with a dated section header. Never replace existing content.
+4. **Saving conversational scaffolding.** Strip "Here's what I found:", "Let me know if...", "Happy to help with..." — keep only the substance.
