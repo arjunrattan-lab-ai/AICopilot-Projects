@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Event Trace · 06144579</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #16213e 100%);
+      border-bottom: 1px solid #2d3748;
+      padding: 24px 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    header .logo {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, #f97316, #ef4444);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    header h1 { font-size: 19px; font-weight: 700; color: #f1f5f9; }
+    header p  { font-size: 13px; color: #64748b; margin-top: 3px; }
+    .header-meta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .header-meta span {
+      font-size: 11px;
+      color: #94a3b8;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid #2d3748;
+      border-radius: 6px;
+      padding: 4px 10px;
+    }
+    .header-meta span strong { color: #cbd5e1; }
+
+    /* ── Layout ── */
+    .main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 40px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      margin-bottom: 16px;
+    }
+
+    /* ── Stage cards ── */
+    .stages-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .stage-card {
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 12px;
+      padding: 18px;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+      position: relative;
+    }
+    .stage-card:hover { border-color: #4a5568; transform: translateY(-2px); }
+    .stage-card .icon  { font-size: 22px; margin-bottom: 10px; }
+    .stage-card .num   {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 6px; opacity: 0.75;
+    }
+    .stage-card h3 { font-size: 13px; font-weight: 600; color: #f1f5f9; margin-bottom: 7px; }
+    .stage-card p  { font-size: 12px; color: #94a3b8; line-height: 1.65; }
+    .stage-card .tag {
+      display: inline-block; font-size: 10px; font-weight: 600;
+      padding: 2px 8px; border-radius: 99px; margin-top: 10px;
+    }
+    .status-pip {
+      position: absolute; top: 14px; right: 14px;
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+
+    /* stage color themes */
+    .s-edge    { border-top: 3px solid #f97316; } .s-edge    .num { color: #f97316; }
+    .s-fis     { border-top: 3px solid #3b82f6; } .s-fis     .num { color: #3b82f6; }
+    .s-efs     { border-top: 3px solid #8b5cf6; } .s-efs     .num { color: #8b5cf6; }
+    .s-annot   { border-top: 3px solid #94a3b8; } .s-annot   .num { color: #94a3b8; }
+    .s-be      { border-top: 3px solid #10b981; } .s-be      .num { color: #10b981; }
+    .s-media   { border-top: 3px solid #f59e0b; } .s-media   .num { color: #f59e0b; }
+    .s-alerts  { border-top: 3px solid #ef4444; } .s-alerts  .num { color: #ef4444; }
+    .s-dash    { border-top: 3px solid #10b981; } .s-dash    .num { color: #10b981; }
+
+    .tag-orange { background: rgba(249,115,22,0.15);  color: #f97316; }
+    .tag-blue   { background: rgba(59,130,246,0.15);  color: #3b82f6; }
+    .tag-purple { background: rgba(139,92,246,0.15);  color: #8b5cf6; }
+    .tag-gray   { background: rgba(148,163,184,0.12); color: #94a3b8; }
+    .tag-green  { background: rgba(16,185,129,0.15);  color: #10b981; }
+    .tag-yellow { background: rgba(245,158,11,0.15);  color: #f59e0b; }
+    .tag-red    { background: rgba(239,68,68,0.15);   color: #ef4444; }
+
+    .pip-green  { background: #22c55e; box-shadow: 0 0 6px #22c55e88; }
+    .pip-red    { background: #ef4444; box-shadow: 0 0 6px #ef444488; }
+    .pip-yellow { background: #f59e0b; box-shadow: 0 0 6px #f59e0b88; }
+    .pip-gray   { background: #4b5563; }
+
+    /* ── Diagram ── */
+    .pipeline-flow {
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+      overflow-x: auto;
+    }
+    .pipeline-flow .mermaid { display: flex; justify-content: center; }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 12px; color: #94a3b8;
+    }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* ── Callout boxes ── */
+    .callout {
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+    .callout-title {
+      font-size: 13px; font-weight: 700;
+      margin-bottom: 6px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .callout p, .callout li {
+      font-size: 13px; line-height: 1.65;
+    }
+    .callout ul { padding-left: 18px; }
+    .callout li { margin-bottom: 4px; }
+    .callout code {
+      background: rgba(255,255,255,0.08); border-radius: 4px;
+      padding: 1px 6px;
+      font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11px;
+    }
+
+    .callout-red    { background: rgba(239,68,68,0.08);  border: 1px solid rgba(239,68,68,0.3);  border-left: 4px solid #ef4444; }
+    .callout-red    .callout-title { color: #ef4444; }
+    .callout-red    p, .callout-red li { color: #fca5a5; }
+
+    .callout-yellow { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.3); border-left: 4px solid #f59e0b; }
+    .callout-yellow .callout-title { color: #f59e0b; }
+    .callout-yellow p, .callout-yellow li { color: #fde68a; }
+
+    .callout-blue   { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.3); border-left: 4px solid #3b82f6; }
+    .callout-blue   .callout-title { color: #7dd3fc; }
+    .callout-blue   p, .callout-blue li { color: #bfdbfe; }
+
+    .callouts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    /* ── Table ── */
+    .table-section {
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .table-header {
+      padding: 14px 24px;
+      border-bottom: 1px solid #2d3748;
+      font-size: 14px; font-weight: 600; color: #f1f5f9;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      background: #161b2a; color: #94a3b8; font-weight: 600;
+      text-align: left; padding: 11px 24px;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    tbody tr { border-top: 1px solid #1e2536; transition: background 0.15s; }
+    tbody tr:hover { background: #1e2740; }
+    tbody td { padding: 11px 24px; color: #cbd5e1; line-height: 1.5; vertical-align: top; }
+    tbody td:first-child {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11px; color: #7dd3fc; white-space: nowrap;
+    }
+    .val-null  { color: #ef4444; font-weight: 600; font-size: 11px; }
+    .val-ok    { color: #22c55e; font-weight: 600; font-size: 11px; }
+    .val-warn  { color: #f59e0b; font-weight: 600; font-size: 11px; }
+    .val-mono  {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11px; color: #94a3b8;
+    }
+
+    /* ── DPE detail card ── */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .detail-card {
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .detail-card .label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #64748b; margin-bottom: 6px;
+    }
+    .detail-card .value {
+      font-size: 14px; font-weight: 600; color: #f1f5f9;
+    }
+    .detail-card .sub {
+      font-size: 11px; color: #64748b; margin-top: 3px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">📱</div>
+  <div style="flex:1">
+    <h1>Cell Phone Event — End-to-End Pipeline Trace</h1>
+    <p>Edge · FIS · EFS · Annotations · Backend · FM Dashboard</p>
+    <div class="header-meta">
+      <span><strong>Offline ID</strong> 06144579-a7d9-4669-92eb-7d290cae1f55</span>
+      <span><strong>CE Offline ID</strong> 6ca5ad51-6a3b-4024-876f-ed1d0f7d2a43</span>
+      <span><strong>Date</strong> 2022-04-02 · 15:44:32 UTC (08:44 PT)</span>
+      <span><strong>Duration</strong> ~6s · 5 tolerance windows</span>
+      <span><strong>Location</strong> Olathe, KS</span>
+      <span><strong>Speed</strong> 66 → 56 kph</span>
+    </div>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- ── Stage cards ── -->
+  <div class="section-title">Pipeline Stages</div>
+  <div class="stages-grid">
+
+    <div class="stage-card s-edge">
+      <div class="status-pip pip-green"></div>
+      <div class="icon">📹</div>
+      <div class="num">Stage 1 · Edge</div>
+      <h3>DC-54 · lbb-3.6ca Host</h3>
+      <p>Perception Engine runs UDM model per frame. AE v12 at threshold 0.99 across 5 tolerance windows (6s). Alert generated and DPE JSON bundled. ELD: AABL36HC036434.</p>
+      <span class="tag tag-orange">On-device</span>
+    </div>
+
+    <div class="stage-card s-fis">
+      <div class="status-pip pip-green"></div>
+      <div class="icon">📤</div>
+      <div class="num">Stage 2 · FIS</div>
+      <h3>File Ingestion Service</h3>
+      <p>DPE JSON received and stored as <code>.json.gz</code> in <em>keep-truckin-data-lake</em> at <code>date=2022-04-02/hour=15/</code>. File confirmed in both CE_LOGS and CAMERA_MEDIA.</p>
+      <span class="tag tag-blue">Cloud · S3</span>
+    </div>
+
+    <div class="stage-card s-efs">
+      <div class="status-pip pip-green"></div>
+      <div class="icon">🔍</div>
+      <div class="num">Stage 3 · EFS</div>
+      <h3>Event Filtering Service</h3>
+      <p>All filters passed: <code>active_frames</code> 0.62 &gt; 0.5, <code>analysis_engine</code> 0.99, all secondary validations. Decision: <strong>accepted</strong>. Flags: <code>video_required: true</code>, <code>annotations_required: false</code>.</p>
+      <span class="tag tag-purple">Accepted</span>
+    </div>
+
+    <div class="stage-card s-annot">
+      <div class="status-pip pip-gray"></div>
+      <div class="icon">🏷️</div>
+      <div class="num">Stage 4 · Annotations</div>
+      <h3>Human Review — Skipped</h3>
+      <p><code>annotations_required = false</code> — no annotation record created. Event forwarded directly to backend, bypassing the annotation gate.</p>
+      <span class="tag tag-gray">Skipped by design</span>
+    </div>
+
+    <div class="stage-card s-be">
+      <div class="status-pip pip-green"></div>
+      <div class="icon">🖥️</div>
+      <div class="num">Stage 5 · Backend</div>
+      <h3>K2Web · DPE Created</h3>
+      <p>Event received and not capped (<code>additional_data: null</code>). DPE ID <strong>487304250</strong> written with <code>status: 0</code>, trigger: <code>hubble</code>. No driver, risk level, or coaching status assigned.</p>
+      <span class="tag tag-green">Not Capped</span>
+    </div>
+
+    <div class="stage-card s-media">
+      <div class="status-pip pip-yellow"></div>
+      <div class="icon">🎞️</div>
+      <div class="num">Stage 6 · Camera Media</div>
+      <h3>Video — Missing</h3>
+      <p>Video requested (<code>video_required: true</code>) but <code>CAMERA_MEDIA.action = delete</code>, <code>available = false</code>, all file fields null. Device likely went offline before upload.</p>
+      <span class="tag tag-yellow">Degraded</span>
+    </div>
+
+    <div class="stage-card s-alerts">
+      <div class="status-pip pip-red"></div>
+      <div class="icon">🔇</div>
+      <div class="num">Parallel · In-Cab Alert</div>
+      <h3>Alert Silenced</h3>
+      <p>No record in <code>IN_CAB_ALERTS_WH</code> for device in ±2 min window. Alert silenced — backoff/cooldown active. Sibling event <code>f7895d72</code> in same CE bundle was the primary alert carrier.</p>
+      <span class="tag tag-red">Silenced</span>
+    </div>
+
+    <div class="stage-card s-dash">
+      <div class="status-pip pip-green"></div>
+      <div class="icon">📊</div>
+      <div class="num">Stage 7 · FM Dashboard</div>
+      <h3>Visible — No Attribution</h3>
+      <p>DPE record <strong>487304250</strong> exists and is visible to fleet manager in Safety Hub. Event shows with no driver, no risk level, no video, and no coaching workflow.</p>
+      <span class="tag tag-green">Visible</span>
+    </div>
+
+  </div>
+
+  <!-- ── DPE detail cards ── -->
+  <div class="section-title">DPE Record · 487304250</div>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <div class="label">DPE ID</div>
+      <div class="value">487304250</div>
+      <div class="sub">DRIVER_PERFORMANCE_EVENTS</div>
+    </div>
+    <div class="detail-card">
+      <div class="label">Trigger</div>
+      <div class="value">hubble</div>
+      <div class="sub">Filter version: v4</div>
+    </div>
+    <div class="detail-card">
+      <div class="label">Status</div>
+      <div class="value">0</div>
+      <div class="sub">No coaching triggered</div>
+    </div>
+    <div class="detail-card">
+      <div class="label">Driver ID</div>
+      <div class="value" style="color:#ef4444">null</div>
+      <div class="sub">No face match · no driving period</div>
+    </div>
+    <div class="detail-card">
+      <div class="label">Risk Level</div>
+      <div class="value" style="color:#ef4444">null</div>
+      <div class="sub">Not assigned</div>
+    </div>
+    <div class="detail-card">
+      <div class="label">Location</div>
+      <div class="value" style="font-size:13px">Olathe, KS</div>
+      <div class="sub">38.856°N · -94.817°W</div>
+    </div>
+    <div class="detail-card">
+      <div class="label">AE Version</div>
+      <div class="value">v12</div>
+      <div class="sub">Hubble config 0 (default) · set 2022-03-29</div>
+    </div>
+    <div class="detail-card">
+      <div class="label">Threshold</div>
+      <div class="value">0.99</div>
+      <div class="sub">5 tolerance windows · 6 seconds</div>
+    </div>
+    <div class="detail-card">
+      <div class="label">Camera FW · Host FW</div>
+      <div class="value" style="font-size:13px">14008 · 76014</div>
+      <div class="sub">dc54 · lbb-3.6ca</div>
+    </div>
+  </div>
+
+  <!-- ── Flow diagram ── -->
+  <div class="section-title">Event Flow</div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div> Traversed</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div> Blocked / Silenced</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div> Degraded / Partial</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4b5563"></div> Skipped by design</div>
+  </div>
+  <div class="pipeline-flow">
+    <div class="mermaid">
+flowchart TD
+    classDef hit     fill:#14532d,color:#bbf7d0,stroke:#22c55e,stroke-width:1.5px
+    classDef blocked fill:#7f1d1d,color:#fecaca,stroke:#ef4444,stroke-width:1.5px
+    classDef warn    fill:#78350f,color:#fde68a,stroke:#f59e0b,stroke-width:1.5px
+    classDef skip    fill:#1f2937,color:#9ca3af,stroke:#374151,stroke-width:1.5px
+
+    subgraph EDGE["📹 Edge · dc54 · lbb-3.6ca · ELD AABL36HC036434"]
+        PE["Perception Engine\nUDM model per frame"]
+        AE["Analysis Engine\nAE v12 · threshold 0.99\n5 windows / 6s"]
+        ALERT_GEN["Alert Generated"]
+        BACKOFF{"Backoff / Cooldown\nCheck"}
+        PLAYED["In-Cab Alert PLAYED\naudio + LED"]
+        SILENT["Alert SILENCED\n(backoff active)"]
+        DPE_BUNDLE["DPE JSON Bundled\ncam FW 14008 · host FW 76014"]
+        FIS_SEND["Sent to FIS via S3"]
+    end
+
+    subgraph CLOUD["☁️ Cloud Ingestion"]
+        FIS["FIS · S3 Storage\nkeep-truckin-data-lake\ndate=2022-04-02/hour=15/6ca5ad51...json.gz"]
+    end
+
+    subgraph EFS_LAYER["🔍 EFS · Event Filtering Service"]
+        EFS_PROC["Filters Run\nactive_frames: PASS 0.62 > 0.5\nanalysis_engine: PASS 0.99\nsecondary_validations: all PASS"]
+        EFS_DEC{"EFS Decision"}
+        ACCEPTED["ACCEPTED\nvideo_required: true\nannotations_required: false"]
+        REJECTED["REJECTED"]
+    end
+
+    subgraph LOGS["🗄️ Snowflake Logs"]
+        CE_LOG["CE_LOGS\nce_offline_id: 6ca5ad51..."]
+        EV_LOG["EVENT_LOGS\noffline_id: 06144579...\nstatus: accepted"]
+    end
+
+    subgraph ANNO["🏷️ Annotations Tool"]
+        ANNO_SKIP["SKIPPED\nannotations_required = false"]
+    end
+
+    subgraph BACKEND["🖥️ Backend · K2Web"]
+        BE_RECV["Backend receives event\n(bypasses annotation gate)"]
+        CAP{"Capping Check\nadditional_data: null"}
+        CAPPED["CAPPED\nvideo not delivered"]
+        DPE["DRIVER_PERFORMANCE_EVENTS\nDPE ID: 487304250 · status: 0\nDRIVER_ID: null · RISK_LEVEL: null\nOlathe KS · 66→56 kph"]
+    end
+
+    subgraph MEDIA["🎞️ Camera Media"]
+        CM["CAMERA_MEDIA\naction: DELETE · available: false\nFile size/type: null\nVideo never uploaded"]
+    end
+
+    subgraph DASHBOARD["📊 FM Dashboard"]
+        FM["Event VISIBLE\nDPE 487304250 exists\nNo driver · no risk · no video"]
+    end
+
+    subgraph ALERTS_LOG["🔇 In-Cab Alerts Log"]
+        NO_ALERT["No record in IN_CAB_ALERTS_WH\nSilenced · sibling f7895d72\nwas primary alert carrier"]
+    end
+
+    subgraph CONFIG["⚙️ Hubble Config"]
+        HC["HUBBLE_CONFIGS\nVersion: 12 · Config: 0 (default)\nSet: 2022-03-29"]
+    end
+
+    PE --> AE
+    AE --> ALERT_GEN
+    AE --> DPE_BUNDLE
+    ALERT_GEN --> BACKOFF
+    BACKOFF -->|"Cooldown active"| SILENT
+    BACKOFF -.->|"Would play if clear"| PLAYED
+    DPE_BUNDLE --> FIS_SEND
+    FIS_SEND --> FIS
+    FIS --> EFS_PROC
+    FIS -.-> CE_LOG
+    EFS_PROC --> EFS_DEC
+    EFS_DEC -->|"All filters pass"| ACCEPTED
+    EFS_DEC -.->|"Any fail"| REJECTED
+    ACCEPTED --> EV_LOG
+    ACCEPTED --> ANNO_SKIP
+    ANNO_SKIP --> BE_RECV
+    BE_RECV --> CAP
+    CAP -->|"Within cap"| DPE
+    CAP -.->|"Over cap"| CAPPED
+    DPE --> CM
+    DPE --> FM
+    SILENT -.-> NO_ALERT
+    HC -.->|"Active at event time"| AE
+
+    class PE,AE,ALERT_GEN,DPE_BUNDLE,FIS_SEND hit
+    class FIS,EFS_PROC,ACCEPTED,CE_LOG,EV_LOG hit
+    class BE_RECV,CAP,DPE,FM,HC hit
+    class SILENT,NO_ALERT blocked
+    class CM warn
+    class PLAYED,REJECTED,CAPPED,ANNO_SKIP skip
+    </div>
+  </div>
+
+  <!-- ── Callout observations ── -->
+  <div class="section-title">Notable Observations</div>
+  <div class="callouts-grid">
+
+    <div class="callout callout-red">
+      <div class="callout-title">🚫 No Driver Identified</div>
+      <p><code>DRIVER_ID</code> is <strong>null</strong> — no face match succeeded and no driving period was associated with this event. The DPE is visible on the FM dashboard but completely unattributed. No coaching workflow was triggered as a result.</p>
+    </div>
+
+    <div class="callout callout-red">
+      <div class="callout-title">🔇 Alert Silenced — Not Played</div>
+      <p>No record exists in <code>SAFETY.PRODUCTION_JSON_SAFETY_IN_CAB_ALERTS_WH</code> for device <code>AABL36HC036434</code> in the ±2 min window. Backoff or cooldown was active. Sibling event <code>f7895d72</code> in the same CE bundle was the primary alert carrier — this event's alert was suppressed.</p>
+    </div>
+
+    <div class="callout callout-yellow">
+      <div class="callout-title">⚠️ Video Missing</div>
+      <p>Video was requested (<code>video_required: true</code>) but <code>CAMERA_MEDIA.action = 'delete'</code> and <code>available = false</code>. All file fields (<code>FILE_SIZE</code>, <code>FILE_TYPE</code>) are null. The video likely never left the device — device probably went offline before upload could complete.</p>
+    </div>
+
+    <div class="callout callout-blue">
+      <div class="callout-title">ℹ️ Alert Status Gotcha</div>
+      <p><code>ALERT_STATUS</code> in EVENT_LOGS shows <code>associated_events: [f7895d72...]</code> — this confirms an associated event exists, but does <strong>NOT</strong> mean the alert played on this specific event. The only definitive proof of a played alert is a record in <code>IN_CAB_ALERTS_WH</code>.</p>
+    </div>
+
+    <div class="callout callout-blue">
+      <div class="callout-title">ℹ️ Default Hubble Config</div>
+      <p>Hubble config <code>"0"</code> (default, no customization) was active at event time. Threshold 0.99 came from base AE defaults — no fleet-specific tuning was in effect. Config was set on 2022-03-29, 4 days before this event.</p>
+    </div>
+
+    <div class="callout callout-yellow">
+      <div class="callout-title">⚠️ Annotations Bypassed</div>
+      <p>EFS set <code>annotations_required = false</code>, so no record was created in the ANNOTATIONS table and the event bypassed human review entirely. It went directly from EFS acceptance to the backend, which is expected behavior for this filter configuration.</p>
+    </div>
+
+  </div>
+
+  <!-- ── EFS Filter detail ── -->
+  <div class="section-title">EFS Filter Results</div>
+  <div class="table-section">
+    <div class="table-header">🔍 Event Filtering Service — All Checks</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Filter</th>
+          <th>Result</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>active_frames</td>
+          <td><span class="val-ok">PASS</span></td>
+          <td>Ratio 0.62 &gt; threshold 0.5</td>
+        </tr>
+        <tr>
+          <td>analysis_engine</td>
+          <td><span class="val-ok">PASS</span></td>
+          <td>Threshold 0.99 met</td>
+        </tr>
+        <tr>
+          <td>secondary_validation · 0.5</td>
+          <td><span class="val-ok">PASS</span></td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>secondary_validation · 0.75</td>
+          <td><span class="val-ok">PASS</span></td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>secondary_validation · 0.8</td>
+          <td><span class="val-ok">PASS</span></td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>secondary_validation · 0.9</td>
+          <td><span class="val-ok">PASS</span></td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td>secondary_validation · 0.99</td>
+          <td><span class="val-ok">PASS</span></td>
+          <td>true</td>
+        </tr>
+        <tr>
+          <td><strong>Overall Decision</strong></td>
+          <td><span class="val-ok">ACCEPTED</span></td>
+          <td><code>video_required: true</code> · <code>annotations_required: false</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── Snowflake table map ── -->
+  <div class="section-title">Snowflake Table Map</div>
+  <div class="table-section">
+    <div class="table-header">🗄️ Tables Queried — Keys &amp; Findings</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Table</th>
+          <th>Finding for this event</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FLEET_DPES.<br/>PRODUCTION_JSON_FLEET_DPE_EVENT_LOGS</td>
+          <td>offline_id confirmed · status: <code>accepted</code> · event_type: <code>cell_phone</code></td>
+          <td><span class="val-ok">Found</span></td>
+        </tr>
+        <tr>
+          <td>FLEET_DPES.<br/>PRODUCTION_JSON_FLEET_DPE_CE_LOGS</td>
+          <td>ce_offline_id confirmed · AE v12 · cam: dc54 · S3 file_key present</td>
+          <td><span class="val-ok">Found</span></td>
+        </tr>
+        <tr>
+          <td>K2_PROD_PUBLIC.<br/>HUBBLE_CONFIGS</td>
+          <td>Version 12 · config 0 (default) · set 2022-03-29 for ELD AABL36HC036434</td>
+          <td><span class="val-ok">Found</span></td>
+        </tr>
+        <tr>
+          <td>AT_PROD_REPLICA_AT_V0.<br/>ANNOTATIONS</td>
+          <td>No record — <code>annotations_required = false</code>, skipped by design</td>
+          <td><span class="val-gray" style="color:#9ca3af;font-weight:600;font-size:11px">Skipped</span></td>
+        </tr>
+        <tr>
+          <td>K2_PROD_PUBLIC.<br/>DRIVER_PERFORMANCE_EVENTS</td>
+          <td>DPE ID 487304250 · status: 0 · trigger: hubble · DRIVER_ID: <span class="val-null">null</span> · RISK_LEVEL: <span class="val-null">null</span></td>
+          <td><span class="val-ok">Found</span></td>
+        </tr>
+        <tr>
+          <td>K2_PROD_PUBLIC.<br/>CAMERA_MEDIA</td>
+          <td>action: <span class="val-warn">delete</span> · available: <span class="val-null">false</span> · file fields null · video never uploaded</td>
+          <td><span class="val-warn">Degraded</span></td>
+        </tr>
+        <tr>
+          <td>SAFETY.<br/>PRODUCTION_JSON_SAFETY_IN_CAB_ALERTS_WH</td>
+          <td>No record for AABL36HC036434 in ±2 min window — alert was silenced</td>
+          <td><span class="val-null">Not found</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      background: '#1a1f2e',
+      primaryColor: '#1e2538',
+      primaryTextColor: '#f1f5f9',
+      primaryBorderColor: '#3b82f6',
+      lineColor: '#4a5568',
+      secondaryColor: '#1e2538',
+      tertiaryColor: '#161b2a',
+      edgeLabelBackground: '#1a1f2e',
+      clusterBkg: '#161b2a',
+      clusterBorder: '#2d3748',
+      fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif',
+    },
+    flowchart: { curve: 'basis', padding: 20 }
+  });
+</script>
+</body>
+</html>

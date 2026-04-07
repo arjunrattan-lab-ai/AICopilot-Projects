@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Safety AI Event Pipeline</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a1f2e 0%, #16213e 100%);
+      border-bottom: 1px solid #2d3748;
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    header .logo {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #f97316, #ef4444);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+
+    header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    header p {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 40px;
+    }
+
+    /* Stage cards */
+    .stages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stage-card {
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 12px;
+      padding: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+
+    .stage-card:hover {
+      border-color: #4a5568;
+      transform: translateY(-2px);
+    }
+
+    .stage-card .icon { font-size: 24px; margin-bottom: 10px; }
+
+    .stage-card h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #f1f5f9;
+      margin-bottom: 6px;
+    }
+
+    .stage-card .num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      opacity: 0.7;
+    }
+
+    .stage-card p {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .stage-card .tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-top: 10px;
+    }
+
+    /* Color themes per stage */
+    .stage-edge   { border-top: 3px solid #f97316; } .stage-edge .num   { color: #f97316; }
+    .stage-fis    { border-top: 3px solid #3b82f6; } .stage-fis .num    { color: #3b82f6; }
+    .stage-efs    { border-top: 3px solid #8b5cf6; } .stage-efs .num    { color: #8b5cf6; }
+    .stage-annot  { border-top: 3px solid #eab308; } .stage-annot .num  { color: #eab308; }
+    .stage-be     { border-top: 3px solid #10b981; } .stage-be .num     { color: #10b981; }
+    .stage-alerts { border-top: 3px solid #ef4444; } .stage-alerts .num { color: #ef4444; }
+
+    .tag-orange { background: rgba(249,115,22,0.15); color: #f97316; }
+    .tag-blue   { background: rgba(59,130,246,0.15); color: #3b82f6; }
+    .tag-purple { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+    .tag-yellow { background: rgba(234,179,8,0.15);  color: #eab308; }
+    .tag-green  { background: rgba(16,185,129,0.15); color: #10b981; }
+    .tag-red    { background: rgba(239,68,68,0.15);  color: #ef4444; }
+
+    /* Flow diagram */
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    .pipeline-flow {
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+      overflow-x: auto;
+    }
+
+    .pipeline-flow .mermaid {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Table */
+    .table-section {
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+
+    .table-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid #2d3748;
+      font-size: 14px;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    thead th {
+      background: #161b2a;
+      color: #94a3b8;
+      font-weight: 600;
+      text-align: left;
+      padding: 12px 24px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    tbody tr {
+      border-top: 1px solid #1e2536;
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover { background: #1e2740; }
+
+    tbody td {
+      padding: 12px 24px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    tbody td:first-child {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11px;
+      color: #7dd3fc;
+      white-space: nowrap;
+    }
+
+    /* Gotcha box */
+    .gotcha {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-left: 4px solid #ef4444;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 32px;
+    }
+
+    .gotcha .gotcha-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ef4444;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .gotcha p {
+      font-size: 13px;
+      color: #fca5a5;
+      line-height: 1.6;
+    }
+
+    .gotcha code {
+      background: rgba(255,255,255,0.08);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11px;
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🚛</div>
+  <div>
+    <h1>Safety AI Event Pipeline</h1>
+    <p>Edge → FIS → EFS → Annotations → Backend → FM Dashboard</p>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- Stage cards -->
+  <div class="section-title">Pipeline Stages</div>
+  <div class="stages-grid">
+
+    <div class="stage-card stage-edge">
+      <div class="icon">📹</div>
+      <div class="num">Stage 1 · Edge</div>
+      <h3>Dashcam (DC-53/DC-54)</h3>
+      <p>Perception Engine runs UDM model on every frame. Analysis Engine watches confidence scores — if above threshold for min_duration, triggers an alert and bundles a DPE JSON composite event.</p>
+      <span class="tag tag-orange">On-device</span>
+    </div>
+
+    <div class="stage-card stage-fis">
+      <div class="icon">📤</div>
+      <div class="num">Stage 2 · FIS</div>
+      <h3>File Ingestion Service</h3>
+      <p>Receives DPE JSON from edge via S3. Stores compressed <code style="background:rgba(255,255,255,0.07);border-radius:4px;padding:1px 5px;font-size:11px;">.json.gz</code> in <em>keep-truckin-data-lake</em>. Passes event to EFS for filtering.</p>
+      <span class="tag tag-blue">Cloud</span>
+    </div>
+
+    <div class="stage-card stage-efs">
+      <div class="icon">🔍</div>
+      <div class="num">Stage 3 · EFS</div>
+      <h3>Event Filtering Service</h3>
+      <p>Post-filters for false positives: speed mode, low FPS, obstruction, face proximity. Sets <em>video_required</em> and <em>annotations_required</em> flags. Alerts are NOT processed here — only logged.</p>
+      <span class="tag tag-purple">Cloud</span>
+    </div>
+
+    <div class="stage-card stage-annot">
+      <div class="icon">🏷️</div>
+      <div class="num">Stage 4 · Annotations</div>
+      <h3>Human Review Tool</h3>
+      <p>Annotators review video clips and apply behavioral tags per product definitions. True positives flow to backend; false positives feed model retraining.</p>
+      <span class="tag tag-yellow">Manual Review</span>
+    </div>
+
+    <div class="stage-card stage-be">
+      <div class="icon">🖥️</div>
+      <div class="num">Stage 5 · Backend</div>
+      <h3>K2Web Backend</h3>
+      <p>Applies capping logic per driver/period. Records events in <em>DRIVER_PERFORMANCE_EVENTS</em> with coaching status, risk level, driver ID (face_match), and location data.</p>
+      <span class="tag tag-green">K2Web</span>
+    </div>
+
+    <div class="stage-card stage-alerts">
+      <div class="icon">🔊</div>
+      <div class="num">Parallel · In-Cab Alerts</div>
+      <h3>Alerts Logging</h3>
+      <p>Only <em>played</em> alerts (audio heard in-cab) are recorded in <code style="background:rgba(255,255,255,0.07);border-radius:4px;padding:1px 5px;font-size:11px;">IN_CAB_ALERTS_WH</code>. Silenced alerts (backoff/cooldown/mode=1) are still logged to event tables but not here.</p>
+      <span class="tag tag-red">Definitive Source</span>
+    </div>
+
+  </div>
+
+  <!-- Flow diagram -->
+  <div class="section-title">Event Flow</div>
+  <div class="pipeline-flow">
+    <div class="mermaid">
+flowchart LR
+    CAM["📹 Camera Feed"] --> PE["Perception Engine\n(UDM model per frame)"]
+    PE --> AE["Analysis Engine\n(score > threshold × duration)"]
+    AE -->|"Alert triggered"| BACKOFF{"Backoff /\nCooldown"}
+    BACKOFF -->|"mode=2, no cooldown"| PLAYED["🔊 In-Cab Alert\nPLAYED"]
+    BACKOFF -->|"mode=1 or cooldown"| SILENT["🔇 Alert\nSilenced"]
+    AE --> CE["DPE JSON\n(composite event)"]
+    PLAYED --> CE
+    SILENT --> CE
+    CE --> FIS["☁️ FIS\nS3 Storage"]
+    FIS --> EFS["🔍 EFS\nPost-filtering"]
+    EFS -->|"Rejected"| REJ["❌ Logged only\n(EVENT_LOGS)"]
+    EFS -->|"Accepted"| THROTTLE{"Throttle\nCheck"}
+    THROTTLE -->|"annotations_required"| AT["🏷️ Annotations\nHuman Review"]
+    THROTTLE -->|"bypass"| BE["🖥️ Backend\nK2Web"]
+    AT -->|"True Positive"| BE
+    AT -->|"False Positive"| FP["Model Retraining"]
+    BE -->|"Within cap"| DPE["DRIVER_PERFORMANCE\n_EVENTS"]
+    BE -->|"Over cap"| CAPPED["📵 Capped\n(no video)"]
+    DPE --> FM["📊 FM Dashboard\n(Safety Hub)"]
+    PLAYED -.->|"Logged separately"| ALERTS["IN_CAB\n_ALERTS_WH"]
+
+    style CAM fill:#1e2538,stroke:#f97316,color:#f1f5f9
+    style PE fill:#1e2538,stroke:#f97316,color:#f1f5f9
+    style AE fill:#1e2538,stroke:#f97316,color:#f1f5f9
+    style BACKOFF fill:#1e2538,stroke:#f97316,color:#f1f5f9
+    style PLAYED fill:#1e2538,stroke:#f97316,color:#f1f5f9
+    style SILENT fill:#1e2538,stroke:#4a5568,color:#94a3b8
+    style CE fill:#1e2538,stroke:#f97316,color:#f1f5f9
+    style FIS fill:#1e2538,stroke:#3b82f6,color:#f1f5f9
+    style EFS fill:#1e2538,stroke:#8b5cf6,color:#f1f5f9
+    style REJ fill:#1e2538,stroke:#ef4444,color:#fca5a5
+    style THROTTLE fill:#1e2538,stroke:#8b5cf6,color:#f1f5f9
+    style AT fill:#1e2538,stroke:#eab308,color:#f1f5f9
+    style BE fill:#1e2538,stroke:#10b981,color:#f1f5f9
+    style FP fill:#1e2538,stroke:#64748b,color:#94a3b8
+    style DPE fill:#1e2538,stroke:#10b981,color:#f1f5f9
+    style CAPPED fill:#1e2538,stroke:#ef4444,color:#fca5a5
+    style FM fill:#1e2538,stroke:#10b981,color:#f1f5f9
+    style ALERTS fill:#1e2538,stroke:#ef4444,color:#fca5a5
+    </div>
+  </div>
+
+  <!-- Gotcha -->
+  <div class="gotcha">
+    <div class="gotcha-title">⚠️ Key Gotcha</div>
+    <p>The <code>ALERT_STATUS</code> field in EFS event logs does <strong>NOT</strong> confirm the alert was played. It only means an alert was <em>associated</em> with the event — it can still be silenced by backoff, cooldown, or <code>mode=1</code>. The only definitive proof is the <code>SAFETY.IN_CAB_ALERTS_WH</code> table. Use <code>created_at</code> timestamps (not IDs) to correlate back to DPE events.</p>
+  </div>
+
+  <!-- Snowflake Table Map -->
+  <div class="section-title">Snowflake Table Map</div>
+  <div class="table-section">
+    <div class="table-header">🗄️ Tables &amp; Key Fields</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Table</th>
+          <th>What's in it</th>
+          <th>Key Fields</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FLEET_DPES.<br/>PRODUCTION_JSON_FLEET_DPE_EVENT_LOGS</td>
+          <td>All events from edge (accepted + rejected)</td>
+          <td>offline_id, event_type, status, filter_results, extra_attributes</td>
+        </tr>
+        <tr>
+          <td>FLEET_DPES.<br/>PRODUCTION_JSON_FLEET_DPE_CE_LOGS</td>
+          <td>Composite event info + S3 file_key for JSON</td>
+          <td>ce_offline_id, identifier, file_key, cam_model_name</td>
+        </tr>
+        <tr>
+          <td>AT_PROD_REPLICA_AT_V0.<br/>ANNOTATIONS</td>
+          <td>Annotation results from human review</td>
+          <td>offline_id, tags, status, consensus</td>
+        </tr>
+        <tr>
+          <td>K2_PROD_PUBLIC.<br/>DRIVER_PERFORMANCE_EVENTS</td>
+          <td>Events visible on FM dashboard</td>
+          <td>offline_id, type, risk_level, coaching_status, driver_id</td>
+        </tr>
+        <tr>
+          <td>K2_PROD_PUBLIC.<br/>CAMERA_MEDIA</td>
+          <td>Video metadata</td>
+          <td>offline_id</td>
+        </tr>
+        <tr>
+          <td>SAFETY.<br/>PRODUCTION_JSON_SAFETY_IN_CAB_ALERTS_WH</td>
+          <td>Played in-cab alerts only (definitive source)</td>
+          <td>created_at, alert_type</td>
+        </tr>
+        <tr>
+          <td>K2_PROD_PUBLIC.<br/>HUBBLE_CONFIGS</td>
+          <td>Camera config versions</td>
+          <td>eld_device_id, version, config (JSON)</td>
+        </tr>
+        <tr>
+          <td>K2_PROD_PUBLIC.<br/>ELD_DEVICES</td>
+          <td>ELD/VG device info</td>
+          <td>identifier, company_id</td>
+        </tr>
+        <tr>
+          <td>K2_PROD_PUBLIC.<br/>ELD_DEVICE_SHADOWS</td>
+          <td>VG5 model versions + configs</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    themeVariables: {
+      background: '#1a1f2e',
+      primaryColor: '#1e2538',
+      primaryTextColor: '#f1f5f9',
+      primaryBorderColor: '#3b82f6',
+      lineColor: '#4a5568',
+      secondaryColor: '#1e2538',
+      tertiaryColor: '#161b2a',
+      edgeLabelBackground: '#1a1f2e',
+      clusterBkg: '#161b2a',
+      clusterBorder: '#2d3748',
+    },
+    flowchart: {
+      curve: 'basis',
+      padding: 20,
+    }
+  });
+</script>
+</body>
+</html>
