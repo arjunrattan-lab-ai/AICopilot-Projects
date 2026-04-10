@@ -1,0 +1,17 @@
+{
+  "servers": {
+    "claude-code": {
+      "type": "stdio",
+      "command": "/Users/arjun.rattan/.local/bin/claude",
+      "args": ["mcp", "serve"]
+    },
+    "fellow": {
+      "type": "stdio",
+      "command": "/bin/bash",
+      "args": [
+        "-c",
+        "export PATH=$(dirname $(which node)):$PATH && export $(grep -v '^#' .automotive-pm/.env | grep FELLOW_ | xargs) && exec npx -y fellow-mcp@latest"
+      ]
+    }
+  }
+}

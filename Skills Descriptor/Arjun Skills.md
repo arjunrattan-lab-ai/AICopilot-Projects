@@ -80,6 +80,89 @@ These live in the workspace and are available when working in this project.
 **Requires:** Jira MCP.
 **Produces:** PM-ready triage brief.
 
+### atpm-harvest
+**Invoke:** `/atpm-harvest`
+**What:** Systematically harvest institutional knowledge from Slack, Google Docs, meeting transcripts, and other ephemeral sources into structured Confluence pages before retention policies delete them.
+**When to use:** "Harvest," "knowledge harvest," "preserve knowledge," "extract from Slack," "retention policy," "knowledge base," or any request to capture tribal knowledge before it disappears.
+**Requires:** Glean MCP, Confluence MCP.
+**Produces:** Structured Confluence pages with harvested knowledge.
+
+### atpm-name
+**Invoke:** `/atpm-name`
+**What:** Pronunciation guide for names on our global team. Takes a name (or list of names), generates pronunciation, stress pattern, common mistakes, and origin. Syncs to the Beautiful Names Confluence page.
+**When to use:** "How do I say," "pronounce," "pronunciation of," "name guide," or any request to help with saying a teammate's name correctly.
+**Produces:** Pronunciation card synced to Confluence.
+
+### atpm-newskill
+**Invoke:** `/atpm-newskill`
+**What:** Create, update, or audit skills in the automotive-pm repo. Scaffolds new skills with correct conventions, fixes existing skills against the canonical spec, and runs full audits across all skills.
+**When to use:** "Create a skill," "new skill," "add a skill," "audit skills," "fix skill conventions," or any request to add or maintain skills in this repo.
+**Produces:** New SKILL.md files or audit reports.
+
+### atpm-plg
+**Invoke:** `/atpm-plg`
+**What:** PLG (Product-Led Growth) ideation partner. Given a metric the PM wants to move, designs in-product campaigns across Motive Dashboard, Fleet App, and Driver App. Researches ideas, designs experiment cohorts, estimates impact, and hands off to /atpm-prototype.
+**When to use:** "PLG campaign," "in-product campaign," "product-led growth," "move a metric," "engagement campaign," "activation campaign," "feature adoption," "retention nudge," or any request to influence a product metric through in-product interaction.
+**Requires:** Glean MCP. Snowflake optional.
+**Produces:** Campaign briefs and experiment designs published to PLG Campaigns section in Confluence.
+
+### atpm-save-chat
+**Invoke:** `/atpm-save-chat`
+**What:** Save recent chat analysis to a file organized by topic. Scans last 3-5 assistant turns, identifies topics, suggests save location under `Portfolio/`, writes full content.
+**When to use:** "Save this," "save chat," "keep this," "write that down," "persist this" — any time the chat produced an analysis, framework, or table worth keeping.
+**Produces:** Markdown file under `Portfolio/{suggested-folder}/{topic-slug}.md`.
+
+### atpm-followup
+**Invoke:** `/atpm-followup`
+**What:** Weekly follow-up report. Scans Slack, email (Gmail), and Fellow meetings for the last 2-4 weeks. Identifies conversations where someone owes you a response (or you owe them one), generates a prioritized follow-up list with tone-calibrated suggested language, and pulls Fellow action items and meeting learnings. Cross-references channels to avoid false positives. After review, sends Slack messages and creates Gmail drafts directly.
+**When to use:** "Follow up report," "who do I need to follow up with," "weekly follow-ups," "Monday morning report," "what's pending," "who hasn't responded," "send my follow-ups," "what did I learn this week."
+**Requires:** Fellow MCP (hard dependency for Sections C+D). Slack MCP + Gmail MCP (primary), Glean (fallback).
+**Produces:** Prioritized follow-up report with send capability. Saved to `pm-planning/followup-{date}.md`.
+
+### atpm-respond
+**Invoke:** `/atpm-respond`
+**What:** Draft a customer-facing response from Product for an escalation. Takes an escalation context (TSSD ticket, Slack thread, or ad-hoc description), researches what happened via Glean and Jira, and produces a polished customer-facing response.
+**When to use:** "Respond to escalation," "draft customer response," "write a response for TSSD-12345," "customer escalation response," or any request to draft a Product reply to an escalated customer issue.
+**Requires:** Glean MCP, Jira MCP.
+**Produces:** Customer-facing response ready to send.
+
+### atpm-rollout
+**Invoke:** `/atpm-rollout`
+**What:** Evidence-based rollout gates for phased launches. Two modes: PLAN (generate gate criteria from PDP + risk analysis before beta) and ASSESS (evaluate real data against gates during beta).
+**When to use:** "Rollout plan for X," "define gates for X," "are we ready for GA," "assess beta for X," "why can't we go faster," "rollout readiness," "gate criteria."
+**Produces:** ROLLOUT-PLAN.md and ROLLOUT-ASSESSMENT.md. Feeds PDP Section 12 and Launch Passport.
+
+### atpm-factsheet
+**Invoke:** `/atpm-factsheet`
+**What:** Generate a Product Fact Sheet for the PM-to-PMM launch handoff. Produces the canonical handoff document that PMM, Product Ops, and Sales Enablement use to build messaging, Help Center content, battle cards, and training decks.
+**When to use:** "Fact sheet for X," "launch handoff," "PMM handoff," "factsheet," "product fact sheet," "prepare for launch."
+**Produces:** Product Fact Sheet document.
+
+### atpm-pricing
+**Invoke:** `/atpm-pricing`
+**What:** Generate a Pricing Committee brief for a new SKU, pricing change, or packaging decision. Covers proposed packaging, price rationale (COGS, competitive, value-based), cannibalization risk, expansion path, and margin analysis.
+**When to use:** "Pricing brief for X," "pricing committee," "new SKU pricing," "packaging proposal," "how should we price X," "add-on pricing," "pricing analysis."
+**Produces:** Pricing Committee brief.
+
+### atpm-value
+**Invoke:** `/atpm-value`
+**What:** Build a feature value narrative giving PMM 4 inputs: customer problem in their language, quantified metric (with $), competitive context, and proof point. Structured around Motive's MVA Three Whys (Why Do Anything, Why Now, Why Motive).
+**When to use:** "Value narrative for X," "PMM inputs for X," "Three Whys for X," "value story," "how do we position X," "messaging inputs," "value articulation."
+**Produces:** Value narrative document.
+
+### atpm-winloss
+**Invoke:** `/atpm-winloss`
+**What:** Digest win/loss patterns for a product area, segment, or time period. Queries Glean for Salesforce closed-won/lost data, SalesLoft transcripts, trial post-mortems, and competitive battle cards.
+**When to use:** "Win loss for X," "why are we losing deals," "loss analysis," "closed lost analysis," "deal loss patterns," "trial losses," "competitive losses."
+**Produces:** Structured brief with top loss reasons, win themes, product implications, and recommended actions.
+
+### atpm-fc-rebate-margin
+**Invoke:** `/atpm-fc-rebate-margin`
+**What:** Compute per-partner net margin (¢/gal) for FleetCard fuel transactions using Snowflake. Handles deferred-rebate mechanism, pass-through customer exclusion, and unit conversions.
+**When to use:** "Net margin by partner," "what do we keep from Love's / TA / Exxon," "partner profitability," "rebate margin analysis," "how much do we earn per gallon," "fuel card net revenue by partner."
+**Requires:** Snowflake MCP.
+**Produces:** Validated partner profitability table.
+
 ### master-aggregator
 **Invoke:** `/master-aggregator`
 **What:** Aggregate all action items across projects into a single master file. Bi-directional sync between Running Tasks files and Arjun's Master Action Items.md.
@@ -105,13 +188,6 @@ These live in the workspace and are available when working in this project.
 **When to use:** End of a working session — "recap," "end session," "what did we do," "wrap up." After long sessions where you want a persistent record.
 **Produces:** Session log at `00 Workstreams/Session Logs/{date}-{slug}.md`. Durable lessons appended to `/memories/repo/lessons.md`.
 **Key feature:** Single-pass, no checkpoints. Reads from conversation summary (if compacted) or raw transcript. Captures skill gaps for periodic review.
-
-### save-chat
-**Invoke:** `/save-chat`
-**What:** Save recent chat analysis to a file organized by topic. Scans last 3-5 assistant turns, identifies topics, suggests save location under `Portfolio/`, writes full content.
-**When to use:** "Save this," "save chat," "keep this," "write that down," "persist this" — any time the chat produced an analysis, framework, or table worth keeping.
-**Produces:** Markdown file under `Portfolio/{suggested-folder}/{topic-slug}.md`.
-**Key feature:** Full content preservation (not summarized). Suggests location based on existing Portfolio folder structure. User confirms or overrides path before writing.
 
 ### prep
 **Invoke:** `/prep`
@@ -161,4 +237,8 @@ Signal arrives → /atpm-discover (S0→S2)
 
 **Throughout:** `/session-processor` after every meeting to layer context. `/task-generator` for quick task extraction. `/master-aggregator` weekly to sync everything. `/session-recap` at end of each working session.
 
-**As needed:** `/atpm-content` for decks/docs. `/atpm-explain` for technical clarity. `/atpm-strategy` for cross-initiative investment decisions. `/mbr-writing-style` for exec updates. `/save-chat` to persist any chat analysis worth keeping.
+**As needed:** `/atpm-content` for decks/docs. `/atpm-explain` for technical clarity. `/atpm-strategy` for cross-initiative investment decisions. `/mbr-writing-style` for exec updates. `/atpm-save-chat` to persist any chat analysis worth keeping. `/atpm-followup` for weekly follow-up reports. `/atpm-respond` for customer escalation responses.
+
+**GTM Bridge:** `/atpm-factsheet` (PMM handoff), `/atpm-value` (value narrative), `/atpm-winloss` (deal patterns), `/atpm-pricing` (pricing committee brief).
+
+**Specialized:** `/atpm-rollout` for phased launch gates. `/atpm-plg` for product-led growth campaigns. `/atpm-fc-rebate-margin` for FleetCard margin analysis. `/atpm-harvest` for knowledge preservation. `/atpm-name` for pronunciation guides.
