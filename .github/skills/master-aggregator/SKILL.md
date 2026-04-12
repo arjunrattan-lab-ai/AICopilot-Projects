@@ -1,182 +1,157 @@
 ---
 name: master-aggregator
-description: 'Aggregate all action items across projects into a single master file. Use when: consolidating tasks, refreshing the master task list, running weekly review, checking what is due this week, updating master action items, or syncing project tasks.'
+description: 'Discover new tasks from project Running Tasks.md files and add them to the master file. Discovery only — run master-organizer after to sync statuses, reorganize, and validate.'
 argument-hint: 'Optionally specify which projects to scan or filter criteria'
 ---
 
 # Master Aggregator
 
-Scan all open projects and aggregate action items into a single master file for consolidated tracking and prioritization.
+Scan all open projects, discover tasks from Running Tasks.md files, and add any NEW tasks to the master file. This is the discovery phase only — run `master-organizer` after to handle sync, reorganization, and validation.
 
 ## When to Use
-- Weekly review — refresh the master task list
-- After updating any project's Running Tasks.md
-- When you need a consolidated view of all tasks across projects
+- Weekly review — discover new tasks, then run `master-organizer`
+- After a meeting generates new tasks in a project's Running Tasks.md
+- When a new project is created and needs tasks pulled into master
+
+## When NOT to Use
+- To sync statuses between master and Running Tasks → use `master-organizer`
+- To reorganize / clean up master file → use `master-organizer`
+- To move completed tasks to Finished → use `master-organizer`
+
+## Workflow
+
+```
+master-aggregator (discovery)  →  master-organizer (sync + organize + validate)
+        Steps 1-3                          Steps 1-6
+   "what tasks exist?"             "make everything consistent"
+```
+
+---
+
+## Pre-Flight Assertions
+
+✓ **Master file exists** at `/Users/arjun.rattan/arjun_copilot/projects/Arjun's Master Action Items.md`
+✓ **File is readable** and has at least one section with tasks
+✓ **Projects directory** exists and contains subdirectories
+
+If ANY pre-flight assertion fails → **STOP. Do NOT proceed.**
+
+---
 
 ## Procedure
 
-**Step 1: Scan project folders**
-- Scan all subdirectories in `/Users/arjun.rattan/arjun_copilot/projects`
-- Skip the `Workflows/` folder
-- Skip the `.github/` folder
-- Skip the `Slacks/` folder
-- Skip the `MBR/` folder
-- Include the `Portfolio/` folder — scan for tasks in Mental Models Checklist.md
+### Step 1: Scan project folders
 
-**Step 2: Locate Running Tasks.md in each project**
-- If found → read the file
+- Scan all subdirectories in `/Users/arjun.rattan/arjun_copilot/projects`
+- **Skip:** `Workflows/`, `.github/`, `Slacks/`, `MBR/`
+- **Include:** `Portfolio/` folder — scan for tasks in Mental Models Checklist.md
+- Search paths:
+  - `00 Workstreams/*/Running Tasks.md`
+  - `pm-planning/*/Running Tasks.md`
+  - Any other subdirectory with a `Running Tasks.md`
+
+### Step 2: Locate and read Running Tasks.md in each project
+
+- If `Running Tasks.md` found → read the file
 - If not found → skip that project
 - Also check for alternative task files (punch lists, action items) if Running Tasks.md is missing
+- Log: which files were found, which projects were skipped
 
-**Step 3: Extract Arjun's tasks**
-- Look for "Arjun Rattan" in the owner or "Who Else Can Help" column
-- Only include tasks where Arjun is the primary owner (not just a helper)
-- Capture: Task name, description, when due, project name, date created
+### Step 3: Extract tasks and identify NEW ones
 
-**Step 4: Read existing master file and preserve state**
-- Before rebuilding, read the current `Arjun's Master Action Items.md` at the projects root
-- Parse every checkbox line across ALL sections (Priority View, By Project, Due This Week, Due Next Week, Finished Tasks)
-- Build a lookup of task states by matching on **task name + project name**:
+**3a. Extract all tasks from Running Tasks.md files**
+- Capture: Task name, description, when due, project name, date created, who else can help
+- Detect status from markers: `[ ]`, `[-]`, `[~]`, `[x]`, `~~strikethrough~~`, `✅ Completed`
+- **Fuzzy checkbox normalization:** Treat `[ x]`, `[x ]` as `[x]`. Treat `[ -]` as `[-]`. Treat `[ ~]` as `[~]`. Treat `[]` (empty) as `[ ]`.
 
-**✓ Pre-Flight Assertions (Step 4 checkpoint):**
-- ✓ Assert: Master file exists at `/Users/arjun.rattan/arjun_copilot/projects/Arjun's Master Action Items.md`
-- ✓ Assert: File contains at least one section with tasks (Priority View, By Project, etc.)
-- ✓ Assert: 30+ tasks parsed with state preservation (catch parsing failures early)
-- ✓ Assert: Status hierarchy applied — no conflicting markers for same task
-  - `- [x]` → mark as Completed
-  - `- [-]` → mark as In Progress
-  - `- [~]` → mark as Pending Others
-  - `- [ ]` → keep as Not Started
-  - Lines with `🟡 In Progress` → mark as In Progress
-  - Lines with `⏳ Pending Others` → mark as Pending Others
-- This ensures that if the user toggled a checkbox (e.g. `[ ]` → `[x]`) via the editor, the re-run picks it up
-- **Fuzzy checkbox normalization:** Before matching, normalize malformed checkbox markers that VS Code editor toggles may produce. Treat `[ x]`, `[x ]` as `[x]`. Treat `[ -]` as `[-]`. Treat `[ ~]` as `[~]`. Treat `[]` (empty) as `[ ]`. Strip extra whitespace inside brackets before applying the status hierarchy.
-- **Max-status rule:** A task may appear in multiple sections (Priority View, By Project, Due This Week, etc.) with different markers. When the same task (matched by task name + project) has conflicting markers across sections, always keep the **highest** status. The hierarchy from lowest to highest:
-  1. `[ ]` Not Started (lowest)
-  2. `[-]` In Progress
-  3. `[~]` Pending Others
-  4. `[x]` Completed (highest)
-- Example: if Priority View has `[-]` but By Project has `[~]` for the same task, the resolved status is `[~]`
-- Example: if Due This Week has `[ ]` but Priority View has `[-]`, the resolved status is `[-]`
-- This prevents a stale marker in one section from overwriting a user toggle in another section
+**3b. Read existing master file task list**
+- Parse every task line in master file
+- Build lookup by (task_name, project) key
 
-**Step 5: Build the master file**
-- Create/update `Arjun's Master Action Items.md` at the projects root (not in any subfolder)
-- **Priority View** uses a markdown table (for scannable dashboard view)
-- **All other sections** (By Project, Due This Week, Due Next Week, Finished Tasks) use checkbox lists
-- Sort active tasks by due date (earliest first)
-- Apply preserved states from Step 4
-- If a task is `[x]` (Completed) → move it to Finished Tasks section
-- If a task is `[-]` (In Progress) → keep in active views with `[-]` marker and `🟡 In Progress` tag
-- If a task is `[~]` (Pending Others) → keep in active views with `[~]` marker and `⏳ Pending Others` tag
+**3c. Identify NEW tasks (exist in Running Tasks but not in master)**
+- Compare extracted tasks against master lookup
+- A task is NEW if its (task_name, project) key does not exist in master
+- Log each new task found
 
-**✓ Step 5 Reorganization Checkpoints (before committing):**
-- ✓ Assert: ALL `[x]` tasks ONLY appear in Finished Tasks section — NONE in Priority View, By Project, Due This Week, Due Next Week
-- ✓ Assert: NO `[x]` tasks remain in active task sections
-- ✓ Assert: Active task count = total tasks - completed tasks
-- ✓ Assert: Finished Tasks section count === number of `[x]` markers across file
-- ✓ Assert: All active tasks sorted by due date (earliest first)
-- ✓ Assert: `[-]` tasks tagged with `🟡 In Progress` in active sections
-- ✓ Assert: `[~]` tasks tagged with `⏳ Pending Others` in active sections
+**3d. Add new tasks to master file**
+- Insert new tasks into Priority View table (sorted by due date)
+- Insert into By Project section (under correct project heading, create heading if new project)
+- Insert into Due This Week / Due Next Week if due date falls in range
+- Use status from Running Tasks.md as initial status
+- Do NOT touch existing tasks — status sync is master-organizer's job
 
-**Status Convention (checkbox markers):**
+---
+
+## Post-Discovery Assertions
+
+✓ **All Running Tasks.md files were read** (or explicitly skipped with reason)
+✓ **New task count logged** — "Found N new tasks from M projects"
+✓ **No duplicate insertions** — new tasks were not already in master (double-check)
+✓ **Master file structure intact** — all sections still present after insertion
+✓ **New tasks have required fields** — task name, project, due date (flag if missing)
+
+---
+
+## Output
+
+```
+✅ Pre-Flight: PASS
+✅ Step 1 (Scan): Found 8 projects with Running Tasks.md
+✅ Step 2 (Read): 8 files read, 0 skipped
+✅ Step 3 (Extract): 48 tasks extracted, 2 NEW tasks found
+
+New tasks added:
+  + "Review Q2 headcount plan" (Replanning / Org) — Due: 4/15/26
+  + "Sync with Naveen on TDD" (BSM) — Due: 4/14/26
+
+✅ Post-Discovery Assertions: PASS
+
+→ Run master-organizer to sync statuses, reorganize, and validate.
+```
+
+If zero new tasks:
+```
+✅ Steps 1-3: PASS — 0 new tasks found. Master is up to date.
+→ Run master-organizer if you need to sync statuses or reorganize.
+```
+
+---
+
+## Commit
+
+If new tasks were added:
+- Commit with message:
+  ```
+  master-aggregator: discovered N new tasks from Running Tasks.md files
+  
+  New tasks:
+  - task name (project) — due date
+  - task name (project) — due date
+  
+  Next: run master-organizer to sync and validate
+  ```
+
+If zero new tasks → no commit needed.
+
+---
+
+## Status Convention
+
+These markers are the single source of truth:
 - `[ ]` = Not Started
 - `[-]` = In Progress
 - `[~]` = Pending Others
 - `[x]` = Completed
 
-These markers are the single source of truth.
-
-**Priority View Status column labels (plain language + symbol):**
+**Priority View Status column labels:**
 - `[ ]` → `Not Started`
 - `[-]` → `🟡 In Progress`
 - `[~]` → `⏳ Pending Others`
-- `[x]` → `✅ Completed` (but these go to Finished Tasks, not Priority View)
-
-**Step 6: Add summary metrics**
-- Total active task count
-- Tasks by project (with counts)
-- Tasks due this week vs next week vs later
-- Highlight any overdue tasks
-
-**Step 7: Add views (all using checkboxes)**
-- **Priority View** — all *active* (non-complete) tasks sorted by due date, as a **table** with columns: Task (marker + bold name), Description, Project, Due, Status (symbol + plain label)
-- **By Project** — active tasks grouped under project headings, as checkbox items
-- **Due This Week** — filtered checkbox list of urgent items
-- **Due Next Week** — upcoming items as checkbox list
-
-**Step 8: Finished Tasks section**
-- Any task with `[x]` marker goes here
-- Use checkbox format: `- [x] ~~**{task}**~~ — *{project}* | Was due: {date}`
-- Sort by completion date (most recent first)
-- These tasks are removed from Priority View, By Project, Due This Week, and Due Next Week
-- The "Active Tasks" count at the top should only count *active* tasks
-- Add a separate count: **Completed Tasks:** {count}
-- **Only `[x]` task entries belong in Finished Tasks.** Do not add context notes, role descriptions, or dependency summaries to this section.
-
-**Step 9: Bi-directional sync — Master ↔ Running Tasks**
-
-After rebuilding the master file, sync status changes back to each project's Running Tasks.md. The goal is: **no matter where a task is updated (master or running tasks), both files always stay in sync.**
-
-**9a. Build a resolved status lookup**
-- For every task (matched by **task name + project name**), compare the status in the master file vs. the status in the project's Running Tasks.md
-- Apply the **max-status rule** — always keep the highest status. The hierarchy from lowest to highest:
-  1. `[ ]` / `☐` / no marker = Not Started (weight 1)
-  2. `[-]` / `🟡 In Progress` = In Progress (weight 2)
-  3. `[~]` / `⏳ Pending Others` = Pending Others (weight 3)
-  4. `[x]` / `✅ Completed` = Completed (weight 4)
-- The higher weight always wins, regardless of which file it came from
-
-**9b. Propagate master → running tasks**
-- For each task where the master file has a **higher** status than the Running Tasks.md:
-  - Update the Running Tasks.md row to reflect the resolved status
-  - If the resolved status is Completed (`[x]`): wrap task name and description in `~~strikethrough~~` and append `✅ Completed` to the row
-  - If the resolved status is In Progress (`[-]`): append `🟡 In Progress` to the row
-  - If the resolved status is Pending Others (`[~]`): append `⏳ Pending Others` to the row
-
-**9c. Propagate running tasks → master**
-- For each task where the Running Tasks.md has a **higher** status than the master file:
-  - Update the master file entry to reflect the resolved status
-  - If the resolved status is Completed: move the task to the Finished Tasks section in the master
-  - If the resolved status is In Progress or Pending Others: update the marker and tag in all master sections where the task appears
-
-**9d. Conflict resolution examples**
-- Master `[-]` (weight 2) vs Running `[x]` (weight 4) → resolved: `[x]` Completed → update master to Finished Tasks
-- Master `[x]` (weight 4) vs Running `☐` (weight 1) → resolved: `[x]` Completed → update running tasks with strikethrough
-- Master `[ ]` (weight 1) vs Running `🟡` (weight 2) → resolved: `[-]` In Progress → update master
-- Master `⏳` (weight 3) vs Running `🟡` (weight 2) → resolved: `[~]` Pending Others → update running tasks
-
-**9e. Single source of truth — no duplicate copies**
-- The master file lives ONLY at the projects root: `Arjun's Master Action Items.md`
-- Do NOT create or maintain copies in `00 Workstreams/`, `00 Master Punch List/`, or any other subfolder
-- If a copy exists elsewhere, delete it. The root file is the single source of truth.
+- `[x]` → `✅ Completed` (goes to Finished Tasks, not Priority View)
 
 ---
 
-## ✓ Post-Flight Assertions (Before Commit)
-
-**These checks MUST pass before committing the rebuilt master file:**
-
-- ✓ Assert: Last Updated timestamp is today's date
-- ✓ Assert: Active Tasks + Completed Tasks === Total tasks in file
-- ✓ Assert: Overdue count <= Active count
-- ✓ Assert: NO `[x]` tasks in Priority View table
-- ✓ Assert: NO `[x]` tasks in By Project sections
-- ✓ Assert: NO `[x]` tasks in Due This Week section
-- ✓ Assert: NO `[x]` tasks in Due Next Week section
-- ✓ Assert: ALL `[x]` tasks ONLY in Finished Tasks section
-- ✓ Assert: Finished Tasks count matches actual `[x]` marker count
-- ✓ Assert: All `[-]` tasks have `🟡 In Progress` tag in their row
-- ✓ Assert: All `[~]` tasks have `⏳ Pending Others` tag in their row
-- ✓ Assert: Priority View table is not empty (has at least one active task row)
-- ✓ Assert: By Project sections have correct project names from extracted tasks
-- ✓ Assert: No truncated task descriptions (compare line lengths to source)
-
-**If ANY assertion fails, STOP. Do NOT commit. Debug and re-run.**
-
----
-
-Use checkbox lists (`- [ ]`) instead of tables so checkboxes are clickable in Markdown Preview.
+## Master File Format
 
 ```markdown
 # Arjun's Master Action Items
@@ -184,6 +159,7 @@ Use checkbox lists (`- [ ]`) instead of tables so checkboxes are clickable in Ma
 **Last Updated:** {today's date}
 **Active Tasks:** {count}
 **Completed Tasks:** {count}
+**Overdue Tasks:** {count}
 **Tasks Due This Week:** {count}
 **Tasks Due Next Week:** {count}
 
@@ -193,27 +169,26 @@ Use checkbox lists (`- [ ]`) instead of tables so checkboxes are clickable in Ma
 
 | Task | Description | Project | Due | Status |
 |------|-------------|---------|-----|--------|
-| {marker} **{task}** | {description} | {project} | {date} | {symbol} {status label} |
+| {marker} **{task}** | {description} | {project} | {date} | {status label} |
 
 ---
 
 ## By Project
 
 ### {Project Name} ({count} tasks)
-- [ ] **{task}** — Due: {date}
-- [ ] **{task}** — Due: {date}
+- {marker} **{task}** — Due: {date} | {tag}
 
 ---
 
-## Due This Week (by {date})
+## Due This Week ({date range})
 
-- [ ] **{task}** — {description} | *{project}* | Due: {date}
+- {marker} **{task}** — {description} | *{project}* | Due: {date} | {tag}
 
 ---
 
-## Due Next Week
+## Due Next Week ({date range})
 
-- [ ] **{task}** — {description} | *{project}* | Due: {date}
+- {marker} **{task}** — {description} | *{project}* | Due: {date} | {tag}
 
 ---
 
@@ -222,12 +197,7 @@ Use checkbox lists (`- [ ]`) instead of tables so checkboxes are clickable in Ma
 - [x] ~~**{task}**~~ — *{project}* | Was due: {date}
 ```
 
-## Status Updates
-
-When asked to update a task status, apply the correct marker:
-- "mark as started" / "in progress" → keep `- [ ]` but append `🟡 In Progress` after the due date
-- "pending others" / "waiting" → keep `- [ ]` but append `⏳ Pending Others` after the due date
-- "mark as complete" / "done" → change `- [ ]` to `- [x]`, wrap task name in `~~strikethrough~~`, move to Finished Tasks section
+---
 
 ## Folders to Skip
 
