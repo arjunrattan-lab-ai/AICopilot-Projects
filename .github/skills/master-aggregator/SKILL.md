@@ -37,6 +37,12 @@ Scan all open projects and aggregate action items into a single master file for 
 - Before rebuilding, read the current `Arjun's Master Action Items.md` at the projects root
 - Parse every checkbox line across ALL sections (Priority View, By Project, Due This Week, Due Next Week, Finished Tasks)
 - Build a lookup of task states by matching on **task name + project name**:
+
+**✓ Pre-Flight Assertions (Step 4 checkpoint):**
+- ✓ Assert: Master file exists at `/Users/arjun.rattan/arjun_copilot/projects/Arjun's Master Action Items.md`
+- ✓ Assert: File contains at least one section with tasks (Priority View, By Project, etc.)
+- ✓ Assert: 30+ tasks parsed with state preservation (catch parsing failures early)
+- ✓ Assert: Status hierarchy applied — no conflicting markers for same task
   - `- [x]` → mark as Completed
   - `- [-]` → mark as In Progress
   - `- [~]` → mark as Pending Others
@@ -63,6 +69,15 @@ Scan all open projects and aggregate action items into a single master file for 
 - If a task is `[x]` (Completed) → move it to Finished Tasks section
 - If a task is `[-]` (In Progress) → keep in active views with `[-]` marker and `🟡 In Progress` tag
 - If a task is `[~]` (Pending Others) → keep in active views with `[~]` marker and `⏳ Pending Others` tag
+
+**✓ Step 5 Reorganization Checkpoints (before committing):**
+- ✓ Assert: ALL `[x]` tasks ONLY appear in Finished Tasks section — NONE in Priority View, By Project, Due This Week, Due Next Week
+- ✓ Assert: NO `[x]` tasks remain in active task sections
+- ✓ Assert: Active task count = total tasks - completed tasks
+- ✓ Assert: Finished Tasks section count === number of `[x]` markers across file
+- ✓ Assert: All active tasks sorted by due date (earliest first)
+- ✓ Assert: `[-]` tasks tagged with `🟡 In Progress` in active sections
+- ✓ Assert: `[~]` tasks tagged with `⏳ Pending Others` in active sections
 
 **Status Convention (checkbox markers):**
 - `[ ]` = Not Started
@@ -136,7 +151,30 @@ After rebuilding the master file, sync status changes back to each project's Run
 - Do NOT create or maintain copies in `00 Workstreams/`, `00 Master Punch List/`, or any other subfolder
 - If a copy exists elsewhere, delete it. The root file is the single source of truth.
 
-## Output Format
+---
+
+## ✓ Post-Flight Assertions (Before Commit)
+
+**These checks MUST pass before committing the rebuilt master file:**
+
+- ✓ Assert: Last Updated timestamp is today's date
+- ✓ Assert: Active Tasks + Completed Tasks === Total tasks in file
+- ✓ Assert: Overdue count <= Active count
+- ✓ Assert: NO `[x]` tasks in Priority View table
+- ✓ Assert: NO `[x]` tasks in By Project sections
+- ✓ Assert: NO `[x]` tasks in Due This Week section
+- ✓ Assert: NO `[x]` tasks in Due Next Week section
+- ✓ Assert: ALL `[x]` tasks ONLY in Finished Tasks section
+- ✓ Assert: Finished Tasks count matches actual `[x]` marker count
+- ✓ Assert: All `[-]` tasks have `🟡 In Progress` tag in their row
+- ✓ Assert: All `[~]` tasks have `⏳ Pending Others` tag in their row
+- ✓ Assert: Priority View table is not empty (has at least one active task row)
+- ✓ Assert: By Project sections have correct project names from extracted tasks
+- ✓ Assert: No truncated task descriptions (compare line lengths to source)
+
+**If ANY assertion fails, STOP. Do NOT commit. Debug and re-run.**
+
+---
 
 Use checkbox lists (`- [ ]`) instead of tables so checkboxes are clickable in Markdown Preview.
 
