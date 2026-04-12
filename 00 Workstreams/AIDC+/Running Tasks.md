@@ -16,6 +16,9 @@
 | 3/27/26 | Engage with Avinash on Speed Sign Detection | Speed sign detection needs more product decisions; engage with Avinash to understand current state and what's needed | 4/17/26 | Avinash |
 | 3/27/26 | Explore Visualizations 2.0 with Michael | Talk to Michael about his plan for Visualizations 2.0 (potentially gen-AI agent approach); understand what he needs from product — currently unfunded/blocked | 4/30/26 | Michael Benesh |
 | 3/27/26 | Plan Scope Growth for Arsh | As annotations shrink with EVE, think about giving Arsh (strong communicator, good product sense, 6 months tenure) more scope in adjacent areas | 4/30/26 | Arsh, Nihar Gupta |
+| 4/6/26 | [ ] Create Anandh tab in team project tracker | Create separate tab for Anandh in team project tracker so he can list his current AIDC+ projects | 4/7/26 | Anandh |
+| 4/6/26 | [ ] Deep dive with Anandh on active projects | Walk through each of Anandh's AIDC+ projects (fatigue integration, blurring, ALPR, SSV, alert/event disparity, passenger detection) in detail. Pre-read docs Anandh will send. | 4/13/26 | Anandh |
+| 4/6/26 | [~] Consume AIDC+ Q2 priority sheet from Anandh | Anandh sending the AIDC+ Q2/Q3/Q4 priority spreadsheet + alert/event parity doc. Review and form opinion on priorities. | 4/13/26 | Anandh |
 
 ---
 

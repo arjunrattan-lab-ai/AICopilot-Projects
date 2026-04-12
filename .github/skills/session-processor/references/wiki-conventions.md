@@ -60,17 +60,22 @@ Rules for how the session-processor updates each file type within an initiative 
 
 **Test:** If you can't write a clear "Decision:" line, it wasn't a decision — it was a discussion. Put it in meeting notes instead.
 
-### scratch/meeting-notes-{date}.md
+### scratch/{source-type}-{date}.md
+
+File naming depends on source type (detected in Pre-Pass):
+- Transcript → `scratch/meeting-notes-{date}.md`
+- Slack → `scratch/slack-thread-{date}.md`
+- Doc / notes → `scratch/notes-{date}.md`
 
 **What to update:** Raw context, discussion excerpts, background information.
-**When:** Always. Every meeting that touches an initiative should produce a meeting notes file for that initiative.
+**When:** Always. Every session that touches an initiative should produce a notes file for that initiative.
 **How:** Create a new file:
 
 ```markdown
-# Meeting Notes — {YYYY-MM-DD} — {meeting title}
+# {Source Label} — {YYYY-MM-DD} — {title}
 
-**Source:** {transcript file path or "pasted transcript"}
-**Attendees:** {names}
+**Source:** {transcript file path, Slack channel/thread URL, or "pasted content"}
+**Participants:** {names}
 
 ## Relevant to {initiative name}
 
@@ -78,10 +83,10 @@ Rules for how the session-processor updates each file type within an initiative 
 - Key discussion points (paraphrased, not full transcript)
 - Notable quotes (verbatim with speaker attribution)
 - Context that might matter later but doesn't fit structured files
-- Cross-references to other initiatives discussed in same meeting
+- Cross-references to other initiatives discussed in same session
 ```
 
-**If a meeting-notes file for that date already exists** (meeting touched the same initiative twice in one day): append a new section header `## {meeting title}` to the existing file.
+**If a file for that date and source already exists** (same initiative touched twice in one day): append a new section header `## {title}` to the existing file.
 
 ### CONTEXT-LOG.md
 

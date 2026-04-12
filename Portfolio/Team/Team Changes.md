@@ -69,3 +69,23 @@ Gautam's request: a PM dedicated to AI infrastructure — pipeline metrics, mode
 ## Team Announcement Timeline
 - Broader announcement of Arjun's role planned for mid-April (post review cycle)
 - Nihar setting up twice-a-week syncs during ramp (scaling to weekly later)
+
+---
+
+## Update: 2026-04-06 — Arjun / Anandh Deep Dive
+
+### Anandh Transition — Deeper Context
+- **4 prior failed transition attempts** since May 2025 (May, June, September/October, December)
+- Root causes: receiving PMs didn't ramp, left the company, refused ownership, or leadership didn't acknowledge
+- In May 2025: Anandh listed 12 PMs who should take over AIDC+ areas. All 12 rejected.
+- October 2025: Derek Leslie (Safety PM) left — Nihar dumped blurring + camera customization on Anandh. Both features were half-finished.
+- December 2025: Hardware PM who took over from Anandh also left. Asked to take it back.
+- **Key bottleneck:** Hemant still lists Anandh as AIDC+ owner. Hemant + Mark must explicitly agree to handoff.
+- Secondary blocker: Naveen (eng lead) explicitly said "I need a person" and won't accept Anandh leaving without a replacement.
+- Anandh's plan: hand off big pieces to Mark within 2 weeks, but Mark is new and may not fully understand scope.
+
+### Arjun's Planning Decision
+- **Will NOT plan for Anandh's arrival.** Assigns ~30-40% probability to successful transition.
+- Will solve problems with current team. Leave scope open for Anandh if/when he arrives.
+- Original plan to hand Devin's entire portfolio to Anandh is not practical.
+- Follow-up sync in ~1.5-2 months for H2 planning as transition clarifies.

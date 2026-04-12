@@ -222,6 +222,14 @@ These live in the workspace and are available when working in this project.
 **When to use:** Writing MBR updates, project status updates, brief updates for exec review, monthly review, or any structured status document for leadership. "Write this like the MBR," "MBR style," "project update," "status update for execs."
 **Produces:** MBR-formatted project update.
 
+### coach
+**Invoke:** `/coach`
+**What:** Director Thinking Coach. Pulls Fellow meeting transcripts, parses your speaking turns, and evaluates each against the 7 director lenses (Decision, Ground Truth, Infrastructure vs. Insight, Denominator, Ownership, Horizon, Confidence Threshold). Produces a coaching report with per-turn feedback, missed moments, and lens scores.
+**When to use:** "Coach me," "how did I do in meetings," "director coaching," or any request to assess meeting contributions against director-level thinking.
+**Requires:** Fellow MCP, Python transcript parser.
+**Produces:** Per-meeting coaching report with turn-by-turn assessment, missed moments, lens scores, and growth areas.
+**References:** Director lenses defined in `~/Documents/Claude/Frameworks/director_thinking_frameworks.md`.
+
 ### debrief
 **Invoke:** `debrief`
 **What:** End-of-session debrief. Reviews everything done in the session, surfaces gaps between what the agent produced and what you actually wanted (including post-publish Confluence edits, file renames, and explicit corrections), saves feedback memories to `~/.claude/memory/`, and proposes CLAUDE.md amendments for patterns worth encoding as standing rules.
@@ -256,7 +264,13 @@ These live in the workspace and are available when working in this project.
 
 ---
 
-## Personal Skills (`~/.claude/skills/`)
+## Personal Skills (`~/.claude/commands/`)
+
+### map-projects
+**Invoke:** `/map-projects`
+**What:** Map and display all directories and subdirectories under the projects workspace as an indented tree. Directories only, no files.
+**When to use:** "Map projects," "show project structure," "what folders exist," "project tree," or any request to see the workspace layout.
+**Produces:** Indented directory tree grouped by top-level folder.
 
 ### explain-code
 **Invoke:** `/explain-code`

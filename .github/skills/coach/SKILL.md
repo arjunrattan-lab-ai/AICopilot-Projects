@@ -56,7 +56,7 @@ Analyze Arjun's Fellow meeting transcripts and assess his contributions against 
 
 ## The 7 Director Lenses
 
-Load context from `/Users/arjun.rattan/Documents/director_thinking_frameworks.md` for the full definitions. Summary:
+Load context from `/Users/arjun.rattan/Documents/Claude/Frameworks/director_thinking_frameworks.md` for the full definitions. Summary:
 
 1. **Decision Lens** — Does this inform a decision? Who acts on it?
 2. **Ground Truth Lens** — Is the measurement trustworthy? How was it labeled, by whom, with what lag?

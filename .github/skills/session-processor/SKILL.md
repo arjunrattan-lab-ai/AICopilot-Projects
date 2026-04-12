@@ -8,6 +8,8 @@ argument-hint: 'Provide the transcript file path or paste the transcript'
 
 Process meeting transcripts → topic summaries → initiative wiki updates → tasks. Each run incrementally layers new context into initiative folders so future sessions start with full history.
 
+**Base path:** All relative folder paths in this skill (e.g., `00 Workstreams/`, `Portfolio/`, `pm-planning/`) resolve from `/Users/arjun.rattan/arjun_copilot/projects/`. Always prepend this base path when reading or writing files, regardless of the current working directory.
+
 ## When to Use
 - After any meeting — 1:1s, team syncs, customer calls, design reviews
 - When you have a transcript and want to extract structure from it
@@ -50,6 +52,15 @@ Inspect the raw input and classify it:
 - For docs: if headings exist, treat each heading as a proto-topic to guide Pass 1 summarization.
 - Note the detected type — it will be used as the `Source type` field in CONTEXT-LOG.md.
 
+### Staleness check
+
+If the source content is >7 days old (based on timestamps in the content vs. today's date), warn before proceeding:
+```
+⚠️ This content is {N} days old. Action items may already be completed or stale.
+Proceed with task extraction? (yes / skip tasks / cancel)
+```
+If the user says "skip tasks," run Passes 1–2 normally but skip Pass 3 entirely.
+
 ---
 
 ## Pass 1: Summarize & Route
@@ -88,6 +99,12 @@ Save the summary as a sibling file to the transcript:
 - If transcript is `04.03 chat with Nihar` → save as `04.03 Nihar Chat Summary.md`
 - If transcript is `Meeting notes 2026-04-04.md` → save as `Meeting Summary - Apr 04.md`
 - Match the naming convention of the folder. Look at sibling files for patterns.
+
+**Fallback — API-sourced transcripts (no file on disk):**
+If the transcript came from Fellow API, Slack, or was pasted directly (no file path):
+1. Check if a `Portfolio/{Person} Chats/` folder exists for the primary person. If so, save there.
+2. Otherwise, save to `Portfolio/Manager Chats/`.
+3. Naming: `{MM.DD} {Person} Chat Summary.md`. Match the naming convention of existing files in the target folder.
 
 ### Step 1.4: Detect initiatives touched
 
@@ -157,7 +174,7 @@ For **silent drop detection**, identify the primary person in this meeting (e.g.
 - Search `Portfolio/Gautam Chats/` for Gautam meetings
 - Extract the topic titles (## headings) from each prior summary
 
-If fewer than 2 prior meetings exist for this person, skip silent drop detection entirely.
+If fewer than 2 prior meetings exist for this person, skip silent drop detection and note it in the output: `"Silent drop detection skipped — fewer than 2 prior meetings with {person}."`
 
 ### Step 1.5c: Run 4 detection types
 
@@ -352,9 +369,19 @@ Confluence pages that may need updating: [BSM Parent, BSM Problem]
 
 ## Pass 3: Extract Tasks → Running Tasks
 
-### Step 3.1: Collect all action items
+### Step 3.1: Collect and classify action items
 
-Gather every action item from the Pass 1 summary. For each:
+Gather every action item from the Pass 1 summary. For each, classify ownership:
+
+| Who owns the task? | Treatment |
+|---|---|
+| **Arjun** | Add to Running Tasks as-is |
+| **Someone else, but Arjun has a follow-up** (e.g., "review when ready," "unblock X") | Add one Director-level follow-up task to Running Tasks |
+| **Someone else, no Arjun action needed** | Keep in CONTEXT-LOG and meeting notes only — do NOT add to Running Tasks |
+
+**Director roll-up rule:** When multiple non-Arjun tasks belong to the same initiative, synthesize them into a single follow-up task at Director altitude. Example: instead of 5 engineering tasks for Tushar/Hamza/Alexa, write one task: `"Follow up on EgoBlur deployment readiness — Gautam owns execution"`. The granular items live in CONTEXT-LOG.
+
+For each task that will be added to Running Tasks:
 - Task description
 - Owner
 - Due date (explicit or "TBD" → default 1 week from today)
@@ -377,9 +404,9 @@ If a task doesn't map to a specific project (e.g., "follow up with Abbas on repl
 
 ### Step 3.3: Update Running Tasks files
 
-Follow task-generator conventions exactly:
+**Table format:** Before appending rows, read the existing Running Tasks file's table header. Match its column format exactly. If the file uses a different column layout than the default below, use the existing layout.
 
-**Table format:**
+**Default format (for new files only):**
 ```markdown
 | Date Created | Task Name | Description | When Due | Who Else Can Help |
 ```
@@ -438,5 +465,6 @@ When a confirmed initiative has no folder on disk, create it before writing any 
 
 - **Transcript too long (>500 lines):** Process in sections. Summarize first 250 lines, then next 250, then merge topics.
 - **Initiative folder doesn't exist:** Follow the New Folder Scaffold rules above. Do not silently skip.
+- **Initiative folder exists but `scratch/` is missing:** Create `scratch/` silently before writing meeting notes. No scaffold needed — just the directory.
 - **No action items found:** That's fine. Pass 3 produces nothing. Still complete Pass 1 and Pass 2.
 - **Routing ambiguity:** When a topic spans multiple initiatives, ask user which folder gets the update. Don't duplicate across folders.
