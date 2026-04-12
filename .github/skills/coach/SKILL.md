@@ -1,3 +1,8 @@
+---
+name: coach
+description: 'Analyze Fellow meeting transcripts and assess contributions against the 7 director lenses. Produces per-turn coaching feedback, missed moments, and lens scores.'
+---
+
 # /coach — Director Thinking Coach
 
 Analyze Arjun's Fellow meeting transcripts and assess his contributions against the 7 director lenses. Produce a coaching report with per-turn feedback, missed moments, and lens scores.
