@@ -73,12 +73,52 @@ These live in the workspace and are available when working in this project.
 **When to use:** "Blameless on X," "root cause analysis," "RCA for," "PIR for," "why did X happen," "postmortem for," "what went wrong with X," "incident review."
 **Produces:** PIR document with contributing factors, systemic gaps, and prevention recommendations.
 
+### atpm-tssd
+**Invoke:** `/atpm-tssd`
+**What:** Unified TSSD skill with four auto-detected modes. **Triage** (ticket key): deep-dive a specific ticket — blast radius, root cause, PM approach. **History** (account name): account-level support trail with clustering. **Audit** (document URL): cross-reference a WBR/QBR against actual ticket data. **Issue** (product keyword): cross-account scan for a feature/problem.
+**When to use:** "Triage TSSD-12345," "TSSD history for Sysco," "audit this QBR," "how widespread is the relay issue," or any TSSD-related request.
+**Requires:** Jira MCP, Glean MCP.
+**Produces:** PM-ready brief published to Confluence. Batch triage available for all Major/Critical open tickets.
+
 ### atpm-triage
 **Invoke:** `/atpm-triage`
-**What:** Triage a TSSD ticket for a PM. Reads the Jira ticket, researches technical context, and produces a PM-ready brief: what happened, why it matters, blast radius, and approach to fix.
-**When to use:** "Triage TSSD-12345," "what's going on with TSSD-12345," "help me understand this TSSD," or any reference to a TSSD ticket.
-**Requires:** Jira MCP.
-**Produces:** PM-ready triage brief.
+**What:** Alias for `/atpm-tssd`. Kept for backward compatibility — both entry points behave identically.
+
+### atpm-aievents-trace
+**Invoke:** `/atpm-aievents-trace`
+**What:** Trace a Motive safety event end-to-end through the pipeline (Edge → FIS → EFS → Annotations → Backend DPE → Camera Media → In-Cab Alerts → FM Dashboard). Queries Snowflake at each stage, identifies gaps and failures, produces a dark-theme HTML visualization with Mermaid flow diagram.
+**When to use:** "Trace event 123456," "why didn't this event reach the dashboard," "follow this alert through the pipeline," "what happened to offline_id X."
+**Requires:** Snowflake MCP.
+**Produces:** Interactive HTML pipeline visualization.
+
+### atpm-slack-ticket
+**Invoke:** `/atpm-slack-ticket`
+**What:** File a Jira ticket from a Slack thread URL. Reads the full thread, auto-detects frontend bugs (`[FE]` label), deduplicates against open Jira tickets, enriches with Glean/Confluence context, drafts for review, creates the ticket, and optionally posts the link back to the thread.
+**When to use:** "File a ticket from this Slack thread," "create a Jira for this bug," or paste a Slack thread URL.
+**Requires:** Atlassian MCP, Slack MCP, Glean MCP.
+**Produces:** Jira ticket with enriched context.
+
+### atpm-mc-atrisk-portfolio-review
+**Invoke:** `/atpm-mc-atrisk-portfolio-review`
+**What:** End-to-end Motive Card at-risk portfolio review. Scans all accounts with CFS > 10 for >30% fuel-spend decline vs 3-month rolling baseline. Deep-dives into top N accounts (user-configurable) with weekly trends, decline rates, card status, telematics, and root cause classification.
+**When to use:** "At-risk portfolio review," "which card accounts are declining," "fuel spend drop analysis," "portfolio health check."
+**Requires:** Snowflake MCP.
+**Produces:** Interactive HTML report with executive summary, per-account cards with sparklines, and recommended playbooks.
+
+### meeting
+**Invoke:** `meeting --parent {Meeting Notes page URL or ID}`
+**What:** Pull a Fellow meeting transcript, extract decisions and action items, publish a structured meeting note to Confluence under the specified Meeting Notes parent page, and append new decisions to the initiative's Decisions Log. Accepts meeting by title, date, or Fellow URL.
+**When to use:** "Log meeting," "publish meeting notes," "sync meeting to Confluence," "add meeting note for yesterday," or any request to capture a Fellow meeting into Confluence.
+**Requires:** Fellow MCP, Atlassian MCP.
+**Produces:** Meeting note child page under Meeting Notes + updated Decisions Log rows.
+**Key feature:** Stateless — works for any initiative. Pass `--parent` with the Meeting Notes page URL. Decisions Log is auto-inferred as a sibling page if not specified.
+
+### atpm-publish
+**Invoke:** `/atpm-publish`
+**What:** Publish any local markdown file to Confluence. Create or update — detected via local footer comment. User specifies the parent page (URL, ID, or title). Adds sync footer on Confluence page and tracking comment in local file. Idempotent.
+**When to use:** "Publish to Confluence," "sync to Confluence," "push this to Confluence," "publish this page," "update Confluence page."
+**Requires:** Atlassian MCP.
+**Produces:** Confluence page + local tracking footer.
 
 ### atpm-harvest
 **Invoke:** `/atpm-harvest`
@@ -182,6 +222,14 @@ These live in the workspace and are available when working in this project.
 **When to use:** Writing MBR updates, project status updates, brief updates for exec review, monthly review, or any structured status document for leadership. "Write this like the MBR," "MBR style," "project update," "status update for execs."
 **Produces:** MBR-formatted project update.
 
+### debrief
+**Invoke:** `debrief`
+**What:** End-of-session debrief. Reviews everything done in the session, surfaces gaps between what the agent produced and what you actually wanted (including post-publish Confluence edits, file renames, and explicit corrections), saves feedback memories to `~/.claude/memory/`, and proposes CLAUDE.md amendments for patterns worth encoding as standing rules.
+**When to use:** End of any working session — "debrief." Especially after sessions involving Confluence publishes, file changes, or config edits where the output may not have matched expectations.
+**Requires:** Nothing — reads from conversation history.
+**Produces:** Session summary + gap log + saved feedback memories + CLAUDE.md amendments.
+**Key feature:** Treats post-publish Confluence edits as implicit corrections — fetches the current page, diffs against what was published, and surfaces every delta as a gap. Works from any directory.
+
 ### session-recap
 **Invoke:** `/session-recap`
 **What:** Summarize the current conversation session into a persistent log. Extracts files touched, decisions made, Confluence/Jira syncs, problems encountered, and skill gaps.
@@ -235,7 +283,7 @@ Signal arrives → /atpm-discover (S0→S2)
               /atpm-review (PDP→Approved)
 ```
 
-**Throughout:** `/session-processor` after every meeting to layer context. `/task-generator` for quick task extraction. `/master-aggregator` weekly to sync everything. `/session-recap` at end of each working session.
+**Throughout:** `/session-processor` after every meeting to layer context. `/task-generator` for quick task extraction. `/master-aggregator` weekly to sync everything. `/session-recap` at end of each working session. `debrief` to capture gaps and save feedback memories after any session involving file edits or Confluence publishes.
 
 **As needed:** `/atpm-content` for decks/docs. `/atpm-explain` for technical clarity. `/atpm-strategy` for cross-initiative investment decisions. `/mbr-writing-style` for exec updates. `/atpm-save-chat` to persist any chat analysis worth keeping. `/atpm-followup` for weekly follow-up reports. `/atpm-respond` for customer escalation responses.
 

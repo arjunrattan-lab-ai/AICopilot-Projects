@@ -83,6 +83,42 @@ Rules for how the session-processor updates each file type within an initiative 
 
 **If a meeting-notes file for that date already exists** (meeting touched the same initiative twice in one day): append a new section header `## {meeting title}` to the existing file.
 
+### CONTEXT-LOG.md
+
+**What it is:** A prepend-only, latest-first log of every session that touched this initiative. The "catch me up" file — open it to see what's happened here without digging through scratch/.
+
+**What to update:** One block per session, every time this initiative is touched.
+
+**How:**
+- Prepend a new block at the top (newest first).
+- Create the file if it doesn't exist — no header needed, blocks are self-contained.
+- Append a changelog comment at the very bottom of the file after every write.
+
+**Block format:**
+```markdown
+## {YYYY-MM-DD} | {Source label} | {Source type}
+
+**Relevance:** {one line — why this content was routed here}
+
+### Context
+- {key fact or discussion point — 5 bullets max}
+
+### Decisions
+- {decision, or "None"}
+
+### Open Action Items
+- [ ] {action} — {owner} (or "None")
+
+---
+```
+
+**Changelog line** (appended at bottom of file, never deleted):
+```
+<!-- changelog: {YYYY-MM-DD} | added from {source label} -->
+```
+
+**Never:** Rewrite or delete existing blocks. Edit a prior block's content. Move blocks around.
+
 ### Running Tasks.md
 
 **Follow task-generator conventions exactly.**

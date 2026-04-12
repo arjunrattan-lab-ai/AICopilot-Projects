@@ -53,8 +53,14 @@ When these names appear, they signal discussion about team/portfolio context. Ro
 
 ## Adding New Initiatives
 
-When a new initiative folder is created, add a row to the table above with:
-1. Keywords that would appear in conversation
-2. Initiative name
-3. Folder path
-4. Running Tasks location
+When the user confirms a net new initiative (discovered via map-projects or user-specified), add a row to the Initiative Map automatically:
+
+```markdown
+| `{folder name}`, `{obvious alias}` | {Initiative Name} | `00 Workstreams/{folder}/` | `00 Workstreams/{folder}/Running Tasks.md` | `CONTEXT-LOG.md` |
+```
+
+Use the folder name as the primary keyword. Leave other keyword slots as TBD — the user can refine later. Mark the row with a comment so it's easy to find:
+
+```markdown
+<!-- auto-added by session-processor {YYYY-MM-DD} — keywords may need refinement -->
+```

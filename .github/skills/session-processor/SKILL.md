@@ -14,9 +14,10 @@ Process meeting transcripts → topic summaries → initiative wiki updates → 
 - To incrementally update initiative context files (decisions, signals, competitive intel)
 - To keep Running Tasks files current after meetings
 
-## Architecture: 3.5-Pass State Machine
+## Architecture: 4-Pass State Machine
 
 ```
+Pre-Pass: Normalize Input (auto — no checkpoint) →
 Pass 1: Summarize & Route → [CHECKPOINT: confirm initiatives] →
 Pass 1.5: Cross-Reference & Flag (auto — no checkpoint) →
 Pass 2: Update Initiative Wiki → [CHECKPOINT: review changes] →
@@ -24,7 +25,30 @@ Pass 3: Extract Tasks → Running Tasks → [remind: master-aggregator]
 ```
 
 Every checkpoint is **mandatory**. Never skip user confirmation.
-Pass 1.5 runs automatically — its output is reviewed during the Pass 2 checkpoint.
+Pre-Pass and Pass 1.5 run automatically — their output feeds the next pass.
+
+---
+
+## Pre-Pass: Normalize Input
+
+Runs automatically before Pass 1. No checkpoint.
+
+### Detect input type
+
+Inspect the raw input and classify it:
+
+| Signal | Type | Treatment |
+|---|---|---|
+| Speaker labels (`Name:` or `[HH:MM] Name:`) | Transcript | Pass through as-is |
+| `@mentions`, channel headers (`#channel`), reaction lines | Slack export | Strip noise (reactions, join/leave messages, channel metadata). Reformat into `[timestamp] Name: text` dialogue blocks. |
+| No speaker labels, structured prose or bullets | Doc / notes | Treat as unstructured text. No speaker normalization needed. |
+| Mixed (e.g., Slack thread with a pasted transcript block) | Mixed | Split into sections, label each with its type, process each section separately in Pass 1, then merge topics. |
+
+### Normalize
+
+- For Slack: collapse thread replies into the parent message context. Preserve timestamps. Remove bot messages unless they contain decisions or links.
+- For docs: if headings exist, treat each heading as a proto-topic to guide Pass 1 summarization.
+- Note the detected type — it will be used as the `Source type` field in CONTEXT-LOG.md.
 
 ---
 
@@ -67,12 +91,25 @@ Save the summary as a sibling file to the transcript:
 
 ### Step 1.4: Detect initiatives touched
 
+**Step A — Static routing rules (primary)**
+
 Load [routing rules](./references/routing-rules.md) and scan the summary for matching keywords.
 
-For each match, report:
+**Step B — Dynamic discovery (supplemental)**
+
+Run `map-projects` on `/Users/arjun.rattan/arjun_copilot/projects/00 Workstreams` to get the live folder list. For any folder NOT already covered by routing-rules.md, fuzzy-match its name against the extracted topics, project names, and people from the summary. If confidence is high (folder name or obvious alias appears in the summary), include it as a match.
+
+If a folder is found via map-projects but not in routing-rules.md, flag it:
+```
+❓ New match via map-projects: [folder name] — not in routing rules yet. Add it?
+```
+This surfaces newly created workstreams automatically without requiring manual routing-rules.md updates.
+
+For each match (from either source), report:
 - Initiative name
 - Folder path
 - What was discussed (1-line summary)
+- Source of match: `routing-rules` or `map-projects`
 
 ### Step 1.5: CHECKPOINT — Confirm routing
 
@@ -221,7 +258,43 @@ For each topic in the summary that touches this initiative, classify the new inf
 1. **NEVER rewrite existing content.** Only append.
 2. **Date-stamp every addition.** Use `## Update: YYYY-MM-DD — {source}` headers for new sections in structured files.
 3. **For tables:** Add new rows at the bottom. Never re-sort or modify existing rows.
-4. **For decisions.md:** Append a new decision block using this format:
+4. **Always write CONTEXT-LOG.md first** (Step 2.3a), then write granular files. CONTEXT-LOG.md is the "catch me up" entry point for each initiative.
+
+#### Step 2.3a: Write CONTEXT-LOG.md (every time, every initiative)
+
+For every confirmed initiative, prepend a new block to `CONTEXT-LOG.md` in that initiative's folder. Create the file if it doesn't exist.
+
+Format:
+```markdown
+## {YYYY-MM-DD} | {Source label} | {Source type}
+
+**Relevance:** {one line — why this content was routed here}
+
+### Context
+- {key fact or discussion point}
+- {key fact or discussion point}
+
+### Decisions
+- {decision made, or "None" if none}
+
+### Open Action Items
+- [ ] {action} — {owner}
+
+---
+```
+
+Rules:
+- Prepend — newest block at the top, oldest at the bottom.
+- `Source label` = filename, meeting title, or "pasted content".
+- `Source type` = from Pre-Pass detection (transcript / Slack / doc / mixed).
+- Keep each block tight — 5–8 bullets max. Full detail lives in scratch/meeting-notes.
+- If no decisions: write `None`. If no open action items: write `None`. Never omit the fields.
+- After prepending, append one changelog line at the very bottom of the file:
+  ```
+  <!-- changelog: {YYYY-MM-DD} | added from {source label} -->
+  ```
+
+#### Step 2.3b: For decisions.md — Append a new decision block:
 
 ```markdown
 ---
@@ -238,7 +311,7 @@ For each topic in the summary that touches this initiative, classify the new inf
 **Rationale:** {Why this direction wins}
 ```
 
-5. **For meeting notes:** Create `scratch/meeting-notes-{date}.md` with:
+#### Step 2.3c: For meeting notes — Create `scratch/meeting-notes-{date}.md`:
 
 ```markdown
 # Meeting Notes — {date} — {meeting title}
@@ -251,7 +324,7 @@ For each topic in the summary that touches this initiative, classify the new inf
 {Extracted excerpts and context relevant to this initiative only}
 ```
 
-6. **If no structured update fits:** Put it in meeting notes. Don't force-fit into PROBLEM.md or SIGNAL.md.
+#### Step 2.3d: If no structured update fits — put it in meeting notes. Don't force-fit into PROBLEM.md or SIGNAL.md.
 
 ### Step 2.4: CHECKPOINT — Review changes
 
@@ -259,12 +332,14 @@ Present a changes summary:
 
 ```
 Updates for BSM (pm-planning/aioc+-bsm/):
+  ✏️ CONTEXT-LOG.md — prepended entry (2026-04-03 | Nihar 1:1 | transcript)
   ✏️ scratch/decisions.md — +1 decision: "BSM is killer app for AIOC+ Beta"
   ✏️ scratch/meeting-notes-2026-04-03.md — new file (BSM framing discussion)
   ⏭️ PROBLEM.md — no changes needed
   ⏭️ SIGNAL.md — no changes needed
 
 Updates for EVE (00 Workstreams/Event Validation Engine/):
+  ✏️ CONTEXT-LOG.md — prepended entry (2026-04-03 | Nihar 1:1 | transcript)
   ✏️ scratch/meeting-notes-2026-04-03.md — new file (AI-only mode, 4-bucket EVE scope)
   ⏭️ Running Tasks.md — tasks handled in Pass 3
 
@@ -327,9 +402,41 @@ After all tasks are written:
 
 ---
 
+## New Folder Scaffold
+
+When a confirmed initiative has no folder on disk, create it before writing any files. Use this scaffold — nothing more, nothing less:
+
+```
+{initiative-folder}/
+  CONTEXT-LOG.md        ← created empty; current session will write the first block
+  Running Tasks.md      ← created with table header only (see format below)
+  scratch/              ← empty directory; future sessions will populate it
+```
+
+**Running Tasks.md starter:**
+```markdown
+# Running Tasks — {Initiative Name}
+
+| Date Created | Task Name | Description | When Due | Who Else Can Help |
+|---|---|---|---|---|
+```
+
+**Do NOT pre-create** PROBLEM.md, SIGNAL.md, PM-STATE.md, Context.md, or STRATEGY.md. Those are owned by the atpm skill and are created when an initiative formally starts. The session-processor only creates the lightweight operational scaffold.
+
+### When to create vs. when to ask
+
+| Scenario | Action |
+|---|---|
+| Known initiative (in routing-rules.md), folder missing | Create scaffold silently, note it in the Pass 2 checkpoint |
+| New initiative found via map-projects, folder already exists | Use it — no creation needed |
+| Net new initiative (not in routing-rules.md, no folder) | Ask user: "New workstream detected: **{name}**. Create folder + scaffold, skip, or route tasks to Master Action Items?" |
+| User confirms create | Create scaffold, then add the new initiative to routing-rules.md with a placeholder row |
+
+---
+
 ## Error Handling
 
 - **Transcript too long (>500 lines):** Process in sections. Summarize first 250 lines, then next 250, then merge topics.
-- **Initiative folder doesn't exist:** Ask user — "No folder found for {initiative}. Create it, skip, or route tasks to Master Action Items?"
+- **Initiative folder doesn't exist:** Follow the New Folder Scaffold rules above. Do not silently skip.
 - **No action items found:** That's fine. Pass 3 produces nothing. Still complete Pass 1 and Pass 2.
 - **Routing ambiguity:** When a topic spans multiple initiatives, ask user which folder gets the update. Don't duplicate across folders.
