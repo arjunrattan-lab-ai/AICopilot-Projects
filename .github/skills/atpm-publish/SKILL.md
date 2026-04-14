@@ -195,7 +195,7 @@ If user selects CHANGE TITLE or CHANGE PARENT, collect the new value and re-disp
 1. Re-read the existing page body via `mcp_com_atlassian_getConfluencePage` with `contentFormat: markdown`.
    - **Safety check:** If the body is empty or the call fails, ABORT. Do not write. Report the error. Never write an empty body — it would wipe the page.
    - **Preservation rule:** Use the EXACT body returned by `getConfluencePage` as the base. Do not manually reconstruct, shorten, or paraphrase any existing content. The returned markdown is the source of truth — only strip the footer and append the new section.
-2. Strip the existing footer from the retrieved body (if present). Detect and remove **all** footer variants: `Synced from:` / `Last synced:` (create/update pages) **and** `Last updated:` (append pages). Remove the trailing `---` separator associated with the footer. Preserve everything else.
+2. Strip the existing footer from the retrieved body (if present). Detect and remove **all** footer variants: `Synced from:` / `Last synced:` (create/update pages) **and** `Last updated:` (append pages). For each footer block at the end of the page, remove the `---` line immediately before the footer lines along with the footer lines themselves, and keep stripping footer blocks until none remain. Preserve everything else.
 3. Build the new section:
    ```markdown
 
