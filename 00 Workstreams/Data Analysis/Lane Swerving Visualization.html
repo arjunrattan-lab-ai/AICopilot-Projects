@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lane Swerving — State Machine Visual</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #161b27 0%, #111827 100%);
+      border-bottom: 1px solid #1e2d40;
+      padding: 22px 40px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    header .icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    header h1 { font-size: 19px; font-weight: 700; color: #f1f5f9; }
+    header p  { font-size: 12px; color: #64748b; margin-top: 2px; }
+
+    .main { max-width: 1300px; margin: 0 auto; padding: 32px 36px; }
+
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #475569; margin-bottom: 14px;
+    }
+
+    /* ─── Lateral Displacement Explainer ─── */
+    .ld-explainer {
+      background: #161b27;
+      border: 1px solid #1e2d40;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .ld-scale {
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+    }
+    .ld-scale .ld-label { font-size: 11px; color: #94a3b8; text-align: center; }
+    .ld-bar {
+      width: 28px;
+      height: 200px;
+      background: linear-gradient(to bottom, #6366f1 0%, #0ea5e9 50%, #10b981 100%);
+      border-radius: 14px;
+      margin: 8px 0;
+      position: relative;
+    }
+    .ld-bar .tick {
+      position: absolute; left: 38px; font-size: 11px; color: #94a3b8;
+      white-space: nowrap; transform: translateY(-50%);
+    }
+    .ld-bar .tick::before {
+      content: ''; display: inline-block;
+      width: 8px; height: 1px; background: #334155;
+      margin-right: 6px; vertical-align: middle;
+    }
+
+    .ld-desc h3 { font-size: 15px; font-weight: 600; color: #f1f5f9; margin-bottom: 10px; }
+    .ld-desc p  { font-size: 13px; color: #94a3b8; line-height: 1.7; }
+    .ld-desc code {
+      background: rgba(255,255,255,0.07); border-radius: 4px;
+      padding: 1px 6px; font-size: 11px; font-family: 'SF Mono', monospace;
+    }
+
+    /* ─── Signal Cards ─── */
+    .signals-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .signal-card {
+      background: #161b27;
+      border: 1px solid #1e2d40;
+      border-radius: 12px;
+      padding: 20px 22px;
+    }
+
+    .signal-card .sig-title {
+      font-size: 13px; font-weight: 600; color: #f1f5f9;
+      margin-bottom: 4px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .signal-card .sig-sub { font-size: 11px; color: #64748b; margin-bottom: 14px; }
+
+    .sig-badge {
+      font-size: 10px; font-weight: 700; padding: 2px 8px;
+      border-radius: 99px; letter-spacing: 0.04em;
+    }
+    .badge-green  { background: rgba(16,185,129,0.15); color: #10b981; }
+    .badge-red    { background: rgba(239,68,68,0.15);  color: #ef4444; }
+    .badge-yellow { background: rgba(234,179,8,0.15);  color: #eab308; }
+    .badge-blue   { background: rgba(14,165,233,0.15); color: #0ea5e9; }
+    .badge-purple { background: rgba(99,102,241,0.15); color: #818cf8; }
+
+    canvas.sig { width: 100%; height: 130px; display: block; }
+
+    .sig-note {
+      font-size: 11px; color: #64748b; margin-top: 10px; line-height: 1.5;
+    }
+    .sig-note strong { color: #94a3b8; }
+
+    /* ─── State Machine ─── */
+    .state-machine {
+      background: #161b27;
+      border: 1px solid #1e2d40;
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 28px;
+    }
+
+    .sm-flow {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; margin: 20px 0 28px;
+      flex-wrap: wrap;
+    }
+
+    .sm-state {
+      background: #0d1117;
+      border: 2px solid #2d3748;
+      border-radius: 10px;
+      padding: 16px 20px;
+      text-align: center;
+      min-width: 160px;
+    }
+    .sm-state .sm-name { font-size: 13px; font-weight: 700; color: #f1f5f9; margin-bottom: 6px; }
+    .sm-state .sm-finds { font-size: 11px; color: #64748b; margin-bottom: 8px; }
+    .sm-state .sm-records { font-size: 11px; color: #94a3b8; line-height: 1.5; }
+
+    .sm-state.start    { border-color: #0ea5e9; }
+    .sm-state.watchdog { border-color: #f97316; }
+    .sm-state.inprog   { border-color: #10b981; }
+
+    .sm-arrow {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 0 8px; color: #334155;
+    }
+    .sm-arrow svg { width: 32px; height: 24px; }
+    .sm-arrow span { font-size: 10px; color: #475569; text-align: center; max-width: 90px; }
+
+    .sm-check {
+      background: rgba(16,185,129,0.08);
+      border: 1px solid rgba(16,185,129,0.25);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-top: 4px;
+      font-size: 12px; color: #6ee7b7; line-height: 1.6;
+    }
+    .sm-check strong { color: #10b981; }
+
+    /* ─── V1 vs V2 ─── */
+    .v1v2 {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-bottom: 28px;
+    }
+
+    .version-card {
+      background: #161b27;
+      border: 1px solid #1e2d40;
+      border-radius: 12px;
+      padding: 22px;
+    }
+
+    .version-card.v1 { border-top: 3px solid #ef4444; }
+    .version-card.v2 { border-top: 3px solid #10b981; }
+
+    .version-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .version-card.v1 h3 { color: #f87171; }
+    .version-card.v2 h3 { color: #34d399; }
+    .version-card .ver-sub { font-size: 11px; color: #64748b; margin-bottom: 14px; }
+
+    .ver-item {
+      display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start;
+    }
+    .ver-item .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      flex-shrink: 0; margin-top: 5px;
+    }
+    .dot-red    { background: #ef4444; }
+    .dot-green  { background: #10b981; }
+    .ver-item p { font-size: 12px; color: #94a3b8; line-height: 1.6; }
+    .ver-item p strong { color: #cbd5e1; }
+    .ver-item code {
+      background: rgba(255,255,255,0.07); border-radius: 4px;
+      padding: 1px 5px; font-size: 10px; font-family: 'SF Mono', monospace;
+    }
+
+    /* ─── Threshold Visual ─── */
+    .threshold-box {
+      background: #161b27;
+      border: 1px solid #1e2d40;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+    }
+
+    .thr-canvas { width: 100%; height: 180px; display: block; margin: 16px 0; }
+
+    .thr-legend {
+      display: flex; gap: 20px; flex-wrap: wrap; margin-top: 6px;
+    }
+    .thr-legend-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; color: #94a3b8;
+    }
+    .thr-legend-swatch {
+      width: 28px; height: 3px; border-radius: 2px;
+    }
+
+    /* ─── Summary Table ─── */
+    .summary-table-wrap {
+      background: #161b27;
+      border: 1px solid #1e2d40;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .summary-table-wrap .tbl-header {
+      padding: 14px 22px;
+      border-bottom: 1px solid #1e2d40;
+      font-size: 14px; font-weight: 600; color: #f1f5f9;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      background: #111827;
+      color: #64748b; font-weight: 600;
+      text-align: left; padding: 11px 22px;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    tbody tr { border-top: 1px solid #1a2233; transition: background 0.15s; }
+    tbody tr:hover { background: #1a2740; }
+    tbody td { padding: 12px 22px; color: #cbd5e1; line-height: 1.5; vertical-align: top; }
+    tbody td:first-child { font-weight: 600; color: #f1f5f9; }
+    tbody td.shape { font-size: 12px; color: #94a3b8; font-style: italic; }
+
+    .cell-yes { color: #34d399; font-weight: 600; }
+    .cell-no  { color: #f87171; font-weight: 600; }
+    .cell-warn { color: #fbbf24; font-weight: 600; }
+
+    /* ─── Fix Banner ─── */
+    .fix-banner {
+      background: rgba(14,165,233,0.07);
+      border: 1px solid rgba(14,165,233,0.25);
+      border-left: 4px solid #0ea5e9;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 13px; color: #7dd3fc; line-height: 1.7;
+    }
+    .fix-banner strong { color: #38bdf8; }
+    .fix-banner code {
+      background: rgba(255,255,255,0.07); border-radius: 4px;
+      padding: 1px 6px; font-size: 11px; font-family: 'SF Mono', monospace;
+    }
+
+    hr.divider {
+      border: none; border-top: 1px solid #1e2d40; margin: 28px 0;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="icon">🚗</div>
+  <div>
+    <h1>Lane Swerving — State Machine &amp; Signal Patterns</h1>
+    <p>How the perception pipeline distinguishes swerve, drift, and lane change</p>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- ─── 1. Lateral Displacement ─── -->
+  <div class="section-label">Core Signal</div>
+  <div class="ld-explainer">
+    <div class="ld-scale">
+      <div class="ld-label">Left line<br/><strong style="color:#818cf8">1.0</strong></div>
+      <div class="ld-bar">
+        <div class="tick" style="top:0%">1.0 — left line</div>
+        <div class="tick" style="top:50%">0.5 — center</div>
+        <div class="tick" style="top:100%">0.0 — right line</div>
+      </div>
+      <div class="ld-label">Right line<br/><strong style="color:#10b981">0.0</strong></div>
+    </div>
+    <div class="ld-desc">
+      <h3>Lateral Displacement (LD)</h3>
+      <p>
+        A single <strong>continuous value 0 → 1</strong> representing where the vehicle center sits between its two detected lane lines at any given frame.
+        <br/><br/>
+        <code>0.0</code> = center on <em>right</em> lane line &nbsp;·&nbsp;
+        <code>0.5</code> = dead center &nbsp;·&nbsp;
+        <code>1.0</code> = center on <em>left</em> lane line
+        <br/><br/>
+        Everything downstream — swerve detection, lane change exclusion, drift filtering — is purely <strong>pattern-matching on the shape of this signal over time</strong>. The perception engine outputs it; the state machine interprets it.
+        <br/><br/>
+        When a lane change occurs, the perception engine <em>switches</em> from tracking the old lane lines to the new ones, causing an apparent jump of ~1.0 in LD. That discontinuity is the lane change signal.
+      </p>
+    </div>
+  </div>
+
+  <!-- ─── 2. Signal Shapes ─── -->
+  <div class="section-label">Signal Shapes — What Each Pattern Looks Like</div>
+  <div class="signals-grid">
+
+    <div class="signal-card">
+      <div class="sig-title">
+        True Swerve
+        <span class="sig-badge badge-green">Correct Detection Target</span>
+      </div>
+      <div class="sig-sub">Hill or valley oscillation — car moves laterally then returns</div>
+      <canvas class="sig" id="cvSwerve"></canvas>
+      <div class="sig-note">
+        <strong>Shape:</strong> Clear peak or trough. Start, peak, end form a hill/valley.
+        Both sides drop ≥0.15 from peak; one side ≥0.30. Duration: typically 3–8s. Amplitude: 0.15–0.30 of lane width.
+      </div>
+    </div>
+
+    <div class="signal-card">
+      <div class="sig-title">
+        Drift
+        <span class="sig-badge badge-red">V1 Bug — False Positive</span>
+      </div>
+      <div class="sig-sub">Monotonic slope — car slowly slides in one direction without returning</div>
+      <canvas class="sig" id="cvDrift"></canvas>
+      <div class="sig-note">
+        <strong>Shape:</strong> Gradual one-way slide. No true peak — one "side" is always higher than the other.
+        V1 can find 3 zero-velocity points on the slope and misclassify as swerve.
+        V2 dual-threshold rejects it: you can't have both sides ≥0.15 below a peak on a monotonic slope.
+      </div>
+    </div>
+
+    <div class="signal-card">
+      <div class="sig-title">
+        Lane Change
+        <span class="sig-badge badge-blue">Filtered Out</span>
+      </div>
+      <div class="sig-sub">Step function — LD jumps ~1.0 as perception engine switches lane lines</div>
+      <canvas class="sig" id="cvLaneChange"></canvas>
+      <div class="sig-note">
+        <strong>Shape:</strong> Near-instant jump of ~1.0 in LD (old lane → new lane tracking).
+        V1: explicit Lane Change Exclusion Filter drops event if jump detected mid-swerve.
+        V2: numpy.unwrap-style correction subtracts the jump; also flags any displacement >0.65 as lane change.
+      </div>
+    </div>
+
+    <div class="signal-card">
+      <div class="sig-title">
+        Boomerang Lane Change
+        <span class="sig-badge badge-yellow">Gray Zone — Top FP Source</span>
+      </div>
+      <div class="sig-sub">Overtake-and-return — looks swerve-shaped but at lane-change amplitude (~0.5+)</div>
+      <canvas class="sig" id="cvBoomerang"></canvas>
+      <div class="sig-note">
+        <strong>Shape:</strong> Hill/valley shape but wide — amplitude 0.5+ (above swerve, below full lane change threshold of 0.65).
+        Falls in the gray zone between 0.30 and 0.65. Identified as top FP source in the June 2025 tech review.
+        Neither V1 nor V2 reliably filters these.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── 3. State Machine ─── -->
+  <div class="section-label">3-Point State Machine</div>
+  <div class="state-machine">
+    <p style="font-size:13px;color:#94a3b8;margin-bottom:20px;">
+      The machine searches for 3 <em>stationary points</em> — moments where lateral velocity crosses zero (the car stops moving laterally and reverses direction). These three points define the shape of a candidate swerve event.
+    </p>
+
+    <div class="sm-flow">
+      <div class="sm-state start">
+        <div class="sm-name">① START</div>
+        <div class="sm-finds">1st stationary point</div>
+        <div class="sm-records">Timestamp<br/>Lateral displacement</div>
+      </div>
+
+      <div class="sm-arrow">
+        <svg viewBox="0 0 32 24" fill="none"><path d="M2 12 H28 M20 5 L28 12 L20 19" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>velocity crosses zero</span>
+      </div>
+
+      <div class="sm-state watchdog">
+        <div class="sm-name">② WATCHDOG</div>
+        <div class="sm-finds">2nd stationary point<br/>(the peak)</div>
+        <div class="sm-records">Timestamp<br/>Lateral displacement<br/>Concavity (+1 valley / −1 hill)</div>
+      </div>
+
+      <div class="sm-arrow">
+        <svg viewBox="0 0 32 24" fill="none"><path d="M2 12 H28 M20 5 L28 12 L20 19" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>velocity crosses zero again</span>
+      </div>
+
+      <div class="sm-state inprog">
+        <div class="sm-name">③ IN PROGRESS</div>
+        <div class="sm-finds">3rd stationary point<br/>(end)</div>
+        <div class="sm-records">Timestamp<br/>Lateral displacement</div>
+      </div>
+
+      <div class="sm-arrow">
+        <svg viewBox="0 0 32 24" fill="none"><path d="M2 12 H28 M20 5 L28 12 L20 19" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>evaluate thresholds</span>
+      </div>
+
+      <div class="sm-state" style="border-color:#6366f1;min-width:140px;">
+        <div class="sm-name" style="color:#818cf8">🔥 FIRE EVENT</div>
+        <div class="sm-finds">if amplitude &amp; duration pass</div>
+        <div class="sm-records" style="color:#6366f1">Swerve event logged</div>
+      </div>
+    </div>
+
+    <div class="sm-check">
+      <strong>What triggers the fire:</strong>
+      Amplitude (peak vs. start/end difference) must exceed threshold <em>AND</em> duration of the excursion must be within the valid window.
+      This is where V1 and V2 critically diverge — V1 does not verify the peak is a true extremum; V2 enforces strict dual-threshold shape checking.
+    </div>
+  </div>
+
+  <!-- ─── 4. Threshold Visual ─── -->
+  <div class="section-label">V2 Dual-Threshold Shape Check</div>
+  <div class="threshold-box">
+    <p style="font-size:13px;color:#94a3b8;">
+      V2 requires the candidate peak to be a <strong style="color:#f1f5f9">true extremum</strong> with both surrounding points sufficiently below it. A monotonic drift cannot satisfy this — one side will always be above the "peak."
+    </p>
+    <canvas class="thr-canvas" id="cvThreshold"></canvas>
+    <div class="thr-legend">
+      <div class="thr-legend-item"><div class="thr-legend-swatch" style="background:#34d399"></div> True Swerve (passes)</div>
+      <div class="thr-legend-item"><div class="thr-legend-swatch" style="background:#f87171"></div> Drift (fails — no real peak)</div>
+      <div class="thr-legend-item"><div class="thr-legend-swatch" style="background:#fbbf24; opacity:0.5;"></div> 0.15 min threshold</div>
+      <div class="thr-legend-item"><div class="thr-legend-swatch" style="background:#f97316; opacity:0.5;"></div> 0.30 strong threshold</div>
+    </div>
+  </div>
+
+  <!-- ─── 5. V1 vs V2 ─── -->
+  <div class="section-label">V1 (Edge) vs. V2 (Cloud) — Key Differences</div>
+  <div class="v1v2">
+
+    <div class="version-card v1">
+      <h3>V1 — Edge (DC-53/DC-54)</h3>
+      <div class="ver-sub">The current on-device implementation — has the drift bug</div>
+
+      <div class="ver-item">
+        <div class="dot dot-red"></div>
+        <p><strong>No extremum enforcement:</strong> finds 3 zero-velocity points but doesn't verify the middle one is a true peak. Can pick 3 points on a monotonic slope.</p>
+      </div>
+      <div class="ver-item">
+        <div class="dot dot-red"></div>
+        <p><strong>Lane Change Exclusion Filter:</strong> drops event if a lane change is detected mid-swerve. Asad Soomro requested: "drop event and move to None state."</p>
+      </div>
+      <div class="ver-item">
+        <div class="dot dot-red"></div>
+        <p><strong>No drift filter:</strong> slow, gradual lateral slides pass through as swerve events — this is the current bug on VG5.</p>
+      </div>
+    </div>
+
+    <div class="version-card v2">
+      <h3>V2 — EFS / Cloud</h3>
+      <div class="ver-sub">The correct post-processing implementation</div>
+
+      <div class="ver-item">
+        <div class="dot dot-green"></div>
+        <p><strong>Exhaustive search with shape constraints:</strong> peak must be a true max or min. Start: 2–10s before peak. End: 2–10s after peak.</p>
+      </div>
+      <div class="ver-item">
+        <div class="dot dot-green"></div>
+        <p><strong>Dual amplitude threshold:</strong> both start &amp; end must be ≥<code>0.15</code> below peak; at least one must be ≥<code>0.30</code> below. Drift physically cannot pass this.</p>
+      </div>
+      <div class="ver-item">
+        <div class="dot dot-green"></div>
+        <p><strong>Lane width consistency check:</strong> lane width must stay between <code>0.83×</code> and <code>1.2×</code> of width at peak throughout the window.</p>
+      </div>
+      <div class="ver-item">
+        <div class="dot dot-green"></div>
+        <p><strong>numpy.unwrap-style LC correction:</strong> when LD jumps ~1.0, adjusts signal to be continuous so downstream pipeline isn't fooled. Also flags anything >0.65 as lane change.</p>
+      </div>
+      <div class="ver-item">
+        <div class="dot dot-green"></div>
+        <p><strong>2100ms lookback window</strong> for reference points in LC detection.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── 6. Summary Table ─── -->
+  <div class="section-label">TL;DR — Pattern Detection Matrix</div>
+  <div class="summary-table-wrap">
+    <div class="tbl-header">📊 What each version catches</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Pattern</th>
+          <th>LD Signal Shape</th>
+          <th>Amplitude Range</th>
+          <th>V1 Edge</th>
+          <th>V2 Cloud</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>True Swerve</td>
+          <td class="shape">Hill or valley oscillation</td>
+          <td>0.15 – 0.30</td>
+          <td class="cell-yes">✓ Caught</td>
+          <td class="cell-yes">✓ Caught</td>
+        </tr>
+        <tr>
+          <td>Drift</td>
+          <td class="shape">Monotonic slope — one-way slide</td>
+          <td>Any</td>
+          <td class="cell-red">✗ False positive</td>
+          <td class="cell-yes">✓ Filtered</td>
+        </tr>
+        <tr>
+          <td>Lane Change</td>
+          <td class="shape">Step function — jump ~1.0</td>
+          <td>~1.0 (full lane)</td>
+          <td class="cell-yes">✓ LC exclusion filter</td>
+          <td class="cell-yes">✓ Unwrap + 0.65 threshold</td>
+        </tr>
+        <tr>
+          <td>Boomerang Lane Change</td>
+          <td class="shape">Out-and-back but wide</td>
+          <td>0.30 – 0.65 (gray zone)</td>
+          <td class="cell-warn">⚠ Sometimes passes</td>
+          <td class="cell-warn">⚠ Sometimes passes (top FP)</td>
+        </tr>
+        <tr>
+          <td>Curvy Road</td>
+          <td class="shape">Follows road curvature</td>
+          <td>Variable</td>
+          <td class="cell-warn">⚠ Sometimes passes</td>
+          <td class="cell-yes">✓ Partially — lane width consistency</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ─── 7. Fix Banner ─── -->
+  <div class="fix-banner">
+    <strong>🔧 Proposed Fix for VG5:</strong> Port the V2 dual-threshold extrema check to the edge state machine.
+    The WATCHDOG state needs to verify the 2nd stationary point is a true local maximum or minimum — meaning both the start and end must be
+    at least <code>0.15</code> below it, with one at <code>0.30</code>. This single change closes the drift false-positive gap without changing
+    how true swerves or lane changes are handled.
+  </div>
+
+</div>
+
+<script>
+// ─── Drawing helpers ───────────────────────────────────────────────
+function setupCanvas(id) {
+  const el = document.getElementById(id);
+  const dpr = window.devicePixelRatio || 1;
+  const rect = el.parentElement.getBoundingClientRect();
+  el.width  = rect.width * dpr;
+  el.height = 130 * dpr;
+  el.style.width  = rect.width + 'px';
+  el.style.height = '130px';
+  const ctx = el.getContext('2d');
+  ctx.scale(dpr, dpr);
+  return { ctx, w: rect.width, h: 130 };
+}
+
+function drawGrid(ctx, w, h) {
+  ctx.strokeStyle = '#1e2d40';
+  ctx.lineWidth = 1;
+  // horizontal lines at 0, 0.25, 0.5, 0.75, 1.0
+  for (let v of [0, 0.25, 0.5, 0.75, 1.0]) {
+    const y = (1 - v) * (h - 30) + 10;
+    ctx.beginPath(); ctx.moveTo(40, y); ctx.lineTo(w - 10, y); ctx.stroke();
+    ctx.fillStyle = '#334155'; ctx.font = '9px system-ui';
+    ctx.textAlign = 'right';
+    ctx.fillText(v.toFixed(2), 34, y + 3);
+  }
+  // axis labels
+  ctx.fillStyle = '#475569'; ctx.font = '9px system-ui'; ctx.textAlign = 'center';
+  ctx.fillText('Left lane', w - 36, (1 - 1.0) * (h-30) + 10 - 2);
+  ctx.fillText('Center',    w - 36, (1 - 0.5) * (h-30) + 10 + 3);
+  ctx.fillText('Right lane',w - 36, (1 - 0.0) * (h-30) + 10 + 10);
+}
+
+function ldToY(v, h) { return (1 - v) * (h - 30) + 10; }
+function timeToX(t, tmax, w) { return 40 + (t / tmax) * (w - 90); }
+
+function drawSignal(ctx, points, color, w, h, tmax) {
+  ctx.beginPath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2.5;
+  ctx.lineJoin = 'round';
+  points.forEach(([t, v], i) => {
+    const x = timeToX(t, tmax, w);
+    const y = ldToY(v, h);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+
+  // Glow
+  ctx.beginPath();
+  ctx.strokeStyle = color + '33';
+  ctx.lineWidth = 6;
+  points.forEach(([t, v], i) => {
+    const x = timeToX(t, tmax, w);
+    const y = ldToY(v, h);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+  ctx.lineWidth = 1;
+}
+
+function drawDot(ctx, t, v, color, label, w, h, tmax) {
+  const x = timeToX(t, tmax, w);
+  const y = ldToY(v, h);
+  ctx.beginPath();
+  ctx.arc(x, y, 5, 0, Math.PI*2);
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.strokeStyle = '#0d1117'; ctx.lineWidth = 2;
+  ctx.stroke();
+  if (label) {
+    ctx.fillStyle = color; ctx.font = 'bold 10px system-ui'; ctx.textAlign = 'center';
+    ctx.fillText(label, x, y - 10);
+  }
+}
+
+// ─── Swerve ───────────────────────────────────────────────────────
+(function() {
+  const {ctx, w, h} = setupCanvas('cvSwerve');
+  drawGrid(ctx, w, h);
+  const tmax = 12;
+  const pts = [];
+  for (let t = 0; t <= tmax; t += 0.1) {
+    let v = 0.5;
+    if (t >= 2 && t <= 8) {
+      v = 0.5 + 0.25 * Math.sin(Math.PI * (t - 2) / 6);
+    }
+    pts.push([t, v]);
+  }
+  drawSignal(ctx, pts, '#34d399', w, h, tmax);
+  drawDot(ctx, 2,   0.5,  '#94a3b8', 'P₁', w, h, tmax);
+  drawDot(ctx, 5,   0.75, '#34d399', 'P₂ peak', w, h, tmax);
+  drawDot(ctx, 8,   0.5,  '#94a3b8', 'P₃', w, h, tmax);
+
+  // amplitude annotation
+  ctx.strokeStyle = '#34d39966'; ctx.lineWidth = 1; ctx.setLineDash([3,3]);
+  ctx.beginPath();
+  ctx.moveTo(timeToX(5, tmax, w)+12, ldToY(0.75, h));
+  ctx.lineTo(timeToX(5, tmax, w)+12, ldToY(0.5, h));
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#34d399'; ctx.font = '9px system-ui'; ctx.textAlign = 'left';
+  ctx.fillText('amp≈0.25', timeToX(5, tmax, w)+15, ldToY(0.625, h)+3);
+})();
+
+// ─── Drift ───────────────────────────────────────────────────────
+(function() {
+  const {ctx, w, h} = setupCanvas('cvDrift');
+  drawGrid(ctx, w, h);
+  const tmax = 12;
+  const pts = [];
+  for (let t = 0; t <= tmax; t += 0.1) {
+    let v = 0.35 + (t / tmax) * 0.35;
+    // slight noise
+    v += 0.01 * Math.sin(t * 3.7);
+    pts.push([t, v]);
+  }
+  drawSignal(ctx, pts, '#f87171', w, h, tmax);
+
+  // Show 3 "false" stationary points V1 would pick
+  const fp = [[1.5, 0.35 + 0.01], [4.5, 0.35+0.35*4.5/12], [8.5, 0.35+0.35*8.5/12]];
+  fp.forEach(([t,v], i) => drawDot(ctx, t, v, '#f97316', `P${i+1}?`, w, h, tmax));
+
+  ctx.fillStyle = '#f87171'; ctx.font = '10px system-ui'; ctx.textAlign = 'center';
+  ctx.fillText('V1: picks these as swerve points ← BUG', w/2, h - 8);
+})();
+
+// ─── Lane Change ─────────────────────────────────────────────────
+(function() {
+  const {ctx, w, h} = setupCanvas('cvLaneChange');
+  drawGrid(ctx, w, h);
+  const tmax = 12;
+  const pts = [];
+  for (let t = 0; t <= tmax; t += 0.05) {
+    let v;
+    if (t < 5) v = 0.35;
+    else if (t < 5.4) v = 0.35 + (t - 5) / 0.4 * 0.9;
+    else v = Math.min(0.35 + 0.9, 1.0);
+    pts.push([t, v]);
+  }
+  drawSignal(ctx, pts, '#38bdf8', w, h, tmax);
+
+  // jump annotation
+  ctx.strokeStyle = '#38bdf866'; ctx.lineWidth = 1; ctx.setLineDash([3,3]);
+  ctx.beginPath();
+  ctx.moveTo(timeToX(5.2, tmax, w)+14, ldToY(0.35, h));
+  ctx.lineTo(timeToX(5.2, tmax, w)+14, ldToY(1.0, h));
+  ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle = '#38bdf8'; ctx.font = '9px system-ui'; ctx.textAlign = 'left';
+  ctx.fillText('jump ≈ 1.0', timeToX(5.2, tmax, w)+17, ldToY(0.67, h));
+
+  ctx.fillStyle = '#38bdf8'; ctx.font = '10px system-ui'; ctx.textAlign = 'center';
+  ctx.fillText('V2: unwrap subtracts jump → continuous signal', w/2, h - 8);
+})();
+
+// ─── Boomerang ───────────────────────────────────────────────────
+(function() {
+  const {ctx, w, h} = setupCanvas('cvBoomerang');
+  drawGrid(ctx, w, h);
+  const tmax = 12;
+  const pts = [];
+  for (let t = 0; t <= tmax; t += 0.1) {
+    let v = 0.38;
+    if (t >= 2 && t <= 9) {
+      v = 0.38 + 0.52 * Math.sin(Math.PI * (t - 2) / 7);
+    }
+    pts.push([t, v]);
+  }
+  drawSignal(ctx, pts, '#fbbf24', w, h, tmax);
+  drawDot(ctx, 5.5, 0.9, '#fbbf24', 'peak ~0.9', w, h, tmax);
+
+  // threshold zones
+  ctx.fillStyle = '#f9731620';
+  const y65 = ldToY(0.65, h), yBot = ldToY(0.0, h);
+  ctx.fillRect(40, y65, w-90, yBot - y65);
+  ctx.strokeStyle = '#f97316'; ctx.lineWidth = 1; ctx.setLineDash([4,3]);
+  ctx.beginPath(); ctx.moveTo(40, y65); ctx.lineTo(w-50, y65); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#f97316'; ctx.font = '9px system-ui'; ctx.textAlign = 'left';
+  ctx.fillText('0.65 LC threshold', 44, y65 - 3);
+
+  ctx.fillStyle = '#fbbf24'; ctx.font = '10px system-ui'; ctx.textAlign = 'center';
+  ctx.fillText('Gray zone 0.30–0.65 — top FP source', w/2, h-8);
+})();
+
+// ─── Threshold Comparison ─────────────────────────────────────────
+(function() {
+  const el = document.getElementById('cvThreshold');
+  const dpr = window.devicePixelRatio || 1;
+  const rect = el.parentElement.getBoundingClientRect();
+  const W = rect.width, H = 180;
+  el.width = W * dpr; el.height = H * dpr;
+  el.style.width = W+'px'; el.style.height = H+'px';
+  const ctx = el.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const PAD = { l: 50, r: 20, t: 20, b: 30 };
+  const iw = W - PAD.l - PAD.r;
+  const ih = H - PAD.t - PAD.b;
+
+  function vy(v) { return PAD.t + (1 - v) * ih; }
+  function tx(t, tmax) { return PAD.l + (t / tmax) * iw; }
+
+  // Grid
+  ctx.strokeStyle = '#1e2d40'; ctx.lineWidth = 1;
+  for (let v of [0, 0.25, 0.5, 0.75, 1.0]) {
+    ctx.beginPath(); ctx.moveTo(PAD.l, vy(v)); ctx.lineTo(W-PAD.r, vy(v)); ctx.stroke();
+    ctx.fillStyle = '#334155'; ctx.font = '9px system-ui'; ctx.textAlign = 'right';
+    ctx.fillText(v.toFixed(2), PAD.l - 6, vy(v) + 3);
+  }
+
+  const tmax = 14;
+
+  // ── True Swerve (green) ──
+  const swerveData = [];
+  for (let t = 0; t <= tmax; t += 0.1) {
+    let v = 0.45;
+    if (t >= 3 && t <= 9) v = 0.45 + 0.28 * Math.sin(Math.PI * (t-3)/6);
+    swerveData.push([t, v]);
+  }
+  ctx.beginPath(); ctx.strokeStyle = '#34d399'; ctx.lineWidth = 2.5;
+  swerveData.forEach(([t,v],i) => { const x=tx(t,tmax),y=vy(v); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
+  ctx.stroke();
+
+  // peak + threshold lines for swerve
+  const sPeak = 0.73;
+  const sPeakT = 6;
+  const sStart = 0.45, sEnd = 0.45;
+  // 0.15 line
+  ctx.strokeStyle='#fbbf2455'; ctx.lineWidth=1; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(tx(3,tmax), vy(sPeak-0.15)); ctx.lineTo(tx(9,tmax), vy(sPeak-0.15)); ctx.stroke();
+  // 0.30 line
+  ctx.strokeStyle='#f9731655'; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(tx(3,tmax), vy(sPeak-0.30)); ctx.lineTo(tx(9,tmax), vy(sPeak-0.30)); ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle='#fbbf24'; ctx.font='9px system-ui'; ctx.textAlign='left';
+  ctx.fillText('−0.15 min', tx(9,tmax)+3, vy(sPeak-0.15)+3);
+  ctx.fillStyle='#f97316';
+  ctx.fillText('−0.30 strong', tx(9,tmax)+3, vy(sPeak-0.30)+3);
+
+  // label
+  ctx.fillStyle='#34d399'; ctx.font='bold 10px system-ui'; ctx.textAlign='left';
+  ctx.fillText('✓ Swerve — both sides below thresholds', tx(0.5,tmax), vy(0.95));
+
+  // ── Drift (red) ──
+  const driftData = [];
+  for (let t = 0; t <= tmax; t += 0.1) {
+    let v = 0.3 + (t/tmax)*0.45 + 0.015*Math.sin(t*3.5);
+    driftData.push([t, v]);
+  }
+  ctx.beginPath(); ctx.strokeStyle = '#f87171'; ctx.lineWidth = 2.5;
+  driftData.forEach(([t,v],i) => { const x=tx(t,tmax),y=vy(v); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
+  ctx.stroke();
+
+  ctx.fillStyle='#f87171'; ctx.font='bold 10px system-ui'; ctx.textAlign='left';
+  ctx.fillText('✗ Drift — no real peak; one side always above "peak"', tx(0.5,tmax), vy(0.14));
+})();
+</script>
+</body>
+</html>

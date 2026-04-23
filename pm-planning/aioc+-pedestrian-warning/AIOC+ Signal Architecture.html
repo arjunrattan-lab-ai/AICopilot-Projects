@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AIOC+ Signal Architecture</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #161b27, #111827);
+      border-bottom: 1px solid #1e2d40;
+      padding: 22px 40px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    header .icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, #f97316, #ef4444);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    header h1 { font-size: 19px; font-weight: 700; color: #f1f5f9; }
+    header p  { font-size: 12px; color: #64748b; margin-top: 2px; }
+
+    .main { max-width: 1280px; margin: 0 auto; padding: 32px 36px; }
+
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #475569; margin-bottom: 14px;
+    }
+
+    /* ─── SIGNAL FLOW ─── */
+    .flow-container {
+      background: #161b27;
+      border: 1px solid #1e2d40;
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 28px;
+      overflow-x: auto;
+    }
+
+    .pipeline {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      min-width: 900px;
+    }
+
+    .stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .stage-group {
+      background: #0d1117;
+      border: 1px solid #2d3748;
+      border-radius: 10px;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      min-width: 130px;
+    }
+
+    .stage-group-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #475569;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .node {
+      background: #161b27;
+      border: 1px solid #2d3748;
+      border-radius: 8px;
+      padding: 10px 12px;
+      text-align: center;
+      width: 100%;
+    }
+    .node .node-name {
+      font-size: 12px; font-weight: 600; color: #f1f5f9;
+      margin-bottom: 3px;
+    }
+    .node .node-sub {
+      font-size: 10px; color: #64748b; line-height: 1.4;
+    }
+
+    .arrow-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+      gap: 4px;
+      min-width: 60px;
+    }
+    .arrow-col .arrow-line {
+      width: 100%;
+      height: 1px;
+      background: #334155;
+      position: relative;
+    }
+    .arrow-col .arrow-line::after {
+      content: '▶';
+      position: absolute;
+      right: -8px;
+      top: -7px;
+      font-size: 9px;
+      color: #475569;
+    }
+    .arrow-col .arrow-label {
+      font-size: 9px;
+      color: #475569;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* split arrows */
+    .split-arrow {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0 8px;
+      min-width: 90px;
+      gap: 10px;
+    }
+    .split-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .split-row .sline {
+      flex: 1;
+      height: 1px;
+      background: #334155;
+      min-width: 30px;
+    }
+    .split-row .sarrow { font-size: 9px; color: #475569; }
+    .split-row .slabel {
+      font-size: 9px; color: #64748b;
+      white-space: nowrap;
+      max-width: 80px;
+    }
+
+    /* node color variants */
+    .node-truck  { border-color: #f97316; }
+    .node-truck .node-name { color: #fb923c; }
+    .node-proto  { border-color: #3b82f6; }
+    .node-proto .node-name { color: #60a5fa; }
+    .node-motive { border-color: #8b5cf6; }
+    .node-motive .node-name { color: #a78bfa; }
+    .node-cam    { border-color: #0ea5e9; }
+    .node-cam .node-name { color: #38bdf8; }
+    .node-cloud  { border-color: #10b981; }
+    .node-cloud .node-name { color: #34d399; }
+
+    /* ─── GAP DECISION TREE ─── */
+    .tree-section {
+      background: #161b27;
+      border: 1px solid #1e2d40;
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 28px;
+    }
+
+    .tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      margin-top: 20px;
+    }
+
+    .decision-node {
+      background: #0d1117;
+      border: 2px solid #3b82f6;
+      border-radius: 10px;
+      padding: 14px 20px;
+      text-align: center;
+      max-width: 280px;
+    }
+    .decision-node .dq { font-size: 13px; font-weight: 600; color: #93c5fd; }
+    .decision-node .dsub { font-size: 11px; color: #64748b; margin-top: 4px; }
+
+    .tree-branches {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      margin-top: 0;
+    }
+
+    .branch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .branch-line {
+      width: 2px;
+      height: 28px;
+      background: #2d3748;
+    }
+    .branch-label {
+      font-size: 10px; color: #64748b;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+
+    .outcome {
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: center;
+      min-width: 170px;
+      max-width: 200px;
+    }
+    .outcome .out-icon { font-size: 18px; margin-bottom: 6px; }
+    .outcome .out-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .outcome .out-sub  { font-size: 11px; line-height: 1.5; }
+
+    .out-green  { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); }
+    .out-green .out-name  { color: #34d399; }
+    .out-green .out-sub   { color: #6ee7b7; }
+    .out-yellow { background: rgba(234,179,8,0.1);  border: 1px solid rgba(234,179,8,0.3); }
+    .out-yellow .out-name { color: #fbbf24; }
+    .out-yellow .out-sub  { color: #fde68a; }
+    .out-red    { background: rgba(239,68,68,0.1);   border: 1px solid rgba(239,68,68,0.3); }
+    .out-red .out-name    { color: #f87171; }
+    .out-red .out-sub     { color: #fca5a5; }
+    .out-grey   { background: rgba(100,116,139,0.1); border: 1px solid rgba(100,116,139,0.3); }
+    .out-grey .out-name   { color: #94a3b8; }
+    .out-grey .out-sub    { color: #cbd5e1; }
+
+    /* nested branch */
+    .sub-branches {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    /* ─── TIER TABLE ─── */
+    .tier-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .tier-card {
+      background: #161b27;
+      border: 1px solid #1e2d40;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .tier-card .tier-icon { font-size: 20px; margin-bottom: 8px; }
+    .tier-card .tier-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .tier-card .tier-status { font-size: 11px; color: #64748b; margin-bottom: 8px; }
+    .tier-card .tier-works { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+    .tier-card .tier-fix { font-size: 11px; color: #94a3b8; line-height: 1.5; }
+
+    .tier-green  { border-top: 3px solid #10b981; }
+    .tier-green .tier-name  { color: #34d399; }
+    .tier-green .tier-works { color: #34d399; }
+    .tier-yellow { border-top: 3px solid #eab308; }
+    .tier-yellow .tier-name  { color: #fbbf24; }
+    .tier-yellow .tier-works { color: #fbbf24; }
+    .tier-red    { border-top: 3px solid #ef4444; }
+    .tier-red .tier-name  { color: #f87171; }
+    .tier-red .tier-works { color: #f87171; }
+    .tier-grey   { border-top: 3px solid #64748b; }
+    .tier-grey .tier-name  { color: #94a3b8; }
+    .tier-grey .tier-works { color: #94a3b8; }
+
+    /* ─── GAP TABLES ─── */
+    .gap-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .gap-table-wrap {
+      background: #161b27;
+      border: 1px solid #1e2d40;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .gap-table-wrap .gt-header {
+      padding: 13px 20px;
+      border-bottom: 1px solid #1e2d40;
+      font-size: 13px; font-weight: 600; color: #f1f5f9;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    thead th {
+      background: #111827;
+      color: #64748b; font-weight: 600;
+      text-align: left; padding: 9px 18px;
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    tbody tr { border-top: 1px solid #1a2233; transition: background 0.15s; }
+    tbody tr:hover { background: #1a2740; }
+    tbody td { padding: 10px 18px; color: #cbd5e1; vertical-align: top; line-height: 1.5; }
+    tbody td:first-child { font-weight: 600; color: #f1f5f9; }
+    .badge {
+      display: inline-block;
+      font-size: 10px; font-weight: 600;
+      padding: 2px 7px; border-radius: 99px;
+    }
+    .b-yellow { background: rgba(234,179,8,0.15); color: #fbbf24; }
+    .b-grey   { background: rgba(100,116,139,0.15); color: #94a3b8; }
+    .b-green  { background: rgba(16,185,129,0.15); color: #34d399; }
+    .b-red    { background: rgba(239,68,68,0.15); color: #f87171; }
+
+    /* ─── FIX STEPS ─── */
+    .fix-section {
+      background: #161b27;
+      border: 1px solid #1e2d40;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+    }
+    .fix-section h3 { font-size: 14px; font-weight: 600; color: #f1f5f9; margin-bottom: 16px; }
+
+    .fix-steps {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .fix-step {
+      background: #0d1117;
+      border: 1px solid #2d3748;
+      border-radius: 10px;
+      padding: 14px 16px;
+      flex: 1;
+      min-width: 180px;
+    }
+    .fix-step .step-num {
+      width: 24px; height: 24px;
+      background: rgba(139,92,246,0.2);
+      border: 1px solid rgba(139,92,246,0.4);
+      border-radius: 50%;
+      font-size: 12px; font-weight: 700; color: #a78bfa;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 10px;
+    }
+    .fix-step .step-title { font-size: 12px; font-weight: 600; color: #f1f5f9; margin-bottom: 4px; }
+    .fix-step .step-body  { font-size: 11px; color: #64748b; line-height: 1.5; }
+
+    .fix-meta {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-top: 14px;
+    }
+    .fix-meta-card {
+      background: #0d1117;
+      border: 1px solid #1e2d40;
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    .fix-meta-card .fmc-label { font-size: 10px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .fix-meta-card .fmc-val   { font-size: 12px; color: #94a3b8; }
+    code {
+      background: rgba(255,255,255,0.07);
+      border-radius: 4px; padding: 1px 6px;
+      font-size: 10px; font-family: 'SF Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="icon">🚛</div>
+  <div>
+    <h1>AIOC+ Signal Architecture</h1>
+    <p>How a vehicle signal becomes an AIOC+ alert — and where the gaps are</p>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- ─── 1. Signal Flow ─── -->
+  <div class="section-label">Signal Flow — Truck to Cloud</div>
+  <div class="flow-container">
+    <div class="pipeline">
+
+      <!-- TRUCK -->
+      <div class="stage">
+        <div class="stage-group">
+          <div class="stage-group-label">Truck</div>
+          <div class="node node-truck"><div class="node-name">Turn Signal</div><div class="node-sub">Blinker switch</div></div>
+          <div class="node node-truck"><div class="node-name">Gear / Reverse</div><div class="node-sub">Transmission</div></div>
+          <div class="node node-truck"><div class="node-name">Engine</div><div class="node-sub">Speed / Load</div></div>
+        </div>
+      </div>
+
+      <!-- → CAN Bus -->
+      <div class="arrow-col">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">CAN bus</div>
+      </div>
+
+      <!-- PROTOCOL -->
+      <div class="stage">
+        <div class="stage-group">
+          <div class="stage-group-label">Protocol</div>
+          <div class="node node-proto">
+            <div class="node-name">J1939</div>
+            <div class="node-sub">Heavy trucks<br/>Class 6–8<br/>PGN addresses</div>
+          </div>
+          <div style="height:8px"></div>
+          <div class="node" style="border-color:#94a3b8">
+            <div class="node-name" style="color:#94a3b8">OBD-II</div>
+            <div class="node-sub">Light trucks<br/>Class 1–3<br/>PID addresses</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- → Motive Device -->
+      <div class="arrow-col">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">diagnostic<br/>port</div>
+      </div>
+
+      <!-- MOTIVE DEVICE -->
+      <div class="stage">
+        <div class="stage-group">
+          <div class="stage-group-label">Motive Device</div>
+          <div class="node node-motive"><div class="node-name">VIA</div><div class="node-sub">Vehicle Interface<br/>Adapter — reads bus</div></div>
+          <div style="font-size:10px;color:#334155;margin:2px 0;">↓</div>
+          <div class="node node-motive"><div class="node-name">Parser</div><div class="node-sub">Maps PGN →<br/>signal name</div></div>
+          <div style="font-size:10px;color:#334155;margin:2px 0;">↓</div>
+          <div class="node node-motive"><div class="node-name">VG5 Gateway</div><div class="node-sub">Processes signals,<br/>routes to cameras</div></div>
+        </div>
+      </div>
+
+      <!-- → Cameras -->
+      <div class="arrow-col">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">routed<br/>signals</div>
+      </div>
+
+      <!-- CAMERAS -->
+      <div class="stage">
+        <div class="stage-group">
+          <div class="stage-group-label">Cameras</div>
+          <div class="node node-cam"><div class="node-name">AIDC+</div><div class="node-sub">Inside-facing</div></div>
+          <div style="height:8px"></div>
+          <div class="node node-cam" style="border-color:#f97316">
+            <div class="node-name" style="color:#fb923c">AIOC+</div>
+            <div class="node-sub">Outside-facing<br/>Built on AIDC+ stack</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- → Cloud -->
+      <div class="arrow-col">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">telematics<br/>pipeline</div>
+      </div>
+
+      <!-- CLOUD -->
+      <div class="stage">
+        <div class="stage-group">
+          <div class="stage-group-label">Motive Cloud</div>
+          <div class="node node-cloud"><div class="node-name">Telematics Pipeline</div></div>
+          <div style="font-size:10px;color:#334155;margin:2px 0;">↓</div>
+          <div class="node node-cloud"><div class="node-name">Coverage Table</div><div class="node-sub"><code>VEHICLE_TELEMATICS_METRICS</code></div></div>
+          <div style="font-size:10px;color:#334155;margin:2px 0;">↓</div>
+          <div class="node node-cloud"><div class="node-name">Fleet Manager</div><div class="node-sub">Dashboard</div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- OBD-II wall note -->
+    <div style="margin-top:16px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px 16px;font-size:12px;color:#fca5a5;">
+      ⚠️ <strong style="color:#f87171">OBD-II wall:</strong> Light trucks (Ford, RAM, Chevy, Toyota) don't expose turn signal or gear on CAN bus via OBD-II. The signal physically doesn't exist — not fixable without hardware. This is the <strong>🔴 Red</strong> tier.
+    </div>
+  </div>
+
+  <!-- ─── 2. Gap Decision Tree ─── -->
+  <div class="section-label">Gap Decision Tree</div>
+  <div class="tree-section">
+    <p style="font-size:13px;color:#94a3b8;">For any fleet account, walk this tree to find out if AIOC+ will work with their vehicles.</p>
+
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0;margin-top:24px;">
+
+      <!-- Root question -->
+      <div class="decision-node">
+        <div class="dq">Does the vehicle expose turn signal + gear on CAN?</div>
+      </div>
+
+      <!-- Two main branches -->
+      <div style="display:flex;gap:100px;align-items:flex-start;margin-top:0;">
+
+        <!-- NO branch — OBD-II -->
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div class="branch-line"></div>
+          <div class="branch-label" style="color:#f87171;">No — OBD-II<br/>(light truck)</div>
+          <div class="outcome out-red">
+            <div class="out-icon">🔴</div>
+            <div class="out-name">RED — Protocol Wall</div>
+            <div class="out-sub">Signal doesn't exist<br/>Ford, RAM, Chevy, Toyota<br/><strong>Not fixable without hardware</strong></div>
+          </div>
+        </div>
+
+        <!-- YES branch — J1939 -->
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div class="branch-line"></div>
+          <div class="branch-label" style="color:#60a5fa;">Yes — J1939<br/>(heavy truck)</div>
+          <!-- sub-decision -->
+          <div class="decision-node">
+            <div class="dq">Does Motive's parser have the PGN mapping for this make?</div>
+          </div>
+
+          <div style="display:flex;gap:16px;align-items:flex-start;margin-top:0;">
+
+            <!-- Yes → Green -->
+            <div style="display:flex;flex-direction:column;align-items:center;">
+              <div class="branch-line"></div>
+              <div class="branch-label" style="color:#34d399;">Yes</div>
+              <div class="outcome out-green">
+                <div class="out-icon">🟢</div>
+                <div class="out-name">GREEN — Covered</div>
+                <div class="out-sub">Signal reads today<br/>Freightliner Cascadia<br/>International LT625</div>
+              </div>
+            </div>
+
+            <!-- No → Yellow -->
+            <div style="display:flex;flex-direction:column;align-items:center;">
+              <div class="branch-line"></div>
+              <div class="branch-label" style="color:#fbbf24;">No</div>
+              <div class="outcome out-yellow">
+                <div class="out-icon">🟡</div>
+                <div class="out-name">YELLOW — Parser Gap</div>
+                <div class="out-sub">Signal on bus, not read<br/>Mack LR, Peterbilt 520<br/>New Flyer, Gillig<br/><strong>Fixable with eng work</strong></div>
+              </div>
+            </div>
+
+            <!-- Unknown → Grey -->
+            <div style="display:flex;flex-direction:column;align-items:center;">
+              <div class="branch-line"></div>
+              <div class="branch-label" style="color:#94a3b8;">Unknown</div>
+              <div class="outcome out-grey">
+                <div class="out-icon">⬜</div>
+                <div class="out-name">UNKNOWN</div>
+                <div class="out-sub">Not verified yet<br/>New Flyer, Gillig,<br/>Nova Bus (transit)<br/><strong>Need PGN check first</strong></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── 3. Tier Cards ─── -->
+  <div class="section-label">What Each Tier Means for AIOC+</div>
+  <div class="tier-cards">
+    <div class="tier-card tier-green">
+      <div class="tier-icon">🟢</div>
+      <div class="tier-name">Green</div>
+      <div class="tier-status">&gt;90% coverage</div>
+      <div class="tier-works">✓ V1 Ready</div>
+      <div class="tier-fix">No fix needed. Signal flows today.</div>
+    </div>
+    <div class="tier-card tier-yellow">
+      <div class="tier-icon">🟡</div>
+      <div class="tier-name">Yellow</div>
+      <div class="tier-status">J1939 parser gap</div>
+      <div class="tier-works">✗ Not working yet</div>
+      <div class="tier-fix">Signal is on the CAN bus — Motive just isn't reading it. Fix: add PGN mapping for that make.</div>
+    </div>
+    <div class="tier-card tier-red">
+      <div class="tier-icon">🔴</div>
+      <div class="tier-name">Red</div>
+      <div class="tier-status">OBD-II, no PID</div>
+      <div class="tier-works">✗ Not fixable (V1)</div>
+      <div class="tier-fix">Signal physically doesn't exist on the bus. Hardware change required — out of V1 scope.</div>
+    </div>
+    <div class="tier-card tier-grey">
+      <div class="tier-icon">⬜</div>
+      <div class="tier-name">Unknown</div>
+      <div class="tier-status">Not verified</div>
+      <div class="tier-works">? Unconfirmed</div>
+      <div class="tier-fix">Ask telematics team (Gautam / Hareesh): does this make's PGN parse?</div>
+    </div>
+  </div>
+
+  <!-- ─── 4. Gap Tables ─── -->
+  <div class="section-label">Specific Gaps Blocking V1 Beta</div>
+  <div class="gap-grid">
+
+    <div class="gap-table-wrap">
+      <div class="gt-header">🗑️ Waste Accounts — Backing Use Case</div>
+      <table>
+        <thead><tr><th>Make</th><th>Used By</th><th>Gap</th><th>Fix</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Mack LR</td>
+            <td style="font-size:11px;color:#94a3b8;">Ace Disposal, Noble,<br/>AAA Carting, WC portion</td>
+            <td><span class="badge b-yellow">🟡 Parser gap</span></td>
+            <td style="font-size:11px;color:#94a3b8;">Add Mack LR PGN mappings for turn + gear</td>
+          </tr>
+          <tr>
+            <td>Peterbilt 520</td>
+            <td style="font-size:11px;color:#94a3b8;">Gilton, GreenWaste,<br/>WC portion</td>
+            <td><span class="badge b-yellow">🟡 Parser gap</span></td>
+            <td style="font-size:11px;color:#94a3b8;">Add Peterbilt 520 PGN mappings</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="gap-table-wrap">
+      <div class="gt-header">🚌 Transit Accounts — Right-Turn Use Case</div>
+      <table>
+        <thead><tr><th>Make</th><th>Used By</th><th>Gap</th><th>Fix</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>New Flyer</td>
+            <td style="font-size:11px;color:#94a3b8;">RATP DEV USA,<br/>CapMetro</td>
+            <td><span class="badge b-grey">⬜ Unknown</span></td>
+            <td style="font-size:11px;color:#94a3b8;">Confirm PGN coverage with Gautam / Hareesh</td>
+          </tr>
+          <tr>
+            <td>Gillig</td>
+            <td style="font-size:11px;color:#94a3b8;">RATP DEV USA</td>
+            <td><span class="badge b-grey">⬜ Unknown</span></td>
+            <td style="font-size:11px;color:#94a3b8;">Same — PGN check needed</td>
+          </tr>
+          <tr>
+            <td>IC Bus / Thomas Built</td>
+            <td style="font-size:11px;color:#94a3b8;">NYC School Bus</td>
+            <td><span class="badge b-green">🟢 Probably green</span></td>
+            <td style="font-size:11px;color:#94a3b8;">International + Freightliner chassis — likely covered</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ─── 5. Fix Steps ─── -->
+  <div class="section-label">How to Fix a Parser Gap</div>
+  <div class="fix-section">
+    <h3>A parser gap is a mapping problem — the signal exists, Motive just isn't reading it yet.</h3>
+    <div class="fix-steps">
+      <div class="fix-step">
+        <div class="step-num">1</div>
+        <div class="step-title">Get the PGN spec</div>
+        <div class="step-body">Obtain the J1939 PGN spec for the make from the OEM or by reverse-engineering the CAN bus.</div>
+      </div>
+      <div class="fix-step">
+        <div class="step-num">2</div>
+        <div class="step-title">Add the mapping</div>
+        <div class="step-body">Add the PGN → signal name mapping to Motive's parser for that make/model.</div>
+      </div>
+      <div class="fix-step">
+        <div class="step-num">3</div>
+        <div class="step-title">Deploy to devices</div>
+        <div class="step-body">Push the parser update to all devices running on that vehicle make.</div>
+      </div>
+      <div class="fix-step">
+        <div class="step-num">4</div>
+        <div class="step-title">Signal flows</div>
+        <div class="step-body">Coverage numbers improve in <code>VEHICLE_TELEMATICS_METRICS</code>. AIOC+ starts working on that make.</div>
+      </div>
+    </div>
+
+    <div class="fix-meta">
+      <div class="fix-meta-card">
+        <div class="fmc-label">Owner</div>
+        <div class="fmc-val">Telematics / Connected Devices — Pat Miller, Gautam / Hareesh (edge platform)</div>
+      </div>
+      <div class="fix-meta-card">
+        <div class="fmc-label">Timeline</div>
+        <div class="fmc-val">Historically 14–55 days per make. Platform v2 (proactive coverage engine) is designed to bring this down.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

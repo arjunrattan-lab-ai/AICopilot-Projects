@@ -1,7 +1,7 @@
 # Strategic Priorities
 
 **Owner:** Arjun Rattan
-**Last refreshed:** 2026-04-05
+**Last refreshed:** 2026-04-15
 **Staleness threshold:** 14 days — if `Last Validated` exceeds this, the entry is stale and needs re-confirmation.
 
 ---
@@ -12,11 +12,13 @@ What the boss has explicitly called out as high-priority. Extracted from manager
 
 | # | Initiative | Signal | Source | Last Validated |
 |---|-----------|--------|--------|----------------|
-| N1 | **DFI / Fatigue** | "Most important AI feature we're working on." Launch by end of April. | 03.27 Nihar | 2026-03-27 |
-| N2 | **BSM / AIOC+** | "Killer app for this hardware." P0: ped + vehicle detection. | 04.02 Nihar | 2026-04-02 |
-| N3 | **EVE** | "Huge project." AI-only mode must ship Q2. Strategy doc needed. | 04.02 Nihar | 2026-04-02 |
-| N4 | **AI Release Mgmt** | Eating rollout failure was unacceptable. Fix the process before next launch. | 04.02 Nihar | 2026-04-02 |
-| N5 | **AIDC+** | "Way more important than AIDC. All our quarter depends on it." | 03.31 Nihar | 2026-03-31 |
+| N1 | **DFI / Fatigue** | "Deal critical, make or break Q2." Moved to rank #1 and #2 (AIDC + AIDC+ parity). Would trade pipeline revamp resources for it. | 04.14 Exec Review | 2026-04-14 |
+| N2 | **BSM / AIOC+** | "Killer app for this hardware." P0: ped + vehicle detection. Pulled in from H2 — top-down mandate. | 04.14 AI Q2 Planning | 2026-04-14 |
+| N3 | **AIDC+** | "Way more important than AIDC. All our quarter depends on it." DFI parity process miss flagged — wants explanation. | 04.14 Exec Review | 2026-04-14 |
+| N4 | **EVE / AI Only Mode** | Still important but softened: "If we didn't do EVE integration, would that be the end of the world?" AI only mode needs PRD. Collision side is the hard part. | 04.14 Exec Review | 2026-04-14 |
+| N5 | **AI Release Mgmt** | Eating rollout failure was unacceptable. Fix the process before next launch. | 04.02 Nihar | 2026-04-02 |
+| N6 | **Lane Swerving** | DFI blocker. "Add lane swerving right underneath DFI because that's a blocker." Must ship before DFI. | 04.14 Exec Review | 2026-04-14 |
+| N7 | **Seat Belt Telematics** | Confirmed for AI platform pod. Pending embedded alignment — likely Q3 target. | 04.14 Exec Review | 2026-04-14 |
 
 ## 2. Arjun's Bets
 
@@ -34,18 +36,22 @@ Every initiative in Arjun's scope gets exactly one label.
 
 | Initiative | Classification | Rationale | Owner | Last Updated |
 |-----------|---------------|-----------|-------|-------------|
-| DFI / Fatigue | **Push hard** | Nihar's #1. Customer commitment. Devin handoff in flight. | Arjun (from Devin) | 2026-04-05 |
-| BSM / AIOC+ AI | **Push hard** | Killer app for AIOC+ hardware. Beta Sept — AI must start Q2. | Arjun | 2026-04-05 |
-| EVE | **Push hard** | AI-only mode Q2 commitment. Blog post announced. Strategy doc in progress. | Arjun + Arsh (planned) | 2026-04-05 |
-| AI Release Mgmt | **Push hard** | Eating rollout failure. Automated fail-safes needed before next launch (Apr 8). | Anand | 2026-04-05 |
-| AIDC+ Platform | **Push hard** | "All our quarter depends on it." Feature parity + performance parity. | Arjun | 2026-04-05 |
-| Eating AI | **Keep alive** | Relaunch Apr 8/13/15. Achin driving. Needs volume analysis + safer rollout. | Achin | 2026-04-05 |
-| PCW / Ped Warning (AIDC) | **Keep alive** | Achin continues. End of Q2 target. Not top-of-mind for Nihar. | Achin | 2026-04-05 |
-| CBB (remaining behaviors) | **Keep alive** | Rinse and repeat for distraction, smoking, lane swerving. Arsh candidate. | Arsh / Achin | 2026-04-05 |
+| DFI / Fatigue (AIDC) | **Push hard** | Nihar's undisputed #1. "Deal critical, make or break Q2." | Arjun (from Devin) | 2026-04-14 |
+| DFI / Fatigue (AIDC+ parity) | **Push hard** | Rank #2. Nihar would trade pipeline revamp resources for it. Process gap on how parity was missed — Nihar wants explanation. | Arjun + Dhiraj | 2026-04-14 |
+| Lane Swerving V2 | **Push hard** | DFI blocker. Must ship before DFI can launch. Nihar: "right underneath DFI." Debug session in progress. | Devin → Events | 2026-04-14 |
+| AI Pipeline Revamp | **Push hard** | Dropped from #1 to #3. Nihar: "I don't know what the big boulders are left." Running with one safety resource. Year-long project. Arjun owning strategic framing doc. | Arjun + Dhiraj/Hareesh | 2026-04-14 |
+| EVE / AI Only Mode | **Push hard** | Still important but below DFI. AI only mode needs PRD (doesn't exist). Collision side is hardest part. AI platform owns AI side, collision team owns theirs. | Arjun + Arsh + Avinash (collision) | 2026-04-14 |
+| BSM / AIOC+ AI | **Push hard** | Pulled in from H2, top-down mandate. New initiative in Jira. Ped detection V0 on-device, Alpha by early July. Absorbed into AIDC work per Gautam. | Arjun | 2026-04-14 |
+| AIDC+ Platform | **Push hard** | Feature parity + performance parity. Anand scope being locked in (expected Apr 14-15). | Arjun + Anand | 2026-04-14 |
+| AI Release Mgmt | **Push hard** | Eating rollout failure. Automated fail-safes needed. | Anand | 2026-04-05 |
+| Seat Belt Telematics | **Keep alive** | Nihar confirmed AI platform pod. Hardware-driven, likely Q3. Pending embedded alignment. | Devin → TBD | 2026-04-14 |
+| Eating AI | **Keep alive** | Arjun moved to bottom of list: "fix it work, tying loose ends." Not low priority — just nearly done. | Achin | 2026-04-14 |
+| FCW (AIDC+ parity) | **Keep alive** | Called out as missing from AI platform list. Needs backend/settings hook for AIDC+. Small item. | TBD | 2026-04-14 |
+| PCW / Ped Warning (AIDC) | **Keep alive** | Achin continues. End of Q2 target. | Achin | 2026-04-05 |
+| CBB (remaining behaviors) | **Keep alive** | Distraction, smoking. Lane swerving elevated out of this bucket to its own Push Hard item. | Arsh / Achin | 2026-04-14 |
 | UK Expansion | **Keep alive** | DVS compliance work in flight. Not a Nihar hot topic. | Arjun | 2026-04-05 |
-| ALPR | **Watch** | AIDC+ differentiator (H2). No active PM work yet. | Anand (notional) | 2026-04-05 |
-| FCW v3 | **Park** | Devin transition — unassigned. No urgency signal from Nihar. | Unassigned | 2026-04-05 |
-| AI Model Operations | **Watch** | Cross-model health/config/cascade mgmt. Absorbs "Config Across All Behaviors." Devin held this informally. Needs scoping. **(new H2)** | TBD | 2026-04-05 |
+| ALPR | **Watch** | Confirmed stays with AIDC+ team, not AI platform. No active PM work. | AIDC+ team | 2026-04-14 |
+| AI Model Operations | **Watch** | Cross-model health/config/cascade mgmt. Needs scoping. **(H2)** | TBD | 2026-04-05 |
 | Unsafe Parking | **Park** | Explicitly parked during Devin transition. | — | 2026-04-05 |
 | Fleet Sentinel | **Park** | Explicitly parked during Devin transition. | — | 2026-04-05 |
 | Amazon (ped use case) | **Park** | Explicitly parked during Devin transition. | — | 2026-04-05 |
@@ -65,10 +71,14 @@ Contradictions, resource conflicts, or unresolved questions that need a decision
 
 | Tension | Initiatives | Status |
 |---------|------------|--------|
-| Anand's role: infra PM vs. customer-facing? L8 or L6/L7? | AI Release Mgmt, AIDC+, Pipeline | Open — workshop with Nihar needed |
-| BSM starts Q2 → what gets deprioritized? | BSM vs. everything else | Open — "we have to deprioritize something else" (03.27 Nihar) |
-| Pipeline reliability dropped from 04.02 agenda | Pipeline Revamp | Monitor — was #1 MBR project per 03.27. Dheeraj wants PM support. |
-| Q2 replanning hasn't started | All | Open — follow up with Abbas, propose session with Nihar + Gautam |
+| Anand's scope still being locked in | AI Release Mgmt, AIDC+, Pipeline | Open — Arjun told Nihar "by today or tomorrow" on Apr 14. Needs resolution. |
+| AI only mode has no PRD | EVE / AI Only Mode | Open — Nihar: "a lot of moving pieces from Shoaib." Who writes it? Collision side is hardest. |
+| AIDC+ parity process gap — how was DFI missed? | DFI AIDC+ Parity | Open — Nihar wants offline explanation. Devin says model created unexpected delta. |
+| Pipeline SLAs — nobody comfortable setting them | Pipeline Revamp | Open — both Arjun and Gautam deferred. Needs exec + customer input. Arjun writing framing doc. |
+| Support mode blur may not fit Q2 | Enterprise | Open — Dhiraj says heavy lift, one-pager due this week. Nihar acknowledged may slip. |
+| Product role in infra projects undefined | Pipeline Revamp | Open — Arjun: "trying to figure out what level of product impact is required in an infrastructure project." |
+| Capacity planning view doesn't exist in Jira | All | Resolved (process) — sheets with 1:1 Jira links for resourcing. Michael + Nihar aligned. |
+| Q2 replanning hasn't started | All | **Resolved** — Exec Review held Apr 14. Ranks updated in Jira. Backlog being populated. |
 
 ---
 

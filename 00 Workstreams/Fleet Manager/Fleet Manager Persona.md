@@ -1,6 +1,8 @@
 # Fleet Manager Safety Persona — Safety AI Systems View (Pass 1)
 
-*Last updated: March 27, 2026 | Scope: Safety AI only (behaviors, dashcam, coaching, collisions, annotations, alerts)*
+*Last updated: April 16, 2026 | Scope: Safety AI only (behaviors, dashcam, coaching, collisions, annotations, alerts)*
+
+> **Related atlases:** [Fleet Manager Safety Atlas](Fleet%20Manager%20Safety%20Atlas.md) (per-behavior config reference, dashboard surfaces, coaching workflow, segment playbooks), [Fleet Customer Segment Atlas](Fleet%20Customer%20Segment%20Atlas.md) (segment archetypes, buying criteria), [Driver Behavior Scenario Atlas](../Driver/Driver%20Behavior%20Scenario%20Atlas.md) (state machine parameters, model architecture)
 
 ---
 

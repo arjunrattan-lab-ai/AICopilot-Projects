@@ -242,23 +242,39 @@ These are the **relative risk ratios** from the FMCSA Large Truck Crash Causatio
 
 **AI Vision Behaviors (PE → AE state machine):**
 
-| Behavior | min_duration | tolerance | backoff/cooldown | Daily Cap | Key Config Names |
-|----------|:---:|:---:|:---:|:---:|---|
-| **Cell Phone** | 3-5s ❓ | ❓ | ❓ | None known | `drv_cell_phone_*` |
-| **Close Following** | 15s (t2h < 0.7 for 15s) | ❓ | ❓ | None known | `min_event_dur=15000`, `min_speed_th=56` |
-| **Distraction** | 3-5s ❓ | ❓ | ❓ | None known | `drv_distraction_*` |
-| **Seatbelt** | 10s at 25+ mph | ❓ | Cooldown present | None known | `incab_alert_seat_belt_cool_down_enter` |
-| **Smoking** | ~3s (conf > 0.95 for ~3s) | ❓ | ❓ | None known | `drv_smoking_*` |
-| **Eating** | **5,000 ms (5s)** | **1,000 ms** | **600,000 ms (10 min)** event / **60,000 ms (1 min)** alert | **4/day** (initial cap) | `drv_eat_min_evt_dur_ms`, `drv_eat_tol_ms`, `drv_eat_backoff_ms`, `drv_eat_conf_thr=0.8` |
-| **Drowsiness** | ❓ | ❓ | ❓ | None known | Combo: yawn frequency + distraction signals |
-| **Lane Swerving** | ❓ | ❓ | ❓ | None known | v2 Feb 2026, ~78% precision post-filter |
-| **Stop Sign** | ❓ | ❓ | ❓ | None known | Speed must > 3.2 kph (backend clamp) |
-| **Unsafe Parking** | Vehicle stationary for configurable duration | N/A | ❓ | None known | Telematics (speed < 1kph) + PE (lane line keypoints, scene classification). Logistic regression on lane confidence. |
-| **FCW** | ❓ | ❓ | ❓ | None known | Closing distance + relative speed |
-| **Unsafe Lane Change** | ❓ | ❓ | ❓ | None known | Lane boundary + frontal vehicle distance |
-| **Cam Obstruction (DF)** | ❓ | ❓ | Backoff present (prevents spam) | None known | Alerts driver to remove obstruction; events filtered for redundancy |
-| **Cam Obstruction (RF)** | ❓ | ❓ | Backoff present | None known | FPs: too dark, sunlight, reflection, small objects, towed vehicle |
-| **DFI** | Composite | N/A | ❓ | None known | Aggregates: yawn, microsleep, eye rub, lack of movement, lane swerve, CF, FCW |
+> *Last verified: 2026-04-16. Values marked `[NEED: eng confirmation]` were not found in internal documentation — request from AI Events / Platform eng.*
+
+| Behavior | min_duration | tolerance | backoff/cooldown | Daily Cap | Confidence Threshold | Model | AIDC+ | Key Config Names |
+|----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|---|
+| **Cell Phone** | ≥5s (head down ≥5s above 25 mph; customer-configurable min duration — "30s" in some ENT configs) | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | **0.93** (Gautam: "I think we're configured at 93") | UDM (YOLOX-S) | ✅ | `drv_cell_phone_*`, `incab_alert_cell_phone_*` |
+| **Close Following** | **15,000 ms (15s)** — t2h < 0.7 sustained | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | Bounding box confidence (internal-only); CBB thresholds: SMB 0.3, MM 0.5, ENT 0.9 | URM (YOLOX) | ✅ | `min_event_dur=15000`, `min_speed_th=56`, `t2h=0.7` |
+| **Distraction** | **≥5,000 ms (5s)** — head looking down ≥5s above 25 mph | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation]; CBB rolling April, 50%+ expected | UDM (YOLOX-S) | ✅ | `drv_distraction_*` |
+| **Seatbelt** | **10,000 ms (10s)** at ≥25 mph (~40 kph) | [NEED: eng confirmation] | Cooldown present — `incab_alert_seat_belt_cool_down_enter`; exact ms [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation]; CBB: SMB 65%+, MM 43%, ENT 13.5% | UDM (YOLOX-S) | ✅ | `incab_alert_seat_belt_cool_down_enter`, event config keys [NEED: eng confirmation] |
+| **Smoking** | **~3,000 ms (3s)** at conf > 0.95 | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | **0.95** | UDM (YOLOX-S) | ✅ | `drv_smoking_*` |
+| **Eating** | **5,000 ms (5s)** | **1,000 ms** | **600,000 ms (10 min)** event / **60,000 ms (1 min)** alert | **4/day** (initial cap) | **0.80** | UDM (YOLOX-S) | ✅ (in-cab alerts pending on AIDC+) | `drv_eat_min_evt_dur_ms`, `drv_eat_tol_ms`, `drv_eat_backoff_ms`, `drv_eat_conf_thr=0.8` |
+| **Drowsiness** | Composite sub-signals — ~40 configs created; aggregation function + decay function → fatigue score → trigger | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | UDM (YOLOX-S) | ✅ (~May; AIDC+ integration slightly behind AIDC) | ~40 config keys (Gautam); naming pattern [NEED: eng confirmation] |
+| **Lane Swerving** | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation]; CBB: 89% bypass, target April pulldown | URM (YOLOX); v2 shipped in FW v55 (Feb 2026), ~88-93% edge precision | ✅ (backend bug pushed Apr 2→14 launch) | [NEED: eng confirmation] |
+| **Stop Sign** | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation]; CBB: 80%+ bypass, rolling out | URM (YOLOX); UK fork uses URM 4003 | ✅ | Speed clamp > 3.2 kph; config keys [NEED: eng confirmation] |
+| **Unsafe Parking** | Vehicle stationary (speed < 1 kph) for configurable duration | N/A | [NEED: eng confirmation] | [NEED: eng confirmation] | Logistic regression on lane confidence; 85% FP reduction via scene classification | URM + telematics | ✅ | Telematics (speed < 1kph) + PE (lane line keypoints, scene classification) |
+| **FCW** | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation]; EFS was rejecting 80-85% → pass-through now accepts 70% with precision intact | URM; VG3: **FCW 2.1** (prod), VG5/AIDC+: **FCW 2.3** (GA target May 2026). VG3 target: v59 FW alignment | ✅ (FCW 2.3 integrated) | VG3/VG5 divergent configs; alignment via IoT ticket [NEED: eng confirmation] |
+| **Unsafe Lane Change** | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | [NEED: eng confirmation] | URM (YOLOX); foundation model trained (AI-205), not in EVE pipeline | ✅ | Lane boundary + frontal vehicle distance; config keys [NEED: eng confirmation] |
+| **Cam Obstruction (DF)** | [NEED: eng confirmation] | [NEED: eng confirmation] | Backoff present — prevents alert spam; 17 of 44 events filtered in one case study | [NEED: eng confirmation] | [NEED: eng confirmation]; foundation model trained (AI-205), not in EVE pipeline | UDM (YOLOX-S) | ✅ | Alerts driver to remove obstruction; config keys [NEED: eng confirmation] |
+| **Cam Obstruction (RF)** | [NEED: eng confirmation] | [NEED: eng confirmation] | Backoff present | [NEED: eng confirmation] | [NEED: eng confirmation]; precision ≈99% | URM (YOLOX) | ✅ | FPs: too dark, sunlight, reflection, small objects, towed vehicle |
+| **DFI** | Composite — temporal model (carries info across frames, unlike frame-level UDM/URM) | N/A | [NEED: eng confirmation] | [NEED: eng confirmation] | Aggregation thresholds + decay constants → trigger score [NEED: eng confirmation] | DFI temporal model (unique architecture) | ✅ (beta ~May; 0% integrated as of Apr 4) | Aggregates: yawn, microsleep, eye rub, stretching, hand-to-face, lack of movement, lane swerve, CF, FCW |
+| **Pedestrian Warning** | **1,000 ms (1s)** | [NEED: eng confirmation] | **60,000 ms (1 min)** | **4/vehicle/day** | **0.80** (`PW_PERSON_CONF_THRESH`); tiered speed/reaction thresholds | URM (YOLOX-S, AIDC+: 3062→3086→30XX); `PW_T2H_THRESH=4000ms` | ✅ (AIDC+ and AIOC+ only) | `PW_PERSON_CONF_THRESH=0.8`, `PW_T2H_THRESH=4000ms`, `PW_MIN_EVENT_DURATION=1000ms`, `PW_BACKOFF_DURATION=60000ms` |
+
+**Model Architecture Reference:**
+
+| Model | Camera | Behaviors | Architecture | Known Versions |
+|-------|--------|-----------|-------------|----------------|
+| **UDM** (Unified Driver Model) | Driver-facing | Cell Phone, Distraction, Seatbelt, Smoking, Eating, Drowsiness, Face Detection, Cam Obstruction (DF) | YOLOX-small, ~35-40M params, 3 heads (obj detection, pose, activity) | No version numbers found in workspace |
+| **URM** (Unified Road Model) | Road-facing | Close Following, SSV, ULC, FCW, Lane Swerving, Unsafe Parking, Cam Obstruction (RF), Ped Warning | YOLOX, 3 heads/4 tasks (obj detection, lane keypoints, distance est.) | 3062 (V0), 3086 (V1/V2 AIDC+), 3139 (parity), 4003 (UK SSV fork) |
+| **DFI** (Driver Fatigue Index) | DF + RF signals | Aggregated fatigue: yawn, microsleep, eye rub, stretching, hand-to-face, lack of movement | Temporal model (unique — carries info across frames) | Beta Apr 2026 |
+| **FCW** | Road-facing | Forward Collision Warning | Closing distance + relative speed | VG3: 2.1 (prod), VG5: 2.3 (GA May target) |
+
+**Firmware milestones:** v55 (Lane Swerving v2), v58 (DFI GA + Lane Swerving in-cab alerts), v59/v60 (FCW alignment target)
+
+**Config system note:** AIDC uses Config 1.0 (Hubble); AIDC+ uses Config 2.0 (different system). Config key names may differ across platforms.
 
 **Telematics Behaviors (instantaneous g-force trigger — no state machine):**
 

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lane Swerving Detection - Simple Explanation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0d1117;
+            color: #e6edf3;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #f0f6fc;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #8b949e;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 22px;
+            color: #f0f6fc;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #30363d;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 20px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            color: #f0f6fc;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #8b949e;
+            margin-bottom: 10px;
+        }
+
+        canvas {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .explanation {
+            background-color: #161b22;
+            border-left: 4px solid #58a6ff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .explanation strong {
+            color: #f0f6fc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+        }
+
+        .badge-correct {
+            background-color: rgba(26, 127, 55, 0.3);
+            color: #3fb950;
+        }
+
+        .badge-wrong {
+            background-color: rgba(248, 81, 73, 0.3);
+            color: #f85449;
+        }
+
+        .badge-gray {
+            background-color: rgba(201, 209, 217, 0.2);
+            color: #d0d4d9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #161b22;
+            margin: 20px 0;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: #0d1117;
+            color: #f0f6fc;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #30363d;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #30363d;
+            font-size: 14px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .step-box {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background-color: #58a6ff;
+            color: #0d1117;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 8px;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 3px;
+        }
+
+        .text-muted {
+            color: #8b949e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lane Swerving Detection Explained</h1>
+        <p class="subtitle">How dashcam software decides if a car swerved or just changed lanes</p>
+
+        <!-- SECTION 1: THE BASIC CONCEPT -->
+        <div class="section">
+            <h2>1. The Basic Concept</h2>
+            <p class="text-muted" style="margin-bottom: 20px;">
+                The dashcam tracks a number called <strong>"position"</strong> that changes over time as the car moves sideways.
+            </p>
+
+            <div class="grid-2">
+                <div>
+                    <h3 style="font-size: 16px; margin-bottom: 15px;">Position Scale</h3>
+                    <canvas id="positionScale" width="280" height="120"></canvas>
+                </div>
+                <div>
+                    <div class="explanation">
+                        <strong>What position means:</strong><br>
+                        • <strong>0 = Right lane line</strong> (hugging the right edge)<br>
+                        • <strong>0.5 = Center</strong> (middle of lane)<br>
+                        • <strong>1 = Left lane line</strong> (hugging the left edge)<br><br>
+                        This number changes constantly as the car moves. The software looks at the <em>shape</em> of how it changes to decide what happened.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: THE 4 PATTERNS -->
+        <div class="section">
+            <h2>2. Four Different Patterns</h2>
+            <p class="text-muted" style="margin-bottom: 30px;">
+                Each pattern tells a different story about what the car did. Here's what each shape means:
+            </p>
+
+            <div class="grid-4">
+                <div class="card">
+                    <h3>Swerve ✅</h3>
+                    <p>A hill shape. Car drifted sideways and came back.</p>
+                    <p class="text-muted" style="font-size: 12px; margin-top: 10px;"><strong>Should flag:</strong> Yes</p>
+                </div>
+                <div class="card">
+                    <h3>Drift ❌</h3>
+                    <p>A ramp shape. Car gradually moved to one side.</p>
+                    <p class="text-muted" style="font-size: 12px; margin-top: 10px;"><strong>Should flag:</strong> No</p>
+                </div>
+                <div class="card">
+                    <h3>Lane Change ❌</h3>
+                    <p>A step shape. Car switched lanes suddenly.</p>
+                    <p class="text-muted" style="font-size: 12px; margin-top: 10px;"><strong>Should flag:</strong> No</p>
+                </div>
+                <div class="card">
+                    <h3>Boomerang ⚠️</h3>
+                    <p>A wide hill. Massive swerve (not a normal lane change).</p>
+                    <p class="text-muted" style="font-size: 12px; margin-top: 10px;"><strong>Should flag:</strong> Maybe</p>
+                </div>
+            </div>
+
+            <!-- Pattern visualization -->
+            <div style="margin-top: 40px;">
+                <h3 style="font-size: 16px; margin-bottom: 20px; color: #f0f6fc;">What Each Pattern Looks Like</h3>
+                <div class="grid-2" style="gap: 40px;">
+                    <div>
+                        <p style="text-align: center; color: #8b949e; font-size: 14px; margin-bottom: 10px;"><strong>Swerve</strong> (Hill shape)</p>
+                        <canvas id="swervePattern" width="280" height="180"></canvas>
+                        <p style="text-align: center; color: #8b949e; font-size: 12px; margin-top: 10px;">Car drifted right, then came back</p>
+                    </div>
+                    <div>
+                        <p style="text-align: center; color: #8b949e; font-size: 14px; margin-bottom: 10px;"><strong>Drift</strong> (Ramp shape)</p>
+                        <canvas id="driftPattern" width="280" height="180"></canvas>
+                        <p style="text-align: center; color: #8b949e; font-size: 12px; margin-top: 10px;">Car gradually drifted right (never came back)</p>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="gap: 40px; margin-top: 30px;">
+                    <div>
+                        <p style="text-align: center; color: #8b949e; font-size: 14px; margin-bottom: 10px;"><strong>Lane Change</strong> (Step shape)</p>
+                        <canvas id="laneChangePattern" width="280" height="180"></canvas>
+                        <p style="text-align: center; color: #8b949e; font-size: 12px; margin-top: 10px;">Car suddenly moved left (then stayed there)</p>
+                    </div>
+                    <div>
+                        <p style="text-align: center; color: #8b949e; font-size: 14px; margin-bottom: 10px;"><strong>Boomerang</strong> (Wide hill)</p>
+                        <canvas id="boomerangPattern" width="280" height="180"></canvas>
+                        <p style="text-align: center; color: #8b949e; font-size: 12px; margin-top: 10px;">Massive swerve out and back (big amplitude)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: HOW THE DETECTION WORKS -->
+        <div class="section">
+            <h2>3. How Swerve Detection Works</h2>
+            <p class="text-muted" style="margin-bottom: 30px;">
+                The software follows these three simple steps:
+            </p>
+
+            <div class="step-box">
+                <div class="step-number">1</div>
+                <div class="step-title">Find where the car stops moving sideways (Start point)</div>
+                <p style="color: #8b949e; font-size: 14px;">
+                    Look for a "pause" — a moment where the position stays steady for a moment before it starts moving.
+                </p>
+            </div>
+
+            <div class="step-box">
+                <div class="step-number">2</div>
+                <div class="step-title">Find the peak — where it moved the most (Peak point)</div>
+                <p style="color: #8b949e; font-size: 14px;">
+                    Find the furthest point — either the highest or lowest value the position reaches.
+                </p>
+            </div>
+
+            <div class="step-box">
+                <div class="step-number">3</div>
+                <div class="step-title">Find where it stops again (End point)</div>
+                <p style="color: #8b949e; font-size: 14px;">
+                    Look for another "pause" — another moment where the position settles down after moving.
+                </p>
+            </div>
+
+            <div class="explanation" style="margin-top: 30px;">
+                <strong>The Question:</strong> Did we find a real hill or valley shape (movement away, then back)? Or is it something else?<br><br>
+                If it's a real hill/valley → <strong style="color: #3fb950;">FLAG IT</strong> as a swerve<br>
+                If it's not → <strong style="color: #f85449;">DON'T flag it</strong> (it's a drift or lane change)
+            </div>
+
+            <h3 style="font-size: 16px; margin-top: 40px; margin-bottom: 20px; color: #f0f6fc;">Visual Example: Finding the 3 Points</h3>
+            <div style="background-color: #161b22; padding: 20px; border: 1px solid #30363d; border-radius: 6px;">
+                <canvas id="detectionSteps" width="600" height="250"></canvas>
+            </div>
+        </div>
+
+        <!-- SECTION 4: THE BUG AND THE FIX -->
+        <div class="section">
+            <h2>4. The Bug (V1) and the Fix (V2)</h2>
+            <p class="text-muted" style="margin-bottom: 30px;">
+                The original software had a problem. Here's what went wrong and how it was fixed:
+            </p>
+
+            <div class="grid-2">
+                <div class="card" style="border-left: 4px solid #f85449;">
+                    <h3 style="color: #f85449;">V1 (Broken) ❌</h3>
+                    <p><strong>The Problem:</strong></p>
+                    <p>
+                        V1 finds three pause points on almost any sideways movement, even ramps. So a gentle, continuous drift gets flagged as a swerve.
+                    </p>
+                    <p style="margin-top: 15px; color: #f85449; font-weight: 600;">
+                        Result: False positives (flags drifts as swerves)
+                    </p>
+                </div>
+
+                <div class="card" style="border-left: 4px solid #3fb950;">
+                    <h3 style="color: #3fb950;">V2 (Fixed) ✅</h3>
+                    <p><strong>The Solution:</strong></p>
+                    <p>
+                        V2 checks something extra: did the position <strong>drop by at least 0.15 on each side</strong> of the peak, with <strong>at least one side dropping 0.30 or more</strong>? Ramps fail this test.
+                    </p>
+                    <p style="margin-top: 15px; color: #3fb950; font-weight: 600;">
+                        Result: Only real swerves get flagged
+                    </p>
+                </div>
+            </div>
+
+            <h3 style="font-size: 16px; margin-top: 40px; margin-bottom: 20px; color: #f0f6fc;">Side-by-Side Example: How They Differ</h3>
+
+            <div style="background-color: #161b22; padding: 30px; border: 1px solid #30363d; border-radius: 6px;">
+                <p style="color: #8b949e; font-size: 14px; margin-bottom: 20px;">
+                    <strong>Scenario:</strong> A car drifts slowly to the right (a ramp)
+                </p>
+
+                <div class="grid-2">
+                    <div>
+                        <p style="color: #f85449; font-weight: 600; margin-bottom: 10px;">V1's Mistake:</p>
+                        <canvas id="v1Ramp" width="280" height="180"></canvas>
+                        <p style="color: #8b949e; font-size: 12px; margin-top: 10px; text-align: center;">
+                            Finds 3 points, says "SWERVE!"<br>
+                            <span style="color: #f85449;">Wrong ❌</span>
+                        </p>
+                    </div>
+                    <div>
+                        <p style="color: #3fb950; font-weight: 600; margin-bottom: 10px;">V2's Fix:</p>
+                        <canvas id="v2Ramp" width="280" height="180"></canvas>
+                        <p style="color: #8b949e; font-size: 12px; margin-top: 10px; text-align: center;">
+                            Checks drop size, says "Not a swerve"<br>
+                            <span style="color: #3fb950;">Right ✅</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: SUMMARY TABLE -->
+        <div class="section">
+            <h2>5. Quick Reference: All Four Patterns</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pattern</th>
+                        <th>Shape</th>
+                        <th>Should Be Flagged?</th>
+                        <th>V1 Gets It Right?</th>
+                        <th>V2 Gets It Right?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Swerve</strong></td>
+                        <td>Hill or valley</td>
+                        <td><span class="badge badge-correct">YES ✅</span></td>
+                        <td><span class="badge badge-correct">Yes</span></td>
+                        <td><span class="badge badge-correct">Yes</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Drift</strong></td>
+                        <td>Ramp (one-way slide)</td>
+                        <td><span class="badge badge-wrong">NO ❌</span></td>
+                        <td><span class="badge badge-wrong">No (flags it)</span></td>
+                        <td><span class="badge badge-correct">Yes</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lane Change</strong></td>
+                        <td>Step (sudden jump)</td>
+                        <td><span class="badge badge-wrong">NO ❌</span></td>
+                        <td><span class="badge badge-correct">Yes</span></td>
+                        <td><span class="badge badge-correct">Yes</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Boomerang</strong></td>
+                        <td>Wide hill (big amplitude)</td>
+                        <td><span class="badge badge-gray">MAYBE ⚠️</span></td>
+                        <td><span class="badge badge-correct">Yes (flags it)</span></td>
+                        <td><span class="badge badge-gray">Sometimes</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 6: KEY TAKEAWAY -->
+        <div class="section">
+            <div class="explanation" style="border-left-color: #58a6ff;">
+                <strong>The Key Insight:</strong><br>
+                A swerve is when a car moves sideways and <em>comes back</em>. Just moving sideways (drift) or changing lanes (step) isn't a swerve. V1 couldn't tell the difference, but V2 can.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== CANVAS DRAWING FUNCTIONS =====
+
+        function drawChart(canvasId, drawFunc) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawFunc(ctx, canvas.width, canvas.height);
+        }
+
+        function drawPositionScale(ctx, w, h) {
+            const padding = 20;
+            const graphW = w - padding * 2;
+            const graphH = h - padding * 2;
+
+            // Background
+            ctx.fillStyle = '#0d1117';
+            ctx.fillRect(0, 0, w, h);
+
+            // Grid lines and labels
+            ctx.strokeStyle = '#30363d';
+            ctx.lineWidth = 1;
+            ctx.font = '13px sans-serif';
+            ctx.fillStyle = '#8b949e';
+            ctx.textAlign = 'center';
+
+            // Top (1.0 - Left)
+            ctx.fillText('LEFT LANE', padding + graphW / 2, padding - 5);
+            ctx.strokeStyle = '#30363d';
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding + graphW, padding);
+            ctx.stroke();
+
+            // Middle (0.5 - Center)
+            ctx.fillStyle = '#8b949e';
+            ctx.fillText('CENTER', padding + graphW / 2, padding + graphH / 2 + 15);
+            ctx.strokeStyle = '#30363d';
+            ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            ctx.moveTo(padding, padding + graphH / 2);
+            ctx.lineTo(padding + graphW, padding + graphH / 2);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Bottom (0 - Right)
+            ctx.fillStyle = '#8b949e';
+            ctx.fillText('RIGHT LANE', padding + graphW / 2, h - 5);
+            ctx.strokeStyle = '#30363d';
+            ctx.beginPath();
+            ctx.moveTo(padding, h - padding);
+            ctx.lineTo(padding + graphW, h - padding);
+            ctx.stroke();
+
+            // Scale numbers
+            ctx.font = '12px sans-serif';
+            ctx.fillStyle = '#8b949e';
+            ctx.textAlign = 'right';
+            ctx.fillText('1.0', padding - 8, padding + 4);
+            ctx.fillText('0.5', padding - 8, padding + graphH / 2 + 4);
+            ctx.fillText('0', padding - 8, h - padding + 4);
+        }
+
+        function drawSwervePattern(ctx, w, h) {
+            const padding = 30;
+            const graphW = w - padding * 2;
+            const graphH = h - padding * 2;
+
+            // Background
+            ctx.fillStyle = '#0d1117';
+            ctx.fillRect(0, 0, w, h);
+
+            // Draw grid
+            drawAxisLabels(ctx, w, h, padding);
+
+            // Draw swerve pattern (hill)
+            ctx.strokeStyle = '#3fb950';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+
+            // Starting point
+            let x = padding + graphW * 0.1;
+            let y = padding + graphH * 0.7;
+            ctx.moveTo(x, y);
+
+            // Move right
+            for (let i = 0; i <= 30; i++) {
+                x = padding + graphW * (0.1 + i / 100);
+                y = padding + graphH * (0.7 - Math.sin(i / 30 * Math.PI) * 0.35);
+                ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Annotations
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillStyle = '#3fb950';
+            ctx.fillText('Start', padding + graphW * 0.08, padding + graphH * 0.75);
+            ctx.fillText('Peak', padding + graphW * 0.43, padding + graphH * 0.25);
+            ctx.fillText('Return', padding + graphW * 0.38, padding + graphH * 0.75);
+        }
+
+        function drawDriftPattern(ctx, w, h) {
+            const padding = 30;
+            const graphW = w - padding * 2;
+            const graphH = h - padding * 2;
+
+            // Background
+            ctx.fillStyle = '#0d1117';
+            ctx.fillRect(0, 0, w, h);
+
+            // Draw grid
+            drawAxisLabels(ctx, w, h, padding);
+
+            // Draw drift (ramp)
+            ctx.strokeStyle = '#f85449';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+
+            let x = padding + graphW * 0.1;
+            let y = padding + graphH * 0.7;
+            ctx.moveTo(x, y);
+
+            // Steady drift down
+            for (let i = 0; i <= 40; i++) {
+                x = padding + graphW * (0.1 + i / 100);
+                y = padding + graphH * (0.7 - i / 40 * 0.4);
+                ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Annotations
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillStyle = '#f85449';
+            ctx.fillText('Starts', padding + graphW * 0.08, padding + graphH * 0.75);
+            ctx.fillText('Never returns', padding + graphW * 0.35, padding + graphH * 0.25);
+        }
+
+        function drawLaneChangePattern(ctx, w, h) {
+            const padding = 30;
+            const graphW = w - padding * 2;
+            const graphH = h - padding * 2;
+
+            // Background
+            ctx.fillStyle = '#0d1117';
+            ctx.fillRect(0, 0, w, h);
+
+            // Draw grid
+            drawAxisLabels(ctx, w, h, padding);
+
+            // Draw step
+            ctx.strokeStyle = #8b949e';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+
+            // Flat part
+            let x = padding + graphW * 0.1;
+            let y = padding + graphH * 0.7;
+            ctx.moveTo(x, y);
+            ctx.lineTo(padding + graphW * 0.35, y);
+
+            // Vertical jump
+            ctx.lineTo(padding + graphW * 0.35, padding + graphH * 0.2);
+
+            // Flat part 2
+            ctx.lineTo(padding + graphW * 0.5, padding + graphH * 0.2);
+            ctx.stroke();
+
+            // Annotations
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillStyle = '#8b949e';
+            ctx.fillText('In lane', padding + graphW * 0.15, padding + graphH * 0.75);
+            ctx.fillText('Switch', padding + graphW * 0.3, padding + graphH * 0.45);
+            ctx.fillText('New lane', padding + graphW * 0.42, padding + graphH * 0.15);
+        }
+
+        function drawBoomerangPattern(ctx, w, h) {
+            const padding = 30;
+            const graphW = w - padding * 2;
+            const graphH = h - padding * 2;
+
+            // Background
+            ctx.fillStyle = '#0d1117';
+            ctx.fillRect(0, 0, w, h);
+
+            // Draw grid
+            drawAxisLabels(ctx, w, h, padding);
+
+            // Draw wide hill
+            ctx.strokeStyle = '#d0d4d9';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+
+            let x = padding + graphW * 0.05;
+            let y = padding + graphH * 0.8;
+            ctx.moveTo(x, y);
+
+            // Wide swerve out
+            for (let i = 0; i <= 50; i++) {
+                x = padding + graphW * (0.05 + i / 100);
+                y = padding + graphH * (0.8 - Math.sin(i / 50 * Math.PI) * 0.65);
+                ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Annotations
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillStyle = '#d0d4d9';
+            ctx.fillText('Massive out', padding + graphW * 0.3, padding + graphH * 0.05);
+            ctx.fillText('& back', padding + graphW * 0.35, padding + graphH * 0.15);
+        }
+
+        function drawAxisLabels(ctx, w, h, padding) {
+            const graphW = w - padding * 2;
+            const graphH = h - padding * 2;
+
+            // Axis lines
+            ctx.strokeStyle = '#30363d';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, padding + graphH);
+            ctx.lineTo(padding + graphW, padding + graphH);
+            ctx.stroke();
+
+            // Y-axis labels
+            ctx.font = '12px sans-serif';
+            ctx.fillStyle = '#8b949e';
+            ctx.textAlign = 'right';
+            ctx.fillText('Left', padding - 8, padding + 4);
+            ctx.fillText('Center', padding - 8, padding + graphH / 2 + 4);
+            ctx.fillText('Right', padding - 8, padding + graphH + 4);
+
+            // Grid lines
+            ctx.strokeStyle = '#30363d';
+            ctx.setLineDash([3, 3]);
+            ctx.beginPath();
+            ctx.moveTo(padding, padding + graphH / 2);
+            ctx.lineTo(padding + graphW, padding + graphH / 2);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // X-axis label
+            ctx.fillStyle = '#8b949e';
+            ctx.textAlign = 'center';
+            ctx.fillText('Time →', padding + graphW / 2, h - 8);
+        }
+
+        function drawDetectionSteps(ctx, w, h) {
+            const padding = 40;
+            const graphW = w - padding * 2;
+            const graphH = h - padding * 2;
+
+            // Background
+            ctx.fillStyle = '#0d1117';
+            ctx.fillRect(0, 0, w, h);
+
+            // Draw the example curve (swerve)
+            ctx.strokeStyle = '#58a6ff';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+
+            let x = padding + 20;
+            let y = padding + graphH * 0.6;
+            ctx.moveTo(x, y);
+
+            for (let i = 0; i <= 80; i++) {
+                x = padding + 20 + i * (graphW - 40) / 80;
+                y = padding + graphH * (0.6 - Math.sin(i / 80 * Math.PI) * 0.4);
+                ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Mark the 3 points
+            const point1X = padding + 50;
+            const point1Y = padding + graphH * 0.6;
+            const point2X = padding + 20 + 40 * (graphW - 40) / 80;
+            const point2Y = padding + graphH * 0.2;
+            const point3X = padding + 20 + 75 * (graphW - 40) / 80;
+            const point3Y = padding + graphH * 0.6;
+
+            // Draw points
+            ctx.fillStyle = '#3fb950';
+            ctx.beginPath();
+            ctx.arc(point1X, point1Y, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#f85449';
+            ctx.beginPath();
+            ctx.arc(point2X, point2Y, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#3fb950';
+            ctx.beginPath();
+            ctx.arc(point3X, point3Y, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Labels
+            ctx.font = 'bold 13px sans-serif';
+            ctx.fillStyle = '#3fb950';
+            ctx.textAlign = 'center';
+            ctx.fillText('Point 1', point1X, point1Y - 20);
+            ctx.fillText('Start', point1X, point1Y - 5);
+
+            ctx.fillStyle = '#f85449';
+            ctx.fillText('Point 2', point2X, point2Y - 20);
+            ctx.fillText('Peak', point2X, point2Y - 5);
+
+            ctx.fillStyle = '#3fb950';
+            ctx.fillText('Point 3', point3X, point3Y - 20);
+            ctx.fillText('End', point3X, point3Y - 5);
+
+            // Bottom label
+            ctx.fillStyle = '#8b949e';
+            ctx.font = '12px sans-serif';
+            ctx.fillText('Time →', padding + graphW / 2, h - 10);
+        }
+
+        function drawV1Ramp(ctx, w, h) {
+            const padding = 30;
+            const graphW = w - padding * 2;
+            const graphH = h - padding * 2;
+
+            // Background
+            ctx.fillStyle = '#0d1117';
+            ctx.fillRect(0, 0, w, h);
+
+            // Draw grid
+            drawAxisLabels(ctx, w, h, padding);
+
+            // Draw the ramp
+            ctx.strokeStyle = '#f85449';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+
+            let x = padding + graphW * 0.1;
+            let y = padding + graphH * 0.7;
+            ctx.moveTo(x, y);
+
+            for (let i = 0; i <= 40; i++) {
+                x = padding + graphW * (0.1 + i / 100);
+                y = padding + graphH * (0.7 - i / 40 * 0.4);
+                ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Mark 3 points (even though it's wrong)
+            ctx.fillStyle = '#f85449';
+            ctx.beginPath();
+            ctx.arc(padding + graphW * 0.12, padding + graphH * 0.68, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(padding + graphW * 0.35, padding + graphH * 0.48, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(padding + graphW * 0.48, padding + graphH * 0.32, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Label
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillStyle = '#f85449';
+            ctx.fillText('3 points found', padding + graphW * 0.25, padding + graphH * 0.1);
+        }
+
+        function drawV2Ramp(ctx, w, h) {
+            const padding = 30;
+            const graphW = w - padding * 2;
+            const graphH = h - padding * 2;
+
+            // Background
+            ctx.fillStyle = '#0d1117';
+            ctx.fillRect(0, 0, w, h);
+
+            // Draw grid
+            drawAxisLabels(ctx, w, h, padding);
+
+            // Draw the ramp
+            ctx.strokeStyle = '#3fb950';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+
+            let x = padding + graphW * 0.1;
+            let y = padding + graphH * 0.7;
+            ctx.moveTo(x, y);
+
+            for (let i = 0; i <= 40; i++) {
+                x = padding + graphW * (0.1 + i / 100);
+                y = padding + graphH * (0.7 - i / 40 * 0.4);
+                ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Show the check: drop not enough
+            ctx.font = '11px sans-serif';
+            ctx.fillStyle = '#8b949e';
+            ctx.fillText('Drop too small', padding + graphW * 0.25, padding + graphH * 0.1);
+            ctx.fillText('↓', padding + graphW * 0.25, padding + graphH * 0.2);
+
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillStyle = '#3fb950';
+            ctx.fillText('Not a swerve', padding + graphW * 0.25, padding + graphH * 0.5);
+        }
+
+        // ===== DRAW ALL CHARTS =====
+        window.addEventListener('load', function() {
+            drawChart('positionScale', drawPositionScale);
+            drawChart('swervePattern', drawSwervePattern);
+            drawChart('driftPattern', drawDriftPattern);
+            drawChart('laneChangePattern', drawLaneChangePattern);
+            drawChart('boomerangPattern', drawBoomerangPattern);
+            drawChart('detectionSteps', drawDetectionSteps);
+            drawChart('v1Ramp', drawV1Ramp);
+            drawChart('v2Ramp', drawV2Ramp);
+        });
+    </script>
+</body>
+</html>

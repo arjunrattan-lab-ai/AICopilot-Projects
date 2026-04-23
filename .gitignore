@@ -1,3 +1,11 @@
 # Local workspace-specific configs (not portable across users)
 .github/skills/pm-references/confluence-constants.md
 .github/.env
+.env
+
+# Claude Code local state
+.claude/
+
+# OS / IDE junk
+.DS_Store
+__pycache__/

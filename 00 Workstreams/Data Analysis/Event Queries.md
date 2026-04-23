@@ -136,3 +136,103 @@ SELECT CATALOG_NAME, SCHEMA_NAME
 FROM DB_WH.INFORMATION_SCHEMA.SCHEMATA
 WHERE SCHEMA_NAME ILIKE '%K2_PROD%'
 ```
+
+
+
+-- AIDC+ Lane Swerving Funnel | First Fleet (5799) | From: 2026-04-15
+
+WITH aidc_plus_devices AS (
+    SELECT
+        eld.id          AS eld_device_id,
+        eld.identifier,
+        eld.model,
+        eld.cam_type
+    FROM DB_WH.K2_PROD_PUBLIC.ELD_DEVICES eld
+    WHERE
+        eld.company_id = 5799
+        AND (eld.cam_type IN ('dc63', 'dc64') OR eld.model = 'vg5ai')
+),
+
+event_logs AS (
+    SELECT
+        el.offline_id,
+        el.event_type,
+        el.start_time,
+        el.end_time,
+        el.status           AS efs_status,
+        el.alert_status,
+        el.ce_offline_id,
+        ce.identifier
+    FROM DB_WH.FLEET_DPES.PRODUCTION_JSON_FLEET_DPE_EVENT_LOGS el
+    JOIN DB_WH.FLEET_DPES.PRODUCTION_JSON_FLEET_DPE_CE_LOGS ce
+        ON ce.ce_offline_id = el.ce_offline_id
+        AND ce.created_at >= '2026-04-15'
+    JOIN aidc_plus_devices d
+        ON d.identifier = ce.identifier
+    WHERE
+        el.event_type IN ('individual_lane_swerving', 'aggregated_lane_swerving')
+        AND el.created_at >= '2026-04-15'
+),
+
+dpes AS (
+    SELECT
+        dpe.id              AS dpe_id,
+        dpe.offline_id,
+        dpe.status          AS dpe_status,
+        dpe.below_vehicle_threshold,
+        dpe.additional_data
+    FROM DB_WH.K2_PROD_PUBLIC.DRIVER_PERFORMANCE_EVENTS dpe
+    WHERE
+        dpe.company_id = 5799
+        AND dpe.type IN ('individual_lane_swerving', 'aggregated_lane_swerving')
+        AND dpe.start_time >= '2026-04-15'
+),
+
+annotations AS (
+    SELECT
+        ano.record_id       AS dpe_id,
+        ano.cm_id,
+        ano.tags,
+        ano.status          AS anno_status
+    FROM DB_WH.AT_PROD_REPLICA_AT_V0.ANNOTATIONS ano
+    WHERE
+        ano.dpe_type IN ('individual_lane_swerving', 'aggregated_lane_swerving')
+        AND ano.created_at >= '2026-04-15'
+)
+
+SELECT
+    DATE(el.start_time)                                             AS date,
+    el.event_type,
+    COUNT(DISTINCT el.offline_id)                                   AS entered_efs,
+    COUNT(DISTINCT CASE WHEN el.efs_status = 'accepted'
+        THEN el.offline_id END)                                     AS accepted_efs,
+    COUNT(DISTINCT CASE WHEN el.efs_status = 'invalid'
+        THEN el.offline_id END)                                     AS rejected_efs,
+    COUNT(DISTINCT vo.data:offline_id::STRING)                      AS incab_alert_total,
+    COUNT(DISTINCT CASE WHEN vo.subject = 'Incab Alert Played'
+        THEN vo.data:offline_id::STRING END)                        AS incab_alert_played,
+    COUNT(DISTINCT CASE WHEN vo.subject = 'Incab Alert Suppressed'
+        THEN vo.data:offline_id::STRING END)                        AS incab_suppressed,
+    COUNT(DISTINCT dpe.dpe_id)                                      AS dpe_created,
+    COUNT(DISTINCT CASE WHEN dpe.dpe_status = 0
+        AND dpe.below_vehicle_threshold = FALSE
+        THEN dpe.dpe_id END)                                        AS published_to_fm,
+    COUNT(DISTINCT ano.cm_id)                                       AS annotated,
+    COUNT(DISTINCT CASE WHEN ano.tags LIKE '%lane_swerving%'
+        THEN ano.cm_id END)                                         AS annotation_tp,
+    COUNT(DISTINCT CASE WHEN ano.tags NOT LIKE '%lane_swerving%'
+        AND ano.anno_status IN ('pushed', 'accepted')
+        THEN ano.cm_id END)                                         AS annotation_fp
+FROM event_logs el
+LEFT JOIN DB_WH.VG5_OBSERVABILITY.PRODUCTION_VG5_OBSERVABILITY_DATA vo
+    ON vo.deviceid = el.identifier
+    AND vo.source = 'com.motive.alertservice.AlertServiceApplication'
+    AND vo.data:event_type::STRING IN ('individual_lane_swerving', 'aggregated_lane_swerving')
+    AND vo.time BETWEEN el.start_time AND DATEADD(second, 10, el.end_time)
+    AND vo.time >= '2026-04-15'
+LEFT JOIN dpes dpe
+    ON dpe.offline_id = el.offline_id
+LEFT JOIN annotations ano
+    ON ano.dpe_id = dpe.dpe_id
+GROUP BY 1, 2
+ORDER BY 1, 2
